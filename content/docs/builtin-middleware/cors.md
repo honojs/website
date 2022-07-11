@@ -1,0 +1,52 @@
+---
+title: CORS Middleware
+---
+
+# CORS Middleware
+
+There are many use cases of Cloudflare Workers as Web APIs and calling them from external front-end application.
+For them we have to implement CORS, let's do this with middleware as well.
+
+## Import
+
+{{< tabs "import" >}}
+{{< tab "npm" >}}
+```ts
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+```
+{{< /tab >}}
+{{< tab "Deno" >}}
+```ts
+import { Hono } from 'https://deno.land/x/hono/mod.ts'
+import { cors } from 'https://deno.land/x/hono/middleware.ts'
+```
+{{< /tab >}}
+{{< /tabs >}}
+
+
+## Usage
+
+```ts
+const app = new Hono()
+
+app.use('/api/*', cors())
+app.use(
+  '/api2/*',
+  cors({
+    origin: 'http://example.com',
+    allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
+    allowMethods: ['POST', 'GET', 'OPTIONS'],
+    exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
+    maxAge: 600,
+    credentials: true,
+  })
+)
+
+app.all('/api/abc', (c) => {
+  return c.json({ success: true })
+})
+app.all('/api2/abc', (c) => {
+  return c.json({ success: true })
+})
+```

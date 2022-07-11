@@ -1,0 +1,28 @@
+---
+headless: true
+---
+
+- [Getting Started]({{< relref "/docs/getting-started" >}})
+  - [Cloudflare Workers]({{< relref "/docs/getting-started/cloudflare-workers" >}})
+  - [Deno]({{< relref "/docs/getting-started/deno" >}})
+  - [Bun]({{< relref "/docs/getting-started/bun" >}})
+  - [Others]({{< relref "/docs/getting-started/others" >}})
+- [API]({{< relref "/docs/api" >}})
+  - [Hono]({{< relref "/docs/api/hono" >}})
+  - [Routing]({{< relref "/docs/api/routing" >}})
+  - [Context]({{< relref "/docs/api/context" >}})
+  - [Middleware]({{< relref "/docs/api/middleware" >}})
+- [Built-in Middleware]({{< relref "/docs/builtin-middleware" >}})
+  - [Basic Authentication]({{< relref "/docs/builtin-middleware/basic-auth.md" >}})
+  - [Bearer Authentication]({{< relref "/docs/builtin-middleware/bearer-auth.md" >}})
+  - [CORS]({{< relref "/docs/builtin-middleware/cors.md" >}})
+  - [ETag]({{< relref "/docs/builtin-middleware/etag.md" >}})
+  - [html]({{< relref "/docs/builtin-middleware/html.md" >}})
+  - [JSX]({{< relref "/docs/builtin-middleware/jsx.md" >}})
+  - [JWT Authentication]({{< relref "/docs/builtin-middleware/jwt.md" >}})
+  - [Logger]({{< relref "/docs/builtin-middleware/logger.md" >}})
+  - [Pretty JSON]({{< relref "/docs/builtin-middleware/pretty-json.md" >}})
+  - [Serve Static]({{< relref "/docs/builtin-middleware/serve-static.md" >}})
+- [Third-party Middleware]({{< relref "/docs/third-party-middleware" >}})
+- [Examples]({{< relref "/docs/examples" >}})
+- [Other Resources]({{< relref "/docs/resources" >}})
