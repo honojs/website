@@ -13,6 +13,10 @@ h2 {
   font-weight: bold;
 }
 
+.book-header a {
+  color: #24292ff7;
+}
+
 .markdown {
   font-size: 16px;
   h1 {
@@ -29,14 +33,14 @@ h2 {
 }
 
 footer {
-  margin-top: 2rem;
+  margin-top: 0.5rem 0;
   line-height: 1.5rem;
   text-align: right;
   address {
     border-top: solid 1px #eee;
     text-align: center;
-    padding-top: 2rem;
-    margin: 1rem 0 2rem;
+    padding-top: 1rem;
+    margin: 1rem 0 0;
   }
 }
 
@@ -52,4 +56,22 @@ table {
   overflow-x: scroll;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
+}
+
+.pager::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+.pager {
+  margin-top: 2.5rem;
+  .pager-prev {
+    display: block;
+    float: left;
+  }
+  .pager-next {
+    display: block;
+    float: right;
+    text-align: right;
+  }
 }

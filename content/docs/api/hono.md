@@ -1,4 +1,9 @@
-# Hono
+---
+title: Hono(API)
+weight: 100
+---
+
+# Hono(API)
 
 `Hono` is primary object.
 It will be imported first and used until the end.

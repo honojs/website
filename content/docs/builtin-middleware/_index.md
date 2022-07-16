@@ -1,3 +1,8 @@
+---
+title: Built-in Middleware
+weight: 30
+---
+
 # Built-in Middleware
 
 In this section, introduce built-in middleware.

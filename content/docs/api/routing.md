@@ -1,3 +1,8 @@
+---
+title: Routing
+weight: 200
+---
+
 # Routing
 
 Routing of Hono is flexible and intuitive.

@@ -58,6 +58,7 @@
     {{ template "toc" . }}
   </aside>
   {{ end }}
+
 {{ end }}
 
 {{ define "footer" }}
@@ -76,8 +77,11 @@
   <article class="markdown">
     {{- .Content -}}
   </article>
+
+ {{ partial "docs/prev-next" . }}
 {{ end }}
 
 {{ define "toc" }}
   {{ partial "docs/toc" . }}
 {{ end }}
+

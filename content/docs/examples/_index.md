@@ -1,3 +1,8 @@
+---
+title: "Examples"
+weight: 50
+---
+
 # Examples
 
 ## Web API

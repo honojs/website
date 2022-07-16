@@ -1,3 +1,8 @@
+---
+title: "API"
+weight: 20
+---
+
 # API
 
 Hono's API is simple.

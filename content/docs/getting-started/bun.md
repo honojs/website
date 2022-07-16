@@ -1,3 +1,8 @@
+---
+title: "Bun"
+weight: 300
+---
+
 # Bun
 
 Bun is another JavaScript runtime. It's not Node.js or Deno. Bun includes a trans compiler, so we can write the code with TypeScript.

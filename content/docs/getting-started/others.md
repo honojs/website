@@ -1,3 +1,8 @@
+---
+title: "Others"
+weight: 400
+---
+
 # Others
 
 Hono is composed of Web Standard API such as Request and Response.

@@ -1,3 +1,7 @@
+---
+title: Middleware
+weight: 400
+---
 
 # Middleware
 

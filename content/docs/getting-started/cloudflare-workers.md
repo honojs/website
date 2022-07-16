@@ -1,3 +1,8 @@
+---
+title: "Cloudflare Workers"
+weight: 100
+---
+
 # Cloudflare Workers
 
 A Cloudflare Workers is a JavaScript edge runtime on Cloudflare CDN.

@@ -1,5 +1,6 @@
 ---
 title: Other Resources
+weight: 60
 ---
 
 # Other Resources
