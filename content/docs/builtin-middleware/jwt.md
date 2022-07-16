@@ -7,7 +7,7 @@ title: JWT Auth Middleware
 There is also middleware for JWT Authentication.
 
 {{< hint danger >}}
-Note: On Bun, JWT Middleware is not supported, yet. **DO NOT USE** hits on Bun.
+Note: On Bun, JWT Middleware is not supported, yet. **DO NOT USE** this on Bun.
 {{< /hint >}}
 
 ## Import
