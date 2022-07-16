@@ -14,7 +14,11 @@
   {{- end -}} {{- $pages := ($currentNode.Scratch.Get "pages") -}} {{- range $pages.ByWeight -}} {{-
   template "menu-nextprev" dict "menu" . "currentnode" $currentNode -}} {{- end -}} {{- end -}} {{-
   end -}} {{ if .Parent }} {{- with ($.Scratch.Get "prevPage") -}} {{ if eq .RelPermalink "/docs/"
-  }} {{ else }}
+  }}
+  <div class="pager-prev">
+    <a href="/"> &laquo; Back to Top</a>
+  </div>
+  {{ else }}
   <div class="pager-prev">
     <a href="{{.Permalink}}" title="{{.Title}}"> &laquo; {{.Title}}</a>
   </div>
@@ -23,5 +27,9 @@
   <div class="pager-next">
     <a class="pager" href="{{.Permalink}}" title="{{.Title}}">{{.Title}} &raquo;</a>
   </div>
-  {{ end }} {{- end }} {{- end -}}
+  {{ end }} {{- end }} {{ else }}
+  <div class="pager-next">
+    <a class="pager" href="/docs/getting-started">Getting Started &raquo;</a>
+  </div>
+  {{- end -}}
 </div>
