@@ -15,12 +15,12 @@ Hono also works on Bun. Some middleware does not work with Bun, so please keep i
 
 To install `bun` command, follow the instruction in [the official web site](https://bun.sh).
 
-### `bun install`
+### `bun add`
 
-Make the project directory, move into it, and run `bun install` command to install Hono from npm registry.
+Make the project directory, move into it, and run `bun add` command to install Hono from npm registry.
 
 ```
-bun install hono
+bun add hono
 ```
 
 ## 2. Hello World
@@ -28,10 +28,10 @@ bun install hono
 "Hello World" script is below. Almost the same as writing on other platforms.
 
 ```ts
-import { Hono } from "hono"
+import { Hono } from 'hono'
 
 const app = new Hono()
-const app = app.get("/", (c) => c.text('Hello! Hono!'))
+app.get('/', (c) => c.text('Hello! Hono!'))
 
 export default {
   port: 3000,
