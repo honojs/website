@@ -58,6 +58,12 @@ app.get('/entry/:id', (c) => {
   const value = c.req.cookie('name')
   ...
 })
+
+// Parse Request body
+ app.post('', (c) => {
+   const body = c.req.parseBody()
+   ...
+ })
 ```
 
 ## Shortcuts for Response
