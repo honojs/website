@@ -55,6 +55,8 @@ You can also make a skelton project of Hono by the command below:
 
 ```
 bun create hono ./my-app
+cd my-app
+bun run start
 ```
 
 ## Unsupported Middleware
