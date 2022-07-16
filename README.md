@@ -6,7 +6,6 @@ This is a repository for Hono website "*[honojs.dev](https://honojs.dev)*".
 
 * Built with Hugo & [Hugo Book Theme](https://github.com/alex-shpak/hugo-book)
 * Deploy to Cloudflare Pages
-* Deploying is automated with GitHub Actions
 * Not using Hono :)
 
 ## Contribution
