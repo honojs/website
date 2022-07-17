@@ -199,3 +199,41 @@ app.get('*', async c => {
   ...
 })
 ```
+
+## Add a custom function to Context
+
+It is easy to add a custom function to Context by using `middleware`:
+
+```ts
+import type { StatusCode } from 'hono/dist/utils/http-status';
+
+declare module 'hono' {
+  interface Context {
+    error(status: StatusCode, content: string): Response;
+    message(text: string): Response;
+  }
+}
+
+app.use('*', async (c, next) => {
+  c.error = (status = 500, content = 'Internal Server Error.') => {
+    return c.json(
+      {
+        status,
+        error: content,
+      },
+      status
+    );
+  };
+  c.message = (text: string) => {
+    return c.json({
+      message: text,
+    });
+  };
+  await next();
+});
+
+// and then you can use them :)
+app.get('*', async (c) => {
+  return c.message("Hono!");
+});
+```
