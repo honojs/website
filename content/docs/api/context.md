@@ -205,7 +205,7 @@ app.get('*', async c => {
 It is easy to add a custom function to Context by using `middleware`:
 
 ```ts
-import type { StatusCode } from 'hono/dist/utils/http-status';
+import type { StatusCode } from 'hono/utils/http-status';
 
 declare module 'hono' {
   interface Context {
