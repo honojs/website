@@ -9,6 +9,7 @@ In this section, introduce built-in middleware.
 
 - [Basic Authentication](/docs/builtin-middleware/basic-auth/)
 - [Bearer Authentication](/docs/builtin-middleware/bearer-auth/)
+- [Compress](/docs/builtin-middleware/compress/)
 - [CORS](/docs/builtin-middleware/cors/)
 - [ETag](/docs/builtin-middleware/etag/)
 - [html](/docs/builtin-middleware/html/)

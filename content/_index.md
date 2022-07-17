@@ -84,6 +84,7 @@ Built-in middleware make _"**Write Less, do more**"_ in reality. You can use a l
 
 - [Basic Authentication](/docs/builtin-middleware/basic-auth/)
 - [Bearer Authentication](/docs/builtin-middleware/bearer-auth/)
+- [Compress](/docs/builtin-middleware/compress/)
 - [CORS](/docs/builtin-middleware/cors/)
 - [ETag](/docs/builtin-middleware/etag/)
 - [html](/docs/builtin-middleware/html/)
