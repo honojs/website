@@ -70,18 +70,28 @@ Currently, Bun does not support some function for working the application correc
 
 ### Testing
 
-You can use `node:assert` for testing on Bun.
+You can use `bun:test` for testing on Bun.
 
 ```ts
-import assert from 'node:assert'
-import { Hono } from 'hono'
+import { describe, expect, it } from 'bun:test'
+import { Hono } from '../../src/hono'
 
-const app = new Hono()
-app.get('/', (c) => c.text('Please test me'))
+describe('My first test', () => {
+  const app = new Hono()
+  app.get('/', (c) => c.text('Please test me'))
 
-const req = new Request('http://localhost/')
-const res = await app.request(req)
-assert.strictEqual(res.status, 200)
+  it('Should return 200 Response', async () => {
+    const req = new Request('http://localhost/')
+    const res = await app.request(req)
+    expect(res.status).toBe(200)
+  })
+})
+```
+
+Then, run the command.
+
+```
+bun wiptest index.test.ts
 ```
 
 ### With React
