@@ -74,15 +74,12 @@ You can use `bun:test` for testing on Bun.
 
 ```ts
 import { describe, expect, it } from 'bun:test'
-import { Hono } from '../../src/hono'
+import app from "."
 
 describe('My first test', () => {
-  const app = new Hono()
-  app.get('/', (c) => c.text('Please test me'))
-
   it('Should return 200 Response', async () => {
     const req = new Request('http://localhost/')
-    const res = await app.request(req)
+    const res = await app.fetch(req)
     expect(res.status).toBe(200)
   })
 })
