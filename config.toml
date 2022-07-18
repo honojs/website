@@ -57,7 +57,7 @@ pygmentsCodefences = true
   BookSearch = false
 
   BookShowFooter = true
-  BookEditPath = 'tree/master'
+  BookEditPath = 'tree/main'
 
 [markup]
   [markup.highlight]
