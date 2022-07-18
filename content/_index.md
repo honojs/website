@@ -149,4 +149,4 @@ Above all, Hono is written in TypeScript. So, Hono has _"**Types**"_!
 
 For example, the named path parameters will be literal types.
 
-![Demo](https://user-images.githubusercontent.com/10682/154179671-9e491597-6778-44ac-a8e6-4483d7ad5393.png)
+![Demo](/images/ss.png)
