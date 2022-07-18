@@ -147,7 +147,7 @@ const List = () => (
 ## With html Middleware
 
 It's powerful to use JSX middleware with html middleware.
-For more information, see [html middleware docs](https://github.com/honojs/hono/tree/master/src/middleware/html).
+For more information, see [html middleware docs](/docs/builtin-middleware/html).
 
 ```tsx
 import { Hono } from 'hono'

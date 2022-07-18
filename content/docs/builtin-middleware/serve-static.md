@@ -71,4 +71,4 @@ Asset files:
 
 ## Example
 
-<https://github.com/honojs/examples/tree/master/serve-static>
+<https://github.com/honojs/examples/tree/main/serve-static>

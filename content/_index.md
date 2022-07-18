@@ -29,7 +29,7 @@ export default app
 ### Cloudflare Workers
 
 - Machine: Apple MacBook Pro, 32 GiB, M1 Pro
-- Scripts: [benchmarks/handle-event](https://github.com/honojs/hono/tree/master/benchmarks/handle-event)
+- Scripts: [benchmarks/handle-event](https://github.com/honojs/hono/tree/main/benchmarks/handle-event)
 
 **Hono is fastest**, compared to other routers for Cloudflare Workers.
 
@@ -46,7 +46,7 @@ Fastest is hono - regexp-router
 ### Deno
 
 - Machine: Apple MacBook Pro, 32 GiB, M1 Pro, Deno v1.22.0
-- Scripts: [benchmarks/deno](https://github.com/honojs/hono/tree/master/benchmarks/deno)
+- Scripts: [benchmarks/deno](https://github.com/honojs/hono/tree/main/benchmarks/deno)
 - Method: `autocannon -c 100 -d 40 -p 10 'http://127.0.0.1:8000/user/lookup/username/foo'`
 
 **Hono is fastest**, compared to other frameworks for Deno.
