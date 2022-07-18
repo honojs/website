@@ -7,7 +7,7 @@ title: Compress Middleware
 Compress the response body, according to `Accept-Encoding` request header.
 
 {{< hint info >}}
-Note: On Cloudflare Workers, response body will be comppressed automatically.
+Note: On Cloudflare Workers, response body will be compressed automatically.
 So, you don't have to use this middleware for Cloudflare Workers.
 {{< /hint >}}
 
