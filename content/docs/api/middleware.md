@@ -22,7 +22,7 @@ app.use('*', logger())
 app.use('/posts/*', cors())
 
 // specify method and path
-app.post('/posts/*', basicAuth(), bodyParse())
+app.post('/posts/*', basicAuth())
 ```
 
 If the handler returns `Response`, it will be used for the end-user, and stopping the processing.
@@ -34,7 +34,7 @@ app.post('/posts', (c) => c.text('Created!', 201))
 In this case, four middleware are processed before dispatching like this:
 
 ```ts
-logger() -> cors() -> basicAuth() -> bodyParse() -> *handler*
+logger() -> cors() -> basicAuth() -> *handler*
 ```
 
 ## Built-in Middleware
