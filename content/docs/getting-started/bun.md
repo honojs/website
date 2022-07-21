@@ -91,6 +91,10 @@ Then, run the command.
 bun wiptest index.test.ts
 ```
 
+{{< hint warning >}}
+"*wiptest*" command is a still WIP. "*test*" command that is not a WIP might be released.
+{{< /hint >}}
+
 ### With React
 
 React also works on Bun.
