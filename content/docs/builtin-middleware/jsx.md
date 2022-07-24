@@ -75,6 +75,8 @@ tsconfig.json:
 }
 ```
 
+You do not have to `import { jsx } from 'hono/jsx`.
+
 {{< /tab >}}
 {{< /tabs >}}
 
