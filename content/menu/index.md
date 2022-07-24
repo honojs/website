@@ -15,6 +15,7 @@ headless: true
 - [Built-in Middleware]({{< relref "/docs/builtin-middleware" >}})
   - [Basic Authentication]({{< relref "/docs/builtin-middleware/basic-auth.md" >}})
   - [Bearer Authentication]({{< relref "/docs/builtin-middleware/bearer-auth.md" >}})
+  - [Cache]({{< relref "/docs/builtin-middleware/cache.md" >}})
   - [Compress]({{< relref "/docs/builtin-middleware/compress.md" >}})
   - [CORS]({{< relref "/docs/builtin-middleware/cors.md" >}})
   - [ETag]({{< relref "/docs/builtin-middleware/etag.md" >}})

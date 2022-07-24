@@ -84,6 +84,7 @@ Built-in middleware make _"**Write Less, do more**"_ in reality. You can use a l
 
 - [Basic Authentication](/docs/builtin-middleware/basic-auth/)
 - [Bearer Authentication](/docs/builtin-middleware/bearer-auth/)
+- [Cache](/docs/builtin-middleware/cache/)
 - [Compress](/docs/builtin-middleware/compress/)
 - [CORS](/docs/builtin-middleware/cors/)
 - [ETag](/docs/builtin-middleware/etag/)
@@ -94,6 +95,7 @@ Built-in middleware make _"**Write Less, do more**"_ in reality. You can use a l
 - [Pretty JSON](/docs/builtin-middleware/pretty-json/)
 - [Serving static files](/docs/builtin-middleware/serve-static/)
 - GraphQL (coming soon)
+- Firebase Authentication (coming soon)
 
 To enable logger and Etag middleware with just this code.
 
