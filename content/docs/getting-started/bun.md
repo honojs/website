@@ -64,7 +64,6 @@ bun run start
 Currently, Bun does not support some function for working the application correct with Hono.
 
 * **JWT middleware** does not work on Bun yet. **DO NOT USE** *JWT* middleware on Bun.
-* "JSX Pragma" is not supported on Bun yet. So, you don't have to use **JSX middleware** on Bun. If you want to write JSX, use "React" instead of *JSX* middleware.
 
 ## Advanced
 
@@ -94,6 +93,22 @@ bun wiptest index.test.ts
 {{< hint warning >}}
 "*wiptest*" command is a still WIP. "*test*" command that is not a WIP might be released.
 {{< /hint >}}
+
+### JSX Middleware
+
+JSX Middleware works on Bun. It does not depend `React`, so you can use JSX without installing React.
+To use it, set up `tsconfig.json` like below:
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxFragmentFactory": "Fragment",
+    "jsxImportSource": "hono/jsx"
+  }
+}
+```
+
 
 ### With React
 

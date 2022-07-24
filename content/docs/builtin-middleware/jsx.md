@@ -8,10 +8,6 @@ JSX Middleware enable rendering HTML with JSX syntax.
 It's just for Sever-Side-Rendering. No virtual DOM.
 This middleware is only for writing with TypeScript.
 
-{{< hint warning >}}
-Note: On Bun, "*JSX Pragma*" is not supported, yet. You don't have to use it.
-{{< /hint >}}
-
 ## Import
 
 {{< tabs "import" >}}
@@ -31,6 +27,9 @@ import { jsx } from 'https://deno.land/x/hono/middleware.ts'
 
 ## Settings
 
+{{< tabs "settings" >}}
+{{< tab "Cloudflare Workers" >}}
+
 tsconfig.json:
 
 ```json
@@ -42,6 +41,42 @@ tsconfig.json:
   }
 }
 ```
+
+Or use pragma:
+
+```ts
+/** @jsx jsx */
+/** @jsxFrag  Fragment */
+```
+
+
+{{< /tab >}}
+{{< tab "Deno" >}}
+
+Pragma:
+
+```ts
+/** @jsx jsx */
+/** @jsxFrag  Fragment */
+```
+
+{{< /tab >}}
+{{< tab "Bun" >}}
+
+tsconfig.json:
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxFragmentFactory": "Fragment",
+    "jsxImportSource": "hono/jsx"
+  }
+}
+```
+
+{{< /tab >}}
+{{< /tabs >}}
 
 ## Usage
 
