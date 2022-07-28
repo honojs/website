@@ -108,39 +108,3 @@ To use it, set up `tsconfig.json` like below:
   }
 }
 ```
-
-
-### With React
-
-React also works on Bun.
-With `renderToString()` or `renderToReadableStream()` in `react-dom/server'`, you can write HTML with JSX syntax for Server Side Rendering.
-
-First, install React libraries.
-
-```
-bun add react react-dom
-bun add -d @types/react @types/react-dom
-```
-
-And, write `index.tsx`:
-
-```tsx
-import { Hono } from 'hono'
-import React from 'react'
-import { renderToString } from 'react-dom/server'
-
-const app = new Hono()
-
-app.get('/', (c) => {
-  const hello = (
-    <html>
-      <body>
-        <h1>Hello! React!</h1>
-      </body>
-    </html>
-  )
-  return c.html(renderToString(hello))
-})
-
-export default app
-```
