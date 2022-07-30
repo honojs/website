@@ -113,7 +113,7 @@ test('GET /hello is ok', async () => {
 
 ## router option
 
-The `router` option specify which router is used inside. The default router is `TrieRouter`. If you want to use `RexExpRouter`, write like this:
+The `router` option specify which router is used inside. The default router is `TrieRouter`. If you want to use `RegExpRouter`, write like this:
 
 ```ts
 import { RegExpRouter } from 'hono/router/reg-exp-router'
