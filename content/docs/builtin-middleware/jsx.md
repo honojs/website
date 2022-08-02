@@ -127,7 +127,7 @@ app.get('/foo', (c) => {
 
 ## memo
 
-You can memorize calculated strings of the component with `memo`.
+You can memoize calculated strings of the component with `memo`.
 
 {{< tabs "import-memo" >}}
 {{< tab "npm" >}}
