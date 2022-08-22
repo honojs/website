@@ -4,7 +4,7 @@ title: Pretty JSON Middleware
 
 # Pretty JSON Middleware
 
-Pretty JSON middleware enables "*json pretty print*" for JSON response body.
+Pretty JSON middleware enables "_JSON pretty print_" for JSON response body.
 Adding `?pretty` to url query param, the JSON strings are prettified.
 
 ```js
@@ -28,27 +28,35 @@ will be:
 
 {{< tabs "import" >}}
 {{< tab "npm" >}}
+
 ```ts
 import { Hono } from 'hono'
 import { prettyJSON } from 'hono/pretty-json'
 ```
+
 {{< /tab >}}
 {{< tab "Deno" >}}
+
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
 import { prettyJSON } from 'https://deno.land/x/hono/middleware.ts'
 ```
+
 {{< /tab >}}
 {{< /tabs >}}
-
 
 ## Usage
 
 ```ts
 const app = new Hono()
 
-app.use('*', prettyJSON())
+app.use('*', prettyJSON()) // With options: prettyJSON({ space: 4 })
 app.get('/', (c) => {
   return c.json({ message: 'Hono!' })
 })
 ```
+
+## Options
+
+- `space`
+  - Number of spaces for indentation. Default is `2`.
