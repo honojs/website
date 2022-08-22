@@ -4,7 +4,7 @@ title: Serve Static Middleware
 
 # Serve Static Middleware
 
-This middleware distributes asset files that are put on the project statically.
+This middleware distributes asset files that are put in directory specified `root` or `path` option.
 
 Serve Static Middleware is available only on Cloudflare Workers, Deno, and Bun.
 

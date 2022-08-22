@@ -164,6 +164,22 @@ app.use('/', async (c, next) => {
 })
 ```
 
+## c.set/c.get
+
+Set the value specified by the key with `set` and use it later with `get`.
+
+```ts
+app.use('*', async (c, next) => {
+  c.set('message', 'Hono is cool!!')
+  await next()
+})
+
+app.get('/', (c) => {
+  const message = c.get('message')
+  return c.text(`The message is "${message}"`)
+})
+```
+
 ## c.executionCtx
 
 ```ts

@@ -27,4 +27,4 @@ headless: true
   - [Serve Static]({{< relref "/docs/builtin-middleware/serve-static.md" >}})
 - [Third-party Middleware]({{< relref "/docs/third-party-middleware" >}})
 - [Examples]({{< relref "/docs/examples" >}})
-- [Other Resources]({{< relref "/docs/resources" >}})
+- [Miscellaneous]({{< relref "/docs/others" >}})

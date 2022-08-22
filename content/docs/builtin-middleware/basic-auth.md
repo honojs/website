@@ -4,27 +4,29 @@ title: Basic Auth Middleware
 
 # Basic Auth Middleware
 
-Implementing basic authentication with Cloudflare Workers is more complicated than it seems, but with this, it's a snap.
+This middleware can apply Basic authentication to a specified path.
+Implementing Basic authentication with Cloudflare Workers or others is more complicated than it seems, but with this, it's a snap.
 
 ## Import
 
-
 {{< tabs "import" >}}
 {{< tab "npm" >}}
+
 ```ts
 import { Hono } from 'hono'
 import { basicAuth } from 'hono/basic-auth'
 ```
+
 {{< /tab >}}
 {{< tab "Deno" >}}
+
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
 import { basicAuth } from 'https://deno.land/x/hono/middleware.ts'
 ```
+
 {{< /tab >}}
 {{< /tabs >}}
-
-
 
 ## Usage
 
@@ -42,9 +44,9 @@ app.use(
 app.get('/auth/page', (c) => {
   return c.text('You are authorized')
 })
-
 ```
 
+## Tips
 
 For Fastly Compute@Edge, polyfill `crypto` or use `crypto-js`.
 

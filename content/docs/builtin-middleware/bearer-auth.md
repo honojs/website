@@ -5,6 +5,13 @@ title: Bearer Auth Middleware
 # Bearer Auth Middleware
 
 Bearer Auth Middleware provides authentication by verifying API tokens in Request header.
+The HTTP clients accessing the endpoint will add `Authorization` header with the `Bearer {token}` as the value.
+
+With `curl` command, it would look like this.
+
+```
+curl -H 'Authorization: Bearer honoiscool' http://localhost:8787/auth/page
+```
 
 ## Import
 
@@ -31,10 +38,10 @@ const app = new Hono()
 
 const token = 'honoiscool'
 
-app.use('/auth/*', bearerAuth({ token }))
+app.use('/api/*', bearerAuth({ token }))
 
-app.get('/auth/page', (c) => {
-  return c.text('You are authorized')
+app.get('/api/page', (c) => {
+  return c.json({ message: 'You are authorized' })
 })
 ```
 
