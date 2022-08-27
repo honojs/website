@@ -60,8 +60,8 @@ app.get('/entry/:id', (c) => {
 })
 
 // Parse Request body
- app.post('', async (c) => {
-   const body = await c.req.parseBody()
+ app.post('/entry', (c) => {
+   const body = c.req.parseBody()
    ...
  })
 ```
