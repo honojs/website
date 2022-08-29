@@ -21,5 +21,5 @@ import { cache } from 'hono/cache'
 ## Usage
 
 ```ts
-app.get('*', cache({ cacheName: 'my-app', cacheControl: 'max-age=3600' }))
+app.use('*', cache({ cacheName: 'my-app', cacheControl: 'max-age=3600' }))
 ```
