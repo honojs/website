@@ -4,6 +4,7 @@ headless: true
 
 - [Getting Started]({{< relref "/docs/getting-started" >}})
   - [Cloudflare Workers]({{< relref "/docs/getting-started/cloudflare-workers" >}})
+  - [Cloudflare Pages]({{< relref "/docs/getting-started/cloudflare-pages" >}})
   - [Deno]({{< relref "/docs/getting-started/deno" >}})
   - [Bun]({{< relref "/docs/getting-started/bun" >}})
   - [Others]({{< relref "/docs/getting-started/others" >}})
