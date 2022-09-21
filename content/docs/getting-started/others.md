@@ -21,7 +21,7 @@ These is a starter kit for it, please refer them.
 
 ## Node.js
 
-Hono is not designed for Node.js, but with "[Adaptor Server](https://github.com/honojs/node-server)" it can run on Node.js as well.
+Hono is not designed for Node.js, but with a [Node.js Adaptor](https://github.com/honojs/node-server) it can run on Node.js as well.
 
 ```ts
 import { serve } from '@honojs/node-server' // Write above `Hono`
