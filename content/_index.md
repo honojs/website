@@ -1,11 +1,11 @@
 ---
-title: Ultrafast web framework on the edge
+title: Ultrafast web framework for Cloudflare Workers, Deno, and Bun.
 type: docs
 ---
 
 # Hono
 
-Hono - *\[炎\] means flame🔥 in Japanese* - is a small, simple, and ultrafast web framework for Cloudflare Workers, Deno, Bun, and others. Fast, but not only fast.
+Hono - _\[炎\] means flame🔥 in Japanese_ - is a small, simple, and ultrafast web framework for Cloudflare Workers, Deno, Bun, and others. Fast, but not only fast.
 
 ```ts
 import { Hono } from 'hono'
@@ -18,11 +18,11 @@ export default app
 
 ## Features
 
-- **Ultrafast** - the router does not use linear loops.
-- **Zero-dependencies** - using only Service Worker and Web Standard API.
-- **Middleware** - built-in middleware, custom middleware, and third-party middleware.
-- **TypeScript** - first-class TypeScript support.
-- **Multi-platform** - works on Cloudflare Workers, Fastly Compute@Edge, Deno, or Bun.
+- **Ultrafast** - The routers are really smart. Not using linear loops. The fastest one will be selected from three routers.
+- **Zero-dependencies** - Using only Web Standard API. Does not depend on other npm or Deno libraries.
+- **Middleware** - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
+- **TypeScript** - First-class TypeScript support. Now, we've got "Types".
+- **Multi-runtime** - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, or Node.js. The same code runs on all platforms.
 
 ## Benchmarks
 
@@ -34,39 +34,45 @@ export default app
 **Hono is fastest**, compared to other routers for Cloudflare Workers.
 
 ```plain
-hono - trie-router(default) x 389,510 ops/sec ±3.16% (85 runs sampled)
-hono - regexp-router x 452,290 ops/sec ±2.64% (84 runs sampled)
-itty-router x 206,013 ops/sec ±3.39% (90 runs sampled)
-sunder x 323,131 ops/sec ±0.75% (97 runs sampled)
-worktop x 191,218 ops/sec ±2.70% (91 runs sampled)
-Fastest is hono - regexp-router
-✨  Done in 43.56s.
+Hono x 616,464 ops/sec ±4.76% (83 runs sampled)
+itty-router x 203,074 ops/sec ±3.66% (88 runs sampled)
+sunder x 314,306 ops/sec ±2.28% (87 runs sampled)
+worktop x 194,111 ops/sec ±2.78% (81 runs sampled)
+Fastest is Hono
+✨  Done in 30.77s.
 ```
 
 ### Deno
 
 - Machine: Apple MacBook Pro, 32 GiB, M1 Pro, Deno v1.22.0
 - Scripts: [benchmarks/deno](https://github.com/honojs/hono/tree/main/benchmarks/deno)
-- Method: `autocannon -c 100 -d 40 -p 10 'http://127.0.0.1:8000/user/lookup/username/foo'`
+- Method: `oha -z 10s -c 50 'http://127.0.0.1:8000/user/lookup/username/foo'`
 
 **Hono is fastest**, compared to other frameworks for Deno.
 
-| Framework                     | Version |                                   Results |
-| ----------------------------- | :-----: | ----------------------------------------: |
-| **Hono - RegExpRouter**       |  1.6.0  | **5118k requests in 40.02s, 865 MB read** |
-| **Hono - TriRouter(default)** |  1.6.0  | **4932k requests in 40.02s, 833 MB read** |
-| Faster                        |   5.7   |     3579k requests in 40.02s, 551 MB read |
-| oak                           | 10.5.1  |     2385k requests in 40.02s, 403 MB read |
-| opine                         |  2.2.0  |     1491k requests in 40.02s, 346 MB read |
+| Framework |   Version    |                  Results |
+| --------- | :----------: | -----------------------: |
+| **Hono**  |    2.2.0     | **Requests/sec: 176976** |
+| Fast      | 4.0.0-beta.1 |     Requests/sec: 148011 |
+| Faster    |     5.7      |      Requests/sec: 36332 |
+| oak       |    10.5.1    |      Requests/sec: 34641 |
+| opine     |    2.2.0     |      Requests/sec: 21102 |
 
 Another benchmark result: [denosaurs/bench](https://github.com/denosaurs/bench)
+
+### Bun
+
+See: [SaltyAom/bun-http-framework-benchmark](https://github.com/SaltyAom/bun-http-framework-benchmark)
 
 ## Why so fast?
 
 Routers used in Hono are really smart.
+**SmartRouter** automatically picks the best router from the following three routers.
+Users can use the fastest router without having to do anything!
 
-- **TrieRouter**(default) - Implemented with Trie tree structure.
+- **TrieRouter** - Implemented with Trie tree structure.
 - **RegExpRouter** - Match the route with using one big Regex made before dispatch.
+- **StaticRouter** - Optimized for the static routing.
 
 ## Hono in 1 minute
 
@@ -136,15 +142,17 @@ app.route('/v1', v1)
 
 Request and Response object used in Hono are extensions of the Web Standard [Fetch API](https://developer.mozilla.org/ja/docs/Web/API/Fetch_API). If you are familiar with that, you don't need to know more than that.
 
-### Multi-platform
+### Multi-runtime
 
 Thanks to the use of the Web Standard API, Hono works on a variety of platforms.
 
-* Cloudflare Workers
-* Fastly Compute@Edge
-* Deno / Deno Deploy
-* Bun
-* Others
+- Cloudflare Workers
+- Fastly Compute@Edge
+- Deno / Deno Deploy
+- Bun
+- Others
+
+And using [a Node.js adaptor](https://github.com/honojs/node-server), Hono will works on Node.js.
 
 ### Developer Experience
 
