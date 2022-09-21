@@ -1,5 +1,5 @@
 ---
-title: "Others"
+title: 'Others'
 weight: 400
 ---
 
@@ -16,13 +16,27 @@ These is a starter kit for it, please refer them.
 <https://github.com/honojs/compute-starter-kit>
 
 {{< hint info >}}
-"*Serve Static*" middleware is not supported for Fastly Compute@Edge
+"_Serve Static_" middleware is not supported for Fastly Compute@Edge
 {{< /hint >}}
+
+## Node.js
+
+Hono is not designed for Node.js, but with "[Adaptor Server](https://github.com/honojs/node-server)" it can run on Node.js as well.
+
+```ts
+import { serve } from '@honojs/node-server' // Write above `Hono`
+import { Hono } from 'hono'
+
+const app = new Hono()
+app.get('/', (c) => c.text('Hono meets Node.js'))
+
+serve(app)
+```
 
 ## Others
 
 These are not well tested but may work.
 
-* Vercel Edge Functions
-* Netlify Edge Functions
-* Supabase Edge Functions
+- Vercel Edge Functions
+- Netlify Edge Functions
+- Supabase Edge Functions

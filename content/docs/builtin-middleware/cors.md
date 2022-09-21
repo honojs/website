@@ -11,19 +11,22 @@ For them we have to implement CORS, let's do this with middleware as well.
 
 {{< tabs "import" >}}
 {{< tab "npm" >}}
+
 ```ts
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 ```
+
 {{< /tab >}}
 {{< tab "Deno" >}}
+
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
 import { cors } from 'https://deno.land/x/hono/middleware.ts'
 ```
+
 {{< /tab >}}
 {{< /tabs >}}
-
 
 ## Usage
 
@@ -49,4 +52,23 @@ app.all('/api/abc', (c) => {
 app.all('/api2/abc', (c) => {
   return c.json({ success: true })
 })
+```
+
+Multiple origins:
+
+```ts
+app.use(
+  '/api3/*',
+  cors({
+    origin: ['https://example.com', 'https://example.org'],
+  })
+)
+
+// Or you can use "function"
+app.use(
+  '/api4/*',
+  cors({
+    origin: (origin) => (origin.endsWith('.example.com') ? origin : 'http://example.com'),
+  })
+)
 ```

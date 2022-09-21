@@ -44,6 +44,13 @@ app.get('/posts/:id/comment/:comment_id', (c) => {
 })
 ```
 
+## Optional Parameter
+
+```ts
+// Will match `/api/animal` and `/api/animal/:type`
+app.get('/api/animal/:type?', (c) => c.text('Animal!'))
+```
+
 ## Regexp
 
 ```ts
