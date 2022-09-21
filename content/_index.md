@@ -162,3 +162,7 @@ Above all, Hono is written in TypeScript. So, Hono has _"**Types**"_!
 For example, the named path parameters will be literal types.
 
 ![Demo](/images/ss.png)
+
+And Validator Middleware will add "Types" to validated values.
+
+![Demo](/images/ss02.png)
