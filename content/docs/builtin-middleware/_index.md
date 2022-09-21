@@ -19,3 +19,4 @@ In this section, introduce built-in middleware.
 - [Logger](/docs/builtin-middleware/logger/)
 - [Pretty JSON](/docs/builtin-middleware/pretty-json/)
 - [Serving static files](/docs/builtin-middleware/serve-static/)
+- [Validator](/docs/builtin-middleware/validator/)

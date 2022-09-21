@@ -100,9 +100,9 @@ Built-in middleware make _"**Write Less, do more**"_ in reality. You can use a l
 - [Logger](/docs/builtin-middleware/logger/)
 - [Pretty JSON](/docs/builtin-middleware/pretty-json/)
 - [Serving static files](/docs/builtin-middleware/serve-static/)
+- [Validator](/docs/builtin-middleware/validator/)
 - [GraphQL Server](https://github.com/honojs/graphql-server)
 - [Firebase Authentication](https://github.com/honojs/firebase-auth)
-- [Validator](https://github.com/honojs/validator)
 - [Sentry](https://github.com/honojs/sentry)
 
 To enable logger and Etag middleware with just this code.

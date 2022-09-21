@@ -25,6 +25,7 @@ headless: true
   - [Logger]({{< relref "/docs/builtin-middleware/logger.md" >}})
   - [Pretty JSON]({{< relref "/docs/builtin-middleware/pretty-json.md" >}})
   - [Serve Static]({{< relref "/docs/builtin-middleware/serve-static.md" >}})
+  - [Validator]({{< relref "/docs/builtin-middleware/validator.md" >}})
 - [Third-party Middleware]({{< relref "/docs/third-party-middleware" >}})
 - [Examples]({{< relref "/docs/examples" >}})
 - [Miscellaneous]({{< relref "/docs/others" >}})
