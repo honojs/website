@@ -137,7 +137,7 @@ interface Env {
   PASS: string
 }
 
-const app = new Hono<Env>()
+const app = new Hono<{ Bindings: Env }>()
 
 // Access to environment values
 app.put('/upload', async (c, next) => {
