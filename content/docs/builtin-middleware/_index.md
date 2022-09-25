@@ -5,7 +5,7 @@ weight: 30
 
 # Built-in Middleware
 
-In this section, introduce built-in middleware.
+In this section, we will introduce the Hono built-in middleware.
 
 - [Basic Authentication](/docs/builtin-middleware/basic-auth/)
 - [Bearer Authentication](/docs/builtin-middleware/bearer-auth/)
