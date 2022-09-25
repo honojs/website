@@ -5,7 +5,7 @@ title: Bearer Auth Middleware
 # Bearer Auth Middleware
 
 The Bearer Auth Middleware provides authentication by verifying an API token in the Request header.
-The HTTP clients accessing the endpoint will add `Authorization` header with `Bearer {token}` as the header value.
+The HTTP clients accessing the endpoint will add the `Authorization` header with `Bearer {token}` as the header value.
 
 Using `curl` from the terminal, it would look like this:
 
