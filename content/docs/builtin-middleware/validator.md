@@ -4,10 +4,11 @@ title: Validator Middleware
 
 # Validator Middleware
 
-Validator Middleware enables to validate query parameters, request headers, form body, and JSON body.
-The point is declaring the "keys" which you will receive from the validate results.
-Other values are ignored, so you will not receive any unexpected values.
-And the validated values has "Types".
+The Hono Validator middleware allows you to validate query parameters, request headers, form bodies, and JSON bodies of your incoming requests.
+You can do this by identifying "keys" which you will receive from the validation results.
+
+Other values not made explicit in the validation schema are ignored, preventing unexpected values from slipping past validations.
+Validated values also have explicit types, and incoming values having types that don't match declared types will be invalidated as well. See [Usage](#usage) below for more info.
 
 ## Import
 
@@ -89,7 +90,25 @@ app.post(
 )
 ```
 
+Using `asArray()`, you can also validate arrays and paths nested in arrays by using [JSONPath](https://jsonpath.com) syntax.
+
+```ts
+app.post(
+  '/posts',
+  validator((v) => ({
+    title: v.json('posts[*].title').asArray().isRequired(),
+    flag: v.json('posts[*].flags[1]').asArray().asBoolean().isRequired(),
+  })),
+  (c) => c.text('Valid too!')
+)
+```
+
 ## Rules
+
+General rules:
+
+- `isRequired`
+- `isOptional`
 
 For string:
 
