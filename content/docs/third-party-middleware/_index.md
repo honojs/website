@@ -1,5 +1,5 @@
 ---
-title: "Third-party Middleware"
+title: 'Third-party Middleware'
 weight: 40
 ---
 
@@ -10,12 +10,10 @@ Built-in middleware does not depend on other libraries, but these can use extern
 
 Third-party middleware will be managed under honojs organization on GitHub and published in @honojs namespace. For example, there is middleware named `hello`, its repository will be `github.com/honojs/hello` and published `@honojs/hello`.
 
-
 There are third-party middleware below, now.
 The use of third-party middleware is no different from the use of other middleware.
 Enjoy these!
 
-* [GraphQL Server Middleware](https://github.com/honojs/graphql-server)
-* [Firebase Auth Middleware](https://github.com/honojs/firebase-auth)
-* [Validator Middleware](https://github.com/honojs/validator)
-* [Sentry Middleware](https://github.com/honojs/sentry)
+- [GraphQL Server Middleware](https://github.com/honojs/graphql-server)
+- [Firebase Auth Middleware](https://github.com/honojs/firebase-auth)
+- [Sentry Middleware](https://github.com/honojs/sentry)
