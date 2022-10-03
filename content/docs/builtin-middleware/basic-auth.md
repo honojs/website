@@ -5,7 +5,9 @@ title: Basic Auth Middleware
 # Basic Auth Middleware
 
 This middleware can apply Basic authentication to a specified path.
-Implementing Basic authentication with Cloudflare Workers or others is more complicated than it seems, but with this middleware, it's a snap.
+Implementing Basic authentication with Cloudflare Workers or others is more complicated than it seems, but with this middleware, it's a breeze.
+
+For more information about how the Basic auth scheme works under the hood, see the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme).
 
 ## Import
 
@@ -53,12 +55,61 @@ app.get('/auth/page', (c) => {
 - `password`: string - _required_
   - The password value for the provided username to authenticate against
 - `realm`: string
-  - The domain name of the realm, as part of the returned WWW-Authenticate challenge header. Default is `""`
+  - The domain name of the realm, as part of the returned WWW-Authenticate challenge header. Default is `"Secure Area"`
   - _See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives_
 - `hashFunction`: Function
   - A function to handle hashing for safe comparison of authentication tokens
 
+## More Options
+
+`...users`: { `username`: string, `password`: string }[]
+
 ## Recipes
+
+### Defining Multiple Users
+
+This middleware also allows you to pass arbitrary parameters containing objects defining more `username` and `password` pairs.
+
+```ts
+app.use(
+  '/auth/*',
+  basicAuth(
+    {
+      username: 'hono',
+      password: 'acoolproject',
+      // Define other params in the first object
+      realm: 'www.example.com',
+    },
+    {
+      username: 'hono-admin',
+      password: 'super-secure',
+      // Cannot redefine other params here
+    },
+    {
+      username: 'hono-user-1',
+      password: 'a-secret',
+      // Or here
+    }
+  )
+)
+```
+
+Or less hardcoded:
+
+```ts
+import { users } from '../config/users'
+
+app.use(
+  '/auth/*',
+  basicAuth(
+    {
+      realm: 'www.example.com',
+      ...users[0],
+    },
+    ...users.slice(1)
+  )
+)
+```
 
 ### Using on Fastly Compute@Edge
 
@@ -105,7 +156,7 @@ app.use(
   basicAuth({
     username: 'hono',
     password: 'acoolproject',
-    hashFunction: (d: string) => SHA256(d).toString(), // For Fastly Compute@Edge
+    hashFunction: (d: string) => SHA256(d).toString(),
   })
 )
 ```
