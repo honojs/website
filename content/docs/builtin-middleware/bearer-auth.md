@@ -50,23 +50,58 @@ app.get('/api/page', (c) => {
 
 ## Options
 
-- `token` - _required_
+- `token`: string - _required_
   - The string to validate the incoming bearer token against
-- `realm`
+- `realm`: string
   - The domain name of the realm, as part of the returned WWW-Authenticate challenge header. Default is `""`
   - _See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives_
-- `prefix`
+- `prefix`: string
   - The prefix for the Authorization header value. Default is `"Bearer"`
-- `hashFunction`
+- `hashFunction`: Function
   - A function to handle hashing for safe comparison of authentication tokens
 
 ## Recipes
 
 ### Using on Fastly Compute@Edge
 
-_Fastly Compute@Edge_ requires a `hashFunction` to be defined for comparing the incoming Bearer token token with the stored value, as it doesn't provide the standard Web API implementation of the `crypto` module.
+To use this middleware on Compute@Edge, you need to do one of two things:
+
+1. Polyfill the `crypto` module
+2. Install the `crypto-js` package, and provide a `hashFunction` to the middleware. (recommended)
+
+Here's how to use this middleware with the `crypto-js` method:
+
+1. Install `crypto-js` via npm:
+
+{{< tabs "Install" >}}
+{{< tab "npm" >}}
+
+```
+npm i crypto-js
+```
+
+{{</ tab >}}
+{{< tab "Yarn" >}}
+
+```
+yarn add crypto-js
+```
+
+{{</ tab >}}
+{{< tab "pnpm" >}}
+
+```
+pnpm add crypto-js
+```
+
+{{</ tab >}}
+{{</ tabs >}}
+
+2. Provide a `hashFunction`, using the SHA-256 implementation from `crypto-js`, to the middleware:
 
 ```ts
+import { SHA256 } from 'crypto-js'
+
 app.use(
   '/auth/*',
   bearerAuth({
