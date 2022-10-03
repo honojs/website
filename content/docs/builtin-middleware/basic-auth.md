@@ -5,7 +5,7 @@ title: Basic Auth Middleware
 # Basic Auth Middleware
 
 This middleware can apply Basic authentication to a specified path.
-Implementing Basic authentication with Cloudflare Workers or others is more complicated than it seems, but with this middleware, it's a breeze.
+Implementing Basic authentication with Cloudflare Workers or other platforms is more complicated than it seems, but with this middleware, it's a breeze.
 
 For more information about how the Basic auth scheme works under the hood, see the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme).
 
@@ -58,7 +58,7 @@ app.get('/auth/page', (c) => {
   - The domain name of the realm, as part of the returned WWW-Authenticate challenge header. Default is `"Secure Area"`
   - _See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives_
 - `hashFunction`: Function
-  - A function to handle hashing for safe comparison of authentication tokens
+  - A function to handle hashing for safe comparison of passwords
 
 ## More Options
 
@@ -116,7 +116,7 @@ app.use(
 To use this middleware on Compute@Edge, you need to do one of two things:
 
 1. Polyfill the `crypto` module
-2. Install the `crypto-js`, and provide a `hashFunction` to the middleware. (recommended)
+2. Install the `crypto-js` package, and provide a `hashFunction` to the middleware. (recommended)
 
 Here's how to use this middleware with the `crypto-js` method:
 

@@ -67,7 +67,7 @@ app.get('/api/page', (c) => {
 To use this middleware on Compute@Edge, you need to do one of two things:
 
 1. Polyfill the `crypto` module
-2. Install the `crypto-js`, and provide a `hashFunction` to the middleware. (recommended)
+2. Install the `crypto-js` package, and provide a `hashFunction` to the middleware. (recommended)
 
 Here's how to use this middleware with the `crypto-js` method:
 
