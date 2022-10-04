@@ -12,16 +12,20 @@ This middleware is only for writing with TypeScript.
 
 {{< tabs "import" >}}
 {{< tab "npm" >}}
+
 ```ts
 import { Hono } from 'hono'
 import { jsx } from 'hono/jsx'
 ```
+
 {{< /tab >}}
 {{< tab "Deno" >}}
+
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
 import { jsx } from 'https://deno.land/x/hono/middleware.ts'
 ```
+
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -35,20 +39,22 @@ tsconfig.json:
 ```json
 {
   "compilerOptions": {
-    "jsx": "react",
-    "jsxFactory": "jsx",
-    "jsxFragmentFactory": "Fragment"
+    "jsx": "react-jsx",
+    "jsxFragmentFactory": "Fragment",
+    "jsxImportSource": "hono/jsx"
   }
 }
 ```
+
+You do not have to `import { jsx } from 'hono/jsx`.
 
 Or use pragma:
 
 ```ts
 /** @jsx jsx */
 /** @jsxFrag  Fragment */
+import { jsx } from 'hono/jsx'
 ```
-
 
 {{< /tab >}}
 {{< tab "Deno" >}}
@@ -131,14 +137,18 @@ You can memoize calculated strings of the component with `memo`.
 
 {{< tabs "import-memo" >}}
 {{< tab "npm" >}}
+
 ```ts
 import { jsx, memo } from 'hono/jsx'
 ```
+
 {{< /tab >}}
 {{< tab "Deno" >}}
+
 ```ts
 import { jsx, memo } from 'https://deno.land/x/hono/middleware.ts'
 ```
+
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -160,14 +170,18 @@ const Layout = (
 
 {{< tabs "import-fragment" >}}
 {{< tab "npm" >}}
+
 ```ts
 import { jsx, Fragment } from 'hono/jsx'
 ```
+
 {{< /tab >}}
 {{< tab "Deno" >}}
+
 ```ts
 import { jsx, Fragment } from 'https://deno.land/x/hono/middleware.ts'
 ```
+
 {{< /tab >}}
 {{< /tabs >}}
 
