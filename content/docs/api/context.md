@@ -59,11 +59,29 @@ app.get('/entry/:id', (c) => {
   ...
 })
 
-// Parse Request body
- app.post('/entry', (c) => {
-   const body = c.req.parseBody()
-   ...
- })
+// Parse Request body of type `multipart/form` or `application/x-www-form-urlencoded`
+app.post('/entry', async (c) => {
+  const body = await c.req.parseBody()
+  ...
+})
+
+// Parse Request body of type `application/json`
+app.post('/entry', async (c) => {
+  const body = await c.req.json()
+  ...
+})
+
+// Parse Request body of type `text/plain`
+app.post('/entry', async (c) => {
+  const body = await c.req.text()
+  ...
+})
+
+// Parse Request body as an `ArrayBuffer`
+app.post('/entry', async (c) => {
+  const body = await c.req.arrayBuffer()
+  ...
+})
 ```
 
 ## Shortcuts for Response
