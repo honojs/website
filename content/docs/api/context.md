@@ -60,26 +60,26 @@ app.get('/entry/:id', (c) => {
 })
 
 // Parse Request body of type `multipart/form` or `application/x-www-form-urlencoded`
-app.post('/entry', (c) => {
-  const body = c.req.parseBody()
+app.post('/entry', async (c) => {
+  const body = await c.req.parseBody()
   ...
 })
 
 // Parse Request body of type `application/json`
-app.post('/entry', (c) => {
-  const body = c.req.json()
+app.post('/entry', async (c) => {
+  const body = await c.req.json()
   ...
 })
 
 // Parse Request body of type `text/plain`
-app.post('/entry', (c) => {
-  const body = c.req.text()
+app.post('/entry', async (c) => {
+  const body = await c.req.text()
   ...
 })
 
 // Parse Request body as an `ArrayBuffer`
-app.post('/entry', (c) => {
-  const body = c.req.arrayBuffer()
+app.post('/entry', async (c) => {
+  const body = await c.req.arrayBuffer()
   ...
 })
 ```
