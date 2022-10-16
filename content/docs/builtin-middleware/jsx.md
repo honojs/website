@@ -74,7 +74,7 @@ tsconfig.json:
 ```json
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "jsxFragmentFactory": "Fragment",
     "jsxImportSource": "hono/jsx"
   }
