@@ -1,5 +1,5 @@
 ---
-title: "Cloudflare Workers"
+title: 'Cloudflare Workers'
 weight: 100
 ---
 
@@ -79,7 +79,7 @@ npx create-cloudflare my-app https://github.com/honojs/hono-minimal
 
 ### Service Worker mode or Module Worker mode
 
-There are two syntax for writing the Cloudflare Workers. *Service Worker mode* and *Module Worker mode*. Using Hono, you can write with both syntax:
+There are two syntax for writing the Cloudflare Workers. _Service Worker mode_ and _Module Worker mode_. Using Hono, you can write with both syntax:
 
 ```ts
 // Service Worker
@@ -95,7 +95,7 @@ Now, we recommend using Module Worker mode because the binding variables are loc
 
 ### Types
 
-You have to install `@cloudflare/workers-types` if you want to have *types*.
+You have to install `@cloudflare/workers-types` if you want to have _types_.
 
 ```
 npm i --save-dev @cloudflare/workers-types
@@ -114,8 +114,7 @@ const app = new Hono()
 app.get('/', (c) => c.text('Please test me!'))
 ```
 
-We can test that it is returning "*200 OK*" Response with this code:
-
+We can test that it is returning "_200 OK_" Response with this code:
 
 ```ts
 describe('Test the application', () => {
@@ -128,7 +127,7 @@ describe('Test the application', () => {
 
 ### Bindings
 
-In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "*type struct*" for the bindings to the `Hono` as generics.
+In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "_type struct_" for the bindings to the `Hono` as generics.
 
 ```ts
 interface Env {
@@ -142,6 +141,6 @@ const app = new Hono<{ Bindings: Env }>()
 // Access to environment values
 app.put('/upload', async (c, next) => {
   const auth = basicAuth({ username: c.env.USER, password: c.env.PASS })
-  await auth(c, next)
+  return auth(c, next)
 })
 ```

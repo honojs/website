@@ -1,5 +1,5 @@
 ---
-title: "Examples"
+title: 'Examples'
 weight: 50
 ---
 
@@ -45,7 +45,7 @@ api.post(
   '/posts',
   async (c, next) => {
     const auth = basicAuth({ username: c.env.USERNAME, password: c.env.PASSWORD })
-    await auth(c, next)
+    return auth(c, next)
   },
   async (c) => {
     const post = await c.req.json<Post>()
@@ -61,7 +61,7 @@ export default app
 
 ## JSX
 
-Here is Server Side Rendering application using *JSX* and *html* middleware.
+Here is Server Side Rendering application using _JSX_ and _html_ middleware.
 It's for Cloudflare Workers, but you can write the code for Deno by the same way.
 
 ```tsx
