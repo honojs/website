@@ -233,3 +233,17 @@ app.get('*', async c => {
   ...
 })
 ```
+
+## c.error
+
+If the Handler throw an error, the error object is placed in `c.error`.
+You can check it in your middleware.
+
+```ts
+app.use('*', async (c, next) => {
+  await next()
+  if (c.error) {
+    // do something...
+  }
+})
+```
