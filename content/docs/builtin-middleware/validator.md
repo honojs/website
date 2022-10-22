@@ -103,6 +103,68 @@ app.post(
 )
 ```
 
+Using `v.array` and `v.object`, you can validate structured data.
+
+```ts
+app.post(
+  '/posts',
+  validator((v) => ({
+    posts: v.array('posts', (v) => ({
+      id: v.json('id').asNumber(),
+      title: v.json('title').isRequired(),
+      tags: v.array('tags', (v) => ({
+        name: v.json('name'),
+      })),
+    })),
+    meta: v.object('meta', (v) => ({
+      pager: v.json('pager'),
+    })),
+  })),
+  (c) => {
+    const res = c.req.valid()
+    return c.json({ posts: res.posts })
+  }
+)
+```
+
+You can customize the errors with `message()`.
+
+```ts
+app.get(
+  '/search',
+  validator((v) => ({
+    q: v.query('q').isRequired().message('q is required!!!'),
+    page: v.query('page').isNumeric().message('page must be numeric!!!'),
+  })),
+  (c) => c.text('Valid!')
+)
+```
+
+You can also return the error response as JSON format using `done` option.
+And there are other things you can do with `done` option.
+
+```ts
+app.post(
+  '/posts',
+  validator(
+    //...
+    {
+      done: (resultSet, c) => {
+        if (resultSet.hasError) {
+          return c.json(
+            {
+              messages: resultSet.messages,
+            },
+            400
+          )
+        }
+      },
+    }
+  ),
+  (c) => c.text('Valid!')
+)
+```
+
 ## Rules
 
 General rules:
