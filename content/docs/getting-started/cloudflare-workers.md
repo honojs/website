@@ -144,3 +144,15 @@ app.put('/upload', async (c, next) => {
   return auth(c, next)
 })
 ```
+
+### Basic Auth with Variables
+
+This is the only case for Module Worker mode.
+If you want to use Variables or Secret Variables in Basic Authentication Middleware for "username" or "password", you need to write like the following. The same is applied to the tokens of the Bearer Authentication Middleware.
+
+```ts
+app.use('/auth/*', async (c, next) => {
+  const auth = basicAuth({ username: c.env.USERNAME, password: c.env.PASSWORD })
+  return auth(c, next)
+})
+```
