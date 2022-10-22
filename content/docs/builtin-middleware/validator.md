@@ -103,7 +103,7 @@ app.post(
 )
 ```
 
-Using `v.array` and `v.object`, you can validate structured data.
+Using `v.array()` and `v.object()`, you can validate structured data.
 
 ```ts
 app.post(
