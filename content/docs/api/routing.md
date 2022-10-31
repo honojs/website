@@ -77,7 +77,7 @@ app
 
 ## Grouping
 
-Group the routes with the Hono instance and add them to the main app with the route method.
+You can group the routes with the Hono instance and add them to the main app with the route method.
 
 ```ts
 const book = new Hono()
@@ -126,7 +126,7 @@ app.use('*', logger())
 app.get('/foo', (c) => c.text('foo'))
 ```
 
-If you want a "_fallback_" handler, write the code below the other handler.
+If you want to have a "_fallback_" handler, write the code below the other handler.
 
 ```ts
 app.get('/foo', (c) => c.text('foo')) // foo
@@ -135,4 +135,37 @@ app.get('*', (c) => c.text('fallback')) // fallback
 
 ```
 GET /bar ---> `fallback`
+```
+
+## Grouping ordering
+
+Note that the mistake of grouping routings is hard to notice.
+The `route()` function takes the stored routing from the second argument (such as `tree` or `two`) and adds it to its own (`two` or `app`) routing.
+
+```ts
+three.get('/hi', (c) => c.text('hi'))
+two.route('/three', three)
+app.route('/two', two)
+
+export default app
+```
+
+It will return 200 response.
+
+```
+GET /two/three/hi ---> `hi`
+```
+
+However, if they are in the wrong order, it will return a 404.
+
+```ts
+three.get('/hi', (c) => c.text('hi'))
+app.route('/two', two) // `two` does not have routes
+two.route('/three', three)
+
+export default app
+```
+
+```
+GET /two/three/hi ---> 404 Not Found
 ```
