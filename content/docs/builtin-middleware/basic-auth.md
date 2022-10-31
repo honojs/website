@@ -32,6 +32,8 @@ import { basicAuth } from 'https://deno.land/x/hono/middleware.ts'
 
 ## Usage
 
+### With hardcoded username and password
+
 ```ts
 const app = new Hono()
 
@@ -46,6 +48,27 @@ app.use(
 app.get('/auth/page', (c) => {
   return c.text('You are authorized')
 })
+```
+
+### Using environment variables
+
+You can avoid storing the username and password in your code by using environment variables:
+
+```ts
+app.use('/auth/*', async (c, next) => {
+  const auth = basicAuth({
+    username: c.env.BASIC_AUTH_USERNAME,
+    password: c.env.BASIC_AUTH_PASSWORD
+  })
+  return await auth(c, next)
+})
+```
+
+The environment variables can be created in Cloudflare Workers via the Wrangler CLI:
+
+```
+echo 'basicAuthUser' | npx wrangler secret put BASIC_AUTH_USERNAME
+echo 'superSecretPassword' | npx wrangler secret put BASIC_AUTH_PASSWORD
 ```
 
 ## Options
