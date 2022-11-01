@@ -64,6 +64,7 @@ app.post(
   '/posts',
   validator((v) => ({
     page: v.query('page').isNumeric(),
+    tags: v.queries('tag').isOptional(),
     customHeader: v.header('x-custom').isRequired(),
     name: v.body('name').isOptional(),
     title: v.json('post.title').isLength({ max: 100 }),
