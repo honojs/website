@@ -26,7 +26,7 @@ export interface Bindings {
   PASSWORD: string
 }
 
-const api = new Hono<Bindings>()
+const api = new Hono<{ Bindings: Bindings }>()
 api.use('/posts/*', cors())
 
 api.get('/posts', (c) => {
