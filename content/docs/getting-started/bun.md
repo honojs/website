@@ -1,5 +1,5 @@
 ---
-title: "Bun"
+title: 'Bun'
 weight: 300
 ---
 
@@ -59,12 +59,6 @@ cd my-app
 bun run start
 ```
 
-## Unsupported Middleware
-
-Currently, Bun does not support some function for working the application correct with Hono.
-
-* **JWT middleware** does not work on Bun yet. **DO NOT USE** *JWT* middleware on Bun.
-
 ## Advanced
 
 ### Testing
@@ -73,7 +67,7 @@ You can use `bun:test` for testing on Bun.
 
 ```ts
 import { describe, expect, it } from 'bun:test'
-import app from "."
+import app from '.'
 
 describe('My first test', () => {
   it('Should return 200 Response', async () => {
@@ -91,7 +85,7 @@ bun wiptest index.test.ts
 ```
 
 {{< hint warning >}}
-"*wiptest*" command is a still WIP. "*test*" command that is not a WIP might be released.
+"_wiptest_" command is a still WIP. "_test_" command that is not a WIP might be released.
 {{< /hint >}}
 
 ### JSX Middleware
