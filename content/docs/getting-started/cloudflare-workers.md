@@ -29,7 +29,6 @@ npx wrangler init -y
 Install `hono` from the npm registry.
 
 ```
-npm init -y
 npm i hono
 ```
 
