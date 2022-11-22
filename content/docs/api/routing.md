@@ -24,6 +24,9 @@ app.get('/wild/*/card', (c) => {
 
 // Any HTTP methods
 app.all('/hello', (c) => c.text('Any Method /hello'))
+
+// Custom HTTP method
+app.on('PURGE', '/cache', (c) => c.text('PURGE Method /cache'))
 ```
 
 ## Named Parameter

@@ -23,6 +23,7 @@ An instance of `Hono` has these methods.
 
 - app.**HTTP_METHOD**(\[path,\]handler|middleware...)
 - app.**all**(\[path,\]handler|middleware...)
+- app.**on**(method, path, handler|middleware...)
 - app.**route**(path, \[app\])
 - app.**use**(\[path,\]middleware)
 - app.**notFound**(handler)
@@ -99,7 +100,6 @@ export default {
 }
 ```
 
-
 ## request
 
 `request` is a useful method for testing.
@@ -119,3 +119,4 @@ The `router` option specify which router is used inside. The default router is `
 import { RegExpRouter } from 'hono/router/reg-exp-router'
 
 const app = new Hono({ router: new RegExpRouter() })
+```
