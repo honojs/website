@@ -35,7 +35,7 @@ import { cache } from 'https://deno.land/x/hono/middleware.ts'
 {{< tab "Cloudflare Workers" >}}
 
 ```ts
-app.get('*', cache({ cacheName: 'my-app', cacheControl: 'max-age=3600' }))
+app.use('*', cache({ cacheName: 'my-app', cacheControl: 'max-age=3600' }))
 ```
 
 {{< /tab >}}
@@ -43,7 +43,7 @@ app.get('*', cache({ cacheName: 'my-app', cacheControl: 'max-age=3600' }))
 
 ```ts
 // Must use `wait: true` for the Deno runtime
-app.get('*', cache({ cacheName: 'my-app', cacheControl: 'max-age=3600', wait: true }))
+app.use('*', cache({ cacheName: 'my-app', cacheControl: 'max-age=3600', wait: true }))
 ```
 
 {{< /tab >}}
