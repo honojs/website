@@ -49,16 +49,6 @@ bun run index.ts
 
 Then, access `http://localhost:3000` in your browser.
 
-## `bun create`
-
-You can also make a skelton project of Hono by the command below:
-
-```
-bun create hono ./my-app
-cd my-app
-bun run start
-```
-
 ## Advanced
 
 ### Testing
