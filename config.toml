@@ -10,7 +10,7 @@ pygmentsCodefences = true
 
 [params]
 
-  description = "Ultrafast web framework for Cloudflare Workers, Deno, and Bun. Fast, but not only fast."
+  description = "Ultrafast web framework for Cloudflare Workers, Deno, Bun and Lagon. Fast, but not only fast."
   image = "https://honojs.dev/images/hono-title.png"
 
   # (Optional, default light) Sets color theme: light, dark or auto.

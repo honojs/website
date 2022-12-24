@@ -8,6 +8,10 @@ This middleware distributes asset files that are put in directory specified `roo
 
 Serve Static Middleware is available only on Cloudflare Workers, Deno, and Bun.
 
+{{< hint info >}}
+Note: Lagon serves your static files using the `public` directory by default, so there is no need to use this middleware.
+{{< /hint >}}
+
 ## Import
 
 {{< tabs "import" >}}

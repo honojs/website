@@ -100,6 +100,12 @@ export default {
 }
 ```
 
+Lagon:
+
+```ts
+export const handler = app.fetch
+```
+
 ## request
 
 `request` is a useful method for testing.

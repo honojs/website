@@ -1,6 +1,6 @@
 ---
 title: 'Others'
-weight: 400
+weight: 500
 ---
 
 # Others

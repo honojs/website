@@ -7,7 +7,7 @@ title: Compress Middleware
 This middleware compresses the response body, according to `Accept-Encoding` request header.
 
 {{< hint info >}}
-Note: On Cloudflare Workers, the response body will be compressed automatically, so there is no need to use this middleware on Workers.
+Note: On Cloudflare Workers and Lagon, the response body will be compressed automatically, so there is no need to use this middleware.
 {{< /hint >}}
 
 ## Import
