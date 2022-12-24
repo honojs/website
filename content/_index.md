@@ -5,7 +5,7 @@ type: docs
 
 # Hono
 
-Hono - _\[炎\] means flame🔥 in Japanese_ - is a small, simple, and ultrafast web framework for Cloudflare Workers, Deno, Bun, and others. Fast, but not only fast.
+Hono - _\[炎\] means flame🔥 in Japanese_ - is a small, simple, and ultrafast web framework for Cloudflare Workers, Deno, Bun, Lagon, and others. Fast, but not only fast.
 
 ```ts
 import { Hono } from 'hono'
@@ -22,7 +22,7 @@ export default app
 - **Zero-dependencies** - Using only Web Standard API. Does not depend on other npm or Deno libraries.
 - **Middleware** - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
 - **TypeScript** - First-class TypeScript support. Now, we've got "Types".
-- **Multi-runtime** - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, or Node.js. The same code runs on all platforms.
+- **Multi-runtime** - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, or Node.js. The same code runs on all platforms.
 
 ## Benchmarks
 
@@ -150,6 +150,7 @@ Thanks to the use of the Web Standard API, Hono works on a variety of platforms.
 - Fastly Compute@Edge
 - Deno / Deno Deploy
 - Bun
+- Lagon
 - Others
 
 And using [a Node.js adaptor](https://github.com/honojs/node-server), Hono will works on Node.js.

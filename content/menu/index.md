@@ -6,6 +6,7 @@ headless: true
   - [Cloudflare Workers]({{< relref "/docs/getting-started/cloudflare-workers" >}})
   - [Deno]({{< relref "/docs/getting-started/deno" >}})
   - [Bun]({{< relref "/docs/getting-started/bun" >}})
+  - [Lagon]({{< relref "/docs/getting-started/lagon" >}})
   - [Others]({{< relref "/docs/getting-started/others" >}})
 - [API]({{< relref "/docs/api" >}})
   - [Hono]({{< relref "/docs/api/hono" >}})
