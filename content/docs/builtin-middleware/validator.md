@@ -4,6 +4,11 @@ title: Validator Middleware
 
 # Validator Middleware
 
+{{< hint warning >}}
+Validator Middleware will be changed with "breaking changes" at next major version "v3".
+See the migration guide. <https://github.com/honojs/hono/blob/main/docs/MIGRATION.md>
+{{< /hint >}}
+
 The Hono Validator middleware allows you to validate query parameters, request headers, form bodies, and JSON bodies of your incoming requests.
 You can do this by identifying "keys" which you will receive from the validation results.
 
