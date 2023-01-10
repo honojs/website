@@ -48,6 +48,22 @@ app.get('/api/page', (c) => {
 })
 ```
 
+To restrict to a specific route + method:
+
+```ts
+const app = new Hono()
+
+const token = 'honoiscool'
+
+app.get('/api/page', (c) => {
+  return c.json({ message: 'Read posts' })
+})
+
+app.post('/api/page', bearerAuth({ token }), (c) => {
+  return c.json({ message: 'Created post!' }, 201)
+})
+```
+
 ## Options
 
 - `token`: string - _required_
