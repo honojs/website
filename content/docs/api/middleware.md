@@ -12,7 +12,7 @@ Middleware works after/before Handler. We can get `Request` before dispatching o
 - Handler - should return `Response` object. Only one handler will be called.
 - Middleware - should return nothing, will be proceeded to next middleware with `await next()`
 
-The user can register middleware using `c.use` or using `c.HTTP_METHOD` as well as the handlers. For this feature, it's easy to specify the path and the method.
+The user can register middleware using `app.use` or using `app.HTTP_METHOD` as well as the handlers. For this feature, it's easy to specify the path and the method.
 
 ```ts
 // match any method, all routes
