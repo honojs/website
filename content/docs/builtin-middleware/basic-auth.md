@@ -48,6 +48,20 @@ app.get('/auth/page', (c) => {
 })
 ```
 
+To restrict to a specific route + method:
+
+```ts
+const app = new Hono()
+
+app.get('/auth/page', (c) => {
+  return c.text('Viewing page')
+})
+
+app.delete('/auth/page', basicAuth({ username: 'hono', password: 'acoolproject' }), (c) => {
+  return c.text('Page deleted')
+})
+```
+
 ## Options
 
 - `username`: string - _required_
