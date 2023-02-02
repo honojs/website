@@ -59,7 +59,7 @@ app.get('/entry/:id', (c) => {
   ...
 })
 
-// Parse Request body of type `multipart/form` or `application/x-www-form-urlencoded`
+// Parse Request body of type `multipart/form-data` or `application/x-www-form-urlencoded`
 app.post('/entry', async (c) => {
   const body = await c.req.parseBody()
   ...
