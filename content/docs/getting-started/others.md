@@ -24,7 +24,7 @@ These is a starter kit for it, please refer them.
 Hono is not designed for Node.js, but with a [Node.js Adaptor](https://github.com/honojs/node-server) it can run on Node.js as well.
 
 ```ts
-import { serve } from '@honojs/node-server' // Write above `Hono`
+import { serve } from '@hono/node-server' // Write above `Hono`
 import { Hono } from 'hono'
 
 const app = new Hono()
