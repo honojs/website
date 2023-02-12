@@ -1,9 +1,8 @@
-# https://github.com/gohugoio/hugo/blob/master/examples/blog/.gitignore
+cache
 
-# Hugo default output directory
-/public
+node_modules
+yarn.lock
 
-## OS Files
 # Windows
 Thumbs.db
 ehthumbs.db
@@ -18,4 +17,3 @@ $RECYCLE.BIN/
 /resources
 .vercel
 
-node_modules

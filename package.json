@@ -1,0 +1,16 @@
+{
+  "name": "hono.dev",
+  "version": "3.0.0",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "repository": "git@github.com:honojs/honojs.dev.git",
+  "author": "Yusuke Wada <yusuke@kamawada.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "vitepress": "^1.0.0-alpha.45",
+    "vue": "^3.2.45"
+  }
+}

@@ -1,12 +1,12 @@
 # Repository for honojs.dev
 
-This is a repository for Hono website "*[honojs.dev](https://honojs.dev)*".
+This is a repository for Hono website "_[honojs.dev](https://honojs.dev)_".
 
 ## Features
 
-* Built with Hugo & [Hugo Book Theme](https://github.com/alex-shpak/hugo-book)
-* Deploy to Cloudflare Pages
-* Not using Hono :)
+- Built with [VitePress](https://vitepress.vuejs.org)
+- Deploy to Cloudflare Pages
+- Not using Hono :)
 
 ## Contribution
 
