@@ -92,7 +92,7 @@ export default defineConfig({
       { icon: 'twitter', link: 'https://twitter.com/honojs' },
     ],
     editLink: {
-      pattern: 'https://github.com/honojs/honojs.dev/edit/main/docs/:path',
+      pattern: 'https://github.com/honojs/website/edit/main/docs/:path',
       text: 'Edit this page on GitHub',
     },
     footer: {
