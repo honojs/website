@@ -126,6 +126,15 @@ app.post('/posts', (c) => {
 })
 ```
 
+Available targets are below.
+
+- `form`
+- `json`
+- `query`
+- `queries`
+
+See [Validation section](/docs/guides/validation) for usage.
+
 ## raw
 
 The raw `Request` object.

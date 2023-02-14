@@ -51,6 +51,16 @@ app.get('/say', (c) => {
 })
 ```
 
+Specify the status code and add headers.
+
+```ts
+app.post('/posts', (c) => {
+  return c.text('Created!', 201, {
+    'X-Custom': 'Thank you!',
+  })
+})
+```
+
 ## c.json()
 
 Render JSON as `Content-Type:application/json`.
@@ -63,11 +73,11 @@ app.get('/api', (c) => {
 
 ## c.jsonT()
 
-Return `TypeResponse` that is used for RPC.
+Return `TypedResponse` that is used for RPC.
 
 ```ts
 app.get('/api', (c) => {
-  return c.jsonT({ message: 'Hello!' })
+  return c.jsonT({ ok: true }) // TypedResponse
 })
 ```
 
@@ -187,6 +197,18 @@ app.get('/', (c) => {
   ...
 })
 ```
+
+Available runtimes are below.
+Some of these are based on [WinterCG's Runtime Keys](https://runtime-keys.proposal.wintercg.org).
+
+- `node`
+- `deno`
+- `bun`
+- `workerd` - Cloudflare Workers
+- `fastly`
+- `edge-light` - Vercel Edge Functions
+- `lagon`
+- `other`
 
 ## c.error
 
