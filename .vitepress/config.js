@@ -41,6 +41,7 @@ const sidebars = {
     collapsed: true,
     items: [
       { text: 'Middleware', link: '/guides/middleware' },
+      { text: 'Testing', link: '/guides/testing' },
       {
         text: 'Validation',
         link: '/guides/validation',
