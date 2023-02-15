@@ -32,6 +32,48 @@ In this case, four middleware are processed before dispatching like this:
 logger() -> cors() -> basicAuth() -> *handler*
 ```
 
+## Execution order
+
+The order in which Middleware is executed is determined by the order in which it is registered.
+The process before the `next` of the first registered Middleware is executed first,
+and the process after the `next` is executed last.
+See below.
+
+```ts
+app.use(async (_, next) => {
+  console.log('middleware 1 start')
+  await next()
+  console.log('middleware 1 end')
+})
+app.use(async (_, next) => {
+  console.log('middleware 2 start')
+  await next()
+  console.log('middleware 2 end')
+})
+app.use(async (_, next) => {
+  console.log('middleware 3 start')
+  await next()
+  console.log('middleware 3 end')
+})
+
+app.get('/', (c) => {
+  console.log('handler')
+  return c.text('Hello!')
+})
+```
+
+Result is the following.
+
+```
+middleware 1 start
+  middleware 2 start
+    middleware 3 start
+      handler
+    middleware 3 end
+  middleware 2 end
+middleware 1 end
+```
+
 ## Built-in Middleware
 
 Hono has built-in middleware.
@@ -55,8 +97,6 @@ app.use(
   })
 )
 ```
-
-Available built-in middleware is listed on [the middleware section](/middleware/introduction).
 
 ## Custom Middleware
 

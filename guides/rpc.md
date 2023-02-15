@@ -105,3 +105,16 @@ const res = await client.posts[':id'].$get({
   query: {},
 })
 ```
+
+## Infer
+
+Use `InferRequestType` and `InferResponseType` to know the type of object to be requested and the type of object to be returned.
+
+```ts
+// InferRequestType
+const $post = client.todo.$post
+type ReqType = InferRequestType<typeof $post>['form']
+
+// InferResponseType
+type ResType = InferResponseType<typeof $post>
+```
