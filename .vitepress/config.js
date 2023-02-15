@@ -8,6 +8,7 @@ const sidebars = {
       { text: 'Getting Started', link: '/getting-started/basic' },
       { text: 'Concepts', link: '/introduction/concepts' },
       { text: 'Benchmarks', link: '/introduction/benchmarks' },
+      { text: 'Hono Stacks', link: '/introduction/stacks' },
     ],
   },
   platforms: {
