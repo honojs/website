@@ -142,3 +142,7 @@
 .title {
   font-weight: 700 !important;
 }
+
+body {
+  -webkit-font-smoothing: subpixel-antialiased;
+}
