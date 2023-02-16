@@ -111,10 +111,52 @@ const res = await client.posts[':id'].$get({
 Use `InferRequestType` and `InferResponseType` to know the type of object to be requested and the type of object to be returned.
 
 ```ts
+import type { InferRequestType, InferResponseType } from 'hono/client'
+
 // InferRequestType
 const $post = client.todo.$post
 type ReqType = InferRequestType<typeof $post>['form']
 
 // InferResponseType
 type ResType = InferResponseType<typeof $post>
+```
+
+## Using SWR
+
+You can also use [SWR](https://swr.vercel.app/ja).
+It will be Type-Safe by using "infer" and `Fetch`.
+
+```ts
+import useSWR from 'swr'
+import { hc } from 'hono/client'
+import type { InferRequestType, Fetch } from 'hono/client'
+import { AppType } from '../functions/api/[[route]]'
+
+const App = () => {
+  const client = hc<AppType>('/api')
+  const $get = client.hello.$get
+
+  const fetcher = (method: Fetch<typeof $get>, arg: InferRequestType<typeof $get>) => {
+    return async () => {
+      const res = await method(arg)
+      return await res.json()
+    }
+  }
+
+  const { data, error, isLoading } = useSWR(
+    'api-hello',
+    fetcher($get, {
+      query: {
+        name: 'SWR',
+      },
+    })
+  )
+
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <div>loading...</div>
+
+  return <h1>{data.message}</h1>
+}
+
+export default App
 ```

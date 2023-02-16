@@ -34,7 +34,7 @@ app.get('/hello', (c) => {
 })
 ```
 
-## Validate with Zod
+## Validation with Zod
 
 Validate with Zod to receive the value of the query parameter.
 
