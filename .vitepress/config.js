@@ -1,20 +1,20 @@
 import { defineConfig } from 'vitepress'
 
 const sidebars = {
-  introduction: {
-    text: 'Introduction',
+  concepts: {
+    text: 'Concepts',
     collapsed: true,
     items: [
-      { text: 'Getting Started', link: '/getting-started/basic' },
-      { text: 'Concepts', link: '/introduction/concepts' },
-      { text: 'Benchmarks', link: '/introduction/benchmarks' },
-      { text: 'Hono Stacks', link: '/introduction/stacks' },
+      { text: 'Philosophy', link: '/concepts/philosophy' },
+      { text: 'Benchmarks', link: '/concepts/benchmarks' },
+      { text: 'Hono Stacks', link: '/concepts/stacks' },
     ],
   },
-  platforms: {
-    text: 'Platforms',
+  quickStart: {
+    text: 'Quick Start',
     collapsed: true,
     items: [
+      { text: 'Basic', link: '/getting-started/basic' },
       { text: 'Cloudflare Workers', link: '/getting-started/cloudflare-workers' },
       { text: 'Cloudflare Pages', link: '/getting-started/cloudflare-pages' },
       { text: 'Deno', link: '/getting-started/deno' },
@@ -50,6 +50,10 @@ const sidebars = {
       {
         text: 'RPC',
         link: '/guides/rpc',
+      },
+      {
+        text: 'Examples',
+        link: '/guides/examples',
       },
     ],
   },
@@ -109,8 +113,8 @@ export default defineConfig({
     ],
     sidebar: {
       '/': [
-        sidebars['introduction'],
-        sidebars['platforms'],
+        sidebars['quickStart'],
+        sidebars['concepts'],
         sidebars['reference'],
         sidebars['guides'],
         sidebars['middleware'],

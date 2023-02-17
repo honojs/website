@@ -1,5 +1,7 @@
 # Benchmarks
 
+Benchmarks are only benchmarks, but they are important to us.
+
 ## Routers
 
 We measured the speeds of a bunch of JavaScript routers.
