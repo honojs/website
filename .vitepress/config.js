@@ -10,8 +10,8 @@ const sidebars = {
       { text: 'Hono Stacks', link: '/concepts/stacks' },
     ],
   },
-  quickStart: {
-    text: 'Quick Start',
+  gettingStarted: {
+    text: 'Getting Started',
     collapsed: true,
     items: [
       { text: 'Basic', link: '/getting-started/basic' },
@@ -26,8 +26,8 @@ const sidebars = {
       { text: 'Others', link: '/getting-started/others' },
     ],
   },
-  reference: {
-    text: 'Reference',
+  api: {
+    text: 'API',
     collapsed: true,
     items: [
       { text: 'App', link: '/api/hono' },
@@ -54,6 +54,10 @@ const sidebars = {
       {
         text: 'Examples',
         link: '/guides/examples',
+      },
+      {
+        text: 'Miscellaneous',
+        link: '/guides/others',
       },
     ],
   },
@@ -107,15 +111,14 @@ export default defineConfig({
       copyright: 'Copyright © 2022-present Yusuke Wada & Hono contributors',
     },
     nav: [
-      { text: 'Document', link: '/' },
       { text: 'Examples', link: 'https://github.com/honojs/examples' },
       { text: 'Discussions', link: 'https://github.com/orgs/honojs/discussions' },
     ],
     sidebar: {
       '/': [
-        sidebars['quickStart'],
+        sidebars['gettingStarted'],
         sidebars['concepts'],
-        sidebars['reference'],
+        sidebars['api'],
         sidebars['guides'],
         sidebars['middleware'],
       ],

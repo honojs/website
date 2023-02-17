@@ -53,7 +53,7 @@
   --vp-c-text-inverse-2: var(--vp-c-text-dark-2);
   --vp-c-text-inverse-3: var(--vp-c-text-dark-3);
 
-  --vp-c-text-code: #5e5e5e;
+  --vp-c-text-code: #4a4a4a;
 
   --vp-c-brand: var(--vp-c-orange);
   --vp-c-brand-light: var(--vp-c-orange-light);
@@ -123,8 +123,6 @@
   --vp-c-text-inverse-1: var(--vp-c-text-light-1);
   --vp-c-text-inverse-2: var(--vp-c-text-light-2);
   --vp-c-text-inverse-3: var(--vp-c-text-light-3);
-
-  --vp-c-text-code: #c9def1;
 
   --vp-c-mute: #313136;
   --vp-c-mute-light: #3a3a3c;

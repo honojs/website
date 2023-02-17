@@ -43,6 +43,8 @@ Fastest is Hono
 ✨  Done in 27.51s.
 ```
 
+See [more benchmarks](/concepts/benchmarks).
+
 ## Why so fast?
 
 **RegExpRouter** is the fastest router in the JavaScript world.
@@ -52,6 +54,8 @@ Users can use the fastest router without having to do anything!
 
 - **RegExpRouter** - Match the route using one big Regex made before dispatch.
 - **TrieRouter** - Implemented with Trie tree structure. Supports all routing patterns.
+
+See [more information about routes](/concepts/philosophy#routers).
 
 ## Hono in 1 minute
 
@@ -77,6 +81,8 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 - Others
 
 And by using [a Node.js adaptor](https://github.com/honojs/node-server), Hono works on Node.js.
+
+See [more information about Web Standard](/concepts/philosophy#web-standard).
 
 ### Do everything
 
@@ -109,6 +115,8 @@ const app = new Hono()
 app.use('*', etag(), logger())
 ```
 
+See [more information about Middleware](/concepts/philosophy#middleware).
+
 ### Small
 
 Hono is small.
@@ -128,3 +136,5 @@ For example, the path parameters will be literal types.
 
 And the Validator and Hono Client `hc` enable the PRC mode. In PRC mode,
 you can use your favorite validator such as Zod and easily share server-side API specs with the client and build type-safe applications.
+
+See [Hono Stacks](/concepts/stacks).

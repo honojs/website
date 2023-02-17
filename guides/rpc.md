@@ -106,6 +106,24 @@ const res = await client.posts[':id'].$get({
 })
 ```
 
+## Headers
+
+You can append the headers to the request.
+
+```ts
+const res = await client.search.$get(
+  {
+    //...
+  },
+  {
+    headers: {
+      'X-Custom-Header': 'Here is Hono Client',
+      'X-User-Agent': 'hc',
+    },
+  }
+)
+```
+
 ## Infer
 
 Use `InferRequestType` and `InferResponseType` to know the type of object to be requested and the type of object to be returned.

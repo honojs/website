@@ -28,7 +28,7 @@ An instance of `Hono` has these methods.
 - app.**fetch**(request, env, event)
 - app.**request**(path, options)
 
-The first part of them is used for routing, please refer to the [routing section](/docs/api/routing).
+The first part of them is used for routing, please refer to the [routing section](/api/routing).
 
 ## Not Found
 
