@@ -1,6 +1,7 @@
-# JWT Middleware
+# JWT Auth Middleware
 
-There is also middleware for JWT Authentication.
+The JWT Auth Middleware provides authentication by verifying the token with JWT.
+`Authorization` header value or cookie value specified by the `cookie` option will be used as a token.
 
 ## Import
 
@@ -34,3 +35,12 @@ app.get('/auth/page', (c) => {
   return c.text('You are authorized')
 })
 ```
+
+## Options
+
+- `secret`: string - _required_
+  - A value of your secret key.
+- `cookie`: string
+  - If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
+- `alg`: string
+  - An algorithm type that is used for verifying. Available types are `HS256` | `HS384` | `HS512`. Default is `HS256`.

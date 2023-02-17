@@ -12,7 +12,7 @@ For example, `find-my-way` is a very fast router used inside Fastify.
 - express (includes handling)
 - koa-router
 
-First, we registered the following routing to each of our routers
+First, we registered the following routing to each of our routers.
 These are similar to those used in the real world.
 
 ```ts
@@ -74,6 +74,8 @@ const routes: (Route & { name: string })[] = [
 ]
 ```
 
+Let's see the results.
+
 ### On Node.js
 
 The following screenshots show the results on Node.js.
@@ -116,10 +118,10 @@ The followings show the results on Bun.
 
 ## Cloudflare Workers
 
+**Hono is the fastest**, compared to other routers for Cloudflare Workers.
+
 - Machine: Apple MacBook Pro, 32 GiB, M1 Pro
 - Scripts: [benchmarks/handle-event](https://github.com/honojs/hono/tree/main/benchmarks/handle-event)
-
-**Hono is the fastest**, compared to other routers for Cloudflare Workers.
 
 ```
 Hono x 385,807 ops/sec ±5.02% (76 runs sampled)
@@ -132,11 +134,11 @@ Fastest is Hono
 
 ## Deno
 
+**Hono is the fastest**, compared to other frameworks for Deno.
+
 - Machine: Apple MacBook Pro, 32 GiB, M1 Pro, Deno v1.22.0
 - Scripts: [benchmarks/deno](https://github.com/honojs/hono/tree/main/benchmarks/deno)
 - Method: `bombardier --fasthttp -d 10s -c 100 'http://localhost:8000/user/lookup/username/foo'`
-
-**Hono is the fastest**, compared to other frameworks for Deno.
 
 | Framework |   Version    |                  Results |
 | --------- | :----------: | -----------------------: |
@@ -151,4 +153,7 @@ Another benchmark result: [denosaurs/bench](https://github.com/denosaurs/bench)
 
 ## Bun
 
-See: [SaltyAom/bun-http-framework-benchmark](https://github.com/SaltyAom/bun-http-framework-benchmark)
+Hono is one of the fastest frameworks for Bun.
+You can see it below.
+
+- [SaltyAom/bun-http-framework-benchmark](https://github.com/SaltyAom/bun-http-framework-benchmark)

@@ -1,6 +1,6 @@
 # Deno
 
-Deno is a JavaScript runtime built on V8. It's not Node.js.
+[Deno](https://deno.land/) is a JavaScript runtime built on V8. It's not Node.js.
 Hono also works on Deno.
 
 You can use Hono, write the code with TypeScript, run the application with the `deno` command, and deploy it to "Deno Deploy".
@@ -23,7 +23,7 @@ Move into `my-app`. For Deno, you don't have to install Hono explicitly.
 
 ## 3. Hello World
 
-Write your first application. It's enabled to write the code by TypeScript.
+Write your first application.
 
 ```ts
 import { serve } from 'https://deno.land/std/http/server.ts'

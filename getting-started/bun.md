@@ -1,22 +1,11 @@
 # Bun
 
-Bun is another JavaScript runtime. It's not Node.js or Deno. Bun includes a trans compiler, so we can write the code with TypeScript.
-
-Hono also works on Bun. Some middleware does not work with Bun, so please keep it in mind.
+[Bun](https://bun.sh) is another JavaScript runtime. It's not Node.js or Deno. Bun includes a trans compiler, we can write the code with TypeScript.
+Hono also works on Bun.
 
 ## 1. Install Bun
 
-### `bun` command
-
 To install `bun` command, follow the instruction in [the official web site](https://bun.sh).
-
-### `bun add`
-
-Make the project directory, move into it, and run `bun add` command to install Hono from npm registry.
-
-```
-bun add hono
-```
 
 ## 2. Setup
 

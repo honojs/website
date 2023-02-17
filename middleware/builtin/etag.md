@@ -28,3 +28,8 @@ app.get('/etag/abc', (c) => {
   return c.text('Hono is cool')
 })
 ```
+
+## Options
+
+- `weak`: boolean
+  - Define using or not using a [weak validation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests#weak_validation). If `true` is set, then `w/` is added to the prefix of the value. Default is `false`.

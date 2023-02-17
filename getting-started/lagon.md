@@ -1,6 +1,7 @@
 # Lagon
 
-Lagon is an open source runtime and platform to run TypeScript and JavaScript Functions at the Edge. It's neither Node.js nor Deno.
+[Lagon](https://lagon.app/) is an open source runtime and platform to run TypeScript and JavaScript Functions at the Edge.
+It's neither Node.js nor Deno.
 
 Note that some middlewares don't work or are useless.
 
@@ -26,7 +27,7 @@ npm i
 
 ## 3. Hello World
 
-Create a new file `src/index.ts` and edit it:
+Edit `src/index.ts` like below.
 
 ```ts
 // src/index.ts

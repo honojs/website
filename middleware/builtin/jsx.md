@@ -1,8 +1,7 @@
 # JSX Middleware
 
 JSX Middleware enables rendering HTML with JSX syntax.
-It's just for Sever-Side-Rendering. No virtual DOM.
-This middleware is only for writing with TypeScript.
+It's just for Sever-Side-Rendering. Not for making virtual DOMs.
 
 ## Import
 
@@ -215,26 +214,4 @@ app.get('/:name', (c) => {
 })
 
 export default app
-```
-
-## Tips for Cloudflare Workers
-
-It's useful to use Miniflare's`live-reload` option for developing.
-
-package.json:
-
-```json
-{
-  "scripts": {
-    "build": "esbuild --bundle --outdir=dist ./src/index.tsx",
-    "dev": "miniflare --live-reload --debug"
-  }
-}
-```
-
-wrangler.toml:
-
-```toml
-[build]
-command = "yarn build"
 ```

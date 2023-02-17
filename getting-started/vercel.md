@@ -25,7 +25,7 @@ npm i
 
 ## 2. Hello World
 
-Edit `pages/api/[...route].ts`
+Edit `pages/api/[...route].ts`.
 
 ```ts
 import { Hono } from 'hono'
@@ -53,6 +53,8 @@ Run the development server locally. Then, access `http://localhost:3000` in your
 ```
 npm run dev
 ```
+
+Now, `/api/hello` just returns JSON, but if you build React UIs, you can create a full-stack application with Hono.
 
 ## 4. Deploy
 

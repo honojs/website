@@ -17,7 +17,7 @@ Fast, but not only fast.
 import { Hono } from 'hono'
 const app = new Hono()
 
-app.get('/', (c) => c.text('Hono!!'))
+app.get('/', (c) => c.text('Hono!'))
 
 export default app
 ```
@@ -45,9 +45,9 @@ Fastest is Hono
 
 ## Why so fast?
 
-**RegExpRouter** is the fastest router in JavaScript world.
+**RegExpRouter** is the fastest router in the JavaScript world.
 And **Smart Router** is really smart.
-It automatically picks the best router from the following three routers.
+It automatically picks the best router from the following routers.
 Users can use the fastest router without having to do anything!
 
 - **RegExpRouter** - Match the route using one big Regex made before dispatch.
@@ -65,7 +65,7 @@ Hono is fast. But not only fast.
 
 ### Run anywhere
 
-Thanks to the use of the **Web Standard API**, Hono works on a variety of platforms.
+Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 
 - Cloudflare Workers
 - Cloudflare Pages
@@ -76,7 +76,7 @@ Thanks to the use of the **Web Standard API**, Hono works on a variety of platfo
 - Next.js
 - Others
 
-And using [a Node.js adaptor](https://github.com/honojs/node-server), Hono will work on Node.js.
+And by using [a Node.js adaptor](https://github.com/honojs/node-server), Hono works on Node.js.
 
 ### Do everything
 
@@ -111,18 +111,20 @@ app.use('*', etag(), logger())
 
 ### Small
 
-Hono is very small.
-About **20KB** with minify.
-There are many middleware and adapters, but they are bundled only when you use them.
+Hono is small.
+About **20KB** if it is minified.
+There are many middleware and adapters, but they are bundled only when used.
 By the way, Express bundle size is 572KB.
 
 ### Developer Experience
 
-Hono provides fine "**Developer Experience**". Easy access to Request/Response thanks to the `Context` object.
-Above all, Hono is written in TypeScript. So, Hono has "**Types**"!
+Hono provides fine "**Developer Experience**".
+Easy access to Request/Response thanks to the `Context` object.
+Then, Hono is written in TypeScript. Hono has "**Types**".
 
-For example, the named path parameters will be literal types.
+For example, the path parameters will be literal types.
 
 ![SS](/images/ss.png)
 
-And the Validator and Hono Client `hc` enable the PRC mode. In PRC mode, you can use your favorite validator such as Zod and easily share server-side API specs with the client with `hc` and build type-safe applications.
+And the Validator and Hono Client `hc` enable the PRC mode. In PRC mode,
+you can use your favorite validator such as Zod and easily share server-side API specs with the client and build type-safe applications.

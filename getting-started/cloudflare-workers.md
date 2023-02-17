@@ -1,8 +1,8 @@
 # Cloudflare Workers
 
-A Cloudflare Workers is a JavaScript edge runtime on Cloudflare CDN.
+[Cloudflare Workers](https://workers.cloudflare.com) is a JavaScript edge runtime on Cloudflare CDN.
 
-You can develop the application locally and publish it with a few commands using [Wrangler](https://developers.cloudflare.com/workers/wrangler/), a CLI developed by Cloudflare.
+You can develop the application locally and publish it with a few commands using [Wrangler](https://developers.cloudflare.com/workers/wrangler/).
 Wrangler includes trans compiler, so we can write the code with TypeScript.
 
 Let’s make your first application for Cloudflare Workers with Hono.
@@ -25,7 +25,7 @@ npm i
 
 ## 2. Hello World
 
-Edit `src/index.ts`:
+Edit `src/index.ts` like below.
 
 ```ts
 import { Hono } from 'hono'
@@ -38,7 +38,7 @@ export default app
 
 ## 3. Run
 
-Run the development server locally. Then, access `http://localhost:8787` in your Web browser.
+Run the development server locally. Then, access `http://localhost:8787` in your web browser.
 
 ```
 npm run dev
@@ -56,7 +56,7 @@ That's all!
 
 ## Service Worker mode or Module Worker mode
 
-There are two syntax for writing the Cloudflare Workers. _Service Worker mode_ and _Module Worker mode_. Using Hono, you can write with both syntax:
+There are two syntaxes for writing the Cloudflare Workers. _Service Worker mode_ and _Module Worker mode_. Using Hono, you can write with both syntax:
 
 ```ts
 // Service Worker
@@ -68,11 +68,11 @@ app.fire()
 export default app
 ```
 
-Now, we recommend using Module Worker mode because the binding variables are localized.
+Bu now, we recommend using Module Worker mode because such as that the binding variables are localized.
 
 ## Serve static files
 
-To serve static files you need to setup.
+You need to set it up to serve static files.
 Static files are distributed by using Workers Sites.
 To enable this feature, edit `wrangler.toml` and specify the directory where the static files will be placed.
 
@@ -99,7 +99,7 @@ Then create the `assets` directory and place the files there.
 └── wrangler.toml
 ```
 
-And use "Adapter".
+Then use "Adapter".
 
 ```ts
 import { Hono } from 'hono'
@@ -111,11 +111,11 @@ app.get('/static/*', serveStatic({ root: './' }))
 app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
-Example: <https://github.com/honojs/examples/tree/main/serve-static>
+See [Example](https://github.com/honojs/examples/tree/main/serve-static).
 
 ## Types
 
-You have to install `@cloudflare/workers-types` if you want to have _types_.
+You have to install `@cloudflare/workers-types` if you want to have workers types.
 
 ```
 npm i --save-dev @cloudflare/workers-types
@@ -126,7 +126,7 @@ npm i --save-dev @cloudflare/workers-types
 For testing, we recommend using `jest-environment-miniflare`.
 Refer to [examples](https://github.com/honojs/examples) for setting it up.
 
-If there is the application below:
+If there is the application below.
 
 ```ts
 import { Hono } from 'hono'
@@ -135,7 +135,7 @@ const app = new Hono()
 app.get('/', (c) => c.text('Please test me!'))
 ```
 
-We can test that it is returning "_200 OK_" Response with this code:
+We can test if it returns "_200 OK_" Response with this code.
 
 ```ts
 describe('Test the application', () => {
@@ -151,8 +151,8 @@ describe('Test the application', () => {
 In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "_type struct_" for the bindings to the `Hono` as generics.
 
 ```ts
-interface Bindings {
-  BUCKET: R2Bucket
+type Bindings = {
+  MY_BUCKET: R2Bucket
   USERNAME: string
   PASSWORD: string
 }
@@ -167,10 +167,10 @@ app.put('/upload/:key', async (c, next) => {
 })
 ```
 
-## Basic Auth with Variables
+## Using Variables in Middleware
 
 This is the only case for Module Worker mode.
-If you want to use Variables or Secret Variables in Basic Authentication Middleware for "username" or "password", you need to write like the following. The same is applied to the tokens of the Bearer Authentication Middleware.
+If you want to use Variables or Secret Variables in Middleware, for example, "username" or "password" in Basic Authentication Middleware, you need to write like the following.
 
 ```ts
 app.use('/auth/*', async (c, next) => {
@@ -181,3 +181,5 @@ app.use('/auth/*', async (c, next) => {
   return auth(c, next)
 })
 ```
+
+The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.

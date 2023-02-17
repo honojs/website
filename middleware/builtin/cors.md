@@ -65,3 +65,18 @@ app.use(
   })
 )
 ```
+
+## Options
+
+- `origin`: string | string[] | (origin:string) => string
+  - The value of "_Access-Control-Allow-Origin_" CORS header. You can also pass the callback function like `origin: (origin) => (origin.endsWith('.example.com') ? origin : 'http://example.com')`. Default is `*`
+- `allowMethods`: string[]
+  - The value of "_Access-Control-Allow-Methods_" CORS header. Default is `['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH']`
+- `allowHeaders`: string[]
+  - The value of "_Access-Control-Allow-Headers_" CORS header. Default is `[]`
+- `maxAge`: number
+  - The value of "_Access-Control-Max-Age_" CORS header.
+- `credentials`: boolean
+  - The value of "_Access-Control-Allow-Credentials_" CORS header.
+- `exposeHeaders`: string[]
+  - The value of "_Access-Control-Expose-Headers_" CORS header. Default is `[]`

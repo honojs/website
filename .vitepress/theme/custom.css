@@ -89,6 +89,8 @@
   --vp-code-tab-hover-text-color: var(--vp-c-text-light-1);
   --vp-code-tab-active-text-color: var(--vp-c-text-light-1);
   --vp-code-tab-active-bar-color: var(--vp-c-brand);
+
+  --vp-code-line-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
 

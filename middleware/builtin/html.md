@@ -1,6 +1,6 @@
 # html Middleware
 
-html Middleware provides `html` method for building HTML.
+html Middleware lets you write HTML in JavaScript template literal with a tag named `html`.
 
 ::: code-group
 

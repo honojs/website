@@ -1,6 +1,6 @@
 # Fastly Compute@Edge
 
-Fastly's Compute@Edge offering allows us to build high scale, globally distributed applications and execute code at the edge of Fastly CDN.
+[Fastly's Compute@Edge](https://www.fastly.com/products/edge-compute) offering allows us to build high scale, globally distributed applications and execute code at the edge of Fastly CDN.
 
 Hono also works on Fastly Compute@Edge.
 
