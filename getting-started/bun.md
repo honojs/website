@@ -104,18 +104,3 @@ bun wiptest index.test.ts
 ::: warning
 "_wiptest_" command is a still WIP. "_test_" command that is not a WIP might be released.
 :::
-
-## JSX Middleware
-
-JSX Middleware works on Bun. It does not depend `React`, so you can use JSX without installing React.
-To use it, set up `tsconfig.json` like below:
-
-```json
-{
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxFragmentFactory": "Fragment",
-    "jsxImportSource": "hono/jsx"
-  }
-}
-```

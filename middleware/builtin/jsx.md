@@ -21,8 +21,6 @@ import { jsx } from 'https://deno.land/x/hono/middleware.ts'
 
 ## Settings
 
-### Cloudflare Workers
-
 tsconfig.json:
 
 ```json
@@ -44,31 +42,6 @@ Or use pragma:
 /** @jsxFrag  Fragment */
 import { jsx } from 'hono/jsx'
 ```
-
-### Deno
-
-Pragma:
-
-```ts
-/** @jsx jsx */
-/** @jsxFrag  Fragment */
-```
-
-### Bun
-
-tsconfig.json:
-
-```json
-{
-  "compilerOptions": {
-    "jsx": "preserve",
-    "jsxFragmentFactory": "Fragment",
-    "jsxImportSource": "hono/jsx"
-  }
-}
-```
-
-You do not have to `import { jsx } from 'hono/jsx`.
 
 ## Usage
 
