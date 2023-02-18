@@ -44,6 +44,17 @@ Just this command:
 deno run --allow-net hello.ts
 ```
 
+## `deno.land/x/hono`
+
+[deno.land/x/hono](https://deno.land/x/hono) is also available.
+
+```ts
+import { Hono } from 'https://deno.land/x/hono/mod.ts'
+import { basicAuth } from 'https://deno.land/x/hono/middleware.ts'
+```
+
+You can use either `npm:hono` or `deno.land/x/hono`. `deno.land/x/hono` works on Deno Deploy. But, using it with Third-party Middleware may cause version mismatch.
+
 ## Serve static files
 
 To server static files, use `serveStatic` imported from `hono/deno`.
