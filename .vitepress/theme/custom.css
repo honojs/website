@@ -133,6 +133,8 @@
   --vp-code-block-bg: #2a2a2a;
   --vp-code-tab-hover-text-color: var(--vp-c-text-dark-2);
   --vp-code-tab-active-text-color: var(--vp-c-text-dark-1);
+  
+  --vp-c-text-code: #e8e8e8;
 }
 
 .vp-doc h1, .vp-doc h2, .vp-doc h3, .vp-doc h4, .vp-doc h5, .vp-doc h6 {
