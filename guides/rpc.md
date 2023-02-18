@@ -141,29 +141,26 @@ type ResType = InferResponseType<typeof $post>
 
 ## Using SWR
 
-You can also use [SWR](https://swr.vercel.app/ja).
-It will be Type-Safe by using "infer" and `Fetch`.
+You can also use a React Hook library such as [SWR](https://swr.vercel.app/ja).
 
 ```ts
 import useSWR from 'swr'
 import { hc } from 'hono/client'
-import type { InferRequestType, Fetch } from 'hono/client'
+import type { InferRequestType } from 'hono/client'
 import { AppType } from '../functions/api/[[route]]'
 
 const App = () => {
   const client = hc<AppType>('/api')
   const $get = client.hello.$get
 
-  const fetcher = (method: Fetch<typeof $get>, arg: InferRequestType<typeof $get>) => {
-    return async () => {
-      const res = await method(arg)
-      return await res.json()
-    }
+  const fetcher = (arg: InferRequestType<typeof $get>) => async () => {
+    const res = await $get(arg)
+    return await res.json()
   }
 
   const { data, error, isLoading } = useSWR(
     'api-hello',
-    fetcher($get, {
+    fetcher({
       query: {
         name: 'SWR',
       },
@@ -173,7 +170,7 @@ const App = () => {
   if (error) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>
 
-  return <h1>{data.message}</h1>
+  return <h1>{data?.message}</h1>
 }
 
 export default App

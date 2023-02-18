@@ -9,7 +9,7 @@ head:
 
 # Hono
 
-Hono - _\[炎\] means flame🔥 in Japanese_ - is a small, simple, and ultrafast web framework for the Edge.
+Hono - _**\[炎\] means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework for the Edge.
 It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, Node.js, and others.
 Fast, but not only fast.
 
