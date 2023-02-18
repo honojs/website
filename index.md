@@ -104,9 +104,9 @@ You can use a lot of middleware without writing code from scratch. Below are exa
 - [JWT Authentication](/middleware/builtin/jwt)
 - [Logger](/middleware/builtin/logger)
 - [Pretty JSON](/middleware/builtin/pretty-json)
-- [GraphQL Server](https://github.com/honojs/graphql-server)
-- [Firebase Authentication](https://github.com/honojs/firebase-auth)
-- [Sentry](https://github.com/honojs/sentry)
+- [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
+- [Firebase Authentication](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
+- [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
 
 To enable logger and Etag middleware with just this code.
 
