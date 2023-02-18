@@ -139,3 +139,26 @@ import { RegExpRouter } from 'hono/router/reg-exp-router'
 
 const app = new Hono({ router: new RegExpRouter() })
 ```
+
+## Generics
+
+You can pass the Generics to specify the types of Cloudflare Workers Bindings and the variables used in `c.set`/`c.get`.
+
+```ts
+type Bindings = {
+  TOKEN: string
+}
+
+type Variables = {
+  user: User
+}
+
+const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
+
+app.use('/auth/*', async (c, next) => {
+  const token = c.env.TOKEN // token is `string`
+  // ...
+  c.set('user', user) // user should be `User`
+  await next()
+})
+```
