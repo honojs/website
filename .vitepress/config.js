@@ -125,10 +125,10 @@ export default defineConfig({
     },
   },
   head: [
-    ['meta', { property: 'og:image', content: '/images/hono-title.png' }],
+    ['meta', { property: 'og:image', content: 'https://hono.dev/images/hono-title.png' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'twitter:domain', content: 'hono.dev' }],
-    ['meta', { property: 'twitter:image', content: '/images/hono-title.png' }],
+    ['meta', { property: 'twitter:image', content: 'https://hono.dev/images/hono-title.png' }],
     ['meta', { property: 'twitter:card', content: 'summary_large_image' }],
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
   ],

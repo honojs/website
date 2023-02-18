@@ -2,9 +2,13 @@
 title: Hono - Ultrafast web framework for the Edge
 titleTemplate: ':title'
 head:
-  - - meta
-    - property: og:description
-      content: Hono is a small, simple, and ultrafast web framework for the Edge. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, Node.js, and others. Fast, but not only fast.
+  - [
+      'meta',
+      {
+        property: 'og:description',
+        content: 'Hono is a small, simple, and ultrafast web framework for the Edge. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, Node.js, and others. Fast, but not only fast.',
+      },
+    ]
 ---
 
 # Hono
