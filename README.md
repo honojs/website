@@ -1,6 +1,6 @@
-# Repository for honojs.dev
+# Repository for hono.dev
 
-This is a repository for Hono website "_[honojs.dev](https://honojs.dev)_".
+This is a repository for the Hono website "_[hono.dev](https://hono.dev)_".
 
 ## Features
 
