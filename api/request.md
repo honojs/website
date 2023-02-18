@@ -133,7 +133,7 @@ Available targets are below.
 - `query`
 - `queries`
 
-See [Validation section](/docs/guides/validation) for usage.
+See [Validation section](/guides/validation) for usage.
 
 ## raw
 
