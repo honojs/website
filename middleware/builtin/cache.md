@@ -39,7 +39,7 @@ app.get(
 app.get(
   '*',
   cache({
-    acheName: 'my-app',
+    cacheName: 'my-app',
     cacheControl: 'max-age=3600',
     wait: true,
   })
