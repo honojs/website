@@ -119,15 +119,17 @@ POST      /v1/posts
 
 ## strict mode
 
-By default, strict mode is `false` and the following paths are treated the same.
+By default, strict mode is `true` and the following paths are treated differently.
 
 - `/hello`
 - `/hello/`
 
-If the value of strict is set to `true`, `app.get('/hello')` will not match `/hello/`.
+`app.get('/hello')` will not match `GET /hello/`.
+
+If you set the `false`, those paths are treated as the same.
 
 ```ts
-const app = new Hono({ strict: true })
+const app = new Hono({ strict: false })
 ```
 
 ## router option
