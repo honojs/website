@@ -145,6 +145,10 @@
   font-weight: 700 !important;
 }
 
+.DocSearch-Button {
+  background-color: var(--vp-c-bg-soft);
+}
+
 body {
   -webkit-font-smoothing: subpixel-antialiased;
 }
