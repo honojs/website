@@ -97,6 +97,11 @@ export default defineConfig({
   themeConfig: {
     logo: '/images/logo.png',
     siteTitle: 'Hono',
+    algolia: {
+      appId: '1GIFSU1REV',
+      apiKey: '6a9bb2036e456356e224ece74546ca14',
+      indexName: 'hono',
+    },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/honojs' },
       { icon: 'discord', link: 'https://discord.gg/KMh2eNSdxV' },
