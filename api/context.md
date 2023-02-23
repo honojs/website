@@ -147,6 +147,16 @@ app.get('/', (c) => {
 })
 ```
 
+Pass the `Variables` as Generics to the constructor of `Hono`` to make it type-safe.
+
+```ts
+type Variables = {
+  message: string
+}
+
+const app = new Hono<{ Variables: Variables }>()
+```
+
 ## c.executionCtx
 
 ```ts
