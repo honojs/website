@@ -37,7 +37,7 @@ npm create hono@latest my-app
 - **Ultrafast** - The routers are really fast and smart. Not using linear loops. Fast.
 - **Multi-runtime** - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, or Node.js. The same code runs on all platforms.
 - **Batteries Included** - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
-- **Fine DX** - First-class TypeScript support. Now, we've got "Types".
+- **Delightful DX** - First-class TypeScript support. Now, we've got "Types".
 - **Small** - About 20kB. Zero-dependencies. Using only Web Standard API.
 
 ## Ultrafast
@@ -136,7 +136,7 @@ By the way, Express bundle size is 572KB.
 
 ### Developer Experience
 
-Hono provides fine "**Developer Experience**".
+Hono provides a delightful "**Developer Experience**".
 Easy access to Request/Response thanks to the `Context` object.
 Then, Hono is written in TypeScript. Hono has "**Types**".
 
