@@ -144,7 +144,7 @@ For example, the path parameters will be literal types.
 
 ![SS](/images/ss.png)
 
-And the Validator and Hono Client `hc` enable the PRC mode. In PRC mode,
+And the Validator and Hono Client `hc` enable the RPC mode. In RPC mode,
 you can use your favorite validator such as Zod and easily share server-side API specs with the client and build type-safe applications.
 
 See [Hono Stacks](/concepts/stacks).
