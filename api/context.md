@@ -2,9 +2,9 @@
 
 To handle Request and Response, you can use `Context` object.
 
-## c.req
+## req
 
-`c.req` is the instance of HonoRequest.
+`req` is the instance of HonoRequest.
 
 ```ts
 app.get('/hello', (c) => {
@@ -41,7 +41,7 @@ new Response('Thank you for comming', {
 })
 ```
 
-## c.text()
+## text()
 
 Render text as `Content-Type:text/plain`.
 
@@ -61,7 +61,7 @@ app.post('/posts', (c) => {
 })
 ```
 
-## c.json()
+## json()
 
 Render JSON as `Content-Type:application/json`.
 
@@ -71,7 +71,7 @@ app.get('/api', (c) => {
 })
 ```
 
-## c.jsonT()
+## jsonT()
 
 Return `TypedResponse` that is used for RPC.
 
@@ -81,7 +81,7 @@ app.get('/api', (c) => {
 })
 ```
 
-## c.html()
+## html()
 
 Render HTML as `Content-Type:text/html`.
 
@@ -91,9 +91,9 @@ app.get('/', (c) => {
 })
 ```
 
-## c.cookie()
+## cookie()
 
-Set cookie for Response.
+Set a cookie for Response.
 
 ```ts
 app.get('/', (c) => {
@@ -102,7 +102,7 @@ app.get('/', (c) => {
 })
 ```
 
-## c.notFound()
+## notFound()
 
 Return the `Not Found` Response.
 
@@ -112,7 +112,7 @@ app.get('/notfound', (c) => {
 })
 ```
 
-## c.redirect()
+## redirect()
 
 Redirect, default status code is `302`.
 
@@ -121,7 +121,7 @@ app.get('/redirect', (c) => c.redirect('/'))
 app.get('/redirect-permanently', (c) => c.redirect('/', 301))
 ```
 
-## c.res
+## res
 
 ```ts
 // Response object
@@ -131,7 +131,7 @@ app.use('/', async (c, next) => {
 })
 ```
 
-## c.set/c.get
+## set/get
 
 Set the value specified by the key with `set` and use it later with `get`.
 
@@ -157,7 +157,7 @@ type Variables = {
 const app = new Hono<{ Variables: Variables }>()
 ```
 
-## c.executionCtx
+## executionCtx
 
 ```ts
 // ExecutionContext object
@@ -169,7 +169,7 @@ app.get('/foo', async (c) => {
 })
 ```
 
-## c.event
+## event
 
 ```ts
 // FetchEvent object (only set when using Service Worker syntax)
@@ -181,7 +181,7 @@ app.get('/foo', async (c) => {
 })
 ```
 
-## c.env
+## env
 
 Environment variables, secrets, and KV namespaces are known as bindings. Regardless of type, bindings are always available as global variables and can be accessed via the context `c.env.BINDING_KEY`.
 
@@ -193,7 +193,7 @@ app.get('*', async c => {
 })
 ```
 
-## c.runtime
+## runtime
 
 The key of the runtime on which the application is running.
 
@@ -220,7 +220,7 @@ Some of these are based on [WinterCG's Runtime Keys](https://runtime-keys.propos
 - `lagon`
 - `other`
 
-## c.error
+## error
 
 If the Handler throws an error, the error object is placed in `c.error`.
 You can check it in your middleware.
