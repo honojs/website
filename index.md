@@ -37,7 +37,7 @@ npm create hono@latest my-app
 - **Ultrafast** - The routers are really fast and smart. Not using linear loops. Fast.
 - **Multi-runtime** - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, or Node.js. The same code runs on all platforms.
 - **Batteries Included** - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
-- **Fine DX** - First-class TypeScript support. Now, we've got "Types".
+- **Delightful DX** - First-class TypeScript support. Now, we've got "Types".
 - **Small** - About 20kB. Zero-dependencies. Using only Web Standard API.
 
 ## Ultrafast
@@ -96,8 +96,9 @@ See [more information about Web Standard](/concepts/philosophy#web-standard).
 
 ### Do everything
 
-Built-in middleware makes "**Write Less, do more**" in reality.
-You can use a lot of middleware without writing code from scratch. Below are examples.
+Built-in middleware makes "**Write Less, do more**" a reality.
+
+Out of the box, Hono provides middleware for:
 
 - [Basic Authentication](/middleware/builtin/basic-auth)
 - [Bearer Authentication](/middleware/builtin/bearer-auth)
@@ -114,7 +115,7 @@ You can use a lot of middleware without writing code from scratch. Below are exa
 - [Firebase Authentication](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
 
-To enable logger and Etag middleware with just this code.
+For example, adding ETag and request logging only takes a few lines of code with Hono:
 
 ```ts
 import { Hono } from 'hono'
@@ -130,15 +131,15 @@ See [more information about Middleware](/concepts/philosophy#middleware).
 ### Small
 
 Hono is small.
-About **20KB** if it is minified.
+About **20KB** when minified.
 There are many middleware and adapters, but they are bundled only when used.
-By the way, Express bundle size is 572KB.
+For context, Express bundle size is 572KB.
 
 ### Developer Experience
 
-Hono provides fine "**Developer Experience**".
+Hono provides a delightful "**Developer Experience**".
 Easy access to Request/Response thanks to the `Context` object.
-Then, Hono is written in TypeScript. Hono has "**Types**".
+Hono is written in TypeScript. Hono has "**Types**".
 
 For example, the path parameters will be literal types.
 

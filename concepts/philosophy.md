@@ -11,7 +11,7 @@ so I started building Hono and thought it would be a good opportunity to learn h
 Then a friend showed up with ultra crazy fast router called "RegExpRouter".
 And, I also had a friend who created the Basic authentication middleware.
 
-Thanks to using only Web Standard API, we could make it work on Deno and Bun. "No Express for Bun?" we could answer, "No, but there is Hono" though Express works on Bun now.
+Thanks to using only Web Standard APIs, we could make it work on Deno and Bun. "No Express for Bun?" we could answer, "No, but there is Hono" though Express works on Bun now.
 
 We also have friends who make GraphQL servers, Firebase authentication, and Sentry middleware.
 And there is also a Node.js adapter.
@@ -69,11 +69,11 @@ When the application starts, SmartRouter detects the fastest router based on rou
 
 ## Web Standard
 
-Hono uses only **Web Standard API** or which is called Fetch Standard.
+Hono uses only **Web Standard APIs** like Fetch.
 They were originally used in the `fetch` function and consist of basic objects that handle HTTP requests and responses.
 In addition to `Requests` and `Responses`, there are `URL`, `URLSearchParam`, `Headers` and others.
 
-Cloudflare Workers, Deno and Bun, which have recently emerged, use this Web Standard API to build HTTP servers.
+Cloudflare Workers, Deno, and Bun also build upon Web Standard APIs.
 For example, a server that returns "Hello World" could be written as below. This could run on Cloudflare Workers and Bun.
 
 ```ts
@@ -84,10 +84,10 @@ export default {
 }
 ```
 
-Hono uses only Web Standard, which means that Hono can run on any runtime that uses Web Standard.
-In addition, we have Node.js adapter server. Hono runs on these runtimes.
+Hono uses only Web Standard APIs, which means that Hono can run on any runtime that supports them.
+In addition, we have a Node.js adapter. Hono runs on these runtimes:
 
-- Cloudflare Workers (workerd)
+- Cloudflare Workers (`workerd`)
 - Deno
 - Bun
 - Fastly Compute@Edge
@@ -98,7 +98,7 @@ In addition, we have Node.js adapter server. Hono runs on these runtimes.
 It also works on Netlify and other platforms.
 The same code runs on all platforms.
 
-Cloudflare Workers, Deno, Shopfiy, and others launched [WinterCG](https://wintercg.org) to discuss the possibility of using the Web Standard API to enable "web-interoperability".
+Cloudflare Workers, Deno, Shopfiy, and others launched [WinterCG](https://wintercg.org) to discuss the possibility of using the Web Standard APIs to enable "web-interoperability".
 Hono will follow their steps and go for **the Standard of the Web Standard**.
 
 ## Middleware
