@@ -100,10 +100,25 @@ export const handler = app.fetch
 
 `request` is a useful method for testing.
 
-```js
+You can pass a URL or pathname to send GET request.
+And the app returns the `Response` object.
+
+```ts
 test('GET /hello is ok', async () => {
-  const res = await app.request('http://localhost/hello')
+  const res = await app.request('/hello')
   expect(res.status).toBe(200)
+})
+```
+
+Or you can pass a `Request` object:
+
+```ts
+test('POST /message is ok', async () => {
+  const req = new Request('Hello!', {
+    method: 'POST',
+  })
+  const res = await app.request(req)
+  expect(res.status).toBe(201)
 })
 ```
 
