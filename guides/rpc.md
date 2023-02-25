@@ -124,6 +124,16 @@ const res = await client.search.$get(
 )
 ```
 
+To add a common header to all requests, specify it as an argument to the `hc` function.
+
+```ts
+const client = hc<AppType>('/api', {
+  headers: {
+    Authorization: 'Bearer TOKEN',
+  },
+})
+```
+
 ## Infer
 
 Use `InferRequestType` and `InferResponseType` to know the type of object to be requested and the type of object to be returned.
