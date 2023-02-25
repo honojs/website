@@ -134,6 +134,24 @@ const client = hc<AppType>('/api', {
 })
 ```
 
+## Custom `fetch` method
+
+You can set the custom `fetch` method.
+
+In the following example script for Cloudflare Worker, Service Bindings' `fetch` method is used instead of the default `fetch`.
+
+```toml
+# wrangler.toml
+services = [
+  { binding = "AUTH", service = "auth-service" },
+]
+```
+
+```ts
+// src/client.ts
+const client = hc<CreateProfileType>('/', { fetch: c.env.AUTH.fetch })
+```
+
 ## Infer
 
 Use `InferRequestType` and `InferResponseType` to know the type of object to be requested and the type of object to be returned.
