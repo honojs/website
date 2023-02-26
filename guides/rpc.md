@@ -149,7 +149,7 @@ services = [
 
 ```ts
 // src/client.ts
-const client = hc<CreateProfileType>('/', { fetch: c.env.AUTH.fetch })
+const client = hc<CreateProfileType>('/', { fetch: c.env.AUTH.fetch.bind(c.env.AUTH) })
 ```
 
 ## Infer
