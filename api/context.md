@@ -200,7 +200,7 @@ The key of the runtime on which the application is running.
 ```ts
 app.get('/', (c) => {
   if (c.runtime === 'workerd') {
-    return c.text('You are on Cloduflare')
+    return c.text('You are on Cloudflare')
   } else if (c.runtime === 'bun') {
     return c.text('You are on Bun')
   }
