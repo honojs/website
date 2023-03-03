@@ -43,7 +43,7 @@ export default {
 Run the command.
 
 ```ts
-bun run --hot index.ts
+bun run --hot src/index.ts
 ```
 
 Then, access `http://localhost:3000` in your browser.
