@@ -18,7 +18,7 @@ app.get('/', (c) => c.text('Pretty Blog API'))
 app.use('*', prettyJSON())
 app.notFound((c) => c.json({ message: 'Not Found', ok: false }, 404))
 
-export interface Bindings {
+type Bindings = {
   USERNAME: string
   PASSWORD: string
 }
