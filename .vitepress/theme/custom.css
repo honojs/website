@@ -69,6 +69,8 @@
 
   --vp-c-bg-alt: #ffffff;
   --vp-sidebar-bg-color: var(--vp-c-bg-alt);
+  --vp-code-copy-code-bg: var(--vp-code-block-bg);
+  --vp-code-copy-code-hover-bg: var(--vp-code-block-bg);
 }
 
 :root {
