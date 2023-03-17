@@ -64,33 +64,3 @@ npm run deploy
 ```
 
 That's all!!
-
-## Polyfill "crypto"
-
-You have to polyfill "crypto" and pass the `hasFunction` argument if you want to use Basic Auth Middleware or Bearer Auth Middleware.
-
-1. Install `crypto-js` via npm:
-
-```
-npm i crypto-js
-```
-
-2. Provide a `hashFunction`, using the SHA-256 implementation from `crypto-js`, to the middleware:
-
-```ts
-import { SHA256 } from 'crypto-js'
-import { basicAuth } from 'hono/basic-auth'
-
-const app = new Hono()
-
-app.use(
-  '/auth/*',
-  basicAuth({
-    username: 'compute',
-    password: 'edge',
-    hashFunction: (m: string) => SHA256(m).toString(),
-  })
-)
-
-app.get('/auth/*', (c) => c.text('You are authorized!'))
-```
