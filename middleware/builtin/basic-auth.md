@@ -115,33 +115,3 @@ app.use(
   )
 )
 ```
-
-### Using on Fastly Compute@Edge
-
-To use this middleware on Compute@Edge, you need to do one of two things:
-
-1. Polyfill the `crypto` module
-2. Install the `crypto-js` package, and provide a `hashFunction` to the middleware. (recommended)
-
-Here's how to use this middleware with the `crypto-js` method:
-
-1. Install `crypto-js` via npm:
-
-```
-yarn add crypto-js
-```
-
-2. Provide a `hashFunction`, using the SHA-256 implementation from `crypto-js`, to the middleware:
-
-```ts
-import { SHA256 } from 'crypto-js'
-
-app.use(
-  '/auth/*',
-  basicAuth({
-    username: 'hono',
-    password: 'acoolproject',
-    hashFunction: (d: string) => SHA256(d).toString(),
-  })
-)
-```
