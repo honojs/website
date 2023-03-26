@@ -147,7 +147,7 @@ app.get('/', (c) => {
 })
 ```
 
-Pass the `Variables` as Generics to the constructor of `Hono`` to make it type-safe.
+Pass the `Variables` as Generics to the constructor of `Hono` to make it type-safe.
 
 ```ts
 type Variables = {
