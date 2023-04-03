@@ -43,6 +43,17 @@ Run the development server locally. Then, access `http://localhost:3000` in your
 npm run start
 ```
 
+## Change port number
+
+You can specify the port number with the `port` option.
+
+```ts
+serve({
+  fetch: app.fetch,
+  port: 8787,
+})
+```
+
 ## Serve static files
 
 You can use `serveStatic` to serve static files from the local file system.
