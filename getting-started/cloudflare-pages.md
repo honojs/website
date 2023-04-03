@@ -45,7 +45,7 @@ You can make the API whose path is `/api/hello` by editing `functions/api/[[rout
 import { Hono } from 'hono'
 import { handle } from 'hono/cloudflare-pages'
 
-const app = new Hono()
+const app = new Hono().basePath('/api')
 
 app.get('/hello', (c) => {
   return c.json({
@@ -53,7 +53,7 @@ app.get('/hello', (c) => {
   })
 })
 
-export const onRequest = handle(app, '/api')
+export const onRequest = handle(app)
 ```
 
 ## 3. Run
