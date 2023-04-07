@@ -36,7 +36,7 @@ app.get('/', (c) => c.text('Hello Deno!'))
 serve(app.fetch)
 ```
 
-## 3. Run
+## 4. Run
 
 Just this command:
 
