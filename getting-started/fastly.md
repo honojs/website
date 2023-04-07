@@ -49,7 +49,7 @@ app.get('/', (c) => c.text('Hello Fastly!'))
 app.fire()
 ```
 
-## 3. Run
+## 4. Run
 
 Run the development server locally. Then, access `http://localhost:7676` in your Web browser.
 
