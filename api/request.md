@@ -1,6 +1,6 @@
 # HonoRequest
 
-The `HonoRequest` is an object that can be taken from `c.req` and is a wrapped [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
+The `HonoRequest` is an object that can be taken from `c.req` which wraps a [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
 
 ## param()
 
@@ -21,7 +21,7 @@ app.get('/entry/:id/comment/:commentId', (c) => {
 
 ## query()
 
-Get query parameters.
+Get querystring parameters.
 
 ```ts
 // Query params
@@ -39,7 +39,7 @@ app.get('/search', (c) => {
 
 ## queries()
 
-Get multiple parameter values, e.g. `/search?tag=A&tag=B`
+Get multiple querystring parameter values, e.g. `/search?tags=A&tags=B`
 
 ```ts
 app.get('/search', (c) => {
@@ -62,7 +62,7 @@ app.get('/', (c) => {
 
 ## cookie()
 
-Parse cookie.
+Parse cookie contents.
 
 ```ts
 app.get('/', (c) => {
@@ -133,7 +133,7 @@ Available targets are below.
 - `query`
 - `queries`
 
-See [Validation section](/guides/validation) for usage.
+See the [Validation section](/guides/validation) for usage examples.
 
 ## raw
 
