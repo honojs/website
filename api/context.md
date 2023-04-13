@@ -25,14 +25,14 @@ app.get('/welcome', (c) => {
   c.status(201)
 
   // Return the response body
-  return c.body('Thank you for comming')
+  return c.body('Thank you for coming')
 })
 ```
 
 The Response is the same as below.
 
 ```ts
-new Response('Thank you for comming', {
+new Response('Thank you for coming', {
   status: 201,
   headers: {
     'X-Message': 'Hello',
@@ -98,7 +98,7 @@ Set a cookie for Response.
 ```ts
 app.get('/', (c) => {
   c.cookie('delicious_cookie', 'choco')
-  return c.text('Do you like cookie?')
+  return c.text('Would you like a cookie?')
 })
 ```
 
@@ -223,7 +223,7 @@ Some of these are based on [WinterCG's Runtime Keys](https://runtime-keys.propos
 ## error
 
 If the Handler throws an error, the error object is placed in `c.error`.
-You can check it in your middleware.
+You can access it in your middleware.
 
 ```ts
 app.use('*', async (c, next) => {

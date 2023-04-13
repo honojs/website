@@ -1,10 +1,10 @@
 # Exception
 
-When a fatal error occurs, such as authentication failure, HTTPException must be thrown.
+When a fatal error occurs, such as authentication failure, a HTTPException must be thrown.
 
 ## throw HTTPException
 
-For example, it throws an HTTPException in the middleware.
+This example throws an HTTPException from the middleware.
 
 ```ts
 app.post('/auth', async (c, next) => {
@@ -16,7 +16,7 @@ app.post('/auth', async (c, next) => {
 })
 ```
 
-You can specify the response to be returned to the user.
+You can specify the response to be returned back to the user.
 
 ```ts
 const errorResponse = new Response('Unauthorized', {
@@ -30,7 +30,7 @@ throw new HTTPException(401, { res: errorResponse })
 
 ## Handling HTTPException
 
-You can handle the thrown HTTPException in `app.onError`.
+You can handle the thrown HTTPException with `app.onError`.
 
 ```ts
 app.onError((err, c) => {

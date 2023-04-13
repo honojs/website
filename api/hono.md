@@ -14,7 +14,7 @@ export default app // for Cloudflare Workers or Bun
 
 ## Methods
 
-An instance of `Hono` has these methods.
+An instance of `Hono` has the following methods.
 
 - app.**HTTP_METHOD**(\[path,\]handler|middleware...)
 - app.**all**(\[path,\]handler|middleware...)
@@ -32,7 +32,7 @@ The first part of them is used for routing, please refer to the [routing section
 
 ## Not Found
 
-`app.notFound` for customizing Not Found Response.
+`app.notFound` allows you to customize a Not Found Response.
 
 ```ts
 app.notFound((c) => {
@@ -42,7 +42,7 @@ app.notFound((c) => {
 
 ## Error Handling
 
-`app.onError` handles the error and returns the customized Response.
+`app.onError` handles an error and returns a customized Response.
 
 ```ts
 app.onError((err, c) => {
@@ -65,7 +65,7 @@ addEventListener('fetch', (event) => {
 
 `app.fetch` will be entry point of your application.
 
-For Cloudflare Workers, you can write below:
+For Cloudflare Workers, you can use the following:
 
 ```ts
 export default {
@@ -100,8 +100,8 @@ export const handler = app.fetch
 
 `request` is a useful method for testing.
 
-You can pass a URL or pathname to send GET request.
-And the app returns the `Response` object.
+You can pass a URL or pathname to send a GET request.
+`app` will return a `Response` object.
 
 ```ts
 test('GET /hello is ok', async () => {
@@ -110,7 +110,7 @@ test('GET /hello is ok', async () => {
 })
 ```
 
-Or you can pass a `Request` object:
+You can also pass a `Request` object:
 
 ```ts
 test('POST /message is ok', async () => {
@@ -124,7 +124,7 @@ test('POST /message is ok', async () => {
 
 ## showRoutes()
 
-`app.showRoutes()` show the registered routes on your console like the below:
+`app.showRoutes()` displays the registered routes in your console:
 
 ```
 GET       /v1/posts
@@ -134,14 +134,14 @@ POST      /v1/posts
 
 ## strict mode
 
-By default, strict mode is `true` and the following paths are treated differently.
+Strict mode defauls to `true` and distinguishes the following routes.
 
 - `/hello`
 - `/hello/`
 
 `app.get('/hello')` will not match `GET /hello/`.
 
-If you set the `false`, those paths are treated as the same.
+By setting strict mode to `false`, both paths will be treated equally.
 
 ```ts
 const app = new Hono({ strict: false })
@@ -149,7 +149,7 @@ const app = new Hono({ strict: false })
 
 ## router option
 
-The `router` option specify which router is used inside. The default router is `SmartRouter`. If you want to use `RegExpRouter`, write like this:
+The `router` option specifices which router to use. The default router is `SmartRouter`. If you want to use `RegExpRouter`, pass it to a new `Hono` instance:
 
 ```ts
 import { RegExpRouter } from 'hono/router/reg-exp-router'
@@ -159,7 +159,7 @@ const app = new Hono({ router: new RegExpRouter() })
 
 ## Generics
 
-You can pass the Generics to specify the types of Cloudflare Workers Bindings and the variables used in `c.set`/`c.get`.
+You can pass Generics to specify the types of Cloudflare Workers Bindings and variables used in `c.set`/`c.get`.
 
 ```ts
 type Bindings = {
