@@ -98,9 +98,5 @@ describe('My first test', () => {
 Then, run the command.
 
 ```
-bun wiptest index.test.ts
+bun test index.test.ts
 ```
-
-::: warning
-"_wiptest_" command is a still WIP. "_test_" command that is not a WIP might be released.
-:::
