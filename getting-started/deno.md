@@ -21,13 +21,17 @@ npm create hono@latest my-app
 
 Move into `my-app`. For Deno, you don't have to install Hono explicitly.
 
+```
+cd my-app
+```
+
 ## 3. Hello World
 
 Write your first application.
 
 ```ts
+import { Hono } from 'https://deno.land/x/hono/mod.ts'
 import { serve } from 'https://deno.land/std/http/server.ts'
-import { Hono } from 'npm:hono'
 
 const app = new Hono()
 
@@ -68,7 +72,9 @@ serve(app.fetch, { port: 8787 })
 To server static files, use `serveStatic` imported from `hono/deno`.
 
 ```ts
-import { serveStatic } from 'npm:hono/deno'
+import { Hono } from 'https://deno.land/x/hono/mod.ts'
+import { serve } from 'https://deno.land/std/http/server.ts'
+import { serveStatic } from 'https://deno.land/x/hono/middleware.ts'
 
 const app = new Hono()
 
@@ -76,6 +82,8 @@ app.use('/static/*', serveStatic({ root: './' }))
 app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 app.get('/', (c) => c.text('You can access: /static/hello.txt'))
 app.get('*', serveStatic({ path: './static/fallback.txt' }))
+
+serve(app.fetch)
 ```
 
 For the above code, it will work well with the following directory structure.
@@ -106,7 +114,7 @@ Testing the application on Deno is easy.
 You can write with `Deno.test` and use `assert` or `assertEquals` from the standard library.
 
 ```ts
-import { Hono } from 'npm:hono'
+import { Hono } from 'https://deno.land/x/hono/mod.ts'
 import { assertEquals } from 'https://deno.land/std/testing/asserts.ts'
 
 Deno.test('Hello World', async () => {
@@ -131,9 +139,9 @@ When you use it, write JSX Pragma on the top to specify the JSX function.
 
 ```tsx
 /** @jsx jsx */
+import { Hono } from 'https://deno.land/x/hono/mod.ts'
 import { serve } from 'https://deno.land/std/http/server.ts'
-import { Hono } from 'npm:hono'
-import { jsx } from 'npm:hono/jsx'
+import { jsx } from 'https://deno.land/x/hono/middleware.ts'
 
 const app = new Hono()
 
