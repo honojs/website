@@ -55,6 +55,14 @@ import { basicAuth } from 'https://deno.land/x/hono/middleware.ts'
 
 You can use either `npm:hono` or `deno.land/x/hono`. `deno.land/x/hono` works on Deno Deploy. But, using it with Third-party Middleware may cause version mismatch.
 
+## Change port number
+
+You can specify the port number with the `port` option.
+
+```ts
+serve(app.fetch, { port: 8787 })
+```
+
 ## Serve static files
 
 To server static files, use `serveStatic` imported from `hono/deno`.
