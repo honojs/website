@@ -15,6 +15,7 @@ Let you choose Cloudflare Workers at this time.
 
 ```
 ? Which template do you want to use?
+    aws-lambda
     bun
     cloudflare-pages
 ❯   cloudflare-workers
@@ -23,12 +24,14 @@ Let you choose Cloudflare Workers at this time.
     lagon
     nextjs
     nodejs
+    vercel
 ```
 
 The template will be pulled into `my-app`, so go to it and install the dependencies.
 
 ```
-cd my-app && npm i
+cd my-app
+npm i
 ```
 
 The setup is finished. Now you can run `npm run dev` to start up a local server and will focus on development.
