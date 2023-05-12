@@ -6,7 +6,7 @@ head:
       'meta',
       {
         property: 'og:description',
-        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, Node.js, and others. Fast, but not only fast.',
+        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, AWS Lambda, Node.js, and others. Fast, but not only fast.',
       },
     ]
 ---
@@ -14,8 +14,10 @@ head:
 # Hono
 
 Hono - _**\[炎\] means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework for the Edges.
-It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, Node.js, and others.
-Fast, but not only fast.
+
+It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, AWS Lambda, and Node.js. This means Hono runs on any JavaScript runtime.
+
+Fast, but not just fast.
 
 ```ts
 import { Hono } from 'hono'
@@ -34,11 +36,17 @@ npm create hono@latest my-app
 
 ## Features
 
-- **Ultrafast** - The routers are really fast and smart. Not using linear loops. Fast.
-- **Multi-runtime** - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, or Node.js. The same code runs on all platforms.
+- **Ultrafast** - The router is really fast. Not using linear loops. Fast.
+- **Multi-runtime** - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, AWS Lambda or Node.js. The same code runs on all platforms.
 - **Batteries Included** - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
 - **Delightful DX** - First-class TypeScript support. Now, we've got "Types".
-- **Small** - About 20kB. Zero-dependencies. Using only Web Standard API.
+- **Small** - A minimal application with Hono is under 12kB. It has zero dependencies and uses only the Web Standard API.
+
+## Hono in 1 minute
+
+A demonstration to create an application for Cloudflare Workers with Hono.
+
+![Demo](/images/sc.gif)
 
 ## Ultrafast
 
@@ -55,29 +63,31 @@ Fastest is Hono
 
 See [more benchmarks](/concepts/benchmarks).
 
-## Why so fast?
+## Small
 
-**RegExpRouter** is the fastest router in the JavaScript world.
-And **Smart Router** is really smart.
-It automatically picks the best router from the following routers.
-Users can use the fastest router without having to do anything!
+**Hono is so small**. With the `hono/tiny` preset, its size is **under 12KB** when minified. There are many middleware and adapters, but they are bundled only when used. For comparison, the bundle size of Express is 572KB.
 
-- **RegExpRouter** - Match the route using one big Regex made before dispatch.
-- **TrieRouter** - Implemented with Trie tree structure. Supports all routing patterns.
+```
+$ npx wrangler dev --minify ./src/index.ts
+ ⛅️ wrangler 2.20.0
+--------------------
+⬣ Listening at http://0.0.0.0:8787
+- http://127.0.0.1:8787
+- http://192.168.128.165:8787
+Total Upload: 11.47 KiB / gzip: 4.34 KiB
+```
+
+## Multiple routers
+
+**Hono has multiple routers**.
+
+**RegExpRouter** is the fastest router in the JavaScript world. It matches the route using a single large Regex created before dispatch. With **SmartRouter**, it supports all route patterns.
+
+**LinearRouter** registers the routes very quickly, so it's suitable for an environment that initializes applications every times. **PatternRouter** simply adds and matches the pattern, making it small.
 
 See [more information about routes](/concepts/philosophy#routers).
 
-## Hono in 1 minute
-
-A demonstration to create an application for Cloudflare Workers with Hono.
-
-![Demo](/images/sc.gif)
-
-## Not only fast
-
-Hono is fast. But not only fast.
-
-### Run anywhere
+## Web Standard
 
 Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 
@@ -87,16 +97,17 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 - Deno
 - Bun
 - Lagon
-- Next.js
+- Vercel
+- AWS Lambda
 - Others
 
 And by using [a Node.js adaptor](https://github.com/honojs/node-server), Hono works on Node.js.
 
 See [more information about Web Standard](/concepts/philosophy#web-standard).
 
-### Do everything
+## Middleware
 
-Built-in middleware makes "**Write Less, do more**" a reality.
+**Hono has many middleware**. These makes "Write Less, do more" a reality.
 
 Out of the box, Hono provides middleware for:
 
@@ -128,14 +139,7 @@ app.use('*', etag(), logger())
 
 See [more information about Middleware](/concepts/philosophy#middleware).
 
-### Small
-
-Hono is small.
-About **20KB** when minified.
-There are many middleware and adapters, but they are bundled only when used.
-For context, Express bundle size is 572KB.
-
-### Developer Experience
+## Developer Experience
 
 Hono provides a delightful "**Developer Experience**".
 Easy access to Request/Response thanks to the `Context` object.
