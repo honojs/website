@@ -45,7 +45,42 @@ readonly defaultRouter: Router = new SmartRouter({
 
 When the application starts, SmartRouter detects the fastest router based on routing and continues to use it.
 
+## LinearRouter
+
+RegExpRouter is fast, but the route registration phase can be slightly slow.
+So, it's not suitable for an environment that initializes with every request.
+
+**LinearRouter** is optimized for "one shot" situations.
+Route registration is significantly faster than with RegExpRouter because it adds the route without compiling strings, using a linear approach.
+
+The following is one of the benchmark results, which includes the route registration phase:
+
+```
+• GET /user/lookup/username/hey
+----------------------------------------------------- -----------------------------
+LinearRouter     1.82 µs/iter      (1.7 µs … 2.04 µs)   1.84 µs   2.04 µs   2.04 µs
+MedleyRouter     4.44 µs/iter     (4.34 µs … 4.54 µs)   4.48 µs   4.54 µs   4.54 µs
+FindMyWay       60.36 µs/iter      (45.5 µs … 1.9 ms)  59.88 µs  78.13 µs  82.92 µs
+KoaTreeRouter    3.81 µs/iter     (3.73 µs … 3.87 µs)   3.84 µs   3.87 µs   3.87 µs
+TrekRouter       5.84 µs/iter     (5.75 µs … 6.04 µs)   5.86 µs   6.04 µs   6.04 µs
+
+summary for GET /user/lookup/username/hey
+  LinearRouter
+   2.1x faster than KoaTreeRouter
+   2.45x faster than MedleyRouter
+   3.21x faster than TrekRouter
+   33.24x faster than FindMyWay
+```
+
+For situations like Fastly Compute@Edge, it's better to use LinearRouter with the `hono/quick` preset.
+
 ## PatternRouter
+
+**PatternRouter** is the smallest router among Hono's routers.
+
+While Hono is already compact, if you need to make it even smaller for an environment with limited resources, you can use PatternRouter.
+
+An application using only PatternRouter is under 12KB in size:
 
 ```
 $ npx wrangler dev --minify ./src/index.ts
@@ -56,5 +91,3 @@ $ npx wrangler dev --minify ./src/index.ts
 - http://192.168.128.165:8787
 Total Upload: 11.47 KiB / gzip: 4.34 KiB
 ```
-
-## LinearRouter
