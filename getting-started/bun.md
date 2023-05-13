@@ -32,10 +32,7 @@ import { Hono } from 'hono'
 const app = new Hono()
 app.get('/', (c) => c.text('Hello Bun!'))
 
-export default {
-  port: 3000,
-  fetch: app.fetch,
-}
+export default app
 ```
 
 ## 4. Run
@@ -47,6 +44,17 @@ bun run --hot src/index.ts
 ```
 
 Then, access `http://localhost:3000` in your browser.
+
+## Change port number
+
+You can specify the port number with exporting the `port`.
+
+```ts
+export default {
+  port: 3000,
+  fetch: app.fetch,
+}
+```
 
 ## Serve static files
 
@@ -76,6 +84,20 @@ For the above code, it will work well with the following directory structure.
     ├── hello.txt
     └── images
         └── dinotocat.png
+```
+
+### `rewriteRequestPath`
+
+If you want to map `http://localhost:3000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    root: './',
+    rewriteRequestPath: (path) => path.replace(/^\/static/, '/statics'),
+  })
+)
 ```
 
 ## Testing

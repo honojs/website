@@ -48,17 +48,6 @@ Just this command:
 deno run --allow-net hello.ts
 ```
 
-## `deno.land/x/hono`
-
-[deno.land/x/hono](https://deno.land/x/hono) is also available.
-
-```ts
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { basicAuth } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-You can use either `npm:hono` or `deno.land/x/hono`. `deno.land/x/hono` works on Deno Deploy. But, using it with Third-party Middleware may cause version mismatch.
-
 ## Change port number
 
 You can specify the port number with the `port` option.
@@ -69,7 +58,7 @@ serve(app.fetch, { port: 8787 })
 
 ## Serve static files
 
-To server static files, use `serveStatic` imported from `hono/deno`.
+To server static files, use `serveStatic` imported from `hono/middleware.ts`.
 
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
@@ -99,6 +88,20 @@ For the above code, it will work well with the following directory structure.
     ├── hello.txt
     └── images
         └── dinotocat.png
+```
+
+### `rewriteRequestPath`
+
+If you want to map `http://localhost:8000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    root: './',
+    rewriteRequestPath: (path) => path.replace(/^\/static/, '/statics'),
+  })
+)
 ```
 
 ## Deno Deploy
@@ -151,3 +154,17 @@ app.get('/', (c) => {
 
 serve(app.fetch)
 ```
+
+## `npm:` specifier
+
+`npm:hono` is also available.
+
+```ts
+import { Hono } from 'npm:hono'
+```
+
+You can use either `npm:hono` or `deno.land/x/hono`.
+
+If you want to use Third-party Middleware, you need to use the `npm:` specifier, such as `npm:@hono/zod-validator`, and you should avoid using both `npm:` and `deno.land/x/hono` together.
+
+However, `npm:hono` doesn't work on Deno Deploy. So, if you want to deploy to Deno Deploy, use `deno.land/x/hono`.
