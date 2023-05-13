@@ -169,7 +169,7 @@ type ResType = InferResponseType<typeof $post>
 
 ## Using SWR
 
-You can also use a React Hook library such as [SWR](https://swr.vercel.app/ja).
+You can also use a React Hook library such as [SWR](https://swr.vercel.app).
 
 ```ts
 import useSWR from 'swr'
