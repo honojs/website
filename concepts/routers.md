@@ -33,10 +33,11 @@ TrieRouter supports all patterns though RegExpRouter does not.
 
 ## SmartRouter
 
-RegExpRouter does not cover all routing patterns.
+RegExpRouter doesn't support all routing patterns.
+Therefore, it's usually used in combination with another router that does support all patterns.
 
 **SmartRouter** will select the best router by inferring from the registered routers.
-Hono uses SmartRouter and the two routers by default.
+Hono uses SmartRouter and the two routers by default:
 
 ```ts
 // Inside the core of Hono.
@@ -55,7 +56,7 @@ So, it's not suitable for an environment that initializes with every request.
 **LinearRouter** is optimized for "one shot" situations.
 Route registration is significantly faster than with RegExpRouter because it adds the route without compiling strings, using a linear approach.
 
-The following is one of the benchmark results, which includes the route registration phase:
+The following is one of the benchmark results, which includes the route registration phase.
 
 ```
 • GET /user/lookup/username/hey
@@ -82,7 +83,7 @@ For situations like Fastly Compute@Edge, it's better to use LinearRouter with th
 
 While Hono is already compact, if you need to make it even smaller for an environment with limited resources, you can use PatternRouter.
 
-An application using only PatternRouter is under 12KB in size:
+An application using only PatternRouter is under 12KB in size.
 
 ```
 $ npx wrangler dev --minify ./src/index.ts

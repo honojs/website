@@ -5,6 +5,10 @@
 Hono is not designed for Node.js at first.
 But with a [Node.js Adapter](https://github.com/honojs/node-server) it can run on Node.js as well.
 
+::: warning
+A Node.js Adapter supports only Node.js v18 or higher.
+:::
+
 ## 1. Setup
 
 A starter for Node.js is available.

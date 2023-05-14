@@ -35,11 +35,24 @@ npm create hono@latest my-app
 
 ## Features
 
-- **Ultrafast** - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
-- **Multi-runtime** - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, AWS Lambda or Node.js. The same code runs on all platforms.
-- **Batteries Included** - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
-- **Delightful DX** - First-class TypeScript support. Now, we've got "Types".
-- **Small** - The `hono/tiny` preset is under 12kB. Hono has zero dependencies and uses only the Web Standard API.
+- **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
+- **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, AWS Lambda, or Node.js. The same code runs on all platforms.
+- **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
+- **Delightful DX** 🛠️ - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
+- **Small** 📌 - The `hono/tiny` preset is under 12kB. Hono has zero dependencies and uses only the Web Standard API.
+
+## Use-cases
+
+Hono is a simple web application framework similar to Express, without a frontend.
+But it runs on CDN Edges and allows you to construct larger applications when combined with middleware.
+Here are some examples of use-cases.
+
+- Building Web APIs
+- Proxy of backend servers
+- Front of CDN
+- Edge application
+- Base server for a library
+- Full-stack application
 
 ## Who is using Hono?
 
