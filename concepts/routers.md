@@ -2,7 +2,7 @@
 
 The routers are the most important features for Hono.
 
-Hono has 4 + 1 routers.
+Hono has five routers.
 
 ## RegExpRouter
 
@@ -32,6 +32,8 @@ This router is not as fast as the RegExpRouter, but it is much faster than the E
 TrieRouter supports all patterns though RegExpRouter does not.
 
 ## SmartRouter
+
+RegExpRouter does not cover all routing patterns.
 
 **SmartRouter** will select the best router by inferring from the registered routers.
 Hono uses SmartRouter and the two routers by default.

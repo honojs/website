@@ -60,17 +60,6 @@ app.get('/', (c) => {
 })
 ```
 
-## cookie()
-
-Parse cookie contents.
-
-```ts
-app.get('/', (c) => {
-  const value = c.req.cookie('name')
-  ...
-})
-```
-
 ## parseBody()
 
 Parse Request body of type `multipart/form-data` or `application/x-www-form-urlencoded`

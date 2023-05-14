@@ -41,6 +41,16 @@ npm create hono@latest my-app
 - **Delightful DX** - First-class TypeScript support. Now, we've got "Types".
 - **Small** - The `hono/tiny` preset is under 12kB. Hono has zero dependencies and uses only the Web Standard API.
 
+## Who is using Hono?
+
+| Project                                         | Platform            | What for?                                                                                 |
+| ----------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
+| [cdnjs API Server](https://cdnjs.com/api)       | Cloudflare Workers  | A free and open-source CDN service. _Hono is used for their API services_.                |
+| [Polyfill.io](https://www.polyfill.io/v3/)      | Fastly Compute@Edge | A CDN service that provides necessary browser polyfills. _Hono is used as a core server_. |
+| [Ultra](https://ultrajs.dev)                    | Deno                | A React/Deno framework. _Hono is used for the internal server_.                           |
+| [Deno Benchmarks](https://deno.land/benchmarks) | Deno                | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
+| [Cloudflare Blog](https://blog.cloudflare.com)  | Cloudflare Workers  | _Some applications featured in the articles use Hono_.                                    |
+
 ## Hono in 1 minute
 
 A demonstration to create an application for Cloudflare Workers with Hono.
