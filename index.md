@@ -36,10 +36,10 @@ npm create hono@latest my-app
 ## Features
 
 - **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
+- **Lightweight** 🪶 - The `hono/tiny` preset is under 12kB. Hono has zero dependencies and uses only the Web Standard API.
 - **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, AWS Lambda, or Node.js. The same code runs on all platforms.
 - **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
 - **Delightful DX** 🛠️ - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
-- **Small** 📌 - The `hono/tiny` preset is under 12kB. Hono has zero dependencies and uses only the Web Standard API.
 
 ## Use-cases
 
@@ -64,6 +64,11 @@ Here are some examples of use-cases.
 | [Deno Benchmarks](https://deno.land/benchmarks) | Deno                | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
 | [Cloudflare Blog](https://blog.cloudflare.com)  | Cloudflare Workers  | _Some applications featured in the articles use Hono_.                                    |
 
+And the following.
+
+- [Drivly](https://driv.ly/) - Cloudflare Workers
+- [repeat.dev](https://repeat.dev/) - Cloudflare Workers
+
 ## Hono in 1 minute
 
 A demonstration to create an application for Cloudflare Workers with Hono.
@@ -85,7 +90,7 @@ Fastest is Hono
 
 See [more benchmarks](/concepts/benchmarks).
 
-## Small
+## Lightweight
 
 **Hono is so small**. With the `hono/tiny` preset, its size is **under 12KB** when minified. There are many middleware and adapters, but they are bundled only when used. For context, the size of Express is 572KB.
 

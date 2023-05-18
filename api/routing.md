@@ -109,6 +109,10 @@ api.get('/book', (c) => c.text('List Books')) // GET /api/book
 It works fine if it includes a hostname.
 
 ```ts
+const app = new Hono({
+  getPath: (req) => req.url.replace(/^https?:\/\//, ''),
+})
+
 app.get('www1.example.com/hello', (c) => c.text('hello www1'))
 app.get('www2.example.com/hello', (c) => c.text('hello www2'))
 ```
