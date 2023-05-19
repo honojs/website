@@ -65,10 +65,10 @@ const app = new Hono()
 
 app.get('/posts/:filename{.+.png$}', (c) => {
   const referer = c.req.header('Referer')
-  if (referer && /^https:\/\/example.com/.test(referer)) {
-    return fetch(c.req.url)
+  if (referer && !/^https:\/\/example.com/.test(referer)) {
+    return c.text('Forbidden', 403)
   }
-  return c.text('Forbidden', 403)
+  return fetch(c.req.url)
 })
 
 app.get('*', (c) => {
