@@ -126,12 +126,12 @@ The followings show the results on Bun.
 - Scripts: [benchmarks/handle-event](https://github.com/honojs/hono/tree/main/benchmarks/handle-event)
 
 ```
-Hono x 385,807 ops/sec ±5.02% (76 runs sampled)
-itty-router x 205,318 ops/sec ±3.63% (84 runs sampled)
-sunder x 287,198 ops/sec ±4.90% (74 runs sampled)
-worktop x 191,134 ops/sec ±3.06% (85 runs sampled)
+Hono x 402,820 ops/sec ±4.78% (80 runs sampled)
+itty-router x 212,598 ops/sec ±3.11% (87 runs sampled)
+sunder x 297,036 ops/sec ±4.76% (77 runs sampled)
+worktop x 197,345 ops/sec ±2.40% (88 runs sampled)
 Fastest is Hono
-✨  Done in 27.51s.
+✨  Done in 28.06s.
 ```
 
 ## Deno

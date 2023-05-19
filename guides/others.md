@@ -17,6 +17,7 @@ For more details, see [Contribution Guide](https://github.com/honojs/hono/blob/m
 You can sponsor Hono authors via the GitHub sponsor program.
 
 - [Sponsor @yusukebe on GitHub Sponsors](https://github.com/sponsors/yusukebe)
+- [Sponsor @usualoma on GitHub Sponsors](https://github.com/sponsors/usualoma)
 
 ## Other Resources
 

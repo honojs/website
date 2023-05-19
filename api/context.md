@@ -91,17 +91,6 @@ app.get('/', (c) => {
 })
 ```
 
-## cookie()
-
-Set a cookie for Response.
-
-```ts
-app.get('/', (c) => {
-  c.cookie('delicious_cookie', 'choco')
-  return c.text('Would you like a cookie?')
-})
-```
-
 ## notFound()
 
 Return the `Not Found` Response.

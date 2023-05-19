@@ -56,6 +56,28 @@ app.route('/api', api)
 export default app
 ```
 
+## Proxy
+
+```ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.get('/posts/:filename{.+.png$}', (c) => {
+  const referer = c.req.header('Referer')
+  if (referer && /^https:\/\/example.com/.test(referer)) {
+    return fetch(c.req.url)
+  }
+  return c.text('Forbidden', 403)
+})
+
+app.get('*', (c) => {
+  return fetch(c.req.url)
+})
+
+export default app
+```
+
 ## JSX
 
 Here is Server Side Rendering application using _JSX_ and _html_ middleware.

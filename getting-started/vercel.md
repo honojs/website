@@ -59,3 +59,30 @@ Now, `/api/hello` just returns JSON, but if you build React UIs, you can create 
 ## 4. Deploy
 
 If you have a Vercel account, you can deploy by linking the Git repository.
+
+## Node.js
+
+You can also run Hono on Next.js running on the Node.js runtime.
+
+First, install the Node.js adapter.
+
+```
+npm i @hono/node-server
+```
+
+Next, you can utilize the `handle` function imported from `@hono/node-server/nextjs`.
+
+```ts
+import { Hono } from 'hono'
+import { handle } from '@hono/node-server/nextjs'
+
+const app = new Hono().basePath('/api')
+
+app.get('/hello', (c) => {
+  return c.json({
+    message: 'Hello from Hono!',
+  })
+})
+
+export default handle(app)
+```

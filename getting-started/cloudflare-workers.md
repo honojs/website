@@ -113,6 +113,20 @@ app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 
 See [Example](https://github.com/honojs/examples/tree/main/serve-static).
 
+### `rewriteRequestPath`
+
+If you want to map `http://localhost:8787/static/*` to `./assets/statics`, you can use the `rewriteRequestPath` option:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    root: './',
+    rewriteRequestPath: (path) => path.replace(/^\/static/, '/statics'),
+  })
+)
+```
+
 ## Types
 
 You have to install `@cloudflare/workers-types` if you want to have workers types.

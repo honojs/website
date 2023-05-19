@@ -61,6 +61,14 @@ app.get('/post/:date{[0-9]+}/:title{[a-z]+}', (c) => {
 })
 ```
 
+## Including slashes
+
+```ts
+app.get('/posts/:filename{.+.png$}', (c) => {
+  //...
+})
+```
+
 ## Chained route
 
 ```ts
@@ -94,6 +102,47 @@ book.post('/', (c) => c.text('Create Book')) // POST /book
 const app = new Hono()
 app.route('/book', book)
 ```
+
+## Base path
+
+You can specify the base path.
+
+```ts
+const api = new Hono().basePath('/api')
+api.get('/book', (c) => c.text('List Books')) // GET /api/book
+```
+
+## Routing with with hostname
+
+It works fine if it includes a hostname.
+
+```ts
+const app = new Hono({
+  getPath: (req) => req.url.replace(/^https?:\/\//, ''),
+})
+
+app.get('www1.example.com/hello', (c) => c.text('hello www1'))
+app.get('www2.example.com/hello', (c) => c.text('hello www2'))
+```
+
+## Routing with `host` Header value
+
+Hono can handle the `host` header value if you set the `getPat()` function in the Hono constructor.
+
+```ts
+const app = new Hono({
+  getPath: (req) => req.headers.get('host') + req.url.replace(/^https?:\/\/[^\/]+/, ''),
+})
+
+app.get('www1.example.com/hello', () => c.text('hello www1'))
+
+// A following request will match the route:
+// new Request('http://www1.example.com/hello', {
+//  headers: { host: 'www1.example.com' },
+// })
+```
+
+By applying this, for example, you can change the routing by `User-Agent` header.
 
 ## Routing priority
 

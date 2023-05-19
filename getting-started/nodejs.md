@@ -5,6 +5,10 @@
 Hono is not designed for Node.js at first.
 But with a [Node.js Adapter](https://github.com/honojs/node-server) it can run on Node.js as well.
 
+::: warning
+A Node.js Adapter supports only Node.js v18 or higher.
+:::
+
 ## 1. Setup
 
 A starter for Node.js is available.
@@ -62,4 +66,18 @@ You can use `serveStatic` to serve static files from the local file system.
 import { serveStatic } from '@hono/node-server/serve-static'
 
 app.use('/static/*', serveStatic({ root: './' }))
+```
+
+### `rewriteRequestPath`
+
+If you want to map `http://localhost:3000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    root: './',
+    rewriteRequestPath: (path) => path.replace(/^\/static/, '/statics'),
+  })
+)
 ```

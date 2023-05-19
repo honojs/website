@@ -19,11 +19,14 @@ An instance of `Hono` has the following methods.
 - app.**HTTP_METHOD**(\[path,\]handler|middleware...)
 - app.**all**(\[path,\]handler|middleware...)
 - app.**on**(method|method[], path, handler|middleware...)
-- app.**route**(path, \[app\])
 - app.**use**(\[path,\]middleware)
+- app.**route**(path, \[app\])
+- app.**basePath**(path)
 - app.**notFound**(handler)
 - app.**onError**(err, handler)
 - app.**showRoutes**()
+- app.**routerName**
+- app.**mount**(path, anotherApp)
 - app.**fire**()
 - app.**fetch**(request, env, event)
 - app.**request**(path, options)
@@ -124,12 +127,43 @@ test('POST /message is ok', async () => {
 
 ## showRoutes()
 
-`app.showRoutes()` displays the registered routes in your console:
+`app.showRoutes()` displays the registered routes in your console.
 
 ```
 GET       /v1/posts
 GET       /v1/posts/:id
 POST      /v1/posts
+```
+
+## routerName
+
+You can get the name of the currently used router with `app.routerName`.
+
+```ts
+app.get('/', (c) => {
+  return c.text(`The current router is ${app.routerName}`)
+})
+```
+
+## mount()
+
+The `mount()` allows you to mount applications built with other frameworks into your Hono application.
+
+```ts
+import { Router as IttyRouter } from 'itty-router'
+import { Hono } from 'hono'
+
+// Create itty-router application
+const ittyRouter = IttyRouter()
+
+// Handle `GET /itty-router/hello`
+ittyRouter.get('/hello', () => new Response('Hello from itty-router'))
+
+// Hono application
+const app = new Hono()
+
+// Mount!
+app.mount('/itty-router', ittyRouter.handle)
 ```
 
 ## strict mode

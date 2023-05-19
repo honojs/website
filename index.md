@@ -6,7 +6,7 @@ head:
       'meta',
       {
         property: 'og:description',
-        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, Node.js, and others. Fast, but not only fast.',
+        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, AWS Lambda, Node.js, and others. Fast, but not only fast.',
       },
     ]
 ---
@@ -14,7 +14,8 @@ head:
 # Hono
 
 Hono - _**\[炎\] means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework for the Edges.
-It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, Node.js, and others.
+It works on any JavaScrip runtime: Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, AWS Lambda, and Node.js.
+
 Fast, but not only fast.
 
 ```ts
@@ -34,38 +35,39 @@ npm create hono@latest my-app
 
 ## Features
 
-- **Ultrafast** - The routers are really fast and smart. Not using linear loops. Fast.
-- **Multi-runtime** - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, or Node.js. The same code runs on all platforms.
-- **Batteries Included** - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
-- **Delightful DX** - First-class TypeScript support. Now, we've got "Types".
-- **Small** - About 20kB. Zero-dependencies. Using only Web Standard API.
+- **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
+- **Lightweight** 🪶 - The `hono/tiny` preset is under 12kB. Hono has zero dependencies and uses only the Web Standard API.
+- **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, AWS Lambda, or Node.js. The same code runs on all platforms.
+- **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
+- **Delightful DX** 🛠️ - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
 
-## Ultrafast
+## Use-cases
 
-**Hono is the fastest**, compared to other routers for Cloudflare Workers.
+Hono is a simple web application framework similar to Express, without a frontend.
+But it runs on CDN Edges and allows you to construct larger applications when combined with middleware.
+Here are some examples of use-cases.
 
-```
-Hono x 385,807 ops/sec ±5.02% (76 runs sampled)
-itty-router x 205,318 ops/sec ±3.63% (84 runs sampled)
-sunder x 287,198 ops/sec ±4.90% (74 runs sampled)
-worktop x 191,134 ops/sec ±3.06% (85 runs sampled)
-Fastest is Hono
-✨  Done in 27.51s.
-```
+- Building Web APIs
+- Proxy of backend servers
+- Front of CDN
+- Edge application
+- Base server for a library
+- Full-stack application
 
-See [more benchmarks](/concepts/benchmarks).
+## Who is using Hono?
 
-## Why so fast?
+| Project                                         | Platform            | What for?                                                                                 |
+| ----------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
+| [cdnjs API Server](https://cdnjs.com/api)       | Cloudflare Workers  | A free and open-source CDN service. _Hono is used for their API services_.                |
+| [Polyfill.io](https://www.polyfill.io/v3/)      | Fastly Compute@Edge | A CDN service that provides necessary browser polyfills. _Hono is used as a core server_. |
+| [Ultra](https://ultrajs.dev)                    | Deno                | A React/Deno framework. _Hono is used for the internal server_.                           |
+| [Deno Benchmarks](https://deno.land/benchmarks) | Deno                | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
+| [Cloudflare Blog](https://blog.cloudflare.com)  | Cloudflare Workers  | _Some applications featured in the articles use Hono_.                                    |
 
-**RegExpRouter** is the fastest router in the JavaScript world.
-And **Smart Router** is really smart.
-It automatically picks the best router from the following routers.
-Users can use the fastest router without having to do anything!
+And the following.
 
-- **RegExpRouter** - Match the route using one big Regex made before dispatch.
-- **TrieRouter** - Implemented with Trie tree structure. Supports all routing patterns.
-
-See [more information about routes](/concepts/philosophy#routers).
+- [Drivly](https://driv.ly/) - Cloudflare Workers
+- [repeat.dev](https://repeat.dev/) - Cloudflare Workers
 
 ## Hono in 1 minute
 
@@ -73,11 +75,46 @@ A demonstration to create an application for Cloudflare Workers with Hono.
 
 ![Demo](/images/sc.gif)
 
-## Not only fast
+## Ultrafast
 
-Hono is fast. But not only fast.
+**Hono is the fastest**, compared to other routers for Cloudflare Workers.
 
-### Run anywhere
+```
+Hono x 402,820 ops/sec ±4.78% (80 runs sampled)
+itty-router x 212,598 ops/sec ±3.11% (87 runs sampled)
+sunder x 297,036 ops/sec ±4.76% (77 runs sampled)
+worktop x 197,345 ops/sec ±2.40% (88 runs sampled)
+Fastest is Hono
+✨  Done in 28.06s.
+```
+
+See [more benchmarks](/concepts/benchmarks).
+
+## Lightweight
+
+**Hono is so small**. With the `hono/tiny` preset, its size is **under 12KB** when minified. There are many middleware and adapters, but they are bundled only when used. For context, the size of Express is 572KB.
+
+```
+$ npx wrangler dev --minify ./src/index.ts
+ ⛅️ wrangler 2.20.0
+--------------------
+⬣ Listening at http://0.0.0.0:8787
+- http://127.0.0.1:8787
+- http://192.168.128.165:8787
+Total Upload: 11.47 KiB / gzip: 4.34 KiB
+```
+
+## Multiple routers
+
+**Hono has multiple routers**.
+
+**RegExpRouter** is the fastest router in the JavaScript world. It matches the route using a single large Regex created before dispatch. With **SmartRouter**, it supports all route patterns.
+
+**LinearRouter** registers the routes very quickly, so it's suitable for an environment that initializes applications every times. **PatternRouter** simply adds and matches the pattern, making it small.
+
+See [more information about routes](/concepts/philosophy#routers).
+
+## Web Standard
 
 Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 
@@ -87,16 +124,17 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 - Deno
 - Bun
 - Lagon
-- Next.js
+- Vercel
+- AWS Lambda
 - Others
 
 And by using [a Node.js adaptor](https://github.com/honojs/node-server), Hono works on Node.js.
 
 See [more information about Web Standard](/concepts/philosophy#web-standard).
 
-### Do everything
+## Middleware
 
-Built-in middleware makes "**Write Less, do more**" a reality.
+**Hono has many middleware**. These makes "Write Less, do more" a reality.
 
 Out of the box, Hono provides middleware for:
 
@@ -104,6 +142,7 @@ Out of the box, Hono provides middleware for:
 - [Bearer Authentication](/middleware/builtin/bearer-auth)
 - [Cache](/middleware/builtin/cache)
 - [Compress](/middleware/builtin/compress)
+- [Cookie](/middleware/builtin/cookie)
 - [CORS](/middleware/builtin/cors)
 - [ETag](/middleware/builtin/etag)
 - [html](/middleware/builtin/html)
@@ -128,24 +167,18 @@ app.use('*', etag(), logger())
 
 See [more information about Middleware](/concepts/philosophy#middleware).
 
-### Small
-
-Hono is small.
-About **20KB** when minified.
-There are many middleware and adapters, but they are bundled only when used.
-For context, Express bundle size is 572KB.
-
-### Developer Experience
+## Developer Experience
 
 Hono provides a delightful "**Developer Experience**".
+
 Easy access to Request/Response thanks to the `Context` object.
-Hono is written in TypeScript. Hono has "**Types**".
+Moreover, Hono is written in TypeScript. Hono has "**Types**".
 
 For example, the path parameters will be literal types.
 
 ![SS](/images/ss.png)
 
-And the Validator and Hono Client `hc` enable the RPC mode. In RPC mode,
+And, the Validator and Hono Client `hc` enable the RPC mode. In RPC mode,
 you can use your favorite validator such as Zod and easily share server-side API specs with the client and build type-safe applications.
 
 See [Hono Stacks](/concepts/stacks).
