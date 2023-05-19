@@ -94,6 +94,7 @@ export default defineConfig({
   description:
     'Ultrafast web framework for Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, Node.js, and others. Fast, but not only fast.',
   lastUpdated: true,
+  ignoreDeadLinks: true,
   cleanUrls: 'with-subfolders',
   markdown: {
     theme: {
