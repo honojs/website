@@ -29,7 +29,7 @@ Edit `pages/api/[...route].ts`.
 
 ```ts
 import { Hono } from 'hono'
-import { handle } from 'hono/nextjs'
+import { handle } from 'hono/vercel'
 
 export const config = {
   runtime: 'edge',
@@ -70,11 +70,11 @@ First, install the Node.js adapter.
 npm i @hono/node-server
 ```
 
-Next, you can utilize the `handle` function imported from `@hono/node-server/nextjs`.
+Next, you can utilize the `handle` function imported from `@hono/node-server/vercel`.
 
 ```ts
 import { Hono } from 'hono'
-import { handle } from '@hono/node-server/nextjs'
+import { handle } from '@hono/node-server/vercel'
 
 const app = new Hono().basePath('/api')
 
