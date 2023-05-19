@@ -7,6 +7,10 @@ When a fatal error occurs, such as authentication failure, a HTTPException must 
 This example throws an HTTPException from the middleware.
 
 ```ts
+import { HTTPException } from 'hono/http-exception'
+
+// ...
+
 app.post('/auth', async (c, next) => {
   // authentication
   if (authorized === false) {
@@ -33,6 +37,10 @@ throw new HTTPException(401, { res: errorResponse })
 You can handle the thrown HTTPException with `app.onError`.
 
 ```ts
+import { HTTPException } from 'hono/http-exception'
+
+// ...
+
 app.onError((err, c) => {
   if (err instanceof HTTPException) {
     // Get the custom response
