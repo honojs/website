@@ -112,7 +112,7 @@ Total Upload: 11.47 KiB / gzip: 4.34 KiB
 
 **LinearRouter** registers the routes very quickly, so it's suitable for an environment that initializes applications every times. **PatternRouter** simply adds and matches the pattern, making it small.
 
-See [more information about routes](/concepts/philosophy#routers).
+See [more information about routes](/concepts/routers).
 
 ## Web Standard
 
@@ -130,7 +130,7 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 
 And by using [a Node.js adaptor](https://github.com/honojs/node-server), Hono works on Node.js.
 
-See [more information about Web Standard](/concepts/philosophy#web-standard).
+See [more information about Web Standard](/concepts/web-standard).
 
 ## Middleware
 
@@ -165,7 +165,7 @@ const app = new Hono()
 app.use('*', etag(), logger())
 ```
 
-See [more information about Middleware](/concepts/philosophy#middleware).
+See [more information about Middleware](/concepts/middleware).
 
 ## Developer Experience
 
