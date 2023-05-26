@@ -8,7 +8,6 @@ const sidebars = {
       { text: 'Motivation', link: '/concepts/motivation' },
       { text: 'Routers', link: '/concepts/routers' },
       { text: 'Benchmarks', link: '/concepts/benchmarks' },
-      { text: 'Presets', link: '/concepts/presets' },
       { text: 'Web Standard', link: '/concepts/web-standard' },
       { text: 'Middleware', link: '/concepts/middleware' },
       { text: 'Developer Experience', link: '/concepts/developer-experience.md' },
@@ -41,6 +40,7 @@ const sidebars = {
       { text: 'Context', link: '/api/context' },
       { text: 'HonoRequest', link: '/api/request' },
       { text: 'Exception', link: '/api/exception' },
+      { text: 'Presets', link: '/concepts/presets' },
     ],
   },
   guides: {
