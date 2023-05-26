@@ -40,7 +40,8 @@ const sidebars = {
       { text: 'Context', link: '/api/context' },
       { text: 'HonoRequest', link: '/api/request' },
       { text: 'Exception', link: '/api/exception' },
-      { text: 'Presets', link: '/concepts/presets' },
+      { text: 'Presets', link: '/api/presets' },
+      { text: 'Adapter', link: '/api/adapter' },
     ],
   },
   guides: {
