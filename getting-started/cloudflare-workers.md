@@ -68,7 +68,7 @@ app.fire()
 export default app
 ```
 
-Bu now, we recommend using Module Worker mode because such as that the binding variables are localized.
+But now, we recommend using Module Worker mode because such as that the binding variables are localized.
 
 ## Serve static files
 
