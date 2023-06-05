@@ -127,7 +127,7 @@ app.get('www2.example.com/hello', (c) => c.text('hello www2'))
 
 ## Routing with `host` Header value
 
-Hono can handle the `host` header value if you set the `getPat()` function in the Hono constructor.
+Hono can handle the `host` header value if you set the `getPath()` function in the Hono constructor.
 
 ```ts
 const app = new Hono({
