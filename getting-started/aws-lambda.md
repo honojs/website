@@ -71,3 +71,17 @@ Finally, run the command to deploy:
 ```
 cdk deploy
 ```
+
+## Serve Binary data
+
+Hono supports binary data as a response.
+In Lambda, base64 encoding is required to return binary data.
+Once binary type is set to `Content-Type` header, Hono automatically encode data.
+
+```ts
+app.get('/binary', async (c) => {
+    c.status(200);
+    c.header('Content-Type', 'image/png'); // means binary data
+    return c.body(buffer); // supports `ArrayBufferLike` type, encoded to base64.
+});
+```
