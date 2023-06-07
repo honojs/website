@@ -17,10 +17,10 @@ app.get('/env', (c) => {
 
 Supported runtimes:
 
-- AWS Lambda
 - Cloudflare Workers
 - Deno
 - Bun
 - Lagon
 - Node.js
 - Vercel
+- AWS Lambda
