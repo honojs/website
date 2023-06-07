@@ -17,6 +17,7 @@ app.get('/env', (c) => {
 
 Supported runtimes:
 
+- AWS Lambda
 - Cloudflare Workers
 - Deno
 - Bun
