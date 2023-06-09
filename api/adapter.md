@@ -23,3 +23,4 @@ Supported runtimes:
 - Lagon
 - Node.js
 - Vercel
+- AWS Lambda
