@@ -35,7 +35,7 @@ Make a request to `GET /posts` and test the response.
 ```ts
 describe('Example', () => {
   test('GET /posts', async () => {
-    const res = await app.request('http://localhost/posts')
+    const res = await app.request('/posts')
     expect(res.status).toBe(200)
     expect(await res.text()).toBe('Many posts')
   })
