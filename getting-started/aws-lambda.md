@@ -80,8 +80,9 @@ Once binary type is set to `Content-Type` header, Hono automatically encodes dat
 
 ```ts
 app.get('/binary', async (c) => {
-    c.status(200);
-    c.header('Content-Type', 'image/png'); // means binary data
-    return c.body(buffer); // supports `ArrayBufferLike` type, encoded to base64.
-});
+  // ...
+  c.status(200)
+  c.header('Content-Type', 'image/png') // means binary data
+  return c.body(buffer) // supports `ArrayBufferLike` type, encoded to base64.
+})
 ```
