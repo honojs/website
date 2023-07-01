@@ -82,6 +82,7 @@ const sidebars = {
       { text: 'html', link: '/middleware/builtin/html' },
       { text: 'JSX', link: '/middleware/builtin/jsx' },
       { text: 'JWT', link: '/middleware/builtin/jwt' },
+      { text: 'Timing', link: '/middleware/builtin/timing' },
       { text: 'Logger', link: '/middleware/builtin/logger' },
       { text: 'Pretty JSON', link: '/middleware/builtin/pretty-json' },
       { text: '3rd-party Middleware', link: '/middleware/third-party' },
