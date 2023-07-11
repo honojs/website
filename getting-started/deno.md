@@ -31,13 +31,12 @@ Write your first application.
 
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { serve } from 'https://deno.land/std/http/server.ts'
 
 const app = new Hono()
 
 app.get('/', (c) => c.text('Hello Deno!'))
 
-serve(app.fetch)
+Deno.serve(app.fetch)
 ```
 
 ## 4. Run
@@ -53,7 +52,7 @@ deno run --allow-net hello.ts
 You can specify the port number with the `port` option.
 
 ```ts
-serve(app.fetch, { port: 8787 })
+Deno.serve({ port: 8787 }, app.fetch)
 ```
 
 ## Serve static files
@@ -62,7 +61,6 @@ To server static files, use `serveStatic` imported from `hono/middleware.ts`.
 
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { serve } from 'https://deno.land/std/http/server.ts'
 import { serveStatic } from 'https://deno.land/x/hono/middleware.ts'
 
 const app = new Hono()
@@ -72,7 +70,7 @@ app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 app.get('/', (c) => c.text('You can access: /static/hello.txt'))
 app.get('*', serveStatic({ path: './static/fallback.txt' }))
 
-serve(app.fetch)
+Deno.serve(app.fetch)
 ```
 
 For the above code, it will work well with the following directory structure.
@@ -143,7 +141,6 @@ When you use it, write JSX Pragma on the top to specify the JSX function.
 ```tsx
 /** @jsx jsx */
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { serve } from 'https://deno.land/std/http/server.ts'
 import { jsx } from 'https://deno.land/x/hono/middleware.ts'
 
 const app = new Hono()
@@ -152,7 +149,7 @@ app.get('/', (c) => {
   return c.html(<h1>Hello Deno!</h1>)
 })
 
-serve(app.fetch)
+Deno.serve(app.fetch)
 ```
 
 ## `npm:` specifier
