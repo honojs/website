@@ -110,7 +110,7 @@ Total Upload: 11.47 KiB / gzip: 4.34 KiB
 
 **RegExpRouter** is the fastest router in the JavaScript world. It matches the route using a single large Regex created before dispatch. With **SmartRouter**, it supports all route patterns.
 
-**LinearRouter** registers the routes very quickly, so it's suitable for an environment that initializes applications every times. **PatternRouter** simply adds and matches the pattern, making it small.
+**LinearRouter** registers the routes very quickly, so it's suitable for an environment that initializes applications every time. **PatternRouter** simply adds and matches the pattern, making it small.
 
 See [more information about routes](/concepts/routers).
 
