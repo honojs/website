@@ -1,7 +1,7 @@
 # JSX Middleware
 
 JSX Middleware enables rendering HTML with JSX syntax.
-It's just for Sever-Side-Rendering. Not for making virtual DOMs.
+It's just for Server-Side-Rendering. Not for making virtual DOMs.
 
 ## Import
 
