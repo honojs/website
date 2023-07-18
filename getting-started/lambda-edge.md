@@ -130,6 +130,7 @@ If you want to add Basic Auth and continue with request processing after verific
 
 ```ts
 import { Hono } from 'hono'
+import { basicAuth } from 'hono/basic-auth'
 import { Callback, CloudFrontRequest, handle } from 'hono/lambda-edge'
 
 type Bindings = {
@@ -142,12 +143,12 @@ const app = new Hono<{ Bindings: Bindings }>()
 app.get(
   '*',
   basicAuth({
-    username: 'a',
-    password: 'b'
+    username: 'hono',
+    password: 'acoolproject',
   })
 )
 
-app.get('/index.html', async (c, next) => {
+app.get('/', async (c, next) => {
   await next()
   c.env.callback(null, c.env.request)
 })
