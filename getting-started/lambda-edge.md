@@ -1,14 +1,14 @@
-# AWS Lambda@Edge
+# Lambda@Edge
 
-[AWS Lambda@Edge](https://aws.amazon.com/lambda/edge/) is a serverless platform by Amazon Web Services. It allows you to run Lambda functions at Amazon CloudFront's edge locations, enabling you to customize behaviors for HTTP requests/responses.
+[Lambda@Edge](https://aws.amazon.com/lambda/edge/) is a serverless platform by Amazon Web Services. It allows you to run Lambda functions at Amazon CloudFront's edge locations, enabling you to customize behaviors for HTTP requests/responses.
 
-Hono supports AWS Lambda@Edge with the Node.js 18+ environment.
+Hono supports Lambda@Edge with the Node.js 18+ environment.
 
 ## 1. Setup
 
-When creating the application on AWS Lambda,
+When creating the application on Lambda@Edge,
 [CDK](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html)
-is useful to setup the functions such as IAM Role, API Gateway, and others.
+is useful to setup the functions such as CloudFront, IAM Role, API Gateway, and others.
 
 Initialize your project with the `cdk` CLI.
 
@@ -53,30 +53,49 @@ export const handler = handle(app)
 
 ## 3. Deploy
 
+Edit `bin/my-app.ts`.
+
+```ts
+#!/usr/bin/env node
+import 'source-map-support/register';
+import * as cdk from 'aws-cdk-lib';
+import { MyAppStack } from '../lib/my-app-stack';
+
+const app = new cdk.App();
+new MyAppStack(app, 'MyAppStack', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: 'us-east-1',
+  },
+});
+```
+
+
 Edit `lambda/cdk-stack.ts`.
 
 ```ts
 import { Construct } from 'constructs';
+import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
 
-export class CdkStack extends cdk.Stack {
+export class MyAppStack extends cdk.Stack {
   public readonly edgeFn: lambda.Function;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
     const edgeFn = new NodejsFunction(this, 'edgeViewer', {
-      entry: 'lambda/index_edge.ts',  
-      handler: 'handler', 
+      entry: 'lambda/index_edge.ts',
+      handler: 'handler',
       runtime: lambda.Runtime.NODEJS_18_X,
     });
 
     const originFn = new NodejsFunction(this, 'OriginFunction', {
-      entry: 'lambda/index.ts',  
-      handler: 'handler', 
+      entry: 'lambda/index.ts',
+      handler: 'handler',
       runtime: lambda.Runtime.NODEJS_18_X,
     });
     const originApi = new apigw.LambdaRestApi(this, 'originApi', {
@@ -90,7 +109,7 @@ export class CdkStack extends cdk.Stack {
           {
             functionVersion: edgeFn.currentVersion,
             eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
-          }
+          },
         ],
       },
     });
