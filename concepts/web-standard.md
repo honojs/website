@@ -30,5 +30,5 @@ In addition, we have a Node.js adapter. Hono runs on these runtimes:
 It also works on Netlify and other platforms.
 The same code runs on all platforms.
 
-Cloudflare Workers, Deno, Shopifiy, and others launched [WinterCG](https://wintercg.org) to discuss the possibility of using the Web Standard APIs to enable "web-interoperability".
+Cloudflare Workers, Deno, Shopify, and others launched [WinterCG](https://wintercg.org) to discuss the possibility of using the Web Standard APIs to enable "web-interoperability".
 Hono will follow their steps and go for **the Standard of the Web Standard**.
