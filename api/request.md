@@ -124,6 +124,17 @@ Available targets are below.
 
 See the [Validation section](/guides/validation) for usage examples.
 
+## path
+
+The request pathname.
+
+```ts
+app.get('/about/me', (c) => {
+  const pathname = c.req.path // `/about/me`
+  ...
+})
+```
+
 ## raw
 
 The raw `Request` object.
