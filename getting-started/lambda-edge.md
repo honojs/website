@@ -104,12 +104,13 @@ cdk deploy
 
 ## Callback
 
-If you want to add Basic Auth and continue with request processing after verification, you can use c.env.callback()
+If you want to add Basic Auth and continue with request processing after verification, you can use `c.env.callback()`
 
 ```ts
 import { Hono } from 'hono'
 import { basicAuth } from 'hono/basic-auth'
-import { Callback, CloudFrontRequest, handle } from 'hono/lambda-edge'
+import type { Callback, CloudFrontRequest } from 'hono/lambda-edge'
+import { handle } from 'hono/lambda-edge' from 'hono/lambda-edge'
 
 type Bindings = {
   callback: Callback
