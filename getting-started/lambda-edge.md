@@ -64,7 +64,7 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
-import * as apigw from 'aws-cdk-lib/aws-apigateway';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 
 export class MyAppStack extends cdk.Stack {
   public readonly edgeFn: lambda.Function;
@@ -77,18 +77,12 @@ export class MyAppStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_18_X,
     });
 
-    const originFn = new NodejsFunction(this, 'OriginFunction', {
-      entry: 'lambda/index.ts',
-      handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
-    });
-    const originApi = new apigw.LambdaRestApi(this, 'originApi', {
-      handler: originFn,
-    });
+    // Upload any html
+    const originBucket = new s3.Bucket(this, 'originBucket');
 
     new cloudfront.Distribution(this, 'Cdn', {
       defaultBehavior: {
-        origin: new origins.RestApiOrigin(originApi),
+        origin: new origins.S3Origin(originBucket),
         edgeLambdas: [
           {
             functionVersion: edgeFn.currentVersion,
