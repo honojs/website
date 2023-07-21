@@ -24,3 +24,4 @@ Supported runtimes:
 - Node.js
 - Vercel
 - AWS Lambda
+- Lambda@Edge

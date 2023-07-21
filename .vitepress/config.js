@@ -27,6 +27,7 @@ const sidebars = {
       { text: 'Lagon', link: '/getting-started/lagon' },
       { text: 'Vercel', link: '/getting-started/vercel' },
       { text: 'AWS Lambda', link: '/getting-started/aws-lambda' },
+      { text: 'Lambda@Edge', link: '/getting-started/lambda-edge' }, 
       { text: 'Node.js', link: '/getting-started/nodejs' },
       { text: 'Others', link: '/getting-started/others' },
     ],
