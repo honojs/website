@@ -9,10 +9,10 @@ To install `bun` command, follow the instruction in [the official web site](http
 
 ## 2. Setup
 
-A starter for Bun is available. Start your project with "create-hono" command.
+A starter for Bun is available. Start your project with "bun create" command.
 
 ```
-npm create hono@latest my-app
+bun create hono my-app
 ```
 
 Move into my-app and install the dependencies.
