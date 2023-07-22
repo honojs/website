@@ -17,7 +17,7 @@ app.get('/posts', (c) => {
   return c.text('Many posts')
 })
 
-app.post('/post', (c) => {
+app.post('/posts', (c) => {
   return c.json(
     {
       message: 'Created',
