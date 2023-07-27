@@ -116,7 +116,7 @@ You can write with `Deno.test` and use `assert` or `assertEquals` from the stand
 
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { assertEquals } from 'https://deno.land/std/testing/asserts.ts'
+import { assertEquals } from 'https://deno.land/std/assert/mod.ts'
 
 Deno.test('Hello World', async () => {
   const app = new Hono()
