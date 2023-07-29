@@ -190,7 +190,7 @@ GET /bar ---> `fallback`
 ## Grouping ordering
 
 Note that the mistake of grouping routings is hard to notice.
-The `route()` function takes the stored routing from the second argument (such as `tree` or `two`) and adds it to its own (`two` or `app`) routing.
+The `route()` function takes the stored routing from the second argument (such as `three` or `two`) and adds it to its own (`two` or `app`) routing.
 
 ```ts
 three.get('/hi', (c) => c.text('hi'))
