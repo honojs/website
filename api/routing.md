@@ -118,11 +118,11 @@ It works fine if it includes a hostname.
 
 ```ts
 const app = new Hono({
-  getPath: (req) => req.url.replace(/^https?:\/\//, ''),
+  getPath: (req) => req.url.replace(/^https?:\/(.+?)$/, '$1'),
 })
 
-app.get('www1.example.com/hello', (c) => c.text('hello www1'))
-app.get('www2.example.com/hello', (c) => c.text('hello www2'))
+app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
+app.get('/www2.example.com/hello', (c) => c.text('hello www2'))
 ```
 
 ## Routing with `host` Header value
@@ -131,10 +131,11 @@ Hono can handle the `host` header value if you set the `getPath()` function in t
 
 ```ts
 const app = new Hono({
-  getPath: (req) => req.headers.get('host') + req.url.replace(/^https?:\/\/[^\/]+/, ''),
+  getPath: (req) =>
+    '/' + req.headers.get('host') + req.url.replace(/^https?:\/\/[^/]+(\/[^?]*)/, '$1'),
 })
 
-app.get('www1.example.com/hello', () => c.text('hello www1'))
+app.get('/www1.example.com/hello', () => c.text('hello www1'))
 
 // A following request will match the route:
 // new Request('http://www1.example.com/hello', {
