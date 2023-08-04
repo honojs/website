@@ -8,3 +8,4 @@
 - [tRPC Server](https://github.com/honojs/middleware/tree/main/packages/trpc-server)
 - [TypeBox Validator](https://github.com/honojs/middleware/tree/main/packages/typebox-validator)
 - [Verify RSA JWT](https://github.com/wataruoguchi/verify-rsa-jwt-cloudflare-worker)
+- [Valibot Validator](https://github.com/honojs/middleware/tree/main/packages/valibot-validator)
