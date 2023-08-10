@@ -86,3 +86,26 @@ app.get('/binary', async (c) => {
   return c.body(buffer) // supports `ArrayBufferLike` type, encoded to base64.
 })
 ```
+
+## Access RequestContext
+
+In Hono, you can access the AWS Lambda request context by binding the `ApiGatewayRequestContext` type and using `c.env.`
+
+```ts
+import { Hono } from 'hono'
+import type { ApiGatewayRequestContext } from 'hono/aws-lambda'
+import { handle } from 'hono/aws-lambda'
+
+type Bindings = {
+  requestContext: ApiGatewayRequestContext 
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/custom-context/', (c) => {
+  const lambdaContext = c.env.requestContext
+  return c.json(lambdaContext)
+})
+
+export const handler = handle(app)
+```
