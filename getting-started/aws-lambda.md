@@ -47,7 +47,7 @@ import * as lambda from 'aws-cdk-lib/aws-lambda'
 import * as apigw from 'aws-cdk-lib/aws-apigateway'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 
-export class CdkStack extends cdk.Stack {
+export class MyAppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
@@ -85,4 +85,27 @@ app.get('/binary', async (c) => {
   c.header('Content-Type', 'image/png') // means binary data
   return c.body(buffer) // supports `ArrayBufferLike` type, encoded to base64.
 })
+```
+
+## Access RequestContext
+
+In Hono, you can access the AWS Lambda request context by binding the `ApiGatewayRequestContext` type and using `c.env.`
+
+```ts
+import { Hono } from 'hono'
+import type { ApiGatewayRequestContext } from 'hono/aws-lambda'
+import { handle } from 'hono/aws-lambda'
+
+type Bindings = {
+  requestContext: ApiGatewayRequestContext 
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/custom-context/', (c) => {
+  const lambdaContext = c.env.requestContext
+  return c.json(lambdaContext)
+})
+
+export const handler = handle(app)
 ```
