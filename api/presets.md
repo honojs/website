@@ -34,7 +34,9 @@ import { Hono } from 'hono/quick'
 Router:
 
 ```ts
-this.router = new LinearRouter()
+this.router = new SmartRouter({
+  routers: [new LinearRouter(), new TrieRouter()],
+})
 ```
 
 ## `hono/tiny`
