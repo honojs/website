@@ -47,6 +47,7 @@ Each option corresponds to the following Header Key-Value pairs. The default for
 | ---------------------------------- | -------------------------------------- | -------------------------------------------------- |
 | crossOriginResourcePolicy          | Cross-Origin-Resource-Policy           | same-origin                                        |
 | crossOriginOpenerPolicy            | Cross-Origin-Opener-Policy             | same-origin                                        |
+| originAgentCluster            | Origin-Agent-Cluster             | ?1                                        |
 | referrerPolicy                     | Referrer-Policy                        | no-referrer                                        |
 | strictTransportSecurity            | Strict-Transport-Security              | max-age=15552000; includeSubDomains                |
 | xContentTypeOptions                | X-Content-Type-Options                | nosniff                                            |
@@ -60,4 +61,5 @@ Each option corresponds to the following Header Key-Value pairs. The default for
 Headers not supported:
 
 - Content-Security-Policy
+- Cross-Origin-Embedder-Policy
 - Origin-Agent-Cluster
