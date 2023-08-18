@@ -10,7 +10,7 @@
   "author": "Yusuke Wada <yusuke@kamawada.com>",
   "license": "MIT",
   "devDependencies": {
-    "vitepress": "^1.0.0-beta.5",
+    "vitepress": "1.0.0-beta.5",
     "vue": "^3.3.4"
   }
 }
