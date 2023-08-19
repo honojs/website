@@ -62,4 +62,3 @@ Headers not supported:
 
 - Content-Security-Policy
 - Cross-Origin-Embedder-Policy
-- Origin-Agent-Cluster
