@@ -47,6 +47,7 @@ Each option corresponds to the following Header Key-Value pairs. The default for
 | Option                          | Header                                                                                          | Default Value                              |
 |---------------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------|
 | -                               | X-Powered-By | (Delete Header) |
+| crossOriginEmbedderPolicy       | [Cross-Origin-Embedder-Policy](https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy)   | require-corp                                |
 | crossOriginResourcePolicy       | [Cross-Origin-Resource-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy) | same-origin |
 | crossOriginOpenerPolicy         | [Cross-Origin-Opener-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy) | same-origin |
 | originAgentCluster              | [Origin-Agent-Cluster](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin-Agent-Cluster) | ?1 |
@@ -60,7 +61,6 @@ Each option corresponds to the following Header Key-Value pairs. The default for
 | xXssProtection                  | [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) | 0 |
 
 ### Differences with Helmet
-Headers not supported:
+Headers Currently Being Implemented:
 
 - Content-Security-Policy
-- Cross-Origin-Embedder-Policy
