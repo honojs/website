@@ -47,6 +47,7 @@ Each option corresponds to the following Header Key-Value pairs. The default for
 | Option                          | Header                                                                                          | Value                                    | Default |
 |---------------------------------|-------------------------------------------------------------------------------------------------|------------------------------------------|---------|
 | -                               | X-Powered-By                                                                                   | (Delete Header)                          | True    |
+| Content-Security-Policy         | [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)                                                                        | [#### Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
 | crossOriginEmbedderPolicy       | [Cross-Origin-Embedder-Policy](https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy)   | require-corp                             | False    |
 | crossOriginResourcePolicy       | [Cross-Origin-Resource-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy) | same-origin                              | True    |
 | crossOriginOpenerPolicy         | [Cross-Origin-Opener-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy) | same-origin                              | True    |
@@ -60,9 +61,46 @@ Each option corresponds to the following Header Key-Value pairs. The default for
 | xPermittedCrossDomainPolicies   | [X-Permitted-Cross-Domain-Policies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Permitted-Cross-Domain-Policies) | none                                     | True    |
 | xXssProtection                  | [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection) | 0                                        | True    |
 
+### Middleware Conflict
 
+Please be cautious about the order of specification when dealing with middleware that manipulates the same header.
+
+- In this case, Secure-headers operates and the 'x-powered-by' is removed.
+
+```ts
+const app = new Hono()
+app.use('*', secureHeaders())
+app.use('*', poweredBy())
+```
+
+- In this case, Powered-By operates and the 'x-powered-by' is added.
+
+```ts
+const appAfter = new Hono()
+appAfter.use('*', poweredBy())
+appAfter.use('*', secureHeaders())
+```
 
 ### Differences with Helmet
-Headers Currently Being Implemented:
 
-- Content-Security-Policy
+#### Setting Content-Security-Policy
+
+```ts
+const app = new Hono()
+app.use(
+  '/test',
+  secureHeaders({
+    contentSecurityPolicy: {
+      defaultSrc: ["'self'"],
+      baseUri: ["'self'"],
+      fontSrc: ["'self'", 'https:', 'data:'],
+      frameAncestors: ["'self'"],
+      imgSrc: ["'self'", 'data:'],
+      objectSrc: ["'none'"],
+      scriptSrc: ["'self'"],
+      scriptSrcAttr: ["'none'"],
+      styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
+    },
+  })
+)
+```
