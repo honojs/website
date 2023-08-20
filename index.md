@@ -150,7 +150,7 @@ Out of the box, Hono provides middleware for:
 - [JWT Authentication](/middleware/builtin/jwt)
 - [Logger](/middleware/builtin/logger)
 - [Pretty JSON](/middleware/builtin/pretty-json)
-- [Secure Header](/middleware/builtin/secure-header)
+- [Secure Headers](/middleware/builtin/secure-headers)
 - [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
 - [Firebase Authentication](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
