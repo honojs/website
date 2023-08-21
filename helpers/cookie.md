@@ -1,6 +1,6 @@
-# Cookie Middleware
+# Cookie Helper
 
-This middleware for setting, parsing and deleting Cookies.
+The Cookie Helper provides an easy interface to manage cookies, enabling developers to set, parse, and delete cookies seamlessly.
 
 ## Import
 
@@ -12,14 +12,14 @@ import { getCookie, getSignedCookie, setCookie, setSignedCookie, deleteCookie } 
 ```
 
 ```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
+import { Hono } from 'https://deno.land/x/hono/mod.ts'The Cookie Helper provides an easy interface to manage cookies, enabling developers to set, parse, and delete cookies seamlessly.
 import {
   getCookie,
   getSignedCookie,
   setCookie,
   setSignedCookie,
   deleteCookie,
-} from 'https://deno.land/x/hono/middleware.ts'
+} from 'https://deno.land/x/hono/helper.ts'
 ```
 
 :::

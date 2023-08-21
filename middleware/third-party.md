@@ -1,5 +1,8 @@
 # Third-party Middleware
 
+Third-party middleware refers to middleware not bundled within the Hono package.
+Most of this middleware leverages external libraries.
+
 - [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
 - [Firebase Auth](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
@@ -9,3 +12,4 @@
 - [TypeBox Validator](https://github.com/honojs/middleware/tree/main/packages/typebox-validator)
 - [Verify RSA JWT](https://github.com/wataruoguchi/verify-rsa-jwt-cloudflare-worker)
 - [Valibot Validator](https://github.com/honojs/middleware/tree/main/packages/valibot-validator)
+- [Zod OpenAPI](https://github.com/honojs/middleware/tree/main/packages/zod-openapi)

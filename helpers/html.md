@@ -1,6 +1,8 @@
-# html Middleware
+# html Helper
 
-html Middleware lets you write HTML in JavaScript template literal with a tag named `html`.
+The html Helper lets you write HTML in JavaScript template literal with a tag named `html`.
+
+## Import
 
 ::: code-group
 
@@ -11,7 +13,7 @@ import { html } from 'hono/html'
 
 ```ts [Deno]
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { html } from 'https://deno.land/x/hono/middleware.ts'
+import { html } from 'https://deno.land/x/hono/helper.ts'
 ```
 
 :::
@@ -32,7 +34,7 @@ app.get('/:username', (c) => {
 
 ### Insert snippets into JSX
 
-Insert the inline script into JSX
+Insert the inline script into JSX:
 
 ```typescript
 app.get('/', (c) => {
@@ -113,9 +115,11 @@ app.get('/', (c) => {
 })
 ```
 
-## raw
+## `raw`
 
 Using `raw`, the content will be rendered as is. You have to escape these strings by yourself.
+
+### Import
 
 ::: code-group
 
@@ -125,10 +129,12 @@ import { html, raw } from 'hono/html'
 
 ```ts [Deno]
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { html, raw } from 'https://deno.land/x/hono/middleware.ts'
+import { html, raw } from 'https://deno.land/x/hono/helper.ts'
 ```
 
 :::
+
+### Usage
 
 ```ts
 app.get('/', (c) => {

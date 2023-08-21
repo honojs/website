@@ -1,51 +1,47 @@
-# JSX Middleware
+# JSX
 
-JSX Middleware enables rendering HTML with JSX syntax.
-It's just for Server-Side-Rendering. Not for making virtual DOMs.
-
-## Import
-
-::: code-group
-
-```ts [npm]
-import { Hono } from 'hono'
-import { jsx } from 'hono/jsx'
-```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { jsx } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
+With Hono, you can utilize JSX syntax to write HTML.
+The `hono/jsx` is bundled with Hono and is strictly for Server-Side Rendering (SSR), not for client-side.
 
 ## Settings
 
-tsconfig.json:
+To utilize JSX, modify the `tsconfig.json`:
+
+`tsconfig.json`:
 
 ```json
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxFragmentFactory": "Fragment",
     "jsxImportSource": "hono/jsx"
   }
 }
 ```
 
-You do not have to `import { jsx } from 'hono/jsx`.
-
-Or use pragma:
+Alternatively, use the pragma directives:
 
 ```ts
 /** @jsx jsx */
-/** @jsxFrag  Fragment */
-import { jsx } from 'hono/jsx'
+/** @jsxImportSource hono/jsx */
 ```
+
+For Deno, you have to add the pragmas and import `jsx` and `Fragment`:
+
+::: code-group
+
+```ts [Deno]
+/** @jsx jsx */
+/** @jsxFrag Fragment */
+
+import { Hono } from 'https://deno.land/x/hono/mod.ts'
+import { jsx, Fragment } from 'https://deno.land/x/hono/middleware.ts'
+```
+
+:::
 
 ## Usage
 
-index.tsx:
+`index.tsx`:
 
 ```tsx
 const app = new Hono()
@@ -77,9 +73,9 @@ app.get('/', (c) => {
 })
 ```
 
-## dangerouslySetInnerHTML
+## Inserting Raw HTML
 
-`dangerouslySetInnerHTML` allows you to set HTML directly.
+To directly insert HTML, use `dangerouslySetInnerHTML`:
 
 ```tsx
 app.get('/foo', (c) => {
@@ -88,24 +84,24 @@ app.get('/foo', (c) => {
 })
 ```
 
-## memo
+## Memoization
 
-You can memoize calculated strings of the component with `memo`.
+Optimize your components by memoizing computed strings using `memo`:
 
 ::: code-group
 
 ```ts [npm]
-import { jsx, memo } from 'hono/jsx'
+import { memo } from 'hono/jsx'
 ```
 
 ```ts [Deno]
-import { jsx, memo } from 'https://deno.land/x/hono/middleware.ts'
+import { memo } from 'https://deno.land/x/hono/middleware.ts'
 ```
 
 :::
 
 ```tsx
-import { jsx, memo } from 'hono/jsx'
+import { memo } from 'hono/jsx'
 
 const Header = memo(() => <header>Welcome to Hono</header>)
 const Footer = memo(() => <footer>Powered by Hono</footer>)
@@ -120,14 +116,16 @@ const Layout = (
 
 ## Fragment
 
+Use Fragment to group multiple elements without adding extra nodes:
+
 ::: code-group
 
 ```ts [npm]
-import { jsx, Fragment } from 'hono/jsx'
+import { Fragment } from 'hono/jsx'
 ```
 
 ```ts [Deno]
-import { jsx, Fragment } from 'https://deno.land/x/hono/middleware.ts'
+import { Fragment } from 'https://deno.land/x/hono/middleware.ts'
 ```
 
 :::
@@ -142,10 +140,10 @@ const List = () => (
 )
 ```
 
-## With html Middleware
+## Integration with html Middleware
 
-It's powerful to use JSX middleware with html middleware.
-For more information, see [html middleware docs](/middleware/builtin/html).
+Combine the JSX and html middlewares for powerful templating.
+For in-depth details, consult the [html middleware documentation](/middleware/builtin/html).
 
 ```tsx
 import { Hono } from 'hono'
