@@ -182,33 +182,6 @@ app.get('*', async c => {
 })
 ```
 
-## runtime
-
-The key of the runtime on which the application is running.
-
-```ts
-app.get('/', (c) => {
-  if (c.runtime === 'workerd') {
-    return c.text('You are on Cloudflare')
-  } else if (c.runtime === 'bun') {
-    return c.text('You are on Bun')
-  }
-  ...
-})
-```
-
-Available runtimes are below.
-Some of these are based on [WinterCG's Runtime Keys](https://runtime-keys.proposal.wintercg.org).
-
-- `node`
-- `deno`
-- `bun`
-- `workerd` - Cloudflare Workers
-- `fastly`
-- `edge-light` - Vercel Edge Functions
-- `lagon`
-- `other`
-
 ## error
 
 If the Handler throws an error, the error object is placed in `c.error`.

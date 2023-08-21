@@ -6,7 +6,7 @@ head:
       'meta',
       {
         property: 'og:description',
-        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, Lambda@Edge, Node.js, and others. Fast, but not only fast.',
+        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
       },
     ]
 ---
@@ -14,7 +14,7 @@ head:
 # Hono
 
 Hono - _**\[炎\] means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework for the Edges.
-It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, and Node.js.
+It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, Lambda@Edge, and Node.js.
 
 Fast, but not only fast.
 
@@ -29,6 +29,8 @@ export default app
 
 ## Quick Start
 
+Just run this:
+
 ```
 npm create hono@latest my-app
 ```
@@ -38,7 +40,7 @@ npm create hono@latest my-app
 - **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
 - **Lightweight** 🪶 - The `hono/tiny` preset is under 12kB. Hono has zero dependencies and uses only the Web Standard API.
 - **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, AWS Lambda, or Node.js. The same code runs on all platforms.
-- **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, and third-party middleware. Batteries included.
+- **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
 - **Delightful DX** 🛠️ - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
 
 ## Use-cases
@@ -126,27 +128,28 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 - Lagon
 - Vercel
 - AWS Lambda
+- Lambda@Edge
 - Others
 
 And by using [a Node.js adaptor](https://github.com/honojs/node-server), Hono works on Node.js.
 
 See [more information about Web Standard](/concepts/web-standard).
 
-## Middleware
+## Middleware & Helpers
 
-**Hono has many middleware**. These makes "Write Less, do more" a reality.
+**Hono has many middleware and helpers**. These makes "Write Less, do more" a reality.
 
-Out of the box, Hono provides middleware for:
+Out of the box, Hono provides middleware and helpers for:
 
 - [Basic Authentication](/middleware/builtin/basic-auth)
 - [Bearer Authentication](/middleware/builtin/bearer-auth)
 - [Cache](/middleware/builtin/cache)
 - [Compress](/middleware/builtin/compress)
-- [Cookie](/middleware/builtin/cookie)
+- [Cookie](/helpers/cookie)
 - [CORS](/middleware/builtin/cors)
 - [ETag](/middleware/builtin/etag)
-- [html](/middleware/builtin/html)
-- [JSX](/middleware/builtin/jsx)
+- [html](/helpers/html)
+- [JSX](/guides/jsx)
 - [JWT Authentication](/middleware/builtin/jwt)
 - [Logger](/middleware/builtin/logger)
 - [Pretty JSON](/middleware/builtin/pretty-json)
@@ -154,6 +157,7 @@ Out of the box, Hono provides middleware for:
 - [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
 - [Firebase Authentication](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
+- Others!
 
 For example, adding ETag and request logging only takes a few lines of code with Hono:
 

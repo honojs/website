@@ -43,7 +43,6 @@ const sidebars = {
       { text: 'HonoRequest', link: '/api/request' },
       { text: 'Exception', link: '/api/exception' },
       { text: 'Presets', link: '/api/presets' },
-      { text: 'Adapter', link: '/api/adapter' },
     ],
   },
   guides: {
@@ -51,6 +50,11 @@ const sidebars = {
     collapsed: true,
     items: [
       { text: 'Middleware', link: '/guides/middleware' },
+      { text: 'Helpers', link: '/guides/helpers' },
+      {
+        text: 'JSX',
+        link: '/guides/jsx',
+      },
       { text: 'Testing', link: '/guides/testing' },
       {
         text: 'Validation',
@@ -70,6 +74,15 @@ const sidebars = {
       },
     ],
   },
+  helpers: {
+    text: 'Helpers',
+    collapsed: true,
+    items: [
+      { text: 'Adapter', link: '/helpers/adapter' },
+      { text: 'Cookie', link: '/helpers/cookie' },
+      { text: 'html', link: '/helpers/html' },
+    ],
+  },
   middleware: {
     text: 'Middleware',
     collapsed: true,
@@ -78,11 +91,8 @@ const sidebars = {
       { text: 'Bearer Authentication', link: '/middleware/builtin/bearer-auth' },
       { text: 'Cache', link: '/middleware/builtin/cache' },
       { text: 'Compress', link: '/middleware/builtin/compress' },
-      { text: 'Cookie', link: '/middleware/builtin/cookie' },
       { text: 'CORS', link: '/middleware/builtin/cors' },
       { text: 'ETag', link: '/middleware/builtin/etag' },
-      { text: 'html', link: '/middleware/builtin/html' },
-      { text: 'JSX', link: '/middleware/builtin/jsx' },
       { text: 'JWT', link: '/middleware/builtin/jwt' },
       { text: 'Timing', link: '/middleware/builtin/timing' },
       { text: 'Logger', link: '/middleware/builtin/logger' },
@@ -138,6 +148,7 @@ export default defineConfig({
         sidebars['concepts'],
         sidebars['api'],
         sidebars['guides'],
+        sidebars['helpers'],
         sidebars['middleware'],
       ],
     },
