@@ -8,6 +8,7 @@
   },
   "repository": "git@github.com:honojs/website.git",
   "author": "Yusuke Wada <yusuke@kamawada.com>",
+  "private": true,
   "license": "MIT",
   "devDependencies": {
     "vitepress": "1.0.0-beta.5",
