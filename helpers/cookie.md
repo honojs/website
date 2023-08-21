@@ -12,7 +12,7 @@ import { getCookie, getSignedCookie, setCookie, setSignedCookie, deleteCookie } 
 ```
 
 ```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'The Cookie Helper provides an easy interface to manage cookies, enabling developers to set, parse, and delete cookies seamlessly.
+import { Hono } from 'https://deno.land/x/hono/mod.ts'
 import {
   getCookie,
   getSignedCookie,
