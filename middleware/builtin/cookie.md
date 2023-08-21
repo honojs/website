@@ -8,7 +8,7 @@ This middleware for setting, parsing and deleting Cookies.
 
 ```ts [npm]
 import { Hono } from 'hono'
-import { getCookie, getSignedCookie, setCookie, setSignedCookie deleteCookie } from 'hono/cookie'
+import { getCookie, getSignedCookie, setCookie, setSignedCookie, deleteCookie } from 'hono/cookie'
 ```
 
 ```ts [Deno]
