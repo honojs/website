@@ -25,6 +25,20 @@ Alternatively, use the pragma directives:
 /** @jsxImportSource hono/jsx */
 ```
 
+For Deno, you have to add the pragmas and import `jsx` and `Fragment`:
+
+::: code-group
+
+```ts [Deno]
+/** @jsx jsx */
+/** @jsxFrag Fragment */
+
+import { Hono } from 'https://deno.land/x/hono/mod.ts'
+import { jsx, Fragment } from 'https://deno.land/x/hono/middleware.ts'
+```
+
+:::
+
 ## Usage
 
 `index.tsx`:
