@@ -69,7 +69,7 @@ Example:
 
 ```ts
 // Regular cookies
-setCookie('great_cookie', 'banana', {
+setCookie(c, 'great_cookie', 'banana', {
   path: '/',
   secure: true,
   domain: 'example.com',
@@ -80,7 +80,7 @@ setCookie('great_cookie', 'banana', {
 })
 
 // Signed cookies
-await setSignedCookie('fortune_cookie', 'lots-of-money', 'secret ingredient', {
+await setSignedCookie(c, 'fortune_cookie', 'lots-of-money', 'secret ingredient', {
   path: '/',
   secure: true,
   domain: 'example.com',
