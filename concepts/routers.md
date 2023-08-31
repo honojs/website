@@ -21,6 +21,24 @@ Then it can get the result with one-time matching.
 
 This works faster than methods that use tree-based algorithms such as radix-tree in most cases.
 
+#### RegExp Router Example
+
+```ts
+
+import { Hono } from 'hono'
+import { RegExpRouter } from 'hono/router/reg-exp-router'
+
+const app = new Hono({
+  router: new RegExpRouter()
+})
+
+app.get('/hello', (c) => {
+  const userAgent = c.req.header('User-Agent')
+  ...
+})
+
+```
+
 ## TrieRouter
 
 **TrieRouter** is the router using the Trie-tree algorithm.
@@ -30,6 +48,24 @@ It does not use liner loops as same as RegExpRouter.
 
 This router is not as fast as the RegExpRouter, but it is much faster than the Express router.
 TrieRouter supports all patterns though RegExpRouter does not.
+
+#### Trie Router Example
+
+```ts
+
+import { Hono } from 'hono'
+import { TrieRouter } from 'hono/router/trie-router'
+
+const app = new Hono({
+  router: new TrieRouter()
+})
+
+app.get('/hello', (c) => {
+  const userAgent = c.req.header('User-Agent')
+  ...
+})
+
+```
 
 ## SmartRouter
 
@@ -47,6 +83,24 @@ readonly defaultRouter: Router = new SmartRouter({
 ```
 
 When the application starts, SmartRouter detects the fastest router based on routing and continues to use it.
+
+#### Smart Router Example
+
+```ts
+
+import { Hono } from 'hono'
+import { SmartRouter } from 'hono/router/smart-router'
+
+const app = new Hono({
+  router: new SmartRouter()
+})
+
+app.get('/hello', (c) => {
+  const userAgent = c.req.header('User-Agent')
+  ...
+})
+
+```
 
 ## LinearRouter
 
@@ -77,6 +131,24 @@ summary for GET /user/lookup/username/hey
 
 For situations like Fastly Compute@Edge, it's better to use LinearRouter with the `hono/quick` preset.
 
+#### Linear Router Example
+
+```ts
+
+import { Hono } from 'hono'
+import { LinearRouter } from 'hono/router/linear-router'
+
+const app = new Hono({
+  router: new LinearRouter()
+})
+
+app.get('/hello', (c) => {
+  const userAgent = c.req.header('User-Agent')
+  ...
+})
+
+```
+
 ## PatternRouter
 
 **PatternRouter** is the smallest router among Hono's routers.
@@ -93,4 +165,22 @@ $ npx wrangler dev --minify ./src/index.ts
 - http://127.0.0.1:8787
 - http://192.168.128.165:8787
 Total Upload: 11.47 KiB / gzip: 4.34 KiB
+```
+
+#### Pattern Router Example
+
+```ts
+
+import { Hono } from 'hono'
+import { PatternRouter } from 'hono/router/pattern-router'
+
+const app = new Hono({
+  router: new PatternRouter()
+})
+
+app.get('/hello', (c) => {
+  const userAgent = c.req.header('User-Agent')
+  ...
+})
+
 ```
