@@ -8,12 +8,12 @@ Secure Headers Middleware simplifies the setup of security headers. Inspired in 
 
 ```ts [npm]
 import { Hono } from 'hono'
-import { SecureHeaders } from 'hono/secure-headers'
+import { secureHeaders } from 'hono/secure-headers'
 ```
 
 ```ts [Deno]
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { SecureHeaders } from 'https://deno.land/x/hono/middleware.ts'
+import { secureHeaders } from 'https://deno.land/x/hono/middleware.ts'
 ```
 
 :::
