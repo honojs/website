@@ -92,9 +92,9 @@ app.use('*', poweredBy())
 In this case, Powered-By operates and the `x-powered-by` is added:
 
 ```ts
-const appAfter = new Hono()
-appAfter.use('*', poweredBy())
-appAfter.use('*', secureHeaders())
+const app = new Hono()
+app.use('*', poweredBy())
+app.use('*', secureHeaders())
 ```
 
 ## Setting Content-Security-Policy
