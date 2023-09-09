@@ -24,14 +24,14 @@ You can use the optimal settings by default.
 
 ```ts
 const app = new Hono()
-app.get('*', secureHeaders())
+app.use('*', secureHeaders())
 ```
 
 You can suppress unnecessary headers by setting them to false.
 
 ```ts
 const app = new Hono()
-app.get(
+app.use(
   '*',
   secureHeaders({
     xFrameOptions: false,
@@ -44,7 +44,7 @@ You can override default header values using a string.
 
 ```ts
 const app = new Hono()
-app.get(
+app.use(
   '*',
   secureHeaders({
     strictTransportSecurity: 'max-age=63072000; includeSubDomains; preload',
