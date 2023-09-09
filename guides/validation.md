@@ -48,7 +48,7 @@ Within the handler you can get the validated value with `c.req.valid('form')`.
 }
 ```
 
-Validation targets include `json`, `query`, and `queries` in addition to `form`.
+Validation targets include `json`, `query`, `header`, and `cookie` in addition to `form`.
 
 ## With Zod
 
