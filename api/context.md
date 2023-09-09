@@ -13,7 +13,7 @@ app.get('/hello', (c) => {
 })
 ```
 
-## Shortcuts for Response
+## Shortcuts for the Response
 
 ```ts
 app.get('/welcome', (c) => {
@@ -120,7 +120,7 @@ app.use('/', async (c, next) => {
 })
 ```
 
-## set/get
+## set() / get()
 
 Set the value specified by the key with `set` and use it later with `get`.
 
@@ -144,6 +144,115 @@ type Variables = {
 }
 
 const app = new Hono<{ Variables: Variables }>()
+```
+
+## var
+
+You can also access the value of a variable with `c.var`.
+
+```ts
+const result = c.var.client.oneMethod()
+```
+
+If you want to create the middleware which provides a custom method,
+write like the following:
+
+```ts
+const app = new Hono()
+
+const echoMiddleware: MiddlewareHandler<{
+  Variables: {
+    echo: (str: string) => string
+  }
+}> = async (c, next) => {
+  c.set('echo', (str) => str)
+  await next()
+}
+
+app.get('/echo', echoMiddleware, (c) => {
+  return c.text(c.var.echo('Hello!'))
+})
+```
+
+## render() / setRenderer()
+
+You can set a layout using `c.setRenderer()` within a custom middleware.
+
+```ts
+app.use('*', async (c, next) => {
+  c.setRenderer((content) => {
+    return c.html(
+      <html>
+        <body>
+          <p>{content}</p>
+        </body>
+      </html>
+    )
+  })
+  await next()
+})
+```
+
+Then, you can utilize `c.render()` to create responses within this layout.
+
+```ts
+app.get('/', (c) => {
+  return c.render('Hello!')
+})
+```
+
+The output of which will be:
+
+```html
+<html>
+  <body>
+    <p>Hello!</p>
+  </body>
+</html>
+```
+
+Additionally, this feature offers the flexibility to customize arguments.
+To ensure type safety, types can be defined as:
+
+```ts
+declare module 'hono' {
+  interface ContextRenderer {
+    (content: string, head: { title: string }): Response
+  }
+}
+```
+
+Here's an example of how you can use this:
+
+```ts
+app.use('/pages/*', async (c, next) => {
+  c.setRenderer((content, head) => {
+    return c.html(
+      <html>
+        <head>
+          <title>{head.title}</title>
+        </head>
+        <body>
+          <header>{head.title}</header>
+          <p>{content}</p>
+        </body>
+      </html>
+    )
+  })
+  await next()
+})
+
+app.get('/pages/my-favorite', (c) => {
+  return c.render(<p>Ramen and Sushi</p>, {
+    title: 'My favorite',
+  })
+})
+
+app.get('/pages/my-hobbies', (c) => {
+  return c.render(<p>Watching baseball</p>, {
+    title: 'My hobbies',
+  })
+})
 ```
 
 ## executionCtx

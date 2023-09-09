@@ -120,7 +120,8 @@ Available targets are below.
 - `form`
 - `json`
 - `query`
-- `queries`
+- `header`
+- `cookie`
 
 See the [Validation section](/guides/validation) for usage examples.
 
@@ -135,9 +136,31 @@ app.get('/about/me', (c) => {
 })
 ```
 
+## url
+
+The request url strings.
+
+```ts
+app.get('/about/me', (c) => {
+  const url = c.req.url // `http://localhost:8787/about/me`
+  ...
+})
+```
+
+## method
+
+The method name of the request.
+
+```ts
+app.get('/about/me', (c) => {
+  const method = c.req.method // `GET`
+  ...
+})
+```
+
 ## raw
 
-The raw `Request` object.
+The raw [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
 
 ```ts
 // For Cloudflare Workers
@@ -146,17 +169,3 @@ app.post('/', async (c) => {
   ...
 })
 ```
-
-## Other properties
-
-These are compatible with [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request).
-
-- url
-- method
-- headers
-- body
-- bodyUsed
-- integrity
-- keepalive
-- referrer
-- signal

@@ -44,9 +44,11 @@ import { jsx, Fragment } from 'https://deno.land/x/hono/middleware.ts'
 `index.tsx`:
 
 ```tsx
+import type { FC } from 'hono/jsx'
+
 const app = new Hono()
 
-const Layout = (props: { children?: string }) => {
+const Layout: FC = (props) => {
   return (
     <html>
       <body>{props.children}</body>
@@ -54,7 +56,7 @@ const Layout = (props: { children?: string }) => {
   )
 }
 
-const Top = (props: { messages: string[] }) => {
+const Top: FC<{ messages: string[] }> = (props: { messages: string[] }) => {
   return (
     <Layout>
       <h1>Hello Hono!</h1>
@@ -71,6 +73,32 @@ app.get('/', (c) => {
   const messages = ['Good Morning', 'Good Evening', 'Good Night']
   return c.html(<Top messages={messages} />)
 })
+```
+
+## Fragment
+
+Use Fragment to group multiple elements without adding extra nodes:
+
+::: code-group
+
+```ts [npm]
+import { Fragment } from 'hono/jsx'
+```
+
+```ts [Deno]
+import { Fragment } from 'https://deno.land/x/hono/middleware.ts'
+```
+
+:::
+
+```tsx
+const List = () => (
+  <Fragment>
+    <p>first child</p>
+    <p>second child</p>
+    <p>third child</p>
+  </Fragment>
+)
 ```
 
 ## Inserting Raw HTML
@@ -111,32 +139,6 @@ const Layout = (
     <p>Hono is cool!</p>
     <Footer />
   </div>
-)
-```
-
-## Fragment
-
-Use Fragment to group multiple elements without adding extra nodes:
-
-::: code-group
-
-```ts [npm]
-import { Fragment } from 'hono/jsx'
-```
-
-```ts [Deno]
-import { Fragment } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
-
-```tsx
-const List = () => (
-  <Fragment>
-    <p>first child</p>
-    <p>second child</p>
-    <p>third child</p>
-  </Fragment>
 )
 ```
 

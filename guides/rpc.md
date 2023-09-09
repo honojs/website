@@ -134,6 +134,18 @@ const client = hc<AppType>('/api', {
 })
 ```
 
+## `$url()`
+
+You can get a `URL` object for accessing the the endpoint by using `$url()`.
+
+```ts
+const route = app.get('/api/foo/bar', (c) => c.jsonT({ foo: 'bar' }))
+
+const client = hc<typeof route>('http://localhost:8787/')
+const url = client.api.foo.bar.$url()
+console.log(url.pathname) // `/api/foo/bar`
+```
+
 ## Custom `fetch` method
 
 You can set the custom `fetch` method.
