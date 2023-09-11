@@ -11,7 +11,7 @@ npm create hono@latest my-app
 ```
 
 Then you will be asked which template you would like to use.
-Let you choose Cloudflare Workers at this time.
+Let's select Cloudflare Workers for this example.
 
 ```
 ? Which template do you want to use?
@@ -34,13 +34,14 @@ cd my-app
 npm i
 ```
 
-The setup is finished. Now you can run `npm run dev` to start up a local server and will focus on development.
+Once the package installation is complete, run `npm run dev` to start up a local server.
 
 ## Hello World
 
 You can write code in TypeScript with the Cloudflare Workers development tool "Wrangler", Deno, Bun, or others without being aware of transpiling.
 
-Write your first application with Hono in `src/index.ts`. The code is just below.
+Write your first application with Hono in `src/index.ts`. The example below is a starter Hono application.
+
 The `import` and the final `export default` parts may vary from runtime to runtime,
 but all of the application code will run the same code everywhere.
 
@@ -56,7 +57,7 @@ app.get('/', (c) => {
 export default app
 ```
 
-Start a development server and access `http://localhost:8787` with your browser.
+Start the development server and access `http://localhost:8787` with your browser.
 
 ```
 npm run dev
@@ -64,7 +65,7 @@ npm run dev
 
 ## Return JSON
 
-Returning JSON is also easy. The following is an example of handling a GET Request to `/api/hello` and returning an `application/json` Response. Don't forget to write `return`. But that's all.
+Returning JSON is also easy. The following is an example of handling a GET Request to `/api/hello` and returning an `application/json` Response.
 
 ```ts
 app.get('/api/hello', (c) => {
@@ -77,7 +78,7 @@ app.get('/api/hello', (c) => {
 
 ## Request and Response
 
-Getting a path parameter, URL query value, and appending Response header is written as follows.
+Getting a path parameter, URL query value, and appending a Response header is written as follows.
 
 ```ts
 app.get('/posts/:id', (c) => {
@@ -97,7 +98,7 @@ app.delete('/posts/:id', (c) => c.text(`${c.req.param('id')} is deleted!`))
 
 ## Return HTML
 
-Hono is also suitable for returning a little HTML. Rename the file to `src/index.tsx` and configure it to use JSX (check with each runtime as it is different). You don't need to use a fat front-end framework.
+Hono is also suitable for returning a little HTML. Rename the file to `src/index.tsx` and configure it to use JSX (check with each runtime as it is different). You don't need to use a huge front-end framework.
 
 ```tsx
 const View = () => {
@@ -128,7 +129,7 @@ app.get('/', (c) => {
 ## Using Middleware
 
 Middleware can do the hard work for you.
-For example, add the Basic Authentication.
+For example, add in Basic Authentication.
 
 ```ts
 import { basicAuth } from 'hono/basic-auth'
@@ -149,7 +150,7 @@ app.get('/admin', (c) => {
 ```
 
 There are useful built-in middleware including Bearer and authentication using JWT, CORS and ETag.
-Also, we have third-party middleware using external libraries such as GraphQL Server and Firebase Auth.
+Hono also provides third-party middleware using external libraries such as GraphQL Server and Firebase Auth.
 And, you can make your own middleware.
 
 ## Adapter
@@ -165,6 +166,6 @@ app.get('/static/*', serveStatic({ root: './' }))
 
 ## Next step
 
-Most code will work on any platform, but there are tips for each.
+Most code will work on any platform, but there are guides for each.
 For instance, how to set up projects or how to deploy.
-Please see the page for the platform you want to use and create your application!
+Please see the page for the exact platform you want to use to create your application!
