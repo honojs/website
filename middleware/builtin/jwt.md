@@ -36,6 +36,24 @@ app.get('/auth/page', (c) => {
 })
 ```
 
+Get payload:
+
+```js
+const app = new Hono()
+
+app.use(
+  '/auth/*',
+  jwt({
+    secret: 'it-is-very-secret',
+  })
+)
+
+app.get('/auth/page', (c) => {
+  const payload = c.get('jwtPayload')
+  return c.json(payload) // eg: { "sub": "1234567890", "name": "John Doe", "iat": 1516239022 }
+})
+```
+
 ## Options
 
 - `secret`: string - _required_
