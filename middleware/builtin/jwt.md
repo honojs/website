@@ -10,6 +10,7 @@ The JWT Auth Middleware provides authentication by verifying the token with JWT.
 ```ts [npm]
 import { Hono } from 'hono'
 import { jwt } from 'hono/jwt'
+import { Jwt } from 'hono/utils/jwt';
 ```
 
 ```ts [Deno]
@@ -23,6 +24,7 @@ import { jwt } from 'https://deno.land/x/hono/middleware.ts'
 
 ```js
 const app = new Hono()
+const secretKey = 'it-is-very-secret'
 
 app.use(
   '/auth/*',
@@ -44,9 +46,25 @@ const app = new Hono()
 app.use(
   '/auth/*',
   jwt({
-    secret: 'it-is-very-secret',
+    secret: secretKey,
   })
 )
+
+// login and generate a token
+app.post('/login', async (c) => {
+  const username = 'user';
+  const password = 'pass';
+
+  // check user in database eg: MongoDB
+  const user = await User.findOne({ username, password });
+  if (!user) {
+    return c.json({ message: 'Authentication failed' });
+  }
+
+  // generate a token
+  const token = await Jwt.sign({ username }, secretKey);
+  return c.json({ token:token });
+});
 
 app.get('/auth/page', (c) => {
   const payload = c.get('jwtPayload')
