@@ -112,7 +112,7 @@ const api = new Hono().basePath('/api')
 api.get('/book', (c) => c.text('List Books')) // GET /api/book
 ```
 
-## Routing with with hostname
+## Routing with hostname
 
 It works fine if it includes a hostname.
 
