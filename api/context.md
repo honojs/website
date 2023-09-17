@@ -110,6 +110,36 @@ app.get('/redirect', (c) => c.redirect('/'))
 app.get('/redirect-permanently', (c) => c.redirect('/', 301))
 ```
 
+## streamText()
+
+Response as `Content-Type:text/plain` with `Transfer-Encoding:chunked` and `X-Content-Type-Options:nosniff`.
+
+If you want to use **vanilla** stream, use `stream()` instead.
+
+```ts
+app.get('/', (c) => {
+  return c.streamText(async (stream) => {
+    await stream.writeln('Hello'); // Write a text with a new line ('\n')
+    await stream.sleep(1000); // Wait 1 second
+    await stream.write(`Hono!`); // Write a text without a new line
+    await stream.pipe(hogeReadableStream); // Pipe a readable stream
+  });
+});
+```
+
+## stream()
+
+Response with simple stream.
+(Argument `stream` is the same interface as `streamText`)
+
+```ts
+app.get('/', (c) => {
+  return c.stream(async (stream) => {
+    await stream.write(new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f])); // Write a Uint8Array
+  });
+});
+```
+
 ## res
 
 ```ts
