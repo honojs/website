@@ -45,7 +45,7 @@ The Logger Middleware accepts an optional `PrintFunc` function as a parameter. T
 
 ### Options
 
-- **PrintFunc?**: (str: string, ...rest: string[])
+- **`PrintFunc?`**: (str: string, ...rest: string[])
 
 ### Example
 
