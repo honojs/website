@@ -83,6 +83,13 @@ const sidebars = {
       { text: 'html', link: '/helpers/html' },
     ],
   },
+  utilities: {
+    text: 'Utilities',
+    collapsed: true,
+    items: [
+      { text: 'JWT', link: '/utilities/jwt' }
+    ]
+  },
   middleware: {
     text: 'Middleware',
     collapsed: true,
@@ -149,6 +156,7 @@ export default defineConfig({
         sidebars['api'],
         sidebars['guides'],
         sidebars['helpers'],
+        sidebars['utilities'],
         sidebars['middleware'],
       ],
     },
