@@ -81,14 +81,8 @@ const sidebars = {
       { text: 'Adapter', link: '/helpers/adapter' },
       { text: 'Cookie', link: '/helpers/cookie' },
       { text: 'html', link: '/helpers/html' },
+      { text: 'JWT', link: '/helpers/jwt' },
     ],
-  },
-  utilities: {
-    text: 'Utilities',
-    collapsed: true,
-    items: [
-      { text: 'JWT', link: '/utilities/jwt' }
-    ]
   },
   middleware: {
     text: 'Middleware',
@@ -156,7 +150,6 @@ export default defineConfig({
         sidebars['api'],
         sidebars['guides'],
         sidebars['helpers'],
-        sidebars['utilities'],
         sidebars['middleware'],
       ],
     },

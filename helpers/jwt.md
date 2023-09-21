@@ -1,39 +1,43 @@
-# JWT Authentication Utility
+# JWT Authentication Helper
 
-This utility module provides functions for encoding, decoding, signing, and verifying JSON Web Tokens (JWTs). JWTs are commonly used for authentication and authorization purposes in web applications. This module offers robust JWT functionality with support for various cryptographic algorithms.
+This helper provides functions for encoding, decoding, signing, and verifying JSON Web Tokens (JWTs). JWTs are commonly used for authentication and authorization purposes in web applications. This helper offers robust JWT functionality with support for various cryptographic algorithms.
 
 ## Import
 
-To use this utility, you can import it as follows:
+To use this helper, you can import it as follows:
 
 ```ts
-import { Jwt } from "hono/utils/jwt";
+import { decode, sign, verify } from 'hono/jwt'
 ```
+
+::: info
+[JWT Middleware](/middleware/builtin/jwt) also import the `jwt` function from the `hono/jwt`.
+:::
 
 ## Sign
 
 This function generates a JWT token by encoding a payload and signing it using the specified algorithm and secret.
 
 ```ts
-Jwt.sign(
+sign(
   payload: unknown,
   secret: string,
-  alg?: Jwt.AlgorithmTypes = Jwt.AlgorithmTypes.HS256;
-  
+  alg?: 'HS256';
+
 ): Promise<string>;
 ```
 
 ### Example:
 
 ```ts
-import { Jwt } from "hono/utils/jwt";
+import { sign } from 'hono/jwt'
 
 const payload = {
   sub: 'user123',
   role: 'admin',
-};
-const secret = 'mySecretKey';
-const token = await Jwt.sign(payload, secret);
+}
+const secret = 'mySecretKey'
+const token = await sign(payload, secret)
 ```
 
 ### Options
@@ -42,7 +46,7 @@ const token = await Jwt.sign(payload, secret);
   - The JWT payload to be signed.
 - `secret`: string - required
   - The secret key used for JWT verification or signing.
-- `alg`: [Jwt.AlgorithmTypes](#supported-algorithmtypes) 
+- `alg`: [AlgorithmTypes](#supported-algorithmtypes)
   - The algorithm used for JWT signing or verification. Default is HS256.
 
 ## Verify
@@ -50,10 +54,10 @@ const token = await Jwt.sign(payload, secret);
 This function checks if a JWT token is genuine and still valid. It ensures the token hasn't been altered and checks validity only if you added [Payload Validation](#payload-validation).
 
 ```ts
-Jwt.verify(
+verify(
   token: string,
   secret: string,
-  alg?: Jwt.AlgorithmTypes;
+  alg?: 'HS256';
 ): Promise<any>;
 
 ```
@@ -61,13 +65,13 @@ Jwt.verify(
 ### Example:
 
 ```ts
-import { Jwt } from "hono/utils/jwt";
+import { verify } from 'hono/jwt'
 
 const tokenToVerify = 'token'
-const secretKey = 'mySecretKey';
+const secretKey = 'mySecretKey'
 
-const decodedPayload = await Jwt.verify(tokenToVerify, secretKey);
-console.log(decodedPayload);
+const decodedPayload = await verify(tokenToVerify, secretKey)
+console.log(decodedPayload)
 ```
 
 ### Options
@@ -84,21 +88,22 @@ console.log(decodedPayload);
 This function decodes a JWT token without performing signature verification. It extracts and returns the header and payload from the token.
 
 ```ts
-Jwt.decode(token: string): { header: any; payload: any };
+decode(token: string): { header: any; payload: any };
 ```
 
 ### Example:
 
 ```ts
-import { Jwt } from "hono/utils/jwt";
+import { decode } from 'hono/jwt'
 
 // Decode the JWT token
-const tokenToDecode = "eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJzdWIiOiAidXNlcjEyMyIsICJyb2xlIjogImFkbWluIn0.JxUwx6Ua1B0D1B0FtCrj72ok5cm1Pkmr_hL82sd7ELA";
+const tokenToDecode =
+  'eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJzdWIiOiAidXNlcjEyMyIsICJyb2xlIjogImFkbWluIn0.JxUwx6Ua1B0D1B0FtCrj72ok5cm1Pkmr_hL82sd7ELA'
 
-const { header, payload } = Jwt.decode(tokenToDecode);
+const { header, payload } = decode(tokenToDecode)
 
-console.log("Decoded Header:", header);
-console.log("Decoded Payload:", payload); 
+console.log('Decoded Header:', header)
+console.log('Decoded Payload:', payload)
 ```
 
 ### Options
@@ -106,7 +111,7 @@ console.log("Decoded Payload:", payload);
 - `token`: string - required
   - The JWT token to be decoded.
 
-> The `Jwt.decode` function allows you to inspect the header and payload of a JWT token _**without**_ performing verification. This can be useful for debugging or extracting information from JWT tokens.
+> The `decode` function allows you to inspect the header and payload of a JWT token _**without**_ performing verification. This can be useful for debugging or extracting information from JWT tokens.
 
 ## Payload Validation
 
