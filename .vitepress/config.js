@@ -81,6 +81,7 @@ const sidebars = {
       { text: 'Adapter', link: '/helpers/adapter' },
       { text: 'Cookie', link: '/helpers/cookie' },
       { text: 'html', link: '/helpers/html' },
+      { text: 'JWT', link: '/helpers/jwt' },
     ],
   },
   middleware: {
