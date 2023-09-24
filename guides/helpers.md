@@ -19,6 +19,8 @@ app.get('/cookie', (c) => {
 
 ## Available Helpers
 
+- [Adapter](/helpers/adapter)
 - [Cookie](/helpers/cookie)
 - [html](/helpers/html)
-- [Adapter](/helpers/adapter)
+- [JWT](/helpers/jwt)
+- [Testing](/helpers/testing)
