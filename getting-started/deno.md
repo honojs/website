@@ -164,4 +164,8 @@ You can use either `npm:hono` or `deno.land/x/hono`.
 
 If you want to use Third-party Middleware, you need to use the `npm:` specifier, such as `npm:@hono/zod-validator`, and you should avoid using both `npm:` and `deno.land/x/hono` together.
 
-However, `npm:hono` doesn't work on Deno Deploy. So, if you want to deploy to Deno Deploy, use `deno.land/x/hono`.
+~~However, `npm:hono` doesn't work on Deno Deploy. So, if you want to deploy to Deno Deploy, use `deno.land/x/hono`.~~
+
+As of September 6, 2023, Deno announced [native npm support on Deno Deploy](https://deno.com/blog/npm-on-deno-deploy). However, it has not been tested yet on the `hono` and `@hono` packages. 
+
+If you experience any problems, or want to run test, please open an issue/pr to the respective library.
