@@ -25,7 +25,28 @@ npm i
 
 ## 2. Hello World
 
-Edit `pages/api/[...route].ts`.
+If you use the App Router, Edit `app/api/[...route]/route.ts`.
+
+```ts
+import { Hono } from 'hono'
+import { handle } from 'hono/vercel'
+
+export const config = {
+  runtime: 'edge',
+}
+
+const app = new Hono().basePath("/api")
+
+app.get('/hello', (c) => {
+  return c.json({
+    message: 'Hello Next.js!',
+  })
+})
+
+export const GET = handle(app)
+```
+
+If you use the Pages Router, Edit `pages/api/[...route].ts`.
 
 ```ts
 import { Hono } from 'hono'
