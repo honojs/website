@@ -1,6 +1,6 @@
 # streaming Helper
 
-The streaming Helper provides a method to extend `c.stream`. 
+The streaming Helper provides a method to extend [`c.stream`](/api/context#stream). 
 
 ## Import
 
