@@ -64,7 +64,7 @@ app.get('/post/:date{[0-9]+}/:title{[a-z]+}', (c) => {
 ## Including slashes
 
 ```ts
-app.get('/posts/:filename{.+.png$}', (c) => {
+app.get('/posts/:filename{.+\\.png$}', (c) => {
   //...
 })
 ```
