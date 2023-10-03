@@ -25,6 +25,7 @@ Let's select Cloudflare Workers for this example.
     nextjs
     nodejs
     vercel
+    endpts
 ```
 
 The template will be pulled into `my-app`, so go to it and install the dependencies.

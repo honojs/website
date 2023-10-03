@@ -6,7 +6,7 @@ head:
       'meta',
       {
         property: 'og:description',
-        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
+        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, endpts, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
       },
     ]
 ---
@@ -14,7 +14,7 @@ head:
 # Hono
 
 Hono - _**\[炎\] means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework for the Edges.
-It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, Lambda@Edge, and Node.js.
+It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, endpts, AWS Lambda, Lambda@Edge, and Node.js.
 
 Fast, but not only fast.
 
@@ -127,6 +127,7 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 - Bun
 - Lagon
 - Vercel
+- endpts
 - AWS Lambda
 - Lambda@Edge
 - Others
