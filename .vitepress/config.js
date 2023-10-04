@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 
+const versions = ["3.73", "3.72", "3.71"]
+
 const sidebars = {
   concepts: {
     text: 'Concepts',
@@ -103,6 +105,15 @@ const sidebars = {
       { text: '3rd-party Middleware', link: '/middleware/third-party' },
     ],
   },
+  updates: {
+    text: 'Updates',
+    collapsed: true,
+    items: versions.map((version) => {
+      return {
+        text: "v" + version, link: '/updates/v' + version
+      }
+    }),
+  },
 }
 
 export default defineConfig({
@@ -152,6 +163,7 @@ export default defineConfig({
         sidebars['guides'],
         sidebars['helpers'],
         sidebars['middleware'],
+        sidebars['updates']
       ],
     },
   },
