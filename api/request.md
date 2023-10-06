@@ -71,6 +71,42 @@ app.post('/entry', async (c) => {
 })
 ```
 
+`parseBody()` supports the following behaviors.
+
+**Single file**
+
+```ts
+const body = await c.req.parseBody()
+body['hoge']
+```
+
+`body['hoge']` is `(string | Blob)`.
+
+If multiple files are uploaded, the last one will be used.
+
+**Multiple files**
+
+```ts
+const body = await c.req.parseBody()
+body['hoge[]']
+```
+
+`body['hoge[]']` is always `(string | Blob)[]`.
+
+`[]` postfix is required.
+
+**Multiple files with same name**
+
+```ts
+const body = await c.req.parseBody({ all: true })
+body['hoge']
+```
+
+`all` option is disabled by default.
+
+- If `body['hoge']` is multiple files, it will be parsed to `(string | Blob)[]`.
+- If `body['hoge']` is single file, it will be parsed to `(string | Blob)`.
+
 ## json()
 
 Parse Request body of type `application/json`
