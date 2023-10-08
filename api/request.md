@@ -122,6 +122,7 @@ Available targets are below.
 - `query`
 - `header`
 - `cookie`
+- `param`
 
 See the [Validation section](/guides/validation) for usage examples.
 
