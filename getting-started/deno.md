@@ -15,8 +15,8 @@ Please refer to [the official document](https://deno.land/manual/getting_started
 A starter for Deno is available.
 Start your project with "create-hono" command.
 
-```
-npm create hono@latest my-app
+```txt
+deno run -A npm:create-hono my-app
 ```
 
 Move into `my-app`. For Deno, you don't have to install Hono explicitly.
@@ -166,6 +166,6 @@ If you want to use Third-party Middleware, you need to use the `npm:` specifier,
 
 ~~However, `npm:hono` doesn't work on Deno Deploy. So, if you want to deploy to Deno Deploy, use `deno.land/x/hono`.~~
 
-As of September 6, 2023, Deno announced [native npm support on Deno Deploy](https://deno.com/blog/npm-on-deno-deploy). However, it has not been tested yet on the `hono` and `@hono` packages. 
+As of September 6, 2023, Deno announced [native npm support on Deno Deploy](https://deno.com/blog/npm-on-deno-deploy). However, it has not been tested yet on the `hono` and `@hono` packages.
 
 If you experience any problems, or want to run test, please open an issue/pr to the respective library.
