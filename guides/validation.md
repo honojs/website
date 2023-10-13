@@ -50,6 +50,19 @@ Within the handler you can get the validated value with `c.req.valid('form')`.
 
 Validation targets include `json`, `query`, `header`, `param` and `cookie` in addition to `form`.
 
+## Multiple validators
+You can also include multiple validators to validate different parts of request:
+```ts
+app.post(
+  '/posts/:id',
+  validator('param', ...),
+  validator('query', ...),
+  validator('json', ...),
+  (c) => {
+    //... 
+  }
+```
+
 ## With Zod
 
 You can use [Zod](https://zod.dev), one of third-party validators.
