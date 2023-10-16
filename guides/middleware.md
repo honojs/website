@@ -82,7 +82,7 @@ Hono has built-in middleware.
 import { Hono } from 'hono'
 import { poweredBy } from 'hono/powered-by'
 import { logger } from 'hono/logger'
-import { basicAuth } from 'hono/basicAuth'
+import { basicAuth } from 'hono/basic-auth'
 
 const app = new Hono()
 
