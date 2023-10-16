@@ -154,6 +154,7 @@ Out of the box, Hono provides middleware and helpers for:
 - [Logger](/middleware/builtin/logger)
 - [Pretty JSON](/middleware/builtin/pretty-json)
 - [Secure Headers](/middleware/builtin/secure-headers)
+- [Streaming](/helpers/streaming)
 - [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
 - [Firebase Authentication](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)

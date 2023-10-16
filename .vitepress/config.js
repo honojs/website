@@ -82,6 +82,7 @@ const sidebars = {
       { text: 'Cookie', link: '/helpers/cookie' },
       { text: 'html', link: '/helpers/html' },
       { text: 'JWT', link: '/helpers/jwt' },
+      { text: 'Streaming', link: '/helpers/streaming' },
       { text: 'Testing', link: '/helpers/testing' },
     ],
   },
