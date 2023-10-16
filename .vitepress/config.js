@@ -80,6 +80,7 @@ const sidebars = {
     items: [
       { text: 'Adapter', link: '/helpers/adapter' },
       { text: 'Cookie', link: '/helpers/cookie' },
+      { text: 'Factory', link: '/helpers/factory' },
       { text: 'html', link: '/helpers/html' },
       { text: 'JWT', link: '/helpers/jwt' },
       { text: 'Streaming', link: '/helpers/streaming' },
