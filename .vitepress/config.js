@@ -97,6 +97,7 @@ const sidebars = {
       { text: 'Compress', link: '/middleware/builtin/compress' },
       { text: 'CORS', link: '/middleware/builtin/cors' },
       { text: 'ETag', link: '/middleware/builtin/etag' },
+      { text: 'JSX Renderer', link: '/middleware/builtin/jsx-renderer' },
       { text: 'JWT', link: '/middleware/builtin/jwt' },
       { text: 'Timing', link: '/middleware/builtin/timing' },
       { text: 'Logger', link: '/middleware/builtin/logger' },
