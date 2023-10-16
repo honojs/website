@@ -2,25 +2,25 @@
 
 The Adapter Helper provides a seamless way to interact with various platforms through a unified interface.
 
-## `env`
-
-The `env` function facilitates retrieving environment variables across different runtimes, extending beyond just Cloudflare Workers' Bindings.
-
-### Import
+## Import
 
 ::: code-group
 
 ```ts [npm]
 import { Hono } from 'hono'
-import { env } from 'hono/adapter'
+import { env, getRuntimeKey } from 'hono/adapter'
 ```
 
 ```ts [Deno]
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { env } from 'https://deno.land/x/hono/helper.ts'
+import { env, getRuntimeKey } from 'https://deno.land/x/hono/helper.ts'
 ```
 
 :::
+
+## `env()`
+
+The `env()` function facilitates retrieving environment variables across different runtimes, extending beyond just Cloudflare Workers' Bindings.
 
 ```ts
 import { env } from 'hono/adapter'
@@ -42,25 +42,9 @@ Supported Runtimes:
 - AWS Lambda
 - Lambda@Edge
 
-## `getRuntimeKey`
+## `getRuntimeKey()`
 
-The `getRuntimeKey` function returns the identifier of the current runtime.
-
-### Import
-
-::: code-group
-
-```ts [npm]
-import { Hono } from 'hono'
-import { getRuntimeKey } from 'hono/adapter'
-```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { getRuntimeKey } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
+The `getRuntimeKey()` function returns the identifier of the current runtime.
 
 ```ts
 app.get('/', (c) => {

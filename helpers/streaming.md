@@ -1,6 +1,6 @@
 # streaming Helper
 
-The streaming Helper provides a method to extend [`c.stream`](/api/context#stream). 
+The streaming Helper provides a method to extend [`c.stream`](/api/context#stream).
 
 ## Import
 
@@ -18,9 +18,7 @@ import { streamSSE } from 'https://deno.land/x/hono/helper.ts'
 
 :::
 
-## Usage
-
-### streamSSE
+## `streamSSE()`
 
 It allows you to stream Server-Sent Events (SSE) seamlessly.
 

@@ -29,7 +29,7 @@ app.get(
     return (
       <html>
         <body>
-          <nav>Menu</nav>
+          <header>Menu</header>
           <div>{children}</div>
         </body>
       </html>

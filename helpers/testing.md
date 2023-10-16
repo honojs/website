@@ -13,9 +13,9 @@ import { testClient } from 'hono/testing'
 
 :::
 
-## `testClient`
+## `testClient()`
 
-The `testingClient` takes an instance of Hono as its first argument and returns an object of the [Hono Client](/guides/rpc#client). By using this, you can define your request with the editor completion.
+The `testingClient()` takes an instance of Hono as its first argument and returns an object of the [Hono Client](/guides/rpc#client). By using this, you can define your request with the editor completion.
 
 ```ts
 import { testClient } from 'hono/testing'

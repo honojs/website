@@ -18,7 +18,7 @@ import { createMiddleware } from 'https://deno.land/x/hono/helper.ts'
 
 :::
 
-## createMiddleware
+## `createMiddleware()`
 
 This function will create your custom middleware.
 

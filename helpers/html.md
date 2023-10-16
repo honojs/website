@@ -1,6 +1,6 @@
 # html Helper
 
-The html Helper lets you write HTML in JavaScript template literal with a tag named `html`.
+The html Helper lets you write HTML in JavaScript template literal with a tag named `html`. Using `raw()`, the content will be rendered as is. You have to escape these strings by yourself.
 
 ## Import
 
@@ -8,17 +8,17 @@ The html Helper lets you write HTML in JavaScript template literal with a tag na
 
 ```ts [npm]
 import { Hono } from 'hono'
-import { html } from 'hono/html'
+import { html, raw } from 'hono/html'
 ```
 
 ```ts [Deno]
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { html } from 'https://deno.land/x/hono/helper.ts'
+import { html, raw } from 'https://deno.land/x/hono/helper.ts'
 ```
 
 :::
 
-## Usage
+## `html`
 
 ```ts
 const app = new Hono()
@@ -115,26 +115,7 @@ app.get('/', (c) => {
 })
 ```
 
-## `raw`
-
-Using `raw`, the content will be rendered as is. You have to escape these strings by yourself.
-
-### Import
-
-::: code-group
-
-```ts [npm]
-import { html, raw } from 'hono/html'
-```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { html, raw } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
-
-### Usage
+## `raw()`
 
 ```ts
 app.get('/', (c) => {
