@@ -142,6 +142,53 @@ const Layout = (
 )
 ```
 
+## Context
+
+By using `useContext`, you can share data globally across any level of the Component tree without passing values through props.
+
+```tsx
+import type { FC } from 'hono/jsx'
+import { createContext, useContext } from 'hono/jsx'
+
+const themes = {
+  light: {
+    color: '#000000',
+    background: '#eeeeee',
+  },
+  dark: {
+    color: '#ffffff',
+    background: '#222222',
+  },
+}
+
+const ThemeContext = createContext(themes.light)
+
+const Button: FC = () => {
+  const theme = useContext(ThemeContext)
+  return <button style={theme}>Push!</button>
+}
+
+const Toolbar: FC = () => {
+  return (
+    <div>
+      <Button />
+    </div>
+  )
+}
+
+// ...
+
+app.get('/', (c) => {
+  return c.html(
+    <div>
+      <ThemeContext.Provider value={themes.dark}>
+        <Toolbar />
+      </ThemeContext.Provider>
+    </div>
+  )
+})
+```
+
 ## Integration with html Middleware
 
 Combine the JSX and html middlewares for powerful templating.
@@ -150,7 +197,6 @@ For in-depth details, consult the [html middleware documentation](/middleware/bu
 ```tsx
 import { Hono } from 'hono'
 import { html } from 'hono/html'
-import { jsx } from 'hono/jsx'
 
 const app = new Hono()
 

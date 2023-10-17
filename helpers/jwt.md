@@ -14,7 +14,7 @@ import { decode, sign, verify } from 'hono/jwt'
 [JWT Middleware](/middleware/builtin/jwt) also import the `jwt` function from the `hono/jwt`.
 :::
 
-## Sign
+## `sign()`
 
 This function generates a JWT token by encoding a payload and signing it using the specified algorithm and secret.
 
@@ -27,7 +27,7 @@ sign(
 ): Promise<string>;
 ```
 
-### Example:
+### Example
 
 ```ts
 import { sign } from 'hono/jwt'
@@ -49,7 +49,7 @@ const token = await sign(payload, secret)
 - `alg`: [AlgorithmTypes](#supported-algorithmtypes)
   - The algorithm used for JWT signing or verification. Default is HS256.
 
-## Verify
+## `verify()`
 
 This function checks if a JWT token is genuine and still valid. It ensures the token hasn't been altered and checks validity only if you added [Payload Validation](#payload-validation).
 
@@ -62,7 +62,7 @@ verify(
 
 ```
 
-### Example:
+### Example
 
 ```ts
 import { verify } from 'hono/jwt'
@@ -83,7 +83,7 @@ console.log(decodedPayload)
 - `alg`: [AlgorithmTypes](#supported-algorithmtypes)
   - The algorithm used for JWT signing or verification. Default is HS256.
 
-## Decode
+## `decode()`
 
 This function decodes a JWT token without performing signature verification. It extracts and returns the header and payload from the token.
 
@@ -91,7 +91,7 @@ This function decodes a JWT token without performing signature verification. It 
 decode(token: string): { header: any; payload: any };
 ```
 
-### Example:
+### Example
 
 ```ts
 import { decode } from 'hono/jwt'

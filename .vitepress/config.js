@@ -80,8 +80,10 @@ const sidebars = {
     items: [
       { text: 'Adapter', link: '/helpers/adapter' },
       { text: 'Cookie', link: '/helpers/cookie' },
+      { text: 'Factory', link: '/helpers/factory' },
       { text: 'html', link: '/helpers/html' },
       { text: 'JWT', link: '/helpers/jwt' },
+      { text: 'Streaming', link: '/helpers/streaming' },
       { text: 'Testing', link: '/helpers/testing' },
     ],
   },
@@ -95,6 +97,7 @@ const sidebars = {
       { text: 'Compress', link: '/middleware/builtin/compress' },
       { text: 'CORS', link: '/middleware/builtin/cors' },
       { text: 'ETag', link: '/middleware/builtin/etag' },
+      { text: 'JSX Renderer', link: '/middleware/builtin/jsx-renderer' },
       { text: 'JWT', link: '/middleware/builtin/jwt' },
       { text: 'Timing', link: '/middleware/builtin/timing' },
       { text: 'Logger', link: '/middleware/builtin/logger' },
