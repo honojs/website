@@ -192,7 +192,7 @@ app.get('/', (c) => {
 ## Integration with html Middleware
 
 Combine the JSX and html middlewares for powerful templating.
-For in-depth details, consult the [html middleware documentation](/middleware/builtin/html).
+For in-depth details, consult the [html middleware documentation](/helpers/html).
 
 ```tsx
 import { Hono } from 'hono'
