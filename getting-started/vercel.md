@@ -25,7 +25,7 @@ npm i
 
 ## 2. Hello World
 
-If you use the App Router, Edit `app/api/[...route]/route.ts`.
+If you use the App Router, Edit `app/api/[[...route]]/route.ts`.
 
 ```ts
 import { Hono } from 'hono'
@@ -46,7 +46,7 @@ app.get('/hello', (c) => {
 export const GET = handle(app)
 ```
 
-If you use the Pages Router, Edit `pages/api/[...route].ts`.
+If you use the Pages Router, Edit `pages/api/[[...route]].ts`.
 
 ```ts
 import { Hono } from 'hono'
