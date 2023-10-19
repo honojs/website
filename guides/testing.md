@@ -42,7 +42,22 @@ describe('Example', () => {
 })
 ```
 
-The `POST /posts` is more complex.
+To make a request to `POST /posts`, do the following.
+
+```ts
+test('POST /posts', async () => {
+  const res = await app.request('/posts', {
+    method: 'POST',
+  })
+  expect(res.status).toBe(201)
+  expect(res.headers.get('X-Custom')).toBe('Thank you')
+  expect(await res.json()).toEqual({
+    message: 'Created',
+  })
+})
+```
+
+You can also pass an instance of the Request class.
 
 ```ts
 test('POST /posts', async () => {
