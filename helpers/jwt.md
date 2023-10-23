@@ -7,7 +7,7 @@ This helper provides functions for encoding, decoding, signing, and verifying JS
 To use this helper, you can import it as follows:
 
 ```ts
-import { decode, sign, verify } from 'hono/jwt'
+import { sign, decode, verify } from "hono/utils/jwt/jwt";
 ```
 
 ::: info
@@ -30,7 +30,7 @@ sign(
 ### Example
 
 ```ts
-import { sign } from 'hono/jwt'
+import { sign } from "hono/utils/jwt/jwt";
 
 const payload = {
   sub: 'user123',
@@ -65,7 +65,7 @@ verify(
 ### Example
 
 ```ts
-import { verify } from 'hono/jwt'
+import { verify } from "hono/utils/jwt/jwt";
 
 const tokenToVerify = 'token'
 const secretKey = 'mySecretKey'
@@ -94,7 +94,7 @@ decode(token: string): { header: any; payload: any };
 ### Example
 
 ```ts
-import { decode } from 'hono/jwt'
+import { decode} from "hono/utils/jwt/jwt";
 
 // Decode the JWT token
 const tokenToDecode =
