@@ -42,7 +42,60 @@ app.get('/page/about', (c) => {
 })
 ```
 
-### `useRequestContext()`
+## Options
+
+- `docType`: boolean | string
+  - If you want to add a DOCTYPE at the beginning of the HTML, set the `docType` option to `true`.
+
+```tsx
+app.use(
+  '*',
+  jsxRenderer(
+    ({ children }) => {
+      return (
+        <html>
+          <body>{children}</body>
+        </html>
+      )
+    },
+    { docType: true }
+  )
+)
+```
+
+This will render as:
+
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>Hello</h1>
+  </body>
+</html>
+```
+
+And you can specify the DOCTYPE.
+
+```tsx
+app.use(
+  '*',
+  jsxRenderer(
+    ({ children }) => {
+      return (
+        <html>
+          <body>{children}</body>
+        </html>
+      )
+    },
+    {
+      docType:
+        '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">',
+    }
+  )
+)
+```
+
+## `useRequestContext()`
 
 `useRequestContext()` returns an instance of Context.
 
