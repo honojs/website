@@ -42,6 +42,17 @@ Supported Runtimes:
 - AWS Lambda
 - Lambda@Edge
 
+### Specify the runtime
+
+You can specify the runtime to get environment variables by passing the runtime key as the second argument.
+
+```ts
+app.get('/env', (c) => {
+  const { NAME } = env<{ NAME: string }>(c, 'workerd')
+  return c.text(NAME)
+})
+```
+
 ## `getRuntimeKey()`
 
 The `getRuntimeKey()` function returns the identifier of the current runtime.
