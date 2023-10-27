@@ -234,3 +234,19 @@ app.get('/:name', (c) => {
 
 export default app
 ```
+
+## Override type definitions
+
+You can override the type definition to add your custom elements and attributes.
+
+```ts
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'my-custom-element': Hono.HTMLAttributes & {
+        'x-event'?: 'click' | 'scroll'
+      }
+    }
+  }
+}
+```
