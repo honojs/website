@@ -31,11 +31,9 @@ If you use the App Router, Edit `app/api/[...route]/route.ts`.
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 
-export const config = {
-  runtime: 'edge',
-}
+export const runtime = 'edge';
 
-const app = new Hono().basePath("/api")
+const app = new Hono().basePath('/api')
 
 app.get('/hello', (c) => {
   return c.json({
