@@ -110,7 +110,7 @@ If you want to add Basic Auth and continue with request processing after verific
 import { Hono } from 'hono'
 import { basicAuth } from 'hono/basic-auth'
 import type { Callback, CloudFrontRequest } from 'hono/lambda-edge'
-import { handle } from 'hono/lambda-edge' from 'hono/lambda-edge'
+import { handle } from 'hono/lambda-edge'
 
 type Bindings = {
   callback: Callback
