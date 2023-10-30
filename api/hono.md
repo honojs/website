@@ -168,7 +168,7 @@ app.mount('/itty-router', ittyRouter.handle)
 
 ## strict mode
 
-Strict mode defauls to `true` and distinguishes the following routes.
+Strict mode defaults to `true` and distinguishes the following routes.
 
 - `/hello`
 - `/hello/`
