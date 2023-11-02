@@ -70,9 +70,25 @@ We recommend using a third-party validator.
 
 Install from the Npm registry.
 
-```
+::: code-group
+
+```txt [npm]
 npm i zod
 ```
+
+```txt [yarn]
+yarn add zod
+```
+
+```txt [pnpm]
+pnpm add zod
+```
+
+```txt [bun]
+bun add zod
+```
+
+:::
 
 Import `z` from `zod`.
 
@@ -117,9 +133,25 @@ const route = app.post(
 
 You can use the [Zod Validator Middleware](https://github.com/honojs/middleware/tree/main/packages/zod-validator) to make it even easier.
 
-```
+::: code-group
+
+```txt [npm]
 npm i @hono/zod-validator
 ```
+
+```txt [yarn]
+yarn add @hono/zod-validator
+```
+
+```txt [pnpm]
+pnpm add @hono/zod-validator
+```
+
+```txt [bun]
+bun add @hono/zod-validator
+```
+
+:::
 
 And import `zValidator`.
 

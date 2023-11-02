@@ -11,16 +11,51 @@ It introduces a delightful developer experience. Vite's dev server is fast, and 
 A starter for Cloudflare Pages is available.
 Start your project with "create-hono" command.
 
-```text
+::: code-group
+
+```txt [npm]
 npm create hono@latest my-app
 ```
 
+```txt [yarn]
+yarn create hono@latest my-app
+```
+
+```txt [pnpm]
+pnpm create hono@latest my-app
+```
+
+```txt [bun]
+bun create hono@latest my-app
+```
+
+:::
+
 Move into `my-app` and install the dependencies.
 
-```text
+::: code-group
+
+```txt [npm]
 cd my-app
 npm i
 ```
+
+```txt [yarn]
+cd my-app
+yarn
+```
+
+```txt [pnpm]
+cd my-app
+pnpm i
+```
+
+```txt [bun]
+cd my-app
+bun i
+```
+
+:::
 
 Below is a basic directory structure.
 
@@ -60,17 +95,50 @@ export default app
 
 Run the development server locally. Then, access `http://localhost:5173` in your Web browser.
 
-```text
+::: code-group
+
+```txt [npm]
 npm run dev
 ```
+
+```txt [yarn]
+yarn dev
+```
+
+```txt [pnpm]
+pnpm dev
+```
+
+```txt [bun]
+bun run dev
+```
+
+:::
 
 ## 4. Deploy
 
 If you have a Cloudflare account, you can deploy to Cloudflare.
 
-```text
+::: code-group
+
+```txt [npm]
 npm run deploy
 ```
+
+```txt [yarn]
+yarn deploy
+```
+
+```txt [pnpm]
+pnpm deploy
+```
+
+```txt [bun]
+bun run deploy
+```
+
+:::
+
 
 ## Bindings
 

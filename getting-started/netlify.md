@@ -9,16 +9,51 @@ Edge Functions support writing in Deno and TypeScript, and deployment is made ea
 A starter for Netlify is available.
 Start your project with "create-hono" command.
 
-```
+::: code-group
+
+```txt [npm]
 npm create hono@latest my-app
 ```
 
+```txt [yarn]
+yarn create hono@latest my-app
+```
+
+```txt [pnpm]
+pnpm create hono@latest my-app
+```
+
+```txt [bun]
+bun create hono@latest my-app
+```
+
+:::
+
 Move into `my-app` and install the dependencies.
 
-```
+::: code-group
+
+```txt [npm]
 cd my-app
 npm i
 ```
+
+```txt [yarn]
+cd my-app
+yarn
+```
+
+```txt [pnpm]
+cd my-app
+pnpm i
+```
+
+```txt [bun]
+cd my-app
+bun i
+```
+
+:::
 
 ## 2. Hello World
 

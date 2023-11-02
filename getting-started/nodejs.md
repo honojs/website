@@ -20,16 +20,50 @@ Essentially, you can simply use the latest version of each major release.
 A starter for Node.js is available.
 Start your project with "create-hono" command.
 
-```
+::: code-group
+
+```txt [npm]
 npm create hono@latest my-app
 ```
 
+```txt [yarn]
+yarn create hono@latest my-app
+```
+
+```txt [pnpm]
+pnpm create hono@latest my-app
+```
+
+```txt [bun]
+bun create hono@latest my-app
+```
+
+:::
 Move to `my-app` and install the dependencies.
 
-```
+::: code-group
+
+```txt [npm]
 cd my-app
 npm i
 ```
+
+```txt [yarn]
+cd my-app
+yarn
+```
+
+```txt [pnpm]
+cd my-app
+pnpm i
+```
+
+```txt [bun]
+cd my-app
+bun i
+```
+
+:::
 
 ## 2. Hello World
 
@@ -49,9 +83,21 @@ serve(app)
 
 Run the development server locally. Then, access `http://localhost:3000` in your Web browser.
 
-```
+::: code-group
+
+```txt [npm]
 npm run start
 ```
+
+```txt [yarn]
+yarn start
+```
+
+```txt [pnpm]
+pnpm start
+```
+
+:::
 
 ## Change port number
 

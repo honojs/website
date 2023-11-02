@@ -14,16 +14,51 @@ First, install the Lagon CLI. Please refer to [the official documentation](https
 A starter for Lagon is available.
 Start your project with "create-hono" command.
 
-```
+::: code-group
+
+```txt [npm]
 npm create hono@latest my-app
 ```
 
+```txt [yarn]
+yarn create hono@latest my-app
+```
+
+```txt [pnpm]
+pnpm create hono@latest my-app
+```
+
+```txt [bun]
+bun create hono@latest my-app
+```
+
+:::
+
 Move to `my-app` and install the dependencies.
 
-```
+::: code-group
+
+```txt [npm]
 cd my-app
 npm i
 ```
+
+```txt [yarn]
+cd my-app
+yarn
+```
+
+```txt [pnpm]
+cd my-app
+pnpm i
+```
+
+```txt [bun]
+cd my-app
+bun i
+```
+
+:::
 
 ## 3. Hello World
 

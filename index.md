@@ -31,10 +31,25 @@ export default app
 
 Just run this:
 
-```
+::: code-group
+
+```txt [npm]
 npm create hono@latest my-app
 ```
 
+```txt [yarn]
+yarn create hono@latest my-app
+```
+
+```txt [pnpm]
+pnpm create hono@latest my-app
+```
+
+```txt [bun]
+bun create hono@latest my-app
+```
+
+:::
 ## Features
 
 - **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
