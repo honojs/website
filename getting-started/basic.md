@@ -24,6 +24,10 @@ pnpm create hono my-app
 bunx create-hono my-app
 ```
 
+```txt [deno]
+deno run -A npm:create-hono my-app
+```
+
 :::
 
 Then you will be asked which template you would like to use.

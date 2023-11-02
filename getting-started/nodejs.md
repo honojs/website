@@ -38,6 +38,10 @@ pnpm create hono my-app
 bunx create-hono my-app
 ```
 
+```txt [deno]
+deno run -A npm:create-hono my-app
+```
+
 :::
 Move to `my-app` and install the dependencies.
 
