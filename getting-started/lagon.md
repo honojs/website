@@ -21,15 +21,15 @@ npm create hono@latest my-app
 ```
 
 ```txt [yarn]
-yarn create hono@latest my-app
+yarn create hono my-app
 ```
 
 ```txt [pnpm]
-pnpm create hono@latest my-app
+pnpm create hono my-app
 ```
 
 ```txt [bun]
-bun create hono@latest my-app
+bunx create-hono my-app
 ```
 
 :::
