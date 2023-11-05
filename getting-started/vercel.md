@@ -64,7 +64,7 @@ bun i
 
 ## 2. Hello World
 
-If you use the App Router, Edit `app/api/[...route]/route.ts`.
+If you use the App Router, Edit `app/api/[[...route]]/route.ts`.
 
 ```ts
 import { Hono } from 'hono'
@@ -83,15 +83,13 @@ app.get('/hello', (c) => {
 export const GET = handle(app)
 ```
 
-If you use the Pages Router, Edit `pages/api/[...route].ts`.
+If you use the Pages Router, Edit `pages/api/[[...route]].ts`.
 
 ```ts
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 
-export const config = {
-  runtime: 'edge',
-}
+export const runtime = 'edge';
 
 const app = new Hono().basePath("/api")
 
@@ -101,7 +99,7 @@ app.get('/hello', (c) => {
   })
 })
 
-export default handle(app)
+export const GET = handle(app)
 ```
 
 ## 3. Run
@@ -149,6 +147,8 @@ Next, you can utilize the `handle` function imported from `@hono/node-server/ver
 ```ts
 import { Hono } from 'hono'
 import { handle } from '@hono/node-server/vercel'
+
+
 
 const app = new Hono().basePath('/api')
 
