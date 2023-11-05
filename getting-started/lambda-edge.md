@@ -12,13 +12,41 @@ is useful to setup the functions such as CloudFront, IAM Role, API Gateway, and 
 
 Initialize your project with the `cdk` CLI.
 
-```
+::: code-group
+
+```txt [npm]
 mkdir my-app
 cd my-app
 cdk init app -l typescript
 npm i hono
 mkdir lambda
 ```
+
+```txt [yarn]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+yarn add hono
+mkdir lambda
+```
+
+```txt [pnpm]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+pnpm add hono
+mkdir lambda
+```
+
+```txt [bun]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+bun add hono
+mkdir lambda
+```
+
+:::
 
 ## 2. Hello World
 

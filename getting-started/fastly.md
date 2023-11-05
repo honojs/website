@@ -24,16 +24,55 @@ Follow this link for other OS:
 A starter for Fastly Compute@Edge is available.
 Start your project with "create-hono" command.
 
-```
+::: code-group
+
+```txt [npm]
 npm create hono@latest my-app
 ```
 
+```txt [yarn]
+yarn create hono my-app
+```
+
+```txt [pnpm]
+pnpm create hono my-app
+```
+
+```txt [bun]
+bunx create-hono my-app
+```
+
+```txt [deno]
+deno run -A npm:create-hono my-app
+```
+
+:::
+
 Move to `my-app` and install the dependencies.
 
-```
+::: code-group
+
+```txt [npm]
 cd my-app
 npm i
 ```
+
+```txt [yarn]
+cd my-app
+yarn
+```
+
+```txt [pnpm]
+cd my-app
+pnpm i
+```
+
+```txt [bun]
+cd my-app
+bun i
+```
+
+:::
 
 ## 3. Hello World
 
@@ -53,14 +92,46 @@ app.fire()
 
 Run the development server locally. Then, access `http://localhost:7676` in your Web browser.
 
-```
+::: code-group
+
+```txt [npm]
 npm run dev
 ```
 
+```txt [yarn]
+yarn dev
+```
+
+```txt [pnpm]
+pnpm dev
+```
+
+```txt [bun]
+bun run dev
+```
+
+:::
+
 ## 4. Deploy
 
-```
+::: code-group
+
+```txt [npm]
 npm run deploy
 ```
+
+```txt [yarn]
+yarn deploy
+```
+
+```txt [pnpm]
+pnpm deploy
+```
+
+```txt [bun]
+bun run deploy
+```
+
+:::
 
 That's all!!

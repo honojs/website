@@ -6,9 +6,29 @@ Using Hono is super easy. We can set up the project, write code, develop with a 
 
 Starter templates are available for each platform. Use the following "create-hono" command.
 
-```
+::: code-group
+
+```txt [npm]
 npm create hono@latest my-app
 ```
+
+```txt [yarn]
+yarn create hono my-app
+```
+
+```txt [pnpm]
+pnpm create hono my-app
+```
+
+```txt [bun]
+bunx create-hono my-app
+```
+
+```txt [deno]
+deno run -A npm:create-hono my-app
+```
+
+:::
 
 Then you will be asked which template you would like to use.
 Let's select Cloudflare Workers for this example.
@@ -29,12 +49,51 @@ Let's select Cloudflare Workers for this example.
 
 The template will be pulled into `my-app`, so go to it and install the dependencies.
 
-```
+::: code-group
+
+```txt [npm]
 cd my-app
 npm i
 ```
 
-Once the package installation is complete, run `npm run dev` to start up a local server.
+```txt [yarn]
+cd my-app
+yarn
+```
+
+```txt [pnpm]
+cd my-app
+pnpm i
+```
+
+```txt [bun]
+cd my-app
+bun i
+```
+
+:::
+
+Once the package installation is complete, run the following command to start up a local server.
+
+::: code-group
+
+```txt [npm]
+npm run dev
+```
+
+```txt [yarn]
+yarn dev
+```
+
+```txt [pnpm]
+pnpm dev
+```
+
+```txt [bun]
+bun run dev
+```
+
+:::
 
 ## Hello World
 
@@ -59,9 +118,25 @@ export default app
 
 Start the development server and access `http://localhost:8787` with your browser.
 
-```
+::: code-group
+
+```txt [npm]
 npm run dev
 ```
+
+```txt [yarn]
+yarn dev
+```
+
+```txt [pnpm]
+pnpm dev
+```
+
+```txt [bun]
+bun run dev
+```
+
+:::
 
 ## Return JSON
 
