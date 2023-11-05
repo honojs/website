@@ -65,6 +65,10 @@ const sidebars = {
         link: '/guides/rpc',
       },
       {
+        text: 'OpenAPI',
+        link: '/guides/openapi',
+      },
+      {
         text: 'Examples',
         link: '/guides/examples',
       },
