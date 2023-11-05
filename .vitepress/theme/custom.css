@@ -78,6 +78,20 @@
   --vp-font-family-mono: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
 }
 
+
+/**
+ * Colors: Function
+ *
+ * -------------------------------------------------------------------------- */
+
+ :root {
+  --vp-c-brand-1: var(--vp-c-orange);
+  --vp-c-brand-2: var(--vp-c-orange-light);
+  --vp-c-brand-3: var(--vp-c-orange-lighter);
+  --vp-c-brand-soft: var(--vp-c-orange-dark);
+  --vp-code-color: var(--vp-c-text-light-2);
+}
+
 /**
  * Component: Code
  * -------------------------------------------------------------------------- */
@@ -137,6 +151,9 @@
   --vp-code-tab-active-text-color: var(--vp-c-text-dark-1);
   
   --vp-c-text-code: #e8e8e8;
+
+  --vp-code-color: var(--vp-c-text-dark-1);
+  --vp-code-tab-text-color: var(--vp-c-text-dark-2);
 }
 
 .vp-doc h1, .vp-doc h2, .vp-doc h3, .vp-doc h4, .vp-doc h5, .vp-doc h6 {
