@@ -34,26 +34,27 @@ Just run this:
 ::: code-group
 
 ```txt [npm]
-npm create hono@latest my-app
+npm create hono@latest
 ```
 
 ```txt [yarn]
-yarn create hono my-app
+yarn create hono
 ```
 
 ```txt [pnpm]
-pnpm create hono my-app
+pnpm create hono
 ```
 
 ```txt [bun]
-bunx create-hono my-app
+bunx create-hono
 ```
 
 ```txt [deno]
-deno run -A npm:create-hono my-app
+deno run -A npm:create-hono
 ```
 
 :::
+
 ## Features
 
 - **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
@@ -77,13 +78,13 @@ Here are some examples of use-cases.
 
 ## Who is using Hono?
 
-| Project                                         | Platform            | What for?                                                                                 |
-| ----------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
-| [cdnjs API Server](https://cdnjs.com/api)       | Cloudflare Workers  | A free and open-source CDN service. _Hono is used for their API services_.                |
-| [Polyfill.io](https://www.polyfill.io/v3/)      | Fastly Compute@Edge | A CDN service that provides necessary browser polyfills. _Hono is used as a core server_. |
-| [Ultra](https://ultrajs.dev)                    | Deno                | A React/Deno framework. _Hono is used for the internal server_.                           |
+| Project                                        | Platform            | What for?                                                                                 |
+| ---------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
+| [cdnjs API Server](https://cdnjs.com/api)      | Cloudflare Workers  | A free and open-source CDN service. _Hono is used for their API services_.                |
+| [Polyfill.io](https://www.polyfill.io/v3/)     | Fastly Compute@Edge | A CDN service that provides necessary browser polyfills. _Hono is used as a core server_. |
+| [Ultra](https://ultrajs.dev)                   | Deno                | A React/Deno framework. _Hono is used for the internal server_.                           |
 | [Deno Benchmarks](https://deno.com/benchmarks) | Deno                | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
-| [Cloudflare Blog](https://blog.cloudflare.com)  | Cloudflare Workers  | _Some applications featured in the articles use Hono_.                                    |
+| [Cloudflare Blog](https://blog.cloudflare.com) | Cloudflare Workers  | _Some applications featured in the articles use Hono_.                                    |
 
 And the following.
 
