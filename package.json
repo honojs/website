@@ -11,7 +11,7 @@
   "private": true,
   "license": "MIT",
   "devDependencies": {
-    "vitepress": "^1.0.0-rc.24",
+    "vitepress": "1.0.0-rc.24",
     "vue": "^3.3.4"
   }
 }
