@@ -1,6 +1,7 @@
 {
   "name": "hono.dev",
   "version": "3.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
