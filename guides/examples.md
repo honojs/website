@@ -84,10 +84,8 @@ Here is Server Side Rendering application using _JSX_ and _html_ middleware.
 It's for Cloudflare Workers, but you can write the code for Deno or Bun in the same way.
 
 ```tsx
-/** @jsx jsx */
 import { Hono } from 'hono'
 import { html } from 'hono/html'
-import { jsx } from 'hono/jsx'
 
 const app = new Hono()
 
