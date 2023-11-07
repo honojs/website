@@ -69,6 +69,10 @@ const sidebars = {
         link: '/guides/openapi',
       },
       {
+        text: 'Best Practices',
+        link: '/guides/best-practices',
+      },
+      {
         text: 'Examples',
         link: '/guides/examples',
       },
