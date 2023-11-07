@@ -19,7 +19,7 @@ hero:
     alt: Hono
   actions:
     - theme: brand
-      text: View More
+      text: View Docs
       link: /top
     - theme: alt
       text: View on GitHub

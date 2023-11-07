@@ -148,6 +148,7 @@ export default defineConfig({
       copyright: 'Copyright © 2022-present Yusuke Wada & Hono contributors',
     },
     nav: [
+      { text: 'Docs', link: '/top' },
       { text: 'Examples', link: 'https://github.com/honojs/examples' },
       { text: 'Discussions', link: 'https://github.com/orgs/honojs/discussions' },
     ],
