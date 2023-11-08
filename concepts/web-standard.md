@@ -21,7 +21,7 @@ In addition, we have a Node.js adapter. Hono runs on these runtimes:
 - Cloudflare Workers (`workerd`)
 - Deno
 - Bun
-- Fastly Compute@Edge
+- Fastly Compute
 - Lagon
 - AWS Lambda
 - Node.js
