@@ -101,6 +101,18 @@ const List = () => (
 )
 ```
 
+Or you can write it with `<></>` if it set up properly.
+
+```tsx
+const List = () => (
+  <>
+    <p>first child</p>
+    <p>second child</p>
+    <p>third child</p>
+  </>
+)
+```
+
 ## Inserting Raw HTML
 
 To directly insert HTML, use `dangerouslySetInnerHTML`:
@@ -189,6 +201,51 @@ app.get('/', (c) => {
 })
 ```
 
+## Async Component
+
+`hono/jsx` supports an Async Component, so you can use `async`/`await` in your component.
+If you render it with `c.html()`, it will await automatically.
+
+```tsx
+const AsyncComponent = async () => {
+  await new Promise((r) => setTimeout(r, 1000)) // sleep 1s
+  return <div>Done!</div>
+}
+
+app.get('/', (c) => {
+  return c.html(
+    <html>
+      <body>
+        <AsyncComponent />
+      </body>
+    </html>
+  )
+})
+```
+
+## Suspense
+
+The React-like `Suspense` feature is available.
+If you wrap the async component with `Suspense`, the content in the fallback will be rendered first, and once the Promise is resolved, the awaited content will be displayed.
+
+```tsx
+import { Suspense } from 'hono/jsx/streaming'
+
+//...
+
+app.get('/', (c) => {
+  return c.html(
+    <html>
+      <body>
+        <Suspense fallback={<div>loading...</div>}>
+          <AsyncComponent />
+        </Suspense>
+      </body>
+    </html>
+  )
+})
+```
+
 ## Integration with html Middleware
 
 Combine the JSX and html middlewares for powerful templating.
@@ -233,6 +290,26 @@ app.get('/:name', (c) => {
 })
 
 export default app
+```
+
+## With JSX Renderer Middleware
+
+The [JSX Renderer Middleware](/middleware/builtin/jsx-renderer) allows you to create HTML pages more easily with the JSX.
+
+## Pre-Compile
+
+`hono/jsx` supports [the `precompile` feature for Deno](https://deno.com/blog/v1.38#fastest-jsx-transform). To enable it, write `deno.json` as follows.
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx"
+  },
+  "imports": {
+    "hono/jsx/jsx-runtime": "https://deno.land/x/hono@v3.10.0/jsx/jsx-runtime.ts"
+  }
+}
 ```
 
 ## Override type definitions

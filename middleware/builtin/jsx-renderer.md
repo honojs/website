@@ -44,8 +44,9 @@ app.get('/page/about', (c) => {
 
 ## Options
 
-- `docType`: boolean | string
-  - If you want to add a DOCTYPE at the beginning of the HTML, set the `docType` option to `true`.
+### `docType`: `boolean` | `string`
+
+If you want to add a DOCTYPE at the beginning of the HTML, set the `docType` option to `true`.
 
 ```tsx
 app.use(
@@ -94,6 +95,53 @@ app.use(
   )
 )
 ```
+
+### `stream`: `boolean` | `Record<string, string>`
+
+If you set it to `true` or provide a Record value, it will be rendered as a streaming response.
+
+```tsx
+const AsyncComponent = async () => {
+  await new Promise((r) => setTimeout(r, 1000)) // sleep 1s
+  return <div>Hi!</div>
+}
+
+app.get(
+  '*',
+  jsxRenderer(
+    ({ children }) => {
+      return (
+        <html>
+          <body>
+            <h1>SSR Streaming</h1>
+            {children}
+          </body>
+        </html>
+      )
+    },
+    { stream: true }
+  )
+)
+
+app.get('/', (c) => {
+  return c.render(
+    <Suspense fallback={<div>loading...</div>}>
+      <AsyncComponent />
+    </Suspense>
+  )
+})
+```
+
+If `true` is set, the following headers are added:
+
+```ts
+{
+  'Transfer-Encoding': 'chunked',
+  'Content-Type': 'text/html; charset=UTF-8'
+}
+```
+
+You can customize the header values by specifying the Record values.
 
 ## `useRequestContext()`
 
