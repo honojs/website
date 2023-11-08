@@ -202,9 +202,25 @@ app.get(
 
 You have to install `@cloudflare/workers-types` if you want to have workers types.
 
-```
+::: code-group
+
+```txt [npm]
 npm i --save-dev @cloudflare/workers-types
 ```
+
+```txt [yarn]
+yarn add -D @cloudflare/workers-types
+```
+
+```txt [pnpm]
+pnpm add -D @cloudflare/workers-types
+```
+
+```txt [bun]
+bun add --dev @cloudflare/workers-types
+```
+
+:::
 
 ## Testing
 
