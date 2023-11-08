@@ -6,7 +6,7 @@ titleTemplate: ':title'
 # Hono
 
 Hono - _**\[炎\] means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework for the Edges.
-It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, Lambda@Edge, and Node.js.
+It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, Lambda@Edge, and Node.js.
 
 Fast, but not only fast.
 
@@ -51,7 +51,7 @@ deno run -A npm:create-hono
 
 - **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
 - **Lightweight** 🪶 - The `hono/tiny` preset is under 12kB. Hono has zero dependencies and uses only the Web Standard API.
-- **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Lagon, AWS Lambda, or Node.js. The same code runs on all platforms.
+- **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute, Deno, Bun, Lagon, AWS Lambda, or Node.js. The same code runs on all platforms.
 - **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
 - **Delightful DX** 😃 - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
 
@@ -70,13 +70,13 @@ Here are some examples of use-cases.
 
 ## Who is using Hono?
 
-| Project                                        | Platform            | What for?                                                                                 |
-| ---------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------- |
-| [cdnjs API Server](https://cdnjs.com/api)      | Cloudflare Workers  | A free and open-source CDN service. _Hono is used for their API services_.                |
-| [Polyfill.io](https://www.polyfill.io/v3/)     | Fastly Compute@Edge | A CDN service that provides necessary browser polyfills. _Hono is used as a core server_. |
-| [Ultra](https://ultrajs.dev)                   | Deno                | A React/Deno framework. _Hono is used for the internal server_.                           |
-| [Deno Benchmarks](https://deno.com/benchmarks) | Deno                | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
-| [Cloudflare Blog](https://blog.cloudflare.com) | Cloudflare Workers  | _Some applications featured in the articles use Hono_.                                    |
+| Project                                        | Platform           | What for?                                                                                 |
+| ---------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------- |
+| [cdnjs API Server](https://cdnjs.com/api)      | Cloudflare Workers | A free and open-source CDN service. _Hono is used for their API services_.                |
+| [Polyfill.io](https://www.polyfill.io/v3/)     | Fastly Compute     | A CDN service that provides necessary browser polyfills. _Hono is used as a core server_. |
+| [Ultra](https://ultrajs.dev)                   | Deno               | A React/Deno framework. _Hono is used for the internal server_.                           |
+| [Deno Benchmarks](https://deno.com/benchmarks) | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
+| [Cloudflare Blog](https://blog.cloudflare.com) | Cloudflare Workers | _Some applications featured in the articles use Hono_.                                    |
 
 And the following.
 
@@ -134,7 +134,7 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 
 - Cloudflare Workers
 - Cloudflare Pages
-- Fastly Compute@Edge
+- Fastly Compute
 - Deno
 - Bun
 - Lagon
