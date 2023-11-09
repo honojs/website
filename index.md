@@ -6,7 +6,7 @@ head:
       'meta',
       {
         property: 'og:description',
-        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
+        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, Lagon, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
       },
     ]
 layout: home

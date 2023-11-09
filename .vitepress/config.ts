@@ -24,7 +24,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Cloudflare Pages', link: '/getting-started/cloudflare-pages' },
       { text: 'Deno', link: '/getting-started/deno' },
       { text: 'Bun', link: '/getting-started/bun' },
-      { text: 'Fastly Compute@Edge', link: '/getting-started/fastly' },
+      { text: 'Fastly Compute', link: '/getting-started/fastly' },
       { text: 'Lagon', link: '/getting-started/lagon' },
       { text: 'Vercel', link: '/getting-started/vercel' },
       { text: 'Netlify', link: '/getting-started/netlify' },
@@ -176,7 +176,7 @@ export default defineConfig({
   lang: 'en-US',
   title: 'Hono',
   description:
-    'Ultrafast web framework for Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, Node.js, and others. Fast, but not only fast.',
+    'Ultrafast web framework for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Lagon, Node.js, and others. Fast, but not only fast.',
   lastUpdated: true,
   ignoreDeadLinks: true,
   cleanUrls: true,
