@@ -11,3 +11,8 @@ With it, you can validate values and types using [Zod](https://zod.dev/) and gen
 ## Swagger UI
 
 [Swagger UI Middleware](https://github.com/honojs/middleware/tree/main/packages/swagger-ui) provides a middleware and a component for integrating [Swagger UI](https://swagger.io/docs/open-source-tools/swagger-ui/usage/installation/) with Hono applications.
+
+## Scalar API Reference
+
+[@scalar/hono-api-reference](https://github.com/scalar/scalar/tree/main/packages/hono-api-reference)
+provides a middleware for generating beautiful API references based on OpenAPI files (from Zod OpenAPI) with Hono applications.
