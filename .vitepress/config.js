@@ -25,6 +25,7 @@ const sidebars = {
       { text: 'Bun', link: '/getting-started/bun' },
       { text: 'Fastly Compute', link: '/getting-started/fastly' },
       { text: 'Lagon', link: '/getting-started/lagon' },
+      { text: 'Val Town', link: '/getting-started/val-town' },
       { text: 'Vercel', link: '/getting-started/vercel' },
       { text: 'Netlify', link: '/getting-started/netlify' },
       { text: 'AWS Lambda', link: '/getting-started/aws-lambda' },
@@ -120,7 +121,7 @@ export default defineConfig({
   lang: 'en-US',
   title: 'Hono',
   description:
-    'Ultrafast web framework for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Lagon, Node.js, and others. Fast, but not only fast.',
+    'Ultrafast web framework for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Val Town, Lagon, Node.js, and others. Fast, but not only fast.',
   lastUpdated: true,
   ignoreDeadLinks: true,
   cleanUrls: 'with-subfolders',
