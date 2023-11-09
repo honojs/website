@@ -66,10 +66,6 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/guides/rpc',
       },
       {
-        text: 'OpenAPI',
-        link: '/guides/openapi',
-      },
-      {
         text: 'Best Practices',
         link: '/guides/best-practices',
       },
@@ -142,6 +138,10 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
   {
     text: '3rd-party Middleware',
     items: [
+      {
+        text: 'Zod OpenAPI',
+        link: '/snippets/zod-openapi',
+      },
       {
         text: 'Swagger UI',
         link: '/snippets/swagger-ui',
