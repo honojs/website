@@ -16,4 +16,5 @@ Most of this middleware leverages external libraries.
 - [Zod OpenAPI](https://github.com/honojs/middleware/tree/main/packages/zod-openapi)
 - [Clerk Auth](https://github.com/honojs/middleware/tree/main/packages/clerk-auth)
 - [Swagger UI](https://github.com/honojs/middleware/tree/main/packages/swagger-ui)
+- [Scalar API Reference](https://github.com/scalar/scalar/tree/main/packages/hono-api-reference)
 - [esbuild Transpiler](https://github.com/honojs/middleware/tree/main/packages/esbuild-transpiler)
