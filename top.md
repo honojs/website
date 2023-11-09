@@ -138,6 +138,7 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 - Deno
 - Bun
 - Lagon
+- Val Town
 - Vercel
 - AWS Lambda
 - Lambda@Edge

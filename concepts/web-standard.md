@@ -26,6 +26,7 @@ In addition, we have a Node.js adapter. Hono runs on these runtimes:
 - AWS Lambda
 - Node.js
 - Vercel (edge-light)
+- Val Town
 
 It also works on Netlify and other platforms.
 The same code runs on all platforms.
