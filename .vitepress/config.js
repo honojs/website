@@ -77,6 +77,10 @@ const sidebars = {
         link: '/guides/examples',
       },
       {
+        text: 'File Upload',
+        link: '/guides/file-upload',
+      },
+      {
         text: 'Miscellaneous',
         link: '/guides/others',
       },
