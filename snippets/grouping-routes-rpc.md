@@ -10,23 +10,26 @@ Pass the return value of methods like `app.get()` or `app.post()` as Routes to `
 import { Hono } from "hono";
 import { hc } from "hono/client";
 
-const subApp = new Hono();
+const authorsApp = new Hono()
+  .get("/", (c) => c.jsonT({ result: "list authors" }))
+  .post("/", (c) => c.jsonT({ result: "create an author" }, 201))
+  .get("/:id", (c) => c.jsonT({ result: `get ${c.req.param("id")}` }));
 
-const subRoutes = subApp.get("/", (c) => {
-  return c.jsonT({ message: "Hello" });
-});
+const booksApp = new Hono()
+  .get("/", (c) => c.jsonT({ result: "list books" }))
+  .post("/", (c) => c.jsonT({ result: "create a book" }, 201))
+  .get("/:id", (c) => c.jsonT({ result: `get ${c.req.param("id")}` }));
 
-const app = new Hono();
-const routes = app.route("/sub", subRoutes);
+const app = new Hono().route("/authors", authorsApp).route("/books", booksApp);
 
-type AppType = typeof routes;
+type AppType = typeof app;
 
-const client = hc<AppType>("[YOUR HONO SERVER ENDPOINT]")
+const client = hc<AppType>("[YOUR HONO SERVER ENDPOINT]");
 
 async function main() {
-  const response = await client.sub.$get();
+  const response = await client.authors.$get();
   const json = await response.json();
-  console.log(json.message); // string
+  console.log(json.result); // string
 }
 
 main();
