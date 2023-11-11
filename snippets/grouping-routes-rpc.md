@@ -1,10 +1,10 @@
 # Grouping routes for RPC
 
-To enable type inference for Hono Client on the segmented `app` using `app.route()`, you can do the following:
+If you want to enable type inference for multiple `app`s correctly, you can use `app.route()` as follows:
 
 ## Snippets
 
-Pass the return value of methods like `app.get()` or `app.post()` as Routes to `app.route()`.
+Pass the value returned from methods like `app.get()` or `app.post()` to the second argument of `app.route()`.
 
 ```ts
 import { Hono } from "hono";
@@ -23,16 +23,6 @@ const booksApp = new Hono()
 const app = new Hono().route("/authors", authorsApp).route("/books", booksApp);
 
 type AppType = typeof app;
-
-const client = hc<AppType>("[YOUR HONO SERVER ENDPOINT]");
-
-async function main() {
-  const response = await client.authors.$get();
-  const json = await response.json();
-  console.log(json.result); // string
-}
-
-main();
 ```
 
 ## References
