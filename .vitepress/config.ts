@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
+import type { DefaultTheme } from 'vitepress'
 
-const sidebars = {
-  concepts: {
+const sidebars = (): DefaultTheme.SidebarItem[] => [
+  {
     text: 'Concepts',
     collapsed: true,
     items: [
@@ -14,7 +15,7 @@ const sidebars = {
       { text: 'Hono Stacks', link: '/concepts/stacks' },
     ],
   },
-  gettingStarted: {
+  {
     text: 'Getting Started',
     collapsed: true,
     items: [
@@ -33,7 +34,7 @@ const sidebars = {
       { text: 'Others', link: '/getting-started/others' },
     ],
   },
-  api: {
+  {
     text: 'API',
     collapsed: true,
     items: [
@@ -45,7 +46,7 @@ const sidebars = {
       { text: 'Presets', link: '/api/presets' },
     ],
   },
-  guides: {
+  {
     text: 'Guides',
     collapsed: true,
     items: [
@@ -65,10 +66,6 @@ const sidebars = {
         link: '/guides/rpc',
       },
       {
-        text: 'OpenAPI',
-        link: '/guides/openapi',
-      },
-      {
         text: 'Best Practices',
         link: '/guides/best-practices',
       },
@@ -82,7 +79,7 @@ const sidebars = {
       },
     ],
   },
-  helpers: {
+  {
     text: 'Helpers',
     collapsed: true,
     items: [
@@ -95,7 +92,7 @@ const sidebars = {
       { text: 'Testing', link: '/helpers/testing' },
     ],
   },
-  middleware: {
+  {
     text: 'Middleware',
     collapsed: true,
     items: [
@@ -114,7 +111,48 @@ const sidebars = {
       { text: '3rd-party Middleware', link: '/middleware/third-party' },
     ],
   },
-}
+]
+
+const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
+  {
+    text: 'Application',
+    items: [
+      {
+        text: 'File upload',
+        link: '/snippets/file-upload',
+      },
+      {
+        text: 'Error handling in Validator',
+        link: '/snippets/validator-error-handling',
+      },
+      {
+        text: 'Grouping routes for RPC',
+        link: '/snippets/grouping-routes-rpc',
+      },
+    ],
+  },
+  {
+    text: '3rd-party Middleware',
+    items: [
+      {
+        text: 'Zod OpenAPI',
+        link: '/snippets/zod-openapi',
+      },
+      {
+        text: 'Swagger UI',
+        link: '/snippets/swagger-ui',
+      },
+    ],
+  },
+  {
+    text: 'Ecosystem',
+    items: [],
+  },
+  {
+    text: 'Integration',
+    items: [],
+  },
+]
 
 export default defineConfig({
   lang: 'en-US',
@@ -123,7 +161,7 @@ export default defineConfig({
     'Ultrafast web framework for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Lagon, Node.js, and others. Fast, but not only fast.',
   lastUpdated: true,
   ignoreDeadLinks: true,
-  cleanUrls: 'with-subfolders',
+  cleanUrls: true,
   markdown: {
     theme: {
       light: 'github-light',
@@ -153,18 +191,13 @@ export default defineConfig({
     },
     nav: [
       { text: 'Docs', link: '/top' },
+      { text: 'Snippets', link: '/snippets/top' },
       { text: 'Examples', link: 'https://github.com/honojs/examples' },
       { text: 'Discussions', link: 'https://github.com/orgs/honojs/discussions' },
     ],
     sidebar: {
-      '/': [
-        sidebars['gettingStarted'],
-        sidebars['concepts'],
-        sidebars['api'],
-        sidebars['guides'],
-        sidebars['helpers'],
-        sidebars['middleware'],
-      ],
+      '/': sidebars(),
+      '/snippets/': sidebarsSnippets(),
     },
   },
   head: [
