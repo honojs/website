@@ -146,7 +146,12 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
   },
   {
     text: 'Ecosystem',
-    items: [],
+    items: [
+      {
+        text: 'Remix + Hono',
+        link: '/snippets/with-remix',
+      },
+    ],
   },
   {
     text: 'Integration',
