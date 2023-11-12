@@ -118,9 +118,9 @@ Response with simple stream.
 ```ts
 app.get('/', (c) => {
   return c.stream(async (stream) => {
-    await stream.write(new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f])); // Write a Uint8Array
-  });
-});
+    await stream.write(new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f])) // Write a Uint8Array
+  })
+})
 ```
 
 ## streamText()
@@ -132,12 +132,12 @@ If you want to use **vanilla** stream, use `stream()` instead.
 ```ts
 app.get('/', (c) => {
   return c.streamText(async (stream) => {
-    await stream.writeln('Hello'); // Write a text with a new line ('\n')
-    await stream.sleep(1000); // Wait 1 second
-    await stream.write(`Hono!`); // Write a text without a new line
-    await stream.pipe(hogeReadableStream); // Pipe a readable stream
-  });
-});
+    await stream.writeln('Hello') // Write a text with a new line ('\n')
+    await stream.sleep(1000) // Wait 1 second
+    await stream.write(`Hono!`) // Write a text without a new line
+    await stream.pipe(hogeReadableStream) // Pipe a readable stream
+  })
+})
 ```
 
 ## res
@@ -332,5 +332,35 @@ app.use('*', async (c, next) => {
   if (c.error) {
     // do something...
   }
+})
+```
+
+## ContextVariableMap
+
+For instance, if you wish to add type definitions to variables when a specific middleware is used, you can extend `ContextVariableMap`. For example:
+
+```ts
+declare module 'hono' {
+  interface ContextVariableMap {
+    result: string
+  }
+}
+```
+
+You can then utilize this in your middleware:
+
+```ts
+const mw = createMiddleware(async (c, next) => {
+  c.set('result', 'some values') // result is a string
+  await next()
+})
+```
+
+In a handler, the variable is inferred as the proper type:
+
+```ts
+app.get('/', (c) => {
+  const val = c.get('result') // val is a string
+  //...
 })
 ```
