@@ -122,10 +122,6 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
         link: '/snippets/file-upload',
       },
       {
-        text: 'Create Middleware',
-        link: '/snippets/create-middleware',
-      },
-      {
         text: 'Error handling in Validator',
         link: '/snippets/validator-error-handling',
       },
@@ -150,25 +146,11 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
   },
   {
     text: 'Ecosystem',
-    items: [
-      {
-        text: 'Remix + Hono',
-        link: '/snippets/remix-hono',
-      },
-    ],
+    items: [],
   },
   {
     text: 'Integration',
-    items: [
-      {
-        text: 'React',
-        link: '/snippets/react',
-      },
-      {
-        text: 'tRPC',
-        link: '/snippets/trpc',
-      },
-    ],
+    items: [],
   },
 ]
 
