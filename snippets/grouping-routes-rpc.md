@@ -27,4 +27,4 @@ type AppType = typeof app;
 
 ## References
 
-- [Guides - RPC - Client](guides/rpc#client)
+- [Guides - RPC - Client](/guides/rpc#client)
