@@ -137,3 +137,34 @@ app.get('/custom-context/', (c) => {
 
 export const handler = handle(app)
 ```
+
+## Lambda response streaming
+
+By changing the invocation mode of AWS Lambda, you can achieve [Streaming Response](https://aws.amazon.com/blogs/compute/introducing-aws-lambda-response-streaming/).
+
+```diff
+fn.addFunctionUrl({
+  authType: lambda.FunctionUrlAuthType.NONE,
++  invokeMode: lambda.InvokeMode.RESPONSE_STREAM,
+})
+```
+
+Typically, the implementation requires writing chunks to NodeJS.WritableStream using awslambda.streamifyResponse, but with the AWS Lambda Adaptor, you can achieve the traditional streaming response of Hono by using streamHandle instead of handle.
+
+```ts
+import { Hono } from 'hono'
+import { streamHandle } from 'hono/aws-lambda'
+
+const app = new Hono()
+
+app.get('/stream', async (c) => {
+  return c.streamText(async (stream) => {
+    for (let i = 0; i < 3; i++) {
+      await stream.writeln(`${i}`)
+      await stream.sleep(1)
+    }
+  })
+})
+
+const handler = streamHandle(app)
+```
