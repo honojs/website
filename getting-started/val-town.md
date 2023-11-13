@@ -6,9 +6,7 @@ Val Town APIs are based on the [fetch handler standard](https://blog.val.town/bl
 
 ## 1. Hello World
 
-<iframe src="https://www.val.town/embed/stevekrouse/honoExample" frameborder=0 width="100%" height="240px"></iframe>
-
-This val is deployed. View it [here](https://stevekrouse-honoexample.web.val.run/).
+<iframe src="https://www.val.town/embed/stevekrouse/honoExample" frameborder=0 width="100%" height="420px"></iframe>
 
 ## 2. JSX
 
@@ -20,9 +18,7 @@ Hono JSX works with this TypeScript pragma
 
 Live example:
 
-<iframe src="https://www.val.town/embed/stevekrouse/honoJSX" frameborder=0 width="100%" height="750px"></iframe>
-
-This val is deployed. View it [here](https://stevekrouse-honojsx.web.val.run/).
+<iframe src="https://www.val.town/embed/stevekrouse/honoJSX" frameborder=0 width="100%" height="920px"></iframe>
 
 ## 3. Browse Examples
 
