@@ -227,22 +227,29 @@ app.get('/', (c) => {
 
 The React-like `Suspense` feature is available.
 If you wrap the async component with `Suspense`, the content in the fallback will be rendered first, and once the Promise is resolved, the awaited content will be displayed.
+You can use it with `renderToReadableStream()`.
 
 ```tsx
-import { Suspense } from 'hono/jsx/streaming'
+import { renderToReadableStream, Suspense } from 'hono/jsx/streaming'
 
 //...
 
 app.get('/', (c) => {
-  return c.html(
+  const stream = renderToReadableStream(
     <html>
       <body>
         <Suspense fallback={<div>loading...</div>}>
-          <AsyncComponent />
+          <Component />
         </Suspense>
       </body>
     </html>
   )
+  return c.body(stream, {
+    headers: {
+      'Content-Type': 'text/html; charset=UTF-8',
+      'Transfer-Encoding': 'chunked',
+    },
+  })
 })
 ```
 
