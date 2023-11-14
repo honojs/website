@@ -223,7 +223,7 @@ app.get('/', (c) => {
 })
 ```
 
-## Suspense
+## Suspense <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
 
 The React-like `Suspense` feature is available.
 If you wrap the async component with `Suspense`, the content in the fallback will be rendered first, and once the Promise is resolved, the awaited content will be displayed.
