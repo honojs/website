@@ -106,8 +106,12 @@ app.get('/notfound', (c) => {
 Redirect, default status code is `302`.
 
 ```ts
-app.get('/redirect', (c) => c.redirect('/'))
-app.get('/redirect-permanently', (c) => c.redirect('/', 301))
+app.get('/redirect', (c) => {
+  return c.redirect('/')
+})
+app.get('/redirect-permanently', (c) => {
+  return c.redirect('/', 301)
+})
 ```
 
 ## stream()
