@@ -42,6 +42,23 @@ export default {
 };
 ```
 
+```toml
+name = "my-worker"
+
+[[queues.producers]]
+  queue = "my-queue"
+  binding = "ERROR_QUEUE"
+
+[[queues.consumers]]
+  queue = "my-queue"
+  max_batch_size = 100
+  max_batch_timeout = 30
+
+[[r2_buckets]]
+  bucket_name = "my-bucket"
+  binding = "ERROR_BUCKET"
+```
+
 ## References
 
 - [Cloudflare Queue](https://developers.cloudflare.com/queues/)
