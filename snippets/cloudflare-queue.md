@@ -4,7 +4,9 @@ Using Hono with [Cloudflare Queue](https://developers.cloudflare.com/queues/).
 
 ## Snippets
 
-```ts
+:::code-group
+
+```ts [index.ts]
 import { Hono } from "hono";
 
 type Environment = {
@@ -42,7 +44,7 @@ export default {
 };
 ```
 
-```toml
+```toml [wrangler.toml]
 name = "my-worker"
 
 [[queues.producers]]
@@ -58,6 +60,8 @@ name = "my-worker"
   bucket_name = "my-bucket"
   binding = "ERROR_BUCKET"
 ```
+
+:::
 
 ## References
 
