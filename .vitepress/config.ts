@@ -155,7 +155,12 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
   },
   {
     text: 'Integration',
-    items: [],
+    items: [
+      {
+        text: 'Cloudflare Queue',
+        link: '/snippets/cloudflare-queue',
+      },
+    ],
   },
 ]
 
