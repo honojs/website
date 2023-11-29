@@ -160,6 +160,10 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
         text: 'Cloudflare Durable Objects',
         link: '/snippets/cloudflare-durable-objects',
       },
+      {
+        text: 'Cloudflare Queue',
+        link: '/snippets/cloudflare-queue',
+      },
     ],
   },
 ]
