@@ -82,7 +82,7 @@ export class MyAppStack extends cdk.Stack {
     const fn = new NodejsFunction(this, 'lambda', {
       entry: 'lambda/index.ts',
       handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
     })
     fn.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
