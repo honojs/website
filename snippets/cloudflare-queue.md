@@ -1,6 +1,6 @@
-# Cloudflare Queue
+# Cloudflare Queues
 
-Using Hono with [Cloudflare Queue](https://developers.cloudflare.com/queues/).
+Using Hono with [Cloudflare Queues](https://developers.cloudflare.com/queues/).
 
 ## Snippets
 
@@ -65,5 +65,5 @@ name = "my-worker"
 
 ## References
 
-- [Cloudflare Queue](https://developers.cloudflare.com/queues/)
-- [Cloudflare Queue with R2 Example](https://developers.cloudflare.com/queues/examples/send-errors-to-r2/)
+- [Cloudflare Queues](https://developers.cloudflare.com/queues/)
+- [Cloudflare Queues with R2 Example](https://developers.cloudflare.com/queues/examples/send-errors-to-r2/)
