@@ -38,6 +38,31 @@ app.get('/books/:id', (c) => {
 })
 ```
 
+## `factory.createHandlers()` in `hono/factory`
+
+If you still want to create a RoR-like Controller, use `factory.createHandlers()` in [`hono/factory`](/helpers/factory). If you use this, type inference will work correctly.
+
+```ts
+import { createFactory } from 'hono/factory'
+import { logger } from 'hono/logger'
+
+// ...
+
+// 😃
+const factory = createFactory()
+
+const middleware = factory.createMiddleware(async (c, next) => {
+  c.set('foo', 'bar')
+  await next()
+})
+
+const handlers = factory.createHandlers(logger(), middleware, (c) => {
+  return c.json(c.var.foo)
+})
+
+app.get('/api', ...handlers)
+```
+
 ## Building a larger application
 
 Use `app.route()` to build a larger application without creating "Ruby on Rails-like Controllers".
