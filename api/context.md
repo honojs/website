@@ -208,7 +208,7 @@ app.get('/echo', echoMiddleware, (c) => {
 })
 ```
 
-## render() / setRenderer() <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+## render() / setRenderer()
 
 You can set a layout using `c.setRenderer()` within a custom middleware.
 
