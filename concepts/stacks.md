@@ -64,12 +64,9 @@ app.get(
 
 ## Sharing the Types
 
-To emit an endpoint specification, you turn `json()` into `jsonT()`.
-And export its type.
+To emit an endpoint specification, export its type.
 
-![SC](/images/sc02.gif)
-
-```ts{1,11-13}
+```ts{1,17}
 const route = app.get(
   '/hello',
   zValidator(
@@ -80,7 +77,7 @@ const route = app.get(
   ),
   (c) => {
     const { name } = c.req.valid('query')
-    return c.jsonT({
+    return c.json({
       message: `Hello! ${name}`,
     })
   }
@@ -150,12 +147,12 @@ const route = app
   .post('/todo', zValidator('form', schema), (c) => {
     const todo = c.req.valid('form')
     todos.push(todo)
-    return c.jsonT({
+    return c.json({
       message: 'created!',
     })
   })
   .get((c) => {
-    return c.jsonT({
+    return c.json({
       todos,
     })
   })

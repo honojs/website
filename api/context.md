@@ -71,16 +71,6 @@ app.get('/api', (c) => {
 })
 ```
 
-## jsonT()
-
-Return `TypedResponse` that is used for RPC.
-
-```ts
-app.get('/api', (c) => {
-  return c.jsonT({ ok: true }) // TypedResponse
-})
-```
-
 ## html()
 
 Render HTML as `Content-Type:text/html`.
@@ -208,7 +198,7 @@ app.get('/echo', echoMiddleware, (c) => {
 })
 ```
 
-## render() / setRenderer() <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+## render() / setRenderer()
 
 You can set a layout using `c.setRenderer()` within a custom middleware.
 

@@ -162,6 +162,43 @@ Available targets are below.
 
 See the [Validation section](/guides/validation) for usage examples.
 
+## routePath()
+
+You can retrieve the registered path within the handler like this:
+
+```ts
+app.get('/posts/:id', (c) => {
+  return c.json({ path: c.req.routePath })
+})
+```
+
+If you access `/posts/123`, it will return `/posts/:id`:
+
+```json
+{ "path": "/posts/:id" }
+```
+
+## matchedRoutes()
+
+It returns matched routes within the handler, which is useful for debugging.
+
+```ts
+app.use('*', async function logger(c, next) {
+  await next()
+  c.req.matchedRoutes.forEach(({ handler, method, path }, i) => {
+    const name = handler.name || (handler.length < 2 ? '[handler]' : '[middleware]')
+    console.log(
+      method,
+      ' ',
+      path,
+      ' '.repeat(Math.max(10 - path.length, 0)),
+      name,
+      i === c.req.routeIndex ? '<- respond from here' : ''
+    )
+  })
+})
+```
+
 ## path
 
 The request pathname.

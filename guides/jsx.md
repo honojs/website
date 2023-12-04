@@ -253,6 +253,55 @@ app.get('/', (c) => {
 })
 ```
 
+## ErrorBoundary <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+
+You can catch errors in child components using `ErrorBoundary`.
+
+In the example below, it will show the content specified in `fallback` if an error occurs.
+
+```tsx
+function SyncComponent() {
+  throw new Error('Error')
+  return <div>Hello</div>
+}
+
+app.get('/sync', async (c) => {
+  return c.html(
+    <html>
+      <body>
+        <ErrorBoundary fallback={<div>Out of Service</div>}>
+          <SyncComponent />
+        </ErrorBoundary>
+      </body>
+    </html>
+  )
+})
+```
+
+`ErrorBoundary` can also be used with async components and `Suspense`.
+
+```tsx
+async function AsyncComponent() {
+  await new Promise((resolve) => setTimeout(resolve, 2000))
+  throw new Error('Error')
+  return <div>Hello</div>
+}
+
+app.get('/with-suspense', async (c) => {
+  return c.html(
+    <html>
+      <body>
+        <ErrorBoundary fallback={<div>Out of Service</div>}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <AsyncComponent />
+          </Suspense>
+        </ErrorBoundary>
+      </body>
+    </html>
+  )
+})
+```
+
 ## Integration with html Middleware
 
 Combine the JSX and html middlewares for powerful templating.

@@ -24,7 +24,6 @@ An instance of `Hono` has the following methods.
 - app.**basePath**(path)
 - app.**notFound**(handler)
 - app.**onError**(err, handler)
-- app.**showRoutes**()
 - app.**routerName**
 - app.**mount**(path, anotherApp)
 - app.**fire**()
@@ -123,16 +122,6 @@ test('POST /message is ok', async () => {
   const res = await app.request(req)
   expect(res.status).toBe(201)
 })
-```
-
-## showRoutes()
-
-`app.showRoutes()` displays the registered routes in your console.
-
-```
-GET       /v1/posts
-GET       /v1/posts/:id
-POST      /v1/posts
 ```
 
 ## routerName
