@@ -102,7 +102,7 @@ export class MyAppStack extends cdk.Stack {
     const edgeFn = new NodejsFunction(this, 'edgeViewer', {
       entry: 'lambda/index_edge.ts',
       handler: 'handler',
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_20_X,
     });
 
     // Upload any html
