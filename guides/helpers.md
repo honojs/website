@@ -21,6 +21,7 @@ app.get('/cookie', (c) => {
 
 - [Adapter](/helpers/adapter)
 - [Cookie](/helpers/cookie)
+- [Dev](/helpers/dev)
 - [Factory](/helpers/factory)
 - [html](/helpers/html)
 - [JWT](/helpers/jwt)
