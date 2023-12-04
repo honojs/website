@@ -71,16 +71,6 @@ app.get('/api', (c) => {
 })
 ```
 
-## jsonT()
-
-Return `TypedResponse` that is used for RPC.
-
-```ts
-app.get('/api', (c) => {
-  return c.jsonT({ ok: true }) // TypedResponse
-})
-```
-
 ## html()
 
 Render HTML as `Content-Type:text/html`.

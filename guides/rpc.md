@@ -2,13 +2,13 @@
 
 The RPC feature allows sharing the API specifications between the server and the client.
 
-You can export the types of input type specified by the Validator and the output type emitted by `jsonT()`. And Hono Client will able to import it.
+You can export the types of input type specified by the Validator and the output type emitted by `json()`. And Hono Client will able to import it.
 
 ## Server
 
-All you need to do on the server side is to write a validator, change it from `json()` to `jsonT()`, and prepare a variable `route`.
+All you need to do on the server side is to write a validator, create a variable `route`.
 
-```ts
+```ts{1}
 const route = app.post(
   '/posts',
   zValidator(
@@ -20,7 +20,7 @@ const route = app.post(
   ),
   (c) => {
     // ...
-    return c.jsonT(
+    return c.json(
       {
         ok: true,
         message: 'Created!',
@@ -87,7 +87,7 @@ const route = app.get(
   ),
   (c) => {
     // ...
-    return c.jsonT({
+    return c.json({
       title: 'Night',
       body: 'Time to sleep',
     })
@@ -139,7 +139,7 @@ const client = hc<AppType>('/api', {
 You can get a `URL` object for accessing the the endpoint by using `$url()`.
 
 ```ts
-const route = app.get('/api/foo/bar', (c) => c.jsonT({ foo: 'bar' }))
+const route = app.get('/api/foo/bar', (c) => c.json({ foo: 'bar' }))
 
 const client = hc<typeof route>('http://localhost:8787/')
 const url = client.api.foo.bar.$url()
