@@ -55,25 +55,27 @@ app.post('/api/page', bearerAuth({ token }), (c) => {
 })
 ```
 
-To implement multiple tokens of varying privilege:
+To implement multiple tokens (E.g., any valid token can read but create/update/delete are restricted to a privileged token):
 
 ```ts
 const app = new Hono()
 
-const rToken = 'read'
-const pToken = 'read+write'
-const validTokens = [rToken, pToken]
+const readToken = 'read'
+const privilegedToken = 'read+write'
+const privilegedMethods = ['POST', 'PUT', 'PATCH', 'DELETE']
 
-api.use('/posts/:id', async (c, next) => {
-  // PATCH and DELETE require the privileged token
-  if (c.event.request.method === 'PATCH' || c.event.request.method === 'DELETE') {
-    const bearer = bearerAuth({ token: pToken })
-    return bearer(c, next)
-  }
-  // GET works with any valid token
-  const bearer = bearerAuth({ token: validTokens })
-  return bearer(c, next)
+app.on('GET', '/api/page/*', async (c, next) => {
+  // List of valid tokens
+  const bearer = bearerAuth({ token: [readToken, privilegeToken] });
+  return bearer(c, next);
 })
+app.on(privilegedMethods, '/api/page/*', async (c, next) => {
+  // Single valid privileged token
+  const bearer = bearerAuth({ token: privilegedToken });
+  return bearer(c, next);
+})
+
+// Define handlers for GET, POST, etc.
 ```
 
 ## Options
