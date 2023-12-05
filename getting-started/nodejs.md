@@ -137,3 +137,34 @@ app.get(
   })
 )
 ```
+
+## http2
+
+You can run hono on a [Node.js http2 Server](https://nodejs.org/api/http2.html).
+
+### unencrypted http2
+
+```ts
+import { createServer } from 'node:http2'
+
+const server = serve({
+  fetch: app.fetch
+  createServer,
+})
+```
+
+### encrypted http2
+
+```ts
+import { createSecureServer } from 'node:http2'
+import { readFileSync } from 'node:fs'
+
+const server = serve({
+  fetch: app.fetch,
+  createServer: createSecureServer,
+  serverOptions: {
+    key: readFileSync('localhost-privkey.pem'),
+    cert: readFileSync('localhost-cert.pem'),
+  }
+})
+```
