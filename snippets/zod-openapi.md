@@ -73,7 +73,7 @@ const app = new OpenAPIHono()
 
 app.openapi(route, (c) => {
   const { id } = c.req.valid('param')
-  return c.jsonT({
+  return c.json({
     id,
     age: 20,
     name: 'Ultra-man',
