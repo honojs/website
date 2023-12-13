@@ -27,7 +27,7 @@ hero:
 features:
   - icon: 🚀
     title: Ultrafast & Lightweight
-    details: The router RegExpRouter is really fast. The hono/tiny preset is under 12kB. Using only Web Standard APIs.
+    details: The router RegExpRouter is really fast. The hono/tiny preset is under 14kB. Using only Web Standard APIs.
   - icon: 🌍
     title: Multi-runtime
     details: Works on Cloudflare, Fastly, Deno, Bun, Lagon, AWS, or Node.js. The same code runs on all platforms.

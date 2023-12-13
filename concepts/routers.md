@@ -83,14 +83,11 @@ For situations like Fastly Compute, it's better to use LinearRouter with the `ho
 
 While Hono is already compact, if you need to make it even smaller for an environment with limited resources, you can use PatternRouter.
 
-An application using only PatternRouter is under 12KB in size.
+An application using only PatternRouter is under 15KB in size.
 
 ```
-$ npx wrangler dev --minify ./src/index.ts
- ⛅️ wrangler 2.20.0
---------------------
-⬣ Listening at http://0.0.0.0:8787
-- http://127.0.0.1:8787
-- http://192.168.128.165:8787
-Total Upload: 11.47 KiB / gzip: 4.34 KiB
+$ npx wrangler deploy --minify ./src/index.ts
+ ⛅️ wrangler 3.20.0
+-------------------
+Total Upload: 14.68 KiB / gzip: 5.38 KiB
 ```

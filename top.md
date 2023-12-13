@@ -50,7 +50,7 @@ deno run -A npm:create-hono
 ## Features
 
 - **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
-- **Lightweight** 🪶 - The `hono/tiny` preset is under 12kB. Hono has zero dependencies and uses only the Web Standard API.
+- **Lightweight** 🪶 - The `hono/tiny` preset is under 14kB. Hono has zero dependencies and uses only the Web Standard API.
 - **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute, Deno, Bun, Lagon, AWS Lambda, or Node.js. The same code runs on all platforms.
 - **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
 - **Delightful DX** 😃 - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
@@ -106,7 +106,7 @@ See [more benchmarks](/concepts/benchmarks).
 
 ## Lightweight
 
-**Hono is so small**. With the `hono/tiny` preset, its size is **under 12KB** when minified. There are many middleware and adapters, but they are bundled only when used. For context, the size of Express is 572KB.
+**Hono is so small**. With the `hono/tiny` preset, its size is **under 14KB** when minified. There are many middleware and adapters, but they are bundled only when used. For context, the size of Express is 572KB.
 
 ```
 $ npx wrangler dev --minify ./src/index.ts
