@@ -90,15 +90,15 @@ Run the development server locally. Then, access `http://localhost:3000` in your
 ::: code-group
 
 ```txt [npm]
-npm run start
+npm run dev
 ```
 
 ```txt [yarn]
-yarn start
+yarn dev
 ```
 
 ```txt [pnpm]
-pnpm start
+pnpm dev
 ```
 
 :::
@@ -165,6 +165,6 @@ const server = serve({
   serverOptions: {
     key: readFileSync('localhost-privkey.pem'),
     cert: readFileSync('localhost-cert.pem'),
-  }
+  },
 })
 ```
