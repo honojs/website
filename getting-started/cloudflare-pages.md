@@ -216,27 +216,21 @@ app.get('/', (c) => {
 In order to build the script properly, you can use the example config file `vite.config.ts` as shown below.
 
 ```ts
-import { defineConfig } from 'vite'
-import devServer from '@hono/vite-dev-server'
 import pages from '@hono/vite-cloudflare-pages'
+import devServer from '@hono/vite-dev-server'
+import { defineConfig } from 'vite'
 
 export default defineConfig(({ mode }) => {
   if (mode === 'client') {
     return {
       build: {
-        lib: {
-          entry: './src/client.ts',
-          formats: ['es'],
-          fileName: 'client',
-          name: 'client',
-        },
         rollupOptions: {
+          input: './src/client.ts',
           output: {
-            dir: './dist/static',
+            entryFileNames: 'static/client.js',
           },
         },
         emptyOutDir: false,
-        copyPublicDir: false,
       },
     }
   } else {
