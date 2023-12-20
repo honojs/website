@@ -143,24 +143,25 @@ bun run deploy
 
 :::
 
-
 ## Bindings
 
 You can use Cloudflare Bindings like variables, KV, D1, and others.
 Edit the `vite.config.ts` like the following:
 
 ```ts
+import { getEnv } from '@hono/vite-dev-server/cloudflare-pages'
+
 export default defineConfig({
   plugins: [
     pages(),
     devServer({
       entry: 'src/index.tsx',
-      cf: {
+      env: getEnv({
         bindings: {
           NAME: 'Hono',
         },
         kvNamespaces: ['MY_KV'],
-      },
+      }),
     }),
   ],
 })
@@ -173,10 +174,11 @@ export default defineConfig({
   plugins: [
     pages(),
     devServer({
-      cf: {
+      entry: 'src/index.tsx',
+      env: getEnv({
         d1Databases: ['DB'],
         d1Persist: true,
-      },
+      }),
     }),
   ],
 })
