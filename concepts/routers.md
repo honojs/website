@@ -24,7 +24,7 @@ This works faster than methods that use tree-based algorithms such as radix-tree
 ## TrieRouter
 
 **TrieRouter** is the router using the Trie-tree algorithm.
-It does not use liner loops as same as RegExpRouter.
+It does not use linear loops as same as RegExpRouter.
 
 ![Router Tree](/images/router-tree.jpg)
 
