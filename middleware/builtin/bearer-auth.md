@@ -66,7 +66,7 @@ const privilegedMethods = ['POST', 'PUT', 'PATCH', 'DELETE']
 
 app.on('GET', '/api/page/*', async (c, next) => {
   // List of valid tokens
-  const bearer = bearerAuth({ token: [readToken, privilegeToken] });
+  const bearer = bearerAuth({ token: [readToken, privilegedToken] });
   return bearer(c, next);
 })
 app.on(privilegedMethods, '/api/page/*', async (c, next) => {
