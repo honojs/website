@@ -274,6 +274,10 @@ This is the only case for Module Worker mode.
 If you want to use Variables or Secret Variables in Middleware, for example, "username" or "password" in Basic Authentication Middleware, you need to write like the following.
 
 ```ts
+import { basicAuth } from 'hono/basic-auth'
+
+//...
+
 app.use('/auth/*', async (c, next) => {
   const auth = basicAuth({
     username: c.env.USERNAME,
