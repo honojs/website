@@ -273,8 +273,6 @@ app.put('/upload/:key', async (c, next) => {
 This is the only case for Module Worker mode.
 If you want to use Variables or Secret Variables in Middleware, for example, "username" or "password" in Basic Authentication Middleware, you need to write like the following.
 
-First add this import at the top of `index.tsx`:
-
 ```ts
 import { basicAuth } from 'hono/basic-auth'
 
