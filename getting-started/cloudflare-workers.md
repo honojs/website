@@ -277,11 +277,9 @@ First add this import at the top of `index.tsx`:
 
 ```ts
 import { basicAuth } from 'hono/basic-auth'
-```
 
-Then add this after:
+//...
 
-```ts
 app.use('/auth/*', async (c, next) => {
   const auth = basicAuth({
     username: c.env.USERNAME,
