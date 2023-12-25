@@ -56,7 +56,7 @@ app.get('/auth/page', (c) => {
 
 ::: tip
 
-`jwt()` is just a middleware function. If you want to use dynamic secret (eg: `c.env.JWT_SECRET`) as a secret, you can use it as follows:
+`jwt()` is just a middleware function. If you want to use an environment variable (eg: `c.env.JWT_SECRET`), you can use it as follows:
 
 ```js
 app.use(
@@ -66,7 +66,7 @@ app.use(
       secret: c.env.JWT_SECRET,
     })
     return jwtMiddleware(c, next)
-  })
+  }
 )
 ```
 
