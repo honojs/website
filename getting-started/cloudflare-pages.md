@@ -121,7 +121,7 @@ bun run dev
 
 ## 4. Deploy
 
-If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json` on line 7, replace `$npm_execpath` with your package manager of choice. Then run:
+If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your pacakage manager of choice.
 
 ::: code-group
 
