@@ -165,6 +165,10 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
         text: 'Cloudflare Queue',
         link: '/snippets/cloudflare-queue',
       },
+      {
+        text: 'htmx',
+        link: '/snippets/htmx',
+      },
     ],
   },
 ]
