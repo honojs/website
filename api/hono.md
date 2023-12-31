@@ -55,11 +55,15 @@ app.onError((err, c) => {
 
 ## fire()
 
-`app.fire()` do this.
+`app.fire()` automatically adds a global `fetch` event listener.
+
+This can be useful for environments that adhere to the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), such as [non-ES module Cloudflare Workers](https://developers.cloudflare.com/workers/reference/migrate-to-module-workers/).
+
+`app.fire()` executes the following for you:
 
 ```ts
-addEventListener('fetch', (event) => {
-  event.respondWith(this.handleEvent(event))
+addEventListener('fetch', (event: FetchEventLike): void => {
+  event.respondWith(this.dispatch(...))
 })
 ```
 
