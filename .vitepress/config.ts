@@ -102,6 +102,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Cache', link: '/middleware/builtin/cache' },
       { text: 'Compress', link: '/middleware/builtin/compress' },
       { text: 'CORS', link: '/middleware/builtin/cors' },
+      { text: 'CSRF Protection', link: '/middleware/builtin/csrf' },
       { text: 'ETag', link: '/middleware/builtin/etag' },
       { text: 'JSX Renderer', link: '/middleware/builtin/jsx-renderer' },
       { text: 'JWT', link: '/middleware/builtin/jwt' },
