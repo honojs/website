@@ -1,20 +1,34 @@
 # Dev Helper
 
+Dev Helper provides useful methods you can use in development.
+
 ::: code-group
 
 ```ts [npm]
 import { Hono } from 'hono'
-import { showRoutes } from 'hono/dev'
+import { getRouterName, showRoutes } from 'hono/dev'
 ```
 
 ```ts [Deno]
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { showRoutes } from 'https://deno.land/x/hono/helper.ts'
+import { getRouterName, showRoutes } from 'https://deno.land/x/hono/helper.ts'
 ```
 
 :::
 
-## showRoutes()
+## `getRouterName()`
+
+You can get the name of the currently used router with `getRouterName()`.
+
+```ts
+const app = new Hono()
+
+// ...
+
+console.log(getRouterName(app))
+```
+
+## `showRoutes()`
 
 `showRoutes()` function displays the registered routes in your console.
 

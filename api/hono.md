@@ -24,7 +24,6 @@ An instance of `Hono` has the following methods.
 - app.**basePath**(path)
 - app.**notFound**(handler)
 - app.**onError**(err, handler)
-- app.**routerName**
 - app.**mount**(path, anotherApp)
 - app.**fire**()
 - app.**fetch**(request, env, event)
@@ -125,16 +124,6 @@ test('POST /message is ok', async () => {
   })
   const res = await app.request(req)
   expect(res.status).toBe(201)
-})
-```
-
-## routerName
-
-You can get the name of the currently used router with `app.routerName`.
-
-```ts
-app.get('/', (c) => {
-  return c.text(`The current router is ${app.routerName}`)
 })
 ```
 
