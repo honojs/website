@@ -62,7 +62,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/guides/validation',
       },
       {
-        text: 'RPC',
+        text: 'RPC / Client',
         link: '/guides/rpc',
       },
       {

@@ -1,4 +1,4 @@
-# RPC
+# RPC / Client
 
 The RPC feature allows sharing the API specifications between the server and the client.
 
@@ -139,11 +139,21 @@ const client = hc<AppType>('/api', {
 You can get a `URL` object for accessing the the endpoint by using `$url()`.
 
 ```ts
-const route = app.get('/api/foo/bar', (c) => c.json({ foo: 'bar' }))
+const route = app
+  .get('/api/posts', (c) => c.json({ posts }))
+  .get('/api/posts/:id', (c) => c.json({ post }))
 
 const client = hc<typeof route>('http://localhost:8787/')
-const url = client.api.foo.bar.$url()
-console.log(url.pathname) // `/api/foo/bar`
+
+let url = client.api.posts.$url()
+console.log(url.pathname) // `/api/posts`
+
+url = client.api.posts[':id'].$url({
+  param: {
+    id: '123',
+  },
+})
+console.log(url.pathname) // `/api/posts/123`
 ```
 
 ## Custom `fetch` method
