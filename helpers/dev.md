@@ -64,3 +64,5 @@ POST  /v1/posts
 
 - `verbose`: boolean - optional
   - When set to `true`, it displays verbose information.
+- `colorized`: boolean - optional
+  - When set to `false`, the output will not be colored.
