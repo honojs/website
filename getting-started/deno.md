@@ -102,6 +102,21 @@ app.get(
 )
 ```
 
+### `onNotFound`
+
+You can specify handling when the requested file is not found with `notFoundOption`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    onNotFound: (path, c) => {
+      console.log(`${path} is not found, you access ${c.req.path}`)
+    },
+  })
+)
+```
+
 ## Deno Deploy
 
 Deno Deploy is an edge runtime platform for Deno.

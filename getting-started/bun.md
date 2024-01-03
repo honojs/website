@@ -100,6 +100,21 @@ app.get(
 )
 ```
 
+### `onNotFound`
+
+You can specify handling when the requested file is not found with `notFoundOption`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    onNotFound: (path, c) => {
+      console.log(`${path} is not found, you access ${c.req.path}`)
+    },
+  })
+)
+```
+
 ## Testing
 
 You can use `bun:test` for testing on Bun.
