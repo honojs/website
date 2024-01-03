@@ -98,6 +98,7 @@ bun run dev
 ```
 
 :::
+
 ## 4. Deploy
 
 If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
@@ -121,7 +122,6 @@ bun run deploy
 ```
 
 :::
-
 
 That's all!
 
@@ -194,6 +194,21 @@ app.get(
   serveStatic({
     root: './',
     rewriteRequestPath: (path) => path.replace(/^\/static/, '/statics'),
+  })
+)
+```
+
+### `onNotFound`
+
+You can specify handling when the requested file is not found with `notFoundOption`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    onNotFound: (path, c) => {
+      console.log(`${path} is not found, you access ${c.req.path}`)
+    },
   })
 )
 ```
