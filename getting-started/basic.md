@@ -220,7 +220,7 @@ app.use(
 )
 
 app.get('/admin', (c) => {
-  return c.text('Your are authorized!')
+  return c.text('You are authorized!')
 })
 ```
 
