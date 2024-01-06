@@ -2,7 +2,7 @@
 
 The css helper - `hono/css` - is Hono's built-in CSS in JS(X).
 
-You can write CSS in JSX in a JavaScript template literal named `css`. The return value of `css` will be the class name, which is set to the value of the class attribute. The `<Stlye />` component will then contain the value of the CSS.
+You can write CSS in JSX in a JavaScript template literal named `css`. The return value of `css` will be the class name, which is set to the value of the class attribute. The `<Style />` component will then contain the value of the CSS.
 
 ## Import
 
