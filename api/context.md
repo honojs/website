@@ -41,13 +41,11 @@ new Response('Thank you for coming', {
 })
 ```
 
-## text()
-
-Render text as `Content-Type:text/plain`.
-
+## body()
+Return the HTTP response.
 ```ts
-app.get('/say', (c) => {
-  return c.text('Hello!')
+app.get('/welcome', (c) => {
+  return c.body('Thank you for coming')
 })
 ```
 
@@ -55,9 +53,20 @@ Specify the status code and add headers.
 
 ```ts
 app.post('/posts', (c) => {
-  return c.text('Created!', 201, {
+  return c.body('Created!', 201, {
     'X-Custom': 'Thank you!',
+    'Content-Type': 'text/plain'
   })
+})
+```
+
+## text()
+
+Render text as `Content-Type:text/plain`.
+
+```ts
+app.get('/say', (c) => {
+  return c.text('Hello!')
 })
 ```
 
