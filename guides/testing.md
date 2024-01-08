@@ -74,3 +74,18 @@ test('POST /posts', async () => {
 ```
 
 In this way, you can test it as like an End-to-End.
+
+## Env
+
+To set `c.env` for testing, you can pass it as the 3rd parameter to `app.request`. This is useful for mocking values like [Cloudflare Workers Bindings](https://hono.dev/getting-started/cloudflare-workers#bindings):
+
+```ts
+const MOCK_ENV = {
+  API_HOST: 'example.com',
+  DB: { prepare: () => { /* mocked D1 */ } },
+}
+
+test('GET /posts', async () => {
+  const res = await app.request('/posts', {}, MOCK_ENV)
+})
+```
