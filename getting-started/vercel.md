@@ -89,7 +89,9 @@ If you use the Pages Router, Edit `pages/api/[[...route]].ts`.
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 
-export const runtime = 'edge';
+export const config = {
+  runtime: "edge",
+};
 
 const app = new Hono().basePath("/api")
 
@@ -99,7 +101,7 @@ app.get('/hello', (c) => {
   })
 })
 
-export const GET = handle(app)
+export default handle(app)
 ```
 
 ## 3. Run
