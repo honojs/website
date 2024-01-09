@@ -101,7 +101,7 @@ app.get('/hello', (c) => {
   })
 })
 
-export default handle(app);
+export default handle(app)
 ```
 
 ## 3. Run
