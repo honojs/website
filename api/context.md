@@ -13,7 +13,12 @@ app.get('/hello', (c) => {
 })
 ```
 
-## Shortcuts for the Response
+## body()
+
+Return the HTTP response.
+
+You can set headers with `c.header()` and set HTTP status code with `c.status`.  
+This can also be set in `c.text()`, `c.json()` etc.
 
 ```ts
 app.get('/welcome', (c) => {
@@ -38,25 +43,6 @@ new Response('Thank you for coming', {
     'X-Message': 'Hello',
     'Content-Type': 'text/plain',
   },
-})
-```
-
-## body()
-Return the HTTP response.
-```ts
-app.get('/welcome', (c) => {
-  return c.body('Thank you for coming')
-})
-```
-
-Specify the status code and add headers.
-
-```ts
-app.post('/posts', (c) => {
-  return c.body('Created!', 201, {
-    'X-Custom': 'Thank you!',
-    'Content-Type': 'text/plain'
-  })
 })
 ```
 
