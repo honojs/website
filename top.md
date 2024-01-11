@@ -53,7 +53,7 @@ deno run -A npm:create-hono
 - **Lightweight** 🪶 - The `hono/tiny` preset is under 14kB. Hono has zero dependencies and uses only the Web Standard API.
 - **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute, Deno, Bun, Lagon, AWS Lambda, or Node.js. The same code runs on all platforms.
 - **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
-- **Delightful DX** 😃 - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
+- **Delightful** 😃 - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
 
 ## Use-cases
 
