@@ -18,7 +18,11 @@ app.get('/hello', (c) => {
 Return the HTTP response.
 
 You can set headers with `c.header()` and set HTTP status code with `c.status`.  
-This can also be set in `c.text()`, `c.json()` etc.
+This can also be set in `c.text()`, `c.json()` and so on.
+
+::: info
+**Note**: When returning Text or HTML, it is recommended to use `c.text()` or `c.html()`.
+:::
 
 ```ts
 app.get('/welcome', (c) => {
@@ -31,6 +35,17 @@ app.get('/welcome', (c) => {
 
   // Return the response body
   return c.body('Thank you for coming')
+})
+```
+
+You can also write the following.
+
+```ts
+app.get('/welcome', (c) => {
+  return c.body('Thank you for coming', 201, {
+    'X-Message': 'Hello!',
+    'Content-Type': 'text/plain',
+  })
 })
 ```
 
