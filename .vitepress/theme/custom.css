@@ -13,6 +13,7 @@
   --vp-c-text-dark-3: rgba(235, 235, 245, 0.38);
 
   --vp-c-orange: #e36002;
+  --vp-c-orange-soft: rgba(227, 96, 2 0.1);
   --vp-c-orange-light: #ff861d;
   --vp-c-orange-lighter: #ff9c24;
   --vp-c-orange-dark: #e07700;
@@ -88,7 +89,7 @@
   --vp-c-brand-1: var(--vp-c-orange);
   --vp-c-brand-2: var(--vp-c-orange-light);
   --vp-c-brand-3: var(--vp-c-orange-lighter);
-  --vp-c-brand-soft: var(--vp-c-orange-dark);
+  --vp-c-brand-soft: var(--vp-c-orange-soft);
   --vp-code-color: var(--vp-c-text-light-2);
 }
 
