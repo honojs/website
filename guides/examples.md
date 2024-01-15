@@ -90,7 +90,7 @@ app.get('/', async (_c) => {
 })
 ```
 
-Since `fetch()` returns unalterable headers, any subsequent attempt to rewrite them with `cors` middleware or the like will result in an error.
+The headers of `Response` returned by `fetch` are immutable. So, an error will occur if you modify it.
 :::
 
 ## JSX
