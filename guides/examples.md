@@ -78,6 +78,21 @@ app.get('*', (c) => {
 export default app
 ```
 
+::: tip
+If you can see `Can't modify immutable headers.` error with similar code, you need to clone the response object.
+
+```ts
+app.get('/', async (_c) => {
+  const response = await fetch('https://example.com')
+  // clone the response to return a response with modifiable headers
+  const newResponse = new Response(response.body, response)
+  return newResponse
+})
+```
+
+The headers of `Response` returned by `fetch` are immutable. So, an error will occur if you modify it.
+:::
+
 ## JSX
 
 Here is Server Side Rendering application using _JSX_ and _html_ middleware.
