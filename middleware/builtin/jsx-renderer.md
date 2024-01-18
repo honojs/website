@@ -169,7 +169,7 @@ By defining `ContextRenderer` as shown below, you can pass additional content to
 ```tsx
 declare module 'hono' {
   interface ContextRenderer {
-    (content: string, props: { title: string }): Response
+    (content: string | Promise<string>, props: { title: string }): Response
   }
 }
 
