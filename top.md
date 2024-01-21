@@ -77,6 +77,7 @@ Here are some examples of use-cases.
 | [Ultra](https://ultrajs.dev)                   | Deno               | A React/Deno framework. _Hono is used for the internal server_.                           |
 | [Deno Benchmarks](https://deno.com/benchmarks) | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
 | [Cloudflare Blog](https://blog.cloudflare.com) | Cloudflare Workers | _Some applications featured in the articles use Hono_.                                    |
+| [SonicJS](https://sonicjs.com)                 | Cloudflare Workers | A headless CMS running on Cloudflare Workers. _Hono is used for the internal server_.     |
 
 And the following.
 
