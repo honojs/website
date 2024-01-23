@@ -136,7 +136,23 @@ const client = hc<AppType>('/api', {
 
 ## `$url()`
 
-You can get a `URL` object for accessing the the endpoint by using `$url()`.
+You can get a `URL` object for accessing the endpoint by using `$url()`.
+::: warning
+You have to pass in an absolute URL for this to work. Passing in a relative URL `/` will result in the following error.
+
+`Uncaught TypeError: Failed to construct 'URL': Invalid URL`
+
+```ts
+// ❌ Will throw error
+const client = hc<typeof route>('/')
+client.api.post.$url()
+
+// ✅ Will work as expected
+const client = hc<AppType>('http://localhost:8787')
+client.api.post.$url()
+```
+
+:::
 
 ```ts
 const route = app
