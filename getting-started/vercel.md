@@ -64,7 +64,7 @@ bun i
 
 ## 2. Hello World
 
-If you use the App Router, Edit `app/api/[[...route]]/route.ts`.
+If you use the App Router, Edit `app/api/[[...route]]/route.ts`. Refer to the [Supported HTTP Methods](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#supported-http-methods) section for more options.
 
 ```ts
 import { Hono } from 'hono'
@@ -81,6 +81,7 @@ app.get('/hello', (c) => {
 })
 
 export const GET = handle(app)
+export const POST = handle(app)
 ```
 
 If you use the Pages Router, Edit `pages/api/[[...route]].ts`.
