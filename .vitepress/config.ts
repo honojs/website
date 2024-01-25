@@ -31,6 +31,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'AWS Lambda', link: '/getting-started/aws-lambda' },
       { text: 'Lambda@Edge', link: '/getting-started/lambda-edge' },
       { text: 'Node.js', link: '/getting-started/nodejs' },
+      { text: 'Supabase Functions', link: '/getting-started/supabase-functions' },
       { text: 'Others', link: '/getting-started/others' },
     ],
   },
