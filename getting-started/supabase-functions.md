@@ -45,10 +45,10 @@ import { Hono } from 'https://deno.land/x/hono/mod.ts'
 import type { Context } from 'https://deno.land/x/hono/mod.ts'
 
 // change this to your function name
-const functionName = 'hono-server'
+const functionName = 'hello-world'
 const app = new Hono().basePath(`/${functionName}`)
 
-app.get('/hello-world', (c: Context) => c.text('Hello World from hono-server!'))
+app.get('/hello', (c: Context) => c.text('Hello from hono-server!'))
 
 Deno.serve(app.fetch)
 ```
@@ -66,10 +66,10 @@ supabase functions serve --no-verify-jwt # start the Functions watcher
 
 The `--no-verify-jwt` flag allows you to bypass JWT verification during local development.
 
-2. Make a GET request using cURL or Postman to `http://127.0.0.1:54321/functions/v1/hono-server/hello-world`:
+2. Make a GET request using cURL or Postman to `http://127.0.0.1:54321/functions/v1/hello-world/hello`:
 
 ```bash
-curl  --location  'http://127.0.0.1:54321/functions/v1/hono-server/hello-world'
+curl  --location  'http://127.0.0.1:54321/functions/v1/hello-world/hello'
 ```
 
 This request should return the text "Hello World from Supabase Edge Function!".
