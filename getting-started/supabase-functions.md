@@ -72,7 +72,7 @@ The `--no-verify-jwt` flag allows you to bypass JWT verification during local de
 curl  --location  'http://127.0.0.1:54321/functions/v1/hello-world/hello'
 ```
 
-This request should return the text "Hello World from Supabase Edge Function!".
+This request should return the text "Hello from hono-server!".
 
 ## 4. Deploy
 
