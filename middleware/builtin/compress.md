@@ -3,7 +3,7 @@
 This middleware compresses the response body, according to `Accept-Encoding` request header.
 
 ::: info
-**Note**: On Cloudflare Workers and Lagon, the response body will be compressed automatically, so there is no need to use this middleware.
+**Note**: On Cloudflare Workers, the response body will be compressed automatically, so there is no need to use this middleware.
 
 **Bun**: This middleware uses `CompressionStream` which is not yet supported in bun.
 :::
