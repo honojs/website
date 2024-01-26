@@ -18,3 +18,4 @@ Most of this middleware leverages external libraries.
 - [Swagger UI](https://github.com/honojs/middleware/tree/main/packages/swagger-ui)
 - [Scalar API Reference](https://github.com/scalar/scalar/tree/main/packages/hono-api-reference)
 - [esbuild Transpiler](https://github.com/honojs/middleware/tree/main/packages/esbuild-transpiler)
+- [Prometheus Metrics](https://github.com/honojs/middleware/tree/main/packages/prometheus)
