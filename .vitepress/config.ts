@@ -30,6 +30,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Netlify', link: '/getting-started/netlify' },
       { text: 'AWS Lambda', link: '/getting-started/aws-lambda' },
       { text: 'Lambda@Edge', link: '/getting-started/lambda-edge' },
+      { text: 'Supabase Functions', link: '/getting-started/supabase-functions' },
       { text: 'Node.js', link: '/getting-started/nodejs' },
       { text: 'Others', link: '/getting-started/others' },
     ],
