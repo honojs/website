@@ -122,7 +122,6 @@ In Hono, you can access the AWS Lambda Events and Context by binding the `Lambda
 
 ```ts
 import { Hono } from 'hono'
-import { Hono } from 'hono'
 import type { LambdaEvent, LambdaContext } from 'hono/aws-lambda'
 import { handle } from 'hono/aws-lambda'
 
