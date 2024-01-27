@@ -22,7 +22,6 @@ In addition, we have a Node.js adapter. Hono runs on these runtimes:
 - Deno
 - Bun
 - Fastly Compute
-- Lagon
 - AWS Lambda
 - Node.js
 - Vercel (edge-light)

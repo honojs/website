@@ -41,7 +41,6 @@ Let's select Cloudflare Workers for this example.
 ❯   cloudflare-workers
     deno
     fastly
-    lagon
     nextjs
     nodejs
     vercel

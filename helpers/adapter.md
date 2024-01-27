@@ -36,7 +36,6 @@ Supported Runtimes:
 - Cloudflare Workers
 - Deno
 - Bun
-- Lagon
 - Node.js
 - Vercel
 - AWS Lambda
@@ -78,5 +77,4 @@ Here are the supported runtimes, with some being inspired by [WinterCG's Runtime
 - `workerd` - Cloudflare Workers
 - `fastly`
 - `edge-light` - Vercel Edge Functions
-- `lagon`
 - `other`
