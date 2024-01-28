@@ -14,12 +14,12 @@ since [timers only show the time of last I/O](https://developers.cloudflare.com/
 
 ```ts [npm]
 import { Hono } from 'hono'
-import { timing } from 'hono/timing'
+import { timing, setMetric, startTime, endTime } from "hono/timing";
 ```
 
 ```ts [Deno]
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { timing } from 'https://deno.land/x/hono/middleware.ts'
+import { timing, setMetric, startTime, endTime } from 'https://deno.land/x/hono/middleware.ts'
 ```
 
 :::
