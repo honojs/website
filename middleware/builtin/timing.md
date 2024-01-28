@@ -14,7 +14,7 @@ since [timers only show the time of last I/O](https://developers.cloudflare.com/
 
 ```ts [npm]
 import { Hono } from 'hono'
-import { timing, setMetric, startTime, endTime } from 'hono/timing';
+import { timing, setMetric, startTime, endTime } from 'hono/timing'
 ```
 
 ```ts [Deno]
