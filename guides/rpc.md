@@ -241,3 +241,50 @@ const App = () => {
 
 export default App
 ```
+
+## Using with larger applications
+
+In the case of a larger application, such as the example mentioned in [Building a larger application](/guides/rpc#building-a-larger-application), you need to be careful about the type inference.
+A simple way to do this is to chain the handlers so that the types are always inferred.
+
+```ts
+// authors.ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+  .get('/', (c) => c.json('list authors'))
+  .post('/', (c) => c.json('create an author', 201))
+  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+export default app
+```
+
+```ts
+// books.ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+  .get('/', (c) => c.json('list books'))
+  .post('/', (c) => c.json('create a book', 201))
+  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+export default app
+```
+
+You can then import the sub-routers as you usually would, and make sure you chain their handlers as well, since this is the top level of the app in this case, this is the type we'll want to export.
+
+```ts
+// index.ts
+import { Hono } from 'hono'
+import authors from './authors'
+import books from './books'
+
+const app = new Hono();
+
+const routes = app.route('/authors', authors).route('/books', books)
+
+export default app
+export type AppType = typeof routes
+```
+
+You can now create a new client using the registered AppType and use it as you would normally.
