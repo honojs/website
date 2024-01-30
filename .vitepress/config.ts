@@ -90,6 +90,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Factory', link: '/helpers/factory' },
       { text: 'html', link: '/helpers/html' },
       { text: 'JWT', link: '/helpers/jwt' },
+      { text: 'SSG', link: '/helpers/ssg' },
       { text: 'Streaming', link: '/helpers/streaming' },
       { text: 'Testing', link: '/helpers/testing' },
     ],
