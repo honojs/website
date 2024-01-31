@@ -89,10 +89,11 @@ export default app
 Bun:
 
 ```ts
-export default {
-  port: 3000,
-  fetch: app.fetch,
-}
+export default app // [!code --]
+export default { // [!code ++]
+  port: 3000, // [!code ++]
+  fetch: app.fetch, // [!code ++]
+} // [!code ++]
 ```
 
 ## request()

@@ -50,10 +50,16 @@ Then, access `http://localhost:3000` in your browser.
 You can specify the port number with exporting the `port`.
 
 ```ts
-export default {
-  port: 3000,
-  fetch: app.fetch,
-}
+import { Hono } from 'hono'
+
+const app = new Hono()
+app.get('/', (c) => c.text('Hello Bun!'))
+
+export default app // [!code --]
+export default { // [!code ++]
+  port: 3000, // [!code ++]
+  fetch: app.fetch, // [!code ++]
+} // [!code ++]
 ```
 
 ## Serve static files
