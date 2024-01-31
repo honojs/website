@@ -114,6 +114,28 @@ serve({
 })
 ```
 
+## Access the raw Node.js APIs
+
+You can access the Node.js APIs from `c.env.incoming` and `c.env.outgoing`.
+
+```ts
+import { Hono } from 'hono'
+import { serve, type HttpBindings } from '@hono/node-server'
+// or `Http2Bindings` if you use HTTP2
+
+type Bindings = HttpBindings & {/* ... */}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/', (c) => {
+  return c.json({
+    remoteAddress: c.env.incoming.socket.remoteAddress,
+  })
+})
+
+serve(app)
+```
+
 ## Serve static files
 
 You can use `serveStatic` to serve static files from the local file system.
