@@ -44,6 +44,17 @@ app.get('/', (c) => {
 })
 ```
 
+You can style pseudo-classes like `:hover` by using the [nesting selector](https://developer.mozilla.org/en-US/docs/Web/CSS/Nesting_selector), `&`:
+
+```ts
+const buttonClass = css`
+	background-color: #fff;
+	& :hover {
+		background-color: red;
+	}
+`;
+```
+
 ## `keyframes` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
 
 You can use `keyframes` to write the contents of `@keyframes`. In this case, `fadeInAnimation` will be the name of the animation
