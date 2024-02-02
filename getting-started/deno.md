@@ -102,6 +102,22 @@ app.get(
 )
 ```
 
+### `mimes`
+
+You can add MIME types with `mimes`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    mimes: {
+      m3u8: 'application/vnd.apple.mpegurl',
+      ts: 'video/mp2t',
+    }
+  })
+)
+```
+
 ### `onNotFound`
 
 You can specify handling when the requested file is not found with `notFoundOption`:
