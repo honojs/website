@@ -62,7 +62,7 @@ const messageMiddleware = (message: string) => {
   })
 }
 
-app.use('*', messageMiddleware('Good evening!'))
+app.use(messageMiddleware('Good evening!'))
 ```
 
 ## `factory.createHandlers()` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />

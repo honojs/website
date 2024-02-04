@@ -183,7 +183,7 @@ If you access `/posts/123`, it will return `/posts/:id`:
 It returns matched routes within the handler, which is useful for debugging.
 
 ```ts
-app.use('*', async function logger(c, next) {
+app.use(async function logger(c, next) {
   await next()
   c.req.matchedRoutes.forEach(({ handler, method, path }, i) => {
     const name = handler.name || (handler.length < 2 ? '[handler]' : '[middleware]')

@@ -180,7 +180,7 @@ import { etag } from 'hono/etag'
 import { logger } from 'hono/logger'
 
 const app = new Hono()
-app.use('*', etag(), logger())
+app.use(etag(), logger())
 ```
 
 See [more information about Middleware](/concepts/middleware).

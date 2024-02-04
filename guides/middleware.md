@@ -11,7 +11,7 @@ The user can register middleware using `app.use` or using `app.HTTP_METHOD` as w
 
 ```ts
 // match any method, all routes
-app.use('*', logger())
+app.use(logger())
 
 // specify path
 app.use('/posts/*', cors())
@@ -86,8 +86,8 @@ import { basicAuth } from 'hono/basic-auth'
 
 const app = new Hono()
 
-app.use('*', poweredBy())
-app.use('*', logger())
+app.use(poweredBy())
+app.use(logger())
 
 app.use(
   '/auth/*',
@@ -104,7 +104,7 @@ You can write your own middleware.
 
 ```ts
 // Custom logger
-app.use('*', async (c, next) => {
+app.use(async (c, next) => {
   console.log(`[${c.req.method}] ${c.req.url}`)
   await next()
 })
