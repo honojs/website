@@ -132,6 +132,36 @@ If `true` is set, the following headers are added:
 
 You can customize the header values by specifying the Record values.
 
+## Nested Layouts
+
+The `Layout` component enables nesting the layouts.
+
+```tsx
+app.use(
+  jsxRenderer(({ children }) => {
+    return (
+      <html>
+        <body>{children}</body>
+      </html>
+    )
+  })
+)
+
+const blog = new Hono()
+blog.use(
+  jsxRenderer(({ children, Layout }) => {
+    return (
+      <Layout>
+        <nav>Blog Menu</nav>
+        <div>{children}</div>
+      </Layout>
+    )
+  })
+)
+
+app.route('/blog', blog)
+```
+
 ## `useRequestContext()`
 
 `useRequestContext()` returns an instance of Context.
