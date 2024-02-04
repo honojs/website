@@ -90,8 +90,7 @@ Bun:
 
 ```ts
 export default app // [!code --]
-export default {
-  // [!code ++]
+export default { // [!code ++]
   port: 3000, // [!code ++]
   fetch: app.fetch, // [!code ++]
 } // [!code ++]
