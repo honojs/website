@@ -1,46 +1,52 @@
 # SSG Helper
 
-This document describes the functionality for generating static sites using the Hono. The goal is to retrieve the contents of registered routes and save them as static files.
+SSG Helper generates a static site from your Hono application. It well retrieve the contents of registered routes and save them as static files.
 
 ## Usage
 
 ### Manual
 
-A simple usage example with Node.js is as follows:
+If you have a simple Hono application like the following:
 
 ```ts
-app = new Hono()
+// index.tsx
+const app = new Hono()
+
 app.get('/', (c) => c.html('Hello, World!'))
 app.use('/about', async (c, next) => {
-    c.setRenderer((content, head) => {
+  c.setRenderer((content, head) => {
     return c.html(
-        <html>
+      <html>
         <head>
-            <title>{head.title || ''}</title>
+          <title>{head.title ?? ''}</title>
         </head>
         <body>
-            <p>{content}</p>
+          <p>{content}</p>
         </body>
-        </html>
+      </html>
     )
-    })
-    await next()
+  })
+  await next()
 })
 app.get('/about', (c) => {
-    return c.render('Hello!', { title: 'Hono SSG Page' })
+  return c.render('Hello!', { title: 'Hono SSG Page' })
 })
-export app
+
+export default app
 ```
 
+For Node.js, create a build script like this:
+
 ```ts
-import app from "./index"
-import { toSSG } from "hono/ssg"
-import fs from "fs/promises"
+// build.ts
+import app from './index'
+import { toSSG } from 'hono/ssg'
+import fs from 'fs/promises'
 
 toSSG(app, fs)
 ```
 
-By doing this, the files will be output as follows:
+By executing the script, the files will be output as follows:
 
 ```bash
 ls ./static
@@ -64,16 +70,8 @@ https://github.com/honojs/vite-plugins/tree/main/packages/ssg
 The arguments for toSSG are specified in ToSSGInterface.
 
 ```ts
-export interface ToSSGInterface<
-  E extends Env = Env,
-  S extends Schema = {},
-  BasePath extends string = '/'
-> {
-  (
-    app: Hono<E, S, BasePath>,
-    fsModule: FileSystemModule,
-    options?: ToSSGOptions
-  ): Promise<ToSSGResult>
+export interface ToSSGInterface {
+  (app: Hono, fsModule: FileSystemModule, options?: ToSSGOptions): Promise<ToSSGResult>
 }
 ```
 
@@ -87,7 +85,25 @@ export interface FileSystemModule {
 }
 ```
 
-Built-in FileSystemModules are available for `Adaptor/deno` and `Adaptor/bun`.
+### Using adapters for Deno and Bun
+
+If you want to use SSG on Deno or Bun, a `toSSG` function is provided for each file system.
+
+For Deno:
+
+```ts
+import { toSSG } from 'https://deno.land/x/hono/helper.ts'
+
+toSSG(app) // The second argument is an option typed `ToSSGOptions`.
+```
+
+For Bun:
+
+```ts
+import { toSSG } from 'hono/bun'
+
+toSSG(app) // The second argument is an option typed `ToSSGOptions`.
+```
 
 ### Options
 
@@ -141,7 +157,7 @@ toSSG(app, fs, {
       return req
     }
     return false
-  }
+  },
 })
 ```
 
@@ -182,7 +198,6 @@ The following rules apply to the registered route information and the generated 
 - `/path` -> `./static/path.html`
 - `/path/` -> `./static/path/index.html`
 
-
 ### File Extension
 
 The file extension depends on the content returned by each route. For example, `c.html` or `c.render` is saved as `.html`.
@@ -203,7 +218,7 @@ Introducing built-in middleware that supports SSG.
 
 ### ssgParams
 
-You can use an API like generateStaticPaths.
+You can use an API like `generateStaticPaths` of Next.js.
 
 Example:
 
