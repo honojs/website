@@ -173,7 +173,7 @@ GET /foo ---> `common` // foo will not be dispatched
 If you have the middleware that you want to execute, write the code above the handler.
 
 ```ts
-app.use('*', logger())
+app.use(logger())
 app.get('/foo', (c) => c.text('foo'))
 ```
 

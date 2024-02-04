@@ -41,7 +41,7 @@ import { prettyJSON } from 'https://deno.land/x/hono/middleware.ts'
 ```ts
 const app = new Hono()
 
-app.use('*', prettyJSON()) // With options: prettyJSON({ space: 4 })
+app.use(prettyJSON()) // With options: prettyJSON({ space: 4 })
 app.get('/', (c) => {
   return c.json({ message: 'Hono!' })
 })

@@ -24,7 +24,7 @@ You can use the optimal settings by default.
 
 ```ts
 const app = new Hono()
-app.use('*', secureHeaders())
+app.use(secureHeaders())
 ```
 
 You can suppress unnecessary headers by setting them to false.
@@ -85,16 +85,16 @@ In this case, Secure-headers operates and the `x-powered-by` is removed:
 
 ```ts
 const app = new Hono()
-app.use('*', secureHeaders())
-app.use('*', poweredBy())
+app.use(secureHeaders())
+app.use(poweredBy())
 ```
 
 In this case, Powered-By operates and the `x-powered-by` is added:
 
 ```ts
 const app = new Hono()
-app.use('*', poweredBy())
-app.use('*', secureHeaders())
+app.use(poweredBy())
+app.use(secureHeaders())
 ```
 
 ## Setting Content-Security-Policy

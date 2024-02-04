@@ -8,7 +8,6 @@ This middleware compresses the response body, according to `Accept-Encoding` req
 **Bun**: This middleware uses `CompressionStream` which is not yet supported in bun.
 :::
 
-
 ## Import
 
 ::: code-group
@@ -30,7 +29,7 @@ import { compress } from 'https://deno.land/x/hono/middleware.ts'
 ```ts
 const app = new Hono()
 
-app.use('*', compress())
+app.use(compress())
 ```
 
 ## Options
