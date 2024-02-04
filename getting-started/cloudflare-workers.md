@@ -175,10 +175,11 @@ Then use "Adapter".
 ```ts
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-workers'
+import manifest from '__STATIC_CONTENT_MANIFEST'
 
 const app = new Hono()
 
-app.get('/static/*', serveStatic({ root: './' }))
+app.get('/static/*', serveStatic({ root: './', manifest }))
 app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
@@ -209,7 +210,7 @@ app.get(
     mimes: {
       m3u8: 'application/vnd.apple.mpegurl',
       ts: 'video/mp2t',
-    }
+    },
   })
 )
 ```
