@@ -25,6 +25,9 @@ app.on('PURGE', '/cache', (c) => c.text('PURGE Method /cache'))
 
 // Multiple Method
 app.on(['PUT', 'DELETE'], '/post', (c) => c.text('PUT or DELETE /post'))
+
+// Multiple Paths
+app.on('GET', ['/hello', '/ja/hello', '/en/hello'], (c) => c.text('Hello'))
 ```
 
 ## Path Parameter
