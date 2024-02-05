@@ -22,7 +22,7 @@ import { css, cx, keyframes, Style } from 'https://deno.land/x/hono/helper.ts'
 
 ## `css` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
 
-You can write CSS in the `css` template literal. And in this case, use `headerClass` as a value of the `class` attribute. Don't forget to add `<Style />` as it contains the CSS content.
+You can write CSS in the `css` template literal. In this case, it uses `headerClass` as a value of the `class` attribute. Don't forget to add `<Style />` as it contains the CSS content.
 
 ```ts{10,13}
 app.get('/', (c) => {
@@ -48,11 +48,98 @@ You can style pseudo-classes like `:hover` by using the [nesting selector](https
 
 ```ts
 const buttonClass = css`
-	background-color: #fff;
-	& :hover {
-		background-color: red;
-	}
-`;
+  background-color: #fff;
+  &:hover {
+    background-color: red;
+  }
+`
+```
+
+### Extending
+
+You can extend the CSS definition by embedding the class name.
+
+```tsx
+const baseClass = css`
+  color: white;
+  background-color: blue;
+`
+
+const header1Class = css`
+  ${baseClass}
+  font-size: 3rem;
+`
+
+const header2Class = css`
+  ${baseClass}
+  font-size: 2rem;
+`
+```
+
+In addition, the syntax of `${baseClass} {}` enables nesting classes.
+
+```tsx
+const headerClass = css`
+  color: white;
+  background-color: blue;
+`
+const containerClass = css`
+  ${headerClass} {
+    h1 {
+      font-size: 3rem;
+    }
+  }
+`
+return c.render(
+  <div class={containerClass}>
+    <header class={headerClass}>
+      <h1>Hello!</h1>
+    </header>
+  </div>
+)
+```
+
+### Global styles
+
+A pseudo-selector called `:-hono-global` allows you to define global styles.
+
+```tsx
+const globalClass = css`
+  :-hono-global {
+    html {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  }
+`
+
+return c.render(
+  <div class={globalClass}>
+    <h1>Hello!</h1>
+    <p>Today is a good day.</p>
+  </div>
+)
+```
+
+Or you can write CSS in the `<Style />` component with the `css` literal.
+
+```tsx
+export const renderer = jsxRenderer(({ children, title }) => {
+  return (
+    <html>
+      <head>
+        <Style>{css`
+          html {
+            font-family: Arial, Helvetica, sans-serif;
+          }
+        `}</Style>
+        <title>{title}</title>
+      </head>
+      <body>
+        <div>{children}</div>
+      </body>
+    </html>
+  )
+})
 ```
 
 ## `keyframes` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
