@@ -56,13 +56,17 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'JSX',
         link: '/guides/jsx',
       },
+      {
+        text: 'Client Components',
+        link: '/guides/jsx-dom',
+      },
       { text: 'Testing', link: '/guides/testing' },
       {
         text: 'Validation',
         link: '/guides/validation',
       },
       {
-        text: 'RPC / Client',
+        text: 'RPC',
         link: '/guides/rpc',
       },
       {
