@@ -114,6 +114,28 @@ const List = () => (
 )
 ```
 
+## `PropsWithChildren`
+
+You can use `PropsWithChildren` to correctly infer a child element in a function component.
+
+```tsx
+import { PropsWithChildren } from 'hono/jsx'
+
+type Post = {
+  id: number
+  title: string
+}
+
+function Component({ title, children }: PropsWithChildren<Post>) {
+  return (
+    <div>
+      <h1>{title}</h1>
+      {children}
+    </div>
+  )
+}
+```
+
 ## Inserting Raw HTML
 
 To directly insert HTML, use `dangerouslySetInnerHTML`:
