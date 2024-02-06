@@ -230,7 +230,6 @@ export default defineConfig(({ mode }) => {
             entryFileNames: 'static/client.js',
           },
         },
-        emptyOutDir: false,
       },
     }
   } else {
@@ -249,5 +248,5 @@ export default defineConfig(({ mode }) => {
 You can run the following command to build the server and client script.
 
 ```text
-vite build && vite build --mode client
+vite build --mode client && vite build
 ```
