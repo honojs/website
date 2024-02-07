@@ -87,6 +87,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'Helpers',
     collapsed: true,
     items: [
+      { text: 'Accepts', link: '/helpers/accepts' },
       { text: 'Adapter', link: '/helpers/adapter' },
       { text: 'Cookie', link: '/helpers/cookie' },
       { text: 'css', link: '/helpers/css' },
