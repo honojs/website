@@ -15,7 +15,7 @@ import { getPosts, getPost, createPost, Post } from './model'
 
 const app = new Hono()
 app.get('/', (c) => c.text('Pretty Blog API'))
-app.use('*', prettyJSON())
+app.use(prettyJSON())
 app.notFound((c) => c.json({ message: 'Not Found', ok: false }, 404))
 
 type Bindings = {

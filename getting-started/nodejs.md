@@ -160,6 +160,22 @@ app.get(
 )
 ```
 
+### `mimes`
+
+You can add MIME types with `mimes`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    mimes: {
+      m3u8: 'application/vnd.apple.mpegurl',
+      ts: 'video/mp2t',
+    }
+  })
+)
+```
+
 ## http2
 
 You can run hono on a [Node.js http2 Server](https://nodejs.org/api/http2.html).

@@ -1,4 +1,4 @@
-# RPC / Client
+# RPC
 
 The RPC feature allows sharing the API specifications between the server and the client.
 
@@ -279,7 +279,7 @@ import { Hono } from 'hono'
 import authors from './authors'
 import books from './books'
 
-const app = new Hono();
+const app = new Hono()
 
 const routes = app.route('/authors', authors).route('/books', books)
 

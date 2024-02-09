@@ -9,7 +9,7 @@ It's like an onion structure.
 For example, we can write the middleware to add the "X-Response-Time" header as follows.
 
 ```ts
-app.use('*', async (c, next) => {
+app.use(async (c, next) => {
   const start = Date.now()
   await next()
   const end = Date.now()

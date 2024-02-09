@@ -25,6 +25,9 @@ app.on('PURGE', '/cache', (c) => c.text('PURGE Method /cache'))
 
 // Multiple Method
 app.on(['PUT', 'DELETE'], '/post', (c) => c.text('PUT or DELETE /post'))
+
+// Multiple Paths
+app.on('GET', ['/hello', '/ja/hello', '/en/hello'], (c) => c.text('Hello'))
 ```
 
 ## Path Parameter
@@ -173,7 +176,7 @@ GET /foo ---> `common` // foo will not be dispatched
 If you have the middleware that you want to execute, write the code above the handler.
 
 ```ts
-app.use('*', logger())
+app.use(logger())
 app.get('/foo', (c) => c.text('foo'))
 ```
 

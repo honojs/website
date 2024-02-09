@@ -18,7 +18,7 @@ An instance of `Hono` has the following methods.
 
 - app.**HTTP_METHOD**(\[path,\]handler|middleware...)
 - app.**all**(\[path,\]handler|middleware...)
-- app.**on**(method|method[], path, handler|middleware...)
+- app.**on**(method|method[], path|path[], handler|middleware...)
 - app.**use**(\[path,\]middleware)
 - app.**route**(path, \[app\])
 - app.**basePath**(path)

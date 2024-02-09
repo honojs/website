@@ -1,11 +1,12 @@
 # JSX
 
-With Hono, you can utilize JSX syntax to write HTML.
-The `hono/jsx` is bundled with Hono and is strictly for Server-Side Rendering (SSR), not for client-side.
+You can write HTML with JSX syntax with `hono/jsx`.
+
+Although `hono/jsx` works on the client, you will probably use it most often when rendering content on the server side. Here are some things related to JSX that are common to both server and client.
 
 ## Settings
 
-To utilize JSX, modify the `tsconfig.json`:
+To use JSX, modify the `tsconfig.json`:
 
 `tsconfig.json`:
 
@@ -111,6 +112,28 @@ const List = () => (
     <p>third child</p>
   </>
 )
+```
+
+## `PropsWithChildren`
+
+You can use `PropsWithChildren` to correctly infer a child element in a function component.
+
+```tsx
+import { PropsWithChildren } from 'hono/jsx'
+
+type Post = {
+  id: number
+  title: string
+}
+
+function Component({ title, children }: PropsWithChildren<Post>) {
+  return (
+    <div>
+      <h1>{title}</h1>
+      {children}
+    </div>
+  )
+}
 ```
 
 ## Inserting Raw HTML

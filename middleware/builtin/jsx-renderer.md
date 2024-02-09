@@ -46,7 +46,7 @@ app.get('/page/about', (c) => {
 
 ### `docType`: `boolean` | `string`
 
-If you want to add a DOCTYPE at the beginning of the HTML, set the `docType` option to `true`.
+If you do not want to add a DOCTYPE at the beginning of the HTML, set the `docType` option to `false`.
 
 ```tsx
 app.use(
@@ -59,20 +59,9 @@ app.use(
         </html>
       )
     },
-    { docType: true }
+    { docType: false }
   )
 )
-```
-
-This will render as:
-
-```html
-<!DOCTYPE html>
-<html>
-  <body>
-    <h1>Hello</h1>
-  </body>
-</html>
 ```
 
 And you can specify the DOCTYPE.
@@ -142,6 +131,36 @@ If `true` is set, the following headers are added:
 ```
 
 You can customize the header values by specifying the Record values.
+
+## Nested Layouts
+
+The `Layout` component enables nesting the layouts.
+
+```tsx
+app.use(
+  jsxRenderer(({ children }) => {
+    return (
+      <html>
+        <body>{children}</body>
+      </html>
+    )
+  })
+)
+
+const blog = new Hono()
+blog.use(
+  jsxRenderer(({ children, Layout }) => {
+    return (
+      <Layout>
+        <nav>Blog Menu</nav>
+        <div>{children}</div>
+      </Layout>
+    )
+  })
+)
+
+app.route('/blog', blog)
+```
 
 ## `useRequestContext()`
 

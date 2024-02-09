@@ -129,7 +129,7 @@ app.use('/', async (c, next) => {
 Set the value specified by the key with `set` and use it later with `get`.
 
 ```ts
-app.use('*', async (c, next) => {
+app.use(async (c, next) => {
   c.set('message', 'Hono is cool!!')
   await next()
 })
@@ -183,7 +183,7 @@ app.get('/echo', echoMiddleware, (c) => {
 You can set a layout using `c.setRenderer()` within a custom middleware.
 
 ```ts
-app.use('*', async (c, next) => {
+app.use(async (c, next) => {
   c.setRenderer((content) => {
     return c.html(
       <html>
@@ -302,7 +302,7 @@ If the Handler throws an error, the error object is placed in `c.error`.
 You can access it in your middleware.
 
 ```ts
-app.use('*', async (c, next) => {
+app.use(async (c, next) => {
   await next()
   if (c.error) {
     // do something...

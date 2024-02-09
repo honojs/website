@@ -56,13 +56,17 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'JSX',
         link: '/guides/jsx',
       },
+      {
+        text: 'Client Components',
+        link: '/guides/jsx-dom',
+      },
       { text: 'Testing', link: '/guides/testing' },
       {
         text: 'Validation',
         link: '/guides/validation',
       },
       {
-        text: 'RPC / Client',
+        text: 'RPC',
         link: '/guides/rpc',
       },
       {
@@ -83,6 +87,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'Helpers',
     collapsed: true,
     items: [
+      { text: 'Accepts', link: '/helpers/accepts' },
       { text: 'Adapter', link: '/helpers/adapter' },
       { text: 'Cookie', link: '/helpers/cookie' },
       { text: 'css', link: '/helpers/css' },
@@ -90,6 +95,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Factory', link: '/helpers/factory' },
       { text: 'html', link: '/helpers/html' },
       { text: 'JWT', link: '/helpers/jwt' },
+      { text: 'SSG', link: '/helpers/ssg' },
       { text: 'Streaming', link: '/helpers/streaming' },
       { text: 'Testing', link: '/helpers/testing' },
     ],

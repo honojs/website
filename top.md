@@ -165,6 +165,7 @@ Out of the box, Hono provides middleware and helpers for:
 - [Logger](/middleware/builtin/logger)
 - [Pretty JSON](/middleware/builtin/pretty-json)
 - [Secure Headers](/middleware/builtin/secure-headers)
+- [SSG](/helpers/ssg)
 - [Streaming](/helpers/streaming)
 - [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
 - [Firebase Authentication](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
@@ -179,7 +180,7 @@ import { etag } from 'hono/etag'
 import { logger } from 'hono/logger'
 
 const app = new Hono()
-app.use('*', etag(), logger())
+app.use(etag(), logger())
 ```
 
 See [more information about Middleware](/concepts/middleware).

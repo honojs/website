@@ -27,15 +27,14 @@ import { csrf } from 'https://deno.land/x/hono/middleware.ts'
 ```ts
 const app = new Hono()
 
-app.use('*', csrf())
+app.use(csrf())
 
 // Specifying origins with using `origin` option
 // string
-app.use('*', csrf({ origin: 'myapp.example.com' }))
+app.use(csrf({ origin: 'myapp.example.com' }))
 
 // string[]
 app.use(
-  '*',
   csrf({
     origin: ['myapp.example.com', 'development.myapp.example.com'],
   })
