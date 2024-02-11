@@ -244,7 +244,7 @@ export default App
 
 ## Using with larger applications
 
-In the case of a larger application, such as the example mentioned in [Building a larger application](/guides/rpc#building-a-larger-application), you need to be careful about the type inference.
+In the case of a larger application, such as the example mentioned in [Building a larger application](/guides/best-practices#building-a-larger-application), you need to be careful about the type inference.
 A simple way to do this is to chain the handlers so that the types are always inferred.
 
 ```ts
