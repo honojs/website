@@ -15,7 +15,7 @@ hero:
   text: Fast, Lightweight, Web-standards
   tagline: Runs on any JavaScript runtime.
   image:
-    src: /images/code.png
+    src: /images/code.webp
     alt: Hono
   actions:
     - theme: brand
