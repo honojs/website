@@ -196,7 +196,7 @@ export default defineConfig({
     },
   },
   themeConfig: {
-    logo: '/images/logo.png',
+    logo: '/images/logo-small.png',
     siteTitle: 'Hono',
     algolia: {
       appId: '1GIFSU1REV',
