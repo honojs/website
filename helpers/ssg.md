@@ -8,7 +8,7 @@ SSG Helper generates a static site from your Hono application. It well retrieve 
 
 If you have a simple Hono application like the following:
 
-```ts
+```tsx
 // index.tsx
 const app = new Hono()
 

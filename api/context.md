@@ -182,7 +182,7 @@ app.get('/echo', echoMiddleware, (c) => {
 
 You can set a layout using `c.setRenderer()` within a custom middleware.
 
-```ts
+```tsx
 app.use(async (c, next) => {
   c.setRenderer((content) => {
     return c.html(
