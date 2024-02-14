@@ -20,7 +20,7 @@ import { jsxRenderer, useRequestContext } from 'https://deno.land/x/hono/middlew
 
 ## Usage
 
-```js
+```jsx
 const app = new Hono()
 
 app.get(
