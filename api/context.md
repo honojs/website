@@ -55,7 +55,7 @@ The Response is the same as below.
 new Response('Thank you for coming', {
   status: 201,
   headers: {
-    'X-Message': 'Hello',
+    'X-Message': 'Hello!',
     'Content-Type': 'text/plain',
   },
 })
