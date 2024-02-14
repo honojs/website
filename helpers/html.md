@@ -36,7 +36,7 @@ app.get('/:username', (c) => {
 
 Insert the inline script into JSX:
 
-```typescript
+```tsx
 app.get('/', (c) => {
   return c.html(
     <html>

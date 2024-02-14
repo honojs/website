@@ -209,7 +209,7 @@ type ResType = InferResponseType<typeof $post>
 
 You can also use a React Hook library such as [SWR](https://swr.vercel.app).
 
-```ts
+```tsx
 import useSWR from 'swr'
 import { hc } from 'hono/client'
 import type { InferRequestType } from 'hono/client'
