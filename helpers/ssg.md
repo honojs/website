@@ -1,6 +1,6 @@
 # SSG Helper
 
-SSG Helper generates a static site from your Hono application. It well retrieve the contents of registered routes and save them as static files.
+SSG Helper generates a static site from your Hono application. It will retrieve the contents of registered routes and save them as static files.
 
 ## Usage
 
