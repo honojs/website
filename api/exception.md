@@ -1,6 +1,6 @@
 # Exception
 
-When a fatal error occurs, such as authentication failure, a HTTPException must be thrown.
+When a fatal error occurs, such as authentication failure, an HTTPException must be thrown.
 
 ## throw HTTPException
 
