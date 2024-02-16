@@ -138,6 +138,10 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
         text: 'Grouping routes for RPC',
         link: '/snippets/grouping-routes-rpc',
       },
+      {
+        text: 'Use Unicode for url',
+        link: '/snippets/punycode.md',
+      }
     ],
   },
   {
