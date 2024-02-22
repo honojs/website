@@ -141,6 +141,21 @@ export default app
 
 But now, we recommend using Module Worker mode because such as that the binding variables are localized.
 
+## Using Hono with other event handlers
+
+You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_. 
+
+To do this, export `app.fetch` as the module's `fetch` handler, and then implement other handlers as needed:
+
+```ts
+const app = new Hono()
+
+export default {
+  fetch: app.fetch,
+  scheduled: async (batch, env) => {}
+}
+```
+
 ## Serve static files
 
 You need to set it up to serve static files.
