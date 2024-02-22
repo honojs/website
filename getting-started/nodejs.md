@@ -2,8 +2,7 @@
 
 [Node.js](https://nodejs.org/) is an open-source, cross-platform JavaScript runtime environment.
 
-Hono is not designed for Node.js at first.
-But with a [Node.js Adapter](https://github.com/honojs/node-server) it can run on Node.js as well.
+Hono was not designed for Node.js at first. But with a [Node.js Adapter](https://github.com/honojs/node-server) it can run on Node.js as well.
 
 ::: info
 It works on Node.js versions greater than 18.x. The specific required Node.js versions are as follows:
