@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "@shikijs/vitepress-twoslash": "^1.1.6",
+    "hono": "latest",
     "vitepress": "1.0.0-rc.44",
     "vue": "^3.3.4"
   }
