@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 
 const sidebars = (): DefaultTheme.SidebarItem[] => [
   {
@@ -194,6 +195,7 @@ export default defineConfig({
       light: 'github-light',
       dark: 'github-dark',
     },
+    codeTransformers: [transformerTwoslash()],
   },
   themeConfig: {
     logo: '/images/logo-small.png',
