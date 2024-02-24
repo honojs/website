@@ -81,6 +81,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'Miscellaneous',
         link: '/guides/others',
       },
+      {
+        text: 'FAQs',
+        link: '/guides/faq',
+      },
     ],
   },
   {
