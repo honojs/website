@@ -213,8 +213,8 @@ export default defineConfig({
       { icon: 'x', link: 'https://twitter.com/honojs' },
     ],
     editLink: {
-      pattern: 'https://github.com/honojs/website/edit/main/:path',
-      text: 'Edit this page on GitHub',
+      pattern: 'https://github.com/akku1139/hono-ja/edit/main/:path',
+      text: 'このページをGitHubで編集する',
     },
     footer: {
       message: 'Released under the MIT License.',
