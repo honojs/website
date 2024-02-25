@@ -6,35 +6,35 @@ head:
       'meta',
       {
         property: 'og:description',
-        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
+        content: 'Hono は小さく、シンプルで爆速なエッジ向け Web フレームワークです。 Cloudflare Workers、 Fastly Compute、 Deno、 Bun、 Vercel、 Netlify、 AWS Lambda、 Lambda@Edge そして Node.js で動作します。 速いですが、それだけではありません。',
       },
     ]
 layout: home
 hero:
   name: Hono
-  text: Fast, Lightweight, Web-standards
-  tagline: Runs on any JavaScript runtime.
+  text: 高速、 軽量、 Web 標準
+  tagline: あらゆる JavaScript ランタイムで動作します。
   image:
     src: /images/code.webp
     alt: Hono
   actions:
     - theme: brand
-      text: View Docs
+      text: ドキュメント
       link: /top
     - theme: alt
-      text: View on GitHub
+      text: GitHub
       link: https://github.com/honojs/hono
 features:
   - icon: 🚀
-    title: Ultrafast & Lightweight
-    details: The router RegExpRouter is really fast. The hono/tiny preset is under 14kB. Using only Web Standard APIs.
+    title: 爆速 & 軽量
+    details: RegExpRouter は超高速なルーターです。 hono/tiny プリセットはわずか 14kB。 Web 標準 API のみを使用します。
   - icon: 🌍
-    title: Multi-runtime
-    details: Works on Cloudflare, Fastly, Deno, Bun, AWS, or Node.js. The same code runs on all platforms.
+    title: マルチランタイム
+    details: Cloudflare、 Fastly、 Deno、 Bun、 AWS また Node.js で動作します。 同じコードが全てのプライベートで使用できます。
   - icon: 🔋
-    title: Batteries Included
-    details: Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
+    title: バッテリー同梱
+    details: Hono にはビルドインミドルウェア、カスタムミドルウェア、サードパーティーミドルウェアそしてヘルパーがあります。 バッテリー同梱。
   - icon: 😃
-    title: Delightful DX
-    details: Super clean APIs. First-class TypeScript support. Now, we've got "Types".
+    title: 楽しい開発体験
+    details: 超クリーンな API。 最高級の TypeScript サポート。 Now, we've got "Types".
 ---
