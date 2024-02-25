@@ -1,16 +1,16 @@
 # Cloudflare Workers
 
-[Cloudflare Workers](https://workers.cloudflare.com) is a JavaScript edge runtime on Cloudflare CDN.
+[Cloudflare Workers](https://workers.cloudflare.com) は Cloudflare の CDN で JavaScript を実行するエッジランタイムです。
 
-You can develop the application locally and publish it with a few commands using [Wrangler](https://developers.cloudflare.com/workers/wrangler/).
-Wrangler includes trans compiler, so we can write the code with TypeScript.
+アプリケーションをローカルで開発し、 [Wrangler](https://developers.cloudflare.com/workers/wrangler/) のいくつかのコマンドを使用して公開します。
+Wrangler はコンパイラを内蔵しているため、 TypeScript でコードを書けます。
 
-Let’s make your first application for Cloudflare Workers with Hono.
+Hono を使った Cloudflare Workers 最初のアプリケーションを作りましょう。
 
-## 1. Setup
+## 1. セットアップ
 
-A starter for Cloudflare Workers is available.
-Start your project with "create-hono" command.
+Cloudflare Workers 向けのスターターが使用できます。
+"create-hono" コマンドでプロジェクトを作成してください。
 
 ::: code-group
 
@@ -36,7 +36,7 @@ deno run -A npm:create-hono my-app
 
 :::
 
-Move to `my-app` and install the dependencies.
+`my-app` に移動し、依存関係をインストールします。
 
 ::: code-group
 
@@ -64,7 +64,7 @@ bun i
 
 ## 2. Hello World
 
-Edit `src/index.ts` like below.
+`src/index.ts` をこのように変更します。
 
 ```ts
 import { Hono } from 'hono'
@@ -77,7 +77,7 @@ export default app
 
 ## 3. Run
 
-Run the development server locally. Then, access `http://localhost:8787` in your web browser.
+ローカル開発サーバーを起動し、ブラウザで `http://localhost:8787` にアクセスします。
 
 ::: code-group
 
@@ -99,9 +99,10 @@ bun run dev
 
 :::
 
-## 4. Deploy
+## 4. デプロイ
 
 If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
+Cloudflare アカウントを持っている場合、 Cloudflare にデプロイ出来ます。 `package.json` の `$npm_execpath` を選択したパッケージマネージャに置き換える必要があります。
 
 ::: code-group
 
@@ -123,11 +124,12 @@ bun run deploy
 
 :::
 
-That's all!
+それだけです!
 
-## Service Worker mode or Module Worker mode
+## Service Worker モード / Module Worker モード
 
 There are two syntaxes for writing the Cloudflare Workers. _Service Worker mode_ and _Module Worker mode_. Using Hono, you can write with both syntax:
+Cloudflare Workers には2通りの記法があります。 _Service Worker モード_ と _Module Worker モード_ です。
 
 ```ts
 // Service Worker
@@ -139,13 +141,13 @@ app.fire()
 export default app
 ```
 
-But now, we recommend using Module Worker mode because such as that the binding variables are localized.
+ただしバインディング変数がローカライズされるため、 今は Module Worker モードが推奨されています。
 
-## Using Hono with other event handlers
+## 他のイベントハンドラとともに Hono を使う
 
-You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_. 
+_Module Worker モード_ で他のイベントハンドラ( `scheduled` など)を統合できます。
 
-To do this, export `app.fetch` as the module's `fetch` handler, and then implement other handlers as needed:
+このように、 `app.fetch` を `fetch` ハンドラとしてエクスポートし、必要に応じて他のハンドラも実装します:
 
 ```ts
 const app = new Hono()
@@ -156,18 +158,18 @@ export default {
 }
 ```
 
-## Serve static files
+## 静的ファイルの提供
 
-You need to set it up to serve static files.
-Static files are distributed by using Workers Sites.
-To enable this feature, edit `wrangler.toml` and specify the directory where the static files will be placed.
+静的ファイルを提供するためにセットアップが必要です。
+静的ファイルは Workers Sites を通じて提供されます。
+`wrangler.toml` を編集して静的ファイルを提供するディレクトリを設定します。
 
 ```toml
 [site]
 bucket = "./assets"
 ```
 
-Then create the `assets` directory and place the files there.
+次に `assets` ディレクトリを作成し、ファイルを設置します。
 
 ```
 ./
@@ -185,7 +187,7 @@ Then create the `assets` directory and place the files there.
 └── wrangler.toml
 ```
 
-Then use "Adapter".
+"アダプタ" を使用します。
 
 ```ts
 import { Hono } from 'hono'
@@ -198,11 +200,11 @@ app.get('/static/*', serveStatic({ root: './', manifest }))
 app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
-See [Example](https://github.com/honojs/examples/tree/main/serve-static).
+[例例](https://github.com/honojs/examples/tree/main/serve-static)をご確認ください。
 
 ### `rewriteRequestPath`
 
-If you want to map `http://localhost:8787/static/*` to `./assets/statics`, you can use the `rewriteRequestPath` option:
+`http://localhost:8787/static/*` を `./assets/statics` にマップするために `rewriteRequestPath` オプションを使用します:
 
 ```ts
 app.get(
@@ -216,7 +218,7 @@ app.get(
 
 ### `mimes`
 
-You can add MIME types with `mimes`:
+MIME タイプを `mimes` で指定します:
 
 ```ts
 app.get(
@@ -232,7 +234,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `notFoundOption`:
+要求されたファイルが見つからないときの処理を `notFoundOption` で実装します:
 
 ```ts
 app.get(
@@ -245,9 +247,9 @@ app.get(
 )
 ```
 
-## Types
+## 型
 
-You have to install `@cloudflare/workers-types` if you want to have workers types.
+workers types が欲しければ `@cloudflare/workers-types` をインストールする必要があります。
 
 ::: code-group
 
@@ -269,12 +271,12 @@ bun add --dev @cloudflare/workers-types
 
 :::
 
-## Testing
+## テスト
 
-For testing, we recommend using `jest-environment-miniflare`.
-Refer to [examples](https://github.com/honojs/examples) for setting it up.
+テストのために `jest-environment-miniflare` が推奨されます。
+[例](https://github.com/honojs/examples)を読んで設定してください。
 
-If there is the application below.
+このようなアプリケーションに対して
 
 ```ts
 import { Hono } from 'hono'
@@ -283,7 +285,7 @@ const app = new Hono()
 app.get('/', (c) => c.text('Please test me!'))
 ```
 
-We can test if it returns "_200 OK_" Response with this code.
+このコードを使用して "_200 OK_" レスポンスが返されるかをテストします。
 
 ```ts
 describe('Test the application', () => {
@@ -294,9 +296,9 @@ describe('Test the application', () => {
 })
 ```
 
-## Bindings
+## バインディング
 
-In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "_type struct_" for the bindings to the `Hono` as generics.
+Cloudflare Workers では環境変数、 KV ネームスペース、 R2 バケット、 Durable Object などをバインドし、 `c.env` からアクセスできます。 `Hono` のジェネリクスとしてバインディングの型データを渡します。
 
 ```ts
 type Bindings = {
@@ -315,10 +317,10 @@ app.put('/upload/:key', async (c, next) => {
 })
 ```
 
-## Using Variables in Middleware
+## ミドルウェアで環境変数を使用する
 
-This is the only case for Module Worker mode.
-If you want to use Variables or Secret Variables in Middleware, for example, "username" or "password" in Basic Authentication Middleware, you need to write like the following.
+Module Worker モードのみで使用できます。
+Basic 認証のユーザー名やパスワードなど、ミドルウェア内で環境変数やシークレットを使用したい場合はこのように書きます。
 
 ```ts
 import { basicAuth } from 'hono/basic-auth'
@@ -334,4 +336,4 @@ app.use('/auth/*', async (c, next) => {
 })
 ```
 
-The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.
+同じように Bearer 認証や JWT 認証などもできます。
