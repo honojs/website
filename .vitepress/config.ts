@@ -3,15 +3,15 @@ import type { DefaultTheme } from 'vitepress'
 
 const sidebars = (): DefaultTheme.SidebarItem[] => [
   {
-    text: 'Concepts',
+    text: 'コンセプト',
     collapsed: true,
     items: [
-      { text: 'Motivation', link: '/concepts/motivation' },
-      { text: 'Routers', link: '/concepts/routers' },
-      { text: 'Benchmarks', link: '/concepts/benchmarks' },
-      { text: 'Web Standard', link: '/concepts/web-standard' },
-      { text: 'Middleware', link: '/concepts/middleware' },
-      { text: 'Developer Experience', link: '/concepts/developer-experience.md' },
+      { text: 'モチベーション', link: '/concepts/motivation' },
+      { text: 'ルーター', link: '/concepts/routers' },
+      { text: 'ベンチマーク', link: '/concepts/benchmarks' },
+      { text: 'Web 標準', link: '/concepts/web-standard' },
+      { text: 'ミドルウェア', link: '/concepts/middleware' },
+      { text: '開発体験', link: '/concepts/developer-experience.md' },
       { text: 'Hono Stacks', link: '/concepts/stacks' },
     ],
   },
