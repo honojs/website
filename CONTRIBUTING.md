@@ -44,6 +44,20 @@
 
 > Hono は様々なプロフェッショナルが関わっています。 Hono は多くの不可能を可能にしてきました。
 
+### 英語の固有名詞は翻訳しません。
+
+- Hono
+- Cloudflare Workers
+- Fastly Compute
+- Deno
+- Bun
+- Vercel
+- Netlify
+- AWS Lambda
+- Lambda@Edge
+- Node.js
+- etc...
+
 ### 表記ゆれについて
 
 以下の表に従ってください。
