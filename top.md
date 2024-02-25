@@ -1,4 +1,3 @@
-![image](https://github.com/akku1139/hono-ja/assets/151517253/d791c6cb-a7d0-4b5c-9324-0cd3f8a17871)---
 title: Hono - エッジ向けの爆速Webフレームワーク
 titleTemplate: ':title'
 ---
