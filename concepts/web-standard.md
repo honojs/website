@@ -1,11 +1,11 @@
-# Web Standard
+# Web 標準
 
-Hono uses only **Web Standard APIs** like Fetch.
-They were originally used in the `fetch` function and consist of basic objects that handle HTTP requests and responses.
-In addition to `Requests` and `Responses`, there are `URL`, `URLSearchParam`, `Headers` and others.
+Hono は Fetch のような **Web 標準 APIs** のみを使用します。
+これらは元々 `fetch` 関数で使用され、 HTTP リクエストを処理する基本的なオブジェクトで構成されています。
+`Requests` / `Responses` 、 他に `URL` `URLSearchParam` `Headers` などがあります。
 
-Cloudflare Workers, Deno, and Bun also build upon Web Standard APIs.
-For example, a server that returns "Hello World" could be written as below. This could run on Cloudflare Workers and Bun.
+Cloudflare Workers 、 Deno 、 Bun は Web 標準 API 上に構築されています。
+例えば、 "Hello World" を返すサーバーは以下のように書くことが出来ます。 Cloudflare Workers と Bun で動作します。
 
 ```ts
 export default {
@@ -15,8 +15,8 @@ export default {
 }
 ```
 
-Hono uses only Web Standard APIs, which means that Hono can run on any runtime that supports them.
-In addition, we have a Node.js adapter. Hono runs on these runtimes:
+Hono は Web 標準 API のみを使用します。 つまり Hono は Web 標準 API をサポートするあらゆるランタイムで動作します。
+咥えて、 Node.js があり、次のようなランタイムで Hono が動作します。
 
 - Cloudflare Workers (`workerd`)
 - Deno
@@ -26,8 +26,8 @@ In addition, we have a Node.js adapter. Hono runs on these runtimes:
 - Node.js
 - Vercel (edge-light)
 
-It also works on Netlify and other platforms.
-The same code runs on all platforms.
+Netlify やその他のプラットフォームでも動作します。
+同じコードがすべてのプラットフォームで実行されます。
 
-Cloudflare Workers, Deno, Shopify, and others launched [WinterCG](https://wintercg.org) to discuss the possibility of using the Web Standard APIs to enable "web-interoperability".
-Hono will follow their steps and go for **the Standard of the Web Standard**.
+Cloudflare Workers 、 Deno 、 Shopify などが [WinterCG](https://wintercg.org) を立ち上げ、 Web 標準 API を使用した "Web 相互運用性" を実現する可能性を議論しました。
+Hono はその手順に従い **"Web 標準の標準"**を目指します。
