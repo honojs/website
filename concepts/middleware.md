@@ -1,12 +1,12 @@
-# Middleware
+# ミドルウェア
 
-We call the primitive that returns `Response` as "Handler".
-"Middleware" is executed before and after the Handler and handles the `Request` and `Response`.
+`Response` を返すプリミティブを "ハンドラ" と呼びます。
+"Middleware" はハンドラの前後で使用され `Request` と `Response` を処理します。
 It's like an onion structure.
 
 ![Onion](/images/onion.png)
 
-For example, we can write the middleware to add the "X-Response-Time" header as follows.
+例えば、 "X-Response-Time" ヘッダを付与するミドルウェアはこのようになります。
 
 ```ts
 app.use(async (c, next) => {
@@ -17,4 +17,4 @@ app.use(async (c, next) => {
 })
 ```
 
-With this simple method, we can write our own custom middleware and we can use the built-in or third party middleware.
+このシンプルな方法ドによってカスタムミドルウェアを作成したり、ビルドインミドルウェアやサードパーティーミドルウェアを使用できます。
