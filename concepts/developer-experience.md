@@ -1,5 +1,5 @@
-# Developer Experience
+# 開発体験
 
-To create a great application, we need great development experience.
-Fortunately, we can write applications for Cloudflare Workers, Deno, and Bun in TypeScript without having the transpiling to JavaScript.
-Hono is written in TypeScript and can make applications Type-safe.
+素晴らしいアプリケーションのためには素晴らしい開発体験は必要です。
+幸いなことに、 Cloudflare Workers 、 Deno 、 Bun では TypeScript をトランスパイル擦ることなく実行できます。
+Hono は　TypeScript で書かれておりタイプセーフなアプリケーションを実現します。
