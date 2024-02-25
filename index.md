@@ -1,12 +1,12 @@
 ---
-title: Hono - Ultrafast web framework for the Edges
+title: Hono - エッジ向けの爆速 Web フレームワーク
 titleTemplate: ':title'
 head:
   - [
       'meta',
       {
         property: 'og:description',
-        content: 'Hono は小さく、シンプルで爆速なエッジ向け Web フレームワークです。 Cloudflare Workers、 Fastly Compute、 Deno、 Bun、 Vercel、 Netlify、 AWS Lambda、 Lambda@Edge そして Node.js で動作します。 速いですが、それだけではありません。',
+        content: 'Hono は小さく、シンプルで爆速なエッジ向け Web フレームワークです。 Cloudflare Workers 、 Fastly Compute 、 Deno 、 Bun 、 Vercel 、 Netlify 、 AWS Lambda 、 Lambda@Edge そして Node.js で動作します。 速いですが、それだけではありません。',
       },
     ]
 layout: home
@@ -30,7 +30,7 @@ features:
     details: RegExpRouter は超高速なルーターです。 hono/tiny プリセットはわずか 14kB。 Web 標準 API のみを使用します。
   - icon: 🌍
     title: マルチランタイム
-    details: Cloudflare、 Fastly、 Deno、 Bun、 AWS また Node.js で動作します。 同じコードが全てのプライベートで使用できます。
+    details: Cloudflare 、 Fastly 、 Deno 、 Bun 、 AWS また Node.js で動作します。 同じコードが全てのプライベートで使用できます。
   - icon: 🔋
     title: バッテリー同梱
     details: Hono にはビルドインミドルウェア、カスタムミドルウェア、サードパーティーミドルウェアそしてヘルパーがあります。 バッテリー同梱。
