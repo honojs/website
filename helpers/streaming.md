@@ -100,7 +100,7 @@ app.get('/stream', (c) => {
 })
 ```
 
-stream will be automatically closed after the callbacks are executed.
+The stream will be automatically closed after the callbacks are executed.
 
 ::: warning
 
