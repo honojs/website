@@ -1,10 +1,10 @@
-# Getting Started
+# 始めましょう!
 
-Using Hono is super easy. We can set up the project, write code, develop with a local server, and deploy quickly. The same code will work on any runtime, just with different entry points. Let's look at the basic usage of Hono.
+Hono を使うのはとても簡単です。 プロジェクトを作成し、コードを書き、開発サーバーを立ち上げ、素早くデプロイ出来ます。 エントリポイントが違うだけの同じコードが全てのランタイムで動作します。 では基本的な Hono の使い方を見ていきましょう!
 
-## Starter
+## スターター
 
-Starter templates are available for each platform. Use the following "create-hono" command.
+それぞれのプラットフォームでスターターテンプレートが用意されており、 "create-hono" コマンドで使用できます。
 
 ::: code-group
 
@@ -30,8 +30,8 @@ deno run -A npm:create-hono my-app
 
 :::
 
-Then you will be asked which template you would like to use.
-Let's select Cloudflare Workers for this example.
+次にどのテンプレートを使用するか質問があります。
+ここでは Cloudflare Workers 向けのサンプルを選びました。
 
 ```
 ? Which template do you want to use?
@@ -46,7 +46,7 @@ Let's select Cloudflare Workers for this example.
     vercel
 ```
 
-The template will be pulled into `my-app`, so go to it and install the dependencies.
+テンプレートが `my-app` に展開されたので依存関係をインストールします。
 
 ::: code-group
 
@@ -72,7 +72,7 @@ bun i
 
 :::
 
-Once the package installation is complete, run the following command to start up a local server.
+パッケージのインストールが完了したら、開発サーバーを起動してみましょう。
 
 ::: code-group
 
@@ -96,12 +96,12 @@ bun run dev
 
 ## Hello World
 
-You can write code in TypeScript with the Cloudflare Workers development tool "Wrangler", Deno, Bun, or others without being aware of transpiling.
+Cloudflare Workers 開発ツールの "Wrangler" 、 Deno 、 Bun などを使用しトランスパイルを意識することなくコードを書けます。
 
-Write your first application with Hono in `src/index.ts`. The example below is a starter Hono application.
+`src/index.ts` に Hono を使用した最初のアプリケーションを作っていきます。 以下の例は Hono スターターアプリケーションです。
 
-The `import` and the final `export default` parts may vary from runtime to runtime,
-but all of the application code will run the same code everywhere.
+`import` と 最後の `export default` はランタイムによって違うことがあります。
+しかし、全てのアプリケーションのコードはどこでも同じです。
 
 ```ts
 import { Hono } from 'hono'
@@ -115,7 +115,7 @@ app.get('/', (c) => {
 export default app
 ```
 
-Start the development server and access `http://localhost:8787` with your browser.
+開発サーバーを起動し、ブラウザで `http://localhost:8787` にアクセスします。
 
 ::: code-group
 
@@ -137,9 +137,9 @@ bun run dev
 
 :::
 
-## Return JSON
+## JSON を返す
 
-Returning JSON is also easy. The following is an example of handling a GET Request to `/api/hello` and returning an `application/json` Response.
+JSON を返すのは非常に簡単です。 以下は `/api/hello` の GET リクエストを処理して `application/json` の Response を返す例です。
 
 ```ts
 app.get('/api/hello', (c) => {
@@ -150,9 +150,9 @@ app.get('/api/hello', (c) => {
 })
 ```
 
-## Request and Response
+## Request / Response
 
-Getting a path parameter, URL query value, and appending a Response header is written as follows.
+パスパラメータ、 URL クエリを取得し、レスポンスヘッダを追加する例です。
 
 ```ts
 app.get('/posts/:id', (c) => {
@@ -163,16 +163,16 @@ app.get('/posts/:id', (c) => {
 })
 ```
 
-We can easily handle POST, PUT, and DELETE not only GET.
+GET のみならず POST 、 PUT 、 DELETE も簡単に処理できます。
 
 ```ts
 app.post('/posts', (c) => c.text('Created!', 201))
 app.delete('/posts/:id', (c) => c.text(`${c.req.param('id')} is deleted!`))
 ```
 
-## Return HTML
+## HTML を返す
 
-Hono is also suitable for returning a little HTML. Rename the file to `src/index.tsx` and configure it to use JSX (check with each runtime as it is different). You don't need to use a huge front-end framework.
+Hono はちょっとした HTML を返すのにも適しています。 ファイル名を `src/index.tsx` に変更し、 JSX の設定を行います(ランタイム毎に違う設定です)。 フロントエンドフレームワークを使う必要はありません。
 
 ```tsx
 const View = () => {
@@ -190,9 +190,9 @@ app.get('/page', (c) => {
 })
 ```
 
-## Return raw Response
+## 生の Response を返す
 
-You can also return the raw [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response).
+生の [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response) を返すことも出来ます。
 
 ```ts
 app.get('/', (c) => {
@@ -200,10 +200,10 @@ app.get('/', (c) => {
 })
 ```
 
-## Using Middleware
+## ミドルウェアを使う
 
-Middleware can do the hard work for you.
-For example, add in Basic Authentication.
+ミドルウェアが面倒な作業を肩代りしてくれます。
+例えば、 Basic 認証を追加する例がこちらです。
 
 ```ts
 import { basicAuth } from 'hono/basic-auth'
@@ -223,14 +223,14 @@ app.get('/admin', (c) => {
 })
 ```
 
-There are useful built-in middleware including Bearer and authentication using JWT, CORS and ETag.
-Hono also provides third-party middleware using external libraries such as GraphQL Server and Firebase Auth.
-And, you can make your own middleware.
+Bearer や JWT 認証、 CORS や ETag などの便利なミドルウェアが含まれています。
+また、 GraphQL サーバーや Firebase Auth などの外部ライブラリを使用したサードパーティのミドルウェアも提供します。
+そして、ミドルウェアを作ることも出来ます。
 
-## Adapter
+## アダプタ
 
-There are Adapters for platform-dependent functions, e.g., handling static files.
-For example, to handle static files in Cloudflare Workers, import `hono/cloudflare-workers`.
+静的ファイルの処理など、プラットフォームによって異なる機能を実装するためのアダプタがあります。
+例えば、静的ファイルを Cloudflare Workers で扱うために `hono/cloudflare-workers` をインポートします。
 
 ```ts
 import { serveStatic } from 'hono/cloudflare-workers'
@@ -238,8 +238,8 @@ import { serveStatic } from 'hono/cloudflare-workers'
 app.get('/static/*', serveStatic({ root: './' }))
 ```
 
-## Next step
+## 次のステップ
 
-Most code will work on any platform, but there are guides for each.
-For instance, how to set up projects or how to deploy.
-Please see the page for the exact platform you want to use to create your application!
+ほとんどのコードはどのプラットフォームでも動きますが、それぞれのガイドがあります。
+例えば、プロジェクトのセットアップ方法やデプロイ方法です。
+アプリケーションの作成に使用したいプラットフォームを参照してください。
