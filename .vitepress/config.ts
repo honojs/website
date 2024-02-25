@@ -186,10 +186,10 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
 ]
 
 export default defineConfig({
-  lang: 'en-US',
+  lang: 'ja-JP',
   title: 'Hono',
   description:
-    'Ultrafast web framework for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Node.js, and others. Fast, but not only fast.',
+    'Cloudflare Workers、 Fastly Compute、 Deno、 Bun、 Vercel、 Netlify、 AWS Lambda、 Lambda@Edge、 Node.js とその他のための爆速 Web フレームワーク。 速いですが、それだけではありません。',
   lastUpdated: true,
   ignoreDeadLinks: true,
   cleanUrls: true,
