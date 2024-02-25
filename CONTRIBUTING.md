@@ -54,9 +54,10 @@ Typo修正や数段落程度の翻訳、変更はissueを使用してくださ�
 
 > Hono は様々なプロフェッショナルが関わっています。 Hono は多くの不可能を可能にしてきました。
 
-### 英語の固有名詞は翻訳しません。
+### 以下の言葉は翻訳しません。
 
 - Hono
+- Hono Stack
 - Cloudflare Workers
 - Fastly Compute
 - Deno
