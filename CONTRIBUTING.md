@@ -66,6 +66,8 @@ Typo修正や数段落程度の翻訳、変更はissueを使用してくださ�
 - AWS Lambda
 - Lambda@Edge
 - Node.js
+- JavaScript
+- TypeScript
 - etc...
 
 ### 表記ゆれについて
