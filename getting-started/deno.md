@@ -104,7 +104,7 @@ app.get(
 
 ### `mimes`
 
-MIME 型を追加するためには `mimes` を使用します:
+MIME タイプを追加するためには `mimes` を使用します:
 
 ```ts
 app.get(
