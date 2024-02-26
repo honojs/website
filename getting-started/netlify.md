@@ -1,13 +1,13 @@
 # Netlify
 
-Netlify provides static site hosting and serverless backend services. [Edge Functions](https://docs.netlify.com/edge-functions/overview/) enables us make the web pages dynamic.
+Netlify は静的サイトホスティングとサーバーレスバックエンドサービスを提供します。 [Edge Functions](https://docs.netlify.com/edge-functions/overview/) を使用すると Web ページを動的にすることが出来ます。
 
-Edge Functions support writing in Deno and TypeScript, and deployment is made easy through the [Netlify CLI](https://docs.netlify.com/cli/get-started/). With Hono, you can create the application for Netlify Edge Functions.
+Edge Functions は Deno と TypeScript をサポートしており、 [Netlify CLI](https://docs.netlify.com/cli/get-started/) を使用することで簡単にデプロイ出来ます。 Hono を使用して Netlify Edge Functions 向けのアプリケーションを作成できます。
 
-## 1. Setup
+## 1. セットアップ
 
-A starter for Netlify is available.
-Start your project with "create-hono" command.
+Netlify 向けのスターターももちろん用意されています。
+"create-hono" コマンドでプロジェクトを始めましょう。
 
 ::: code-group
 
@@ -33,8 +33,7 @@ deno run -A npm:create-hono my-app
 
 :::
 
-Move into `my-app` and install the dependencies.
-
+`my-app` に移動し、依存関係をインストールします。
 ::: code-group
 
 ```txt [npm]
@@ -61,7 +60,7 @@ bun i
 
 ## 2. Hello World
 
-Edit `netlify/edge-functions/index.ts`:
+`netlify/edge-functions/index.ts` を変更します:
 
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
@@ -80,15 +79,15 @@ export default handle(app)
 
 ## 3. Run
 
-Run the development server with Netlify CLI. Then, access `http://localhost:8888` in your Web browser.
+Netlify CLI で開発サーバーを起動し、 Web ブラウザで `http://localhost:8888` にアクセスします。
 
 ```
 netlify dev
 ```
 
-## 4. Deploy
+## 4. デプロイ
 
-You can deploy with a `netlify deploy` command.
+`netlify deploy` コマンドでデプロイ出来ます。
 
 ```
 netlify deploy --prod
@@ -96,7 +95,7 @@ netlify deploy --prod
 
 ## `Context`
 
-You can access the Netlify's `Context` through `c.env`:
+Netlify 向けの `Context` は `c.env` を使用できます:
 
 ```ts
 // netlify/edge-functions/index.ts
