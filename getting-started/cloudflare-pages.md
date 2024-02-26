@@ -187,7 +187,7 @@ export default defineConfig({
 ## クライアントサイド
 
 クライアントサイドスクリプトを作成し、 Vite の機能でインポートできます。
-`/src/client.ts` がクライアントエントリポイントの場合、 <script> タグに書くだけです。
+`/src/client.ts` がクライアントエントリポイントの場合、 `<script>` タグに書くだけです。
 さらに、 `import.meta.env.PROD` は開発サーバーかビルド中かを知るのに役立ちます。
 
 ```tsx
