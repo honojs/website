@@ -1,16 +1,16 @@
 # Vercel
 
-Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration. This section introduces Next.js running on Vercel.
+Vercel はフロントエンド開発者のためのプラットフォームで、イノベーターがインスピレーションの瞬間に制作をするために必要なスピードと信頼性を提供します。 このセクションでは Vercel 上で実行される Next.js 紹介します。
 
-Next.js is a flexible React framework that gives you building blocks to create fast web applications.
+Next.js は、高速な　Web アプリケーションを作成するための要素を提供する柔軟な React フレームワークです。
 
-In Next.js, [Edge Functions](https://vercel.com/docs/concepts/functions/edge-functions) allows you to create dynamic APIs on Edge Runtime such as Vercel.
-With Hono, you can write APIs with the same syntax as other runtimes and use many middleware.
+Next.js では [Edge Functions](https://vercel.com/docs/concepts/functions/edge-functions) を使用して Vercel などのエッジランタイムに動的 API を作成できます。
+Hono を使用すると、他のランタイムと同じ構文で　API を記述し、多くのミドルウェアが使用できます。
 
-## 1. Setup
+## 1. セットアップ
 
-A starter for Next.js is available.
-Start your project with "create-hono" command.
+Next.js 向けのスターターもあります。
+"create-hono" コマンドで始めましょう。
 
 ::: code-group
 
@@ -36,7 +36,7 @@ deno run -A npm:create-hono my-app
 
 :::
 
-Move into `my-app` and install the dependencies.
+`my-app` に移動し、依存関係をインストールします。
 
 ::: code-group
 
@@ -64,7 +64,7 @@ bun i
 
 ## 2. Hello World
 
-If you use the App Router, Edit `app/api/[[...route]]/route.ts`. Refer to the [Supported HTTP Methods](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#supported-http-methods) section for more options.
+App Router を使用している場合 `app/api/[[...route]]/route.ts` に書いてください。 [Supported HTTP Methods](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#supported-http-methods) も参照してください。
 
 ```ts
 import { Hono } from 'hono'
@@ -84,7 +84,7 @@ export const GET = handle(app)
 export const POST = handle(app)
 ```
 
-If you use the Pages Router, Edit `pages/api/[[...route]].ts`.
+Pages Router を使用している場合は `pages/api/[[...route]].ts` に記述します。
 
 ```ts
 import { Hono } from 'hono'
@@ -107,7 +107,7 @@ export default handle(app)
 
 ## 3. Run
 
-Run the development server locally. Then, access `http://localhost:3000` in your Web browser.
+開発サーバーをローカルで動かし、ブラウザで `http://localhost:3000` にアクセスしましょう。
 
 ::: code-group
 
@@ -129,23 +129,23 @@ bun run dev
 
 :::
 
-Now, `/api/hello` just returns JSON, but if you build React UIs, you can create a full-stack application with Hono.
+今は `/api/hello` で JSON を返すだけですが、 React で UI を作成すれば Hono でフルスタックアプリケーションを作成できます。
 
-## 4. Deploy
+## 4. デプロイ
 
-If you have a Vercel account, you can deploy by linking the Git repository.
+Vercel アカウントを持っている場合は Git 連携でデプロイ出来ます。
 
 ## Node.js
 
-You can also run Hono on Next.js running on the Node.js runtime.
+Node.js ランタイム上の Next.js で Hono を使うことも出来ます。
 
-First, install the Node.js adapter.
+まずは Node.js アダプタをインストールしてください。
 
 ```
 npm i @hono/node-server
 ```
 
-Next, you can utilize the `handle` function imported from `@hono/node-server/vercel`.
+次に、 `@hono/node-server/vercel` からインポートした `handle` を使用します。
 
 ```ts
 import { Hono } from 'hono'
