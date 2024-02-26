@@ -47,7 +47,7 @@ Deno.serve(app.fetch)
 deno run --allow-net hello.ts
 ```
 
-## ポートをかえる
+## ポートを変える
 
 `port` オプションでポート番号を指定できます。
 
