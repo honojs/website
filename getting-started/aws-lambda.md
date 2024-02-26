@@ -1,17 +1,17 @@
 # AWS Lambda
 
-AWS Lambda is a serverless platform by Amazon Web Services.
-You can run your code in response to events and automatically manages the underlying compute resources for you.
+AWS Lambda は Amazon Web Services のサーバーレスプラットフォームです。
+イベントに応じてコードを実行し、コンピュートリソースは自動で管理されます。
 
-Hono works on AWS Lambda with the Node.js 18+ environment.
+Hono は AWS Lambda の Node.js 18 以上の環境で動作します。
 
-## 1. Setup
+## 1. セットアップ
 
-When creating the application on AWS Lambda,
+AWS Lambda でアプリケーションを作成する場合、
 [CDK](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html)
-is useful to setup the functions such as IAM Role, API Gateway, and others.
+が IAM ロールや API ゲートウェイなどを設定するのに役立ちます。
 
-Initialize your project with the `cdk` CLI.
+`cdl` CLI を使ってプロジェクトを初期化します。
 
 ::: code-group
 
@@ -51,7 +51,7 @@ mkdir lambda
 
 ## 2. Hello World
 
-Edit `lambda/index.ts`.
+`lambda/index.ts` を編集します。
 
 ```ts
 import { Hono } from 'hono'
@@ -64,9 +64,9 @@ app.get('/', (c) => c.text('Hello Hono!'))
 export const handler = handle(app)
 ```
 
-## 3. Deploy
+## 3. デプロイ
 
-Edit `lib/cdk-stack.ts`.
+`lib/cdk-stack.ts` を編集してください。
 
 ```ts
 import * as cdk from 'aws-cdk-lib'
@@ -94,17 +94,17 @@ export class MyAppStack extends cdk.Stack {
 }
 ```
 
-Finally, run the command to deploy:
+最後にこのコマンドでデプロイします:
 
 ```
 cdk deploy
 ```
 
-## Serve Binary data
+## バイナリデータの提供
 
-Hono supports binary data as a response.
-In Lambda, base64 encoding is required to return binary data.
-Once binary type is set to `Content-Type` header, Hono automatically encodes data to base64.
+Hono はバイナリデータのレスポンスもサポートします。
+Lambda ではバイナリデータを base64 でエンコードして返す必要があります。
+`Content-Type` ヘッダにバイナリタイプが指定されると、 Hono は自動で base64 エンコードを行います。
 
 ```ts
 app.get('/binary', async (c) => {
@@ -115,10 +115,10 @@ app.get('/binary', async (c) => {
 })
 ```
 
-## Access AWS Lambda Object
+## AWS Lambda オブジェクトへのアクセス
 
-In Hono, you can access the AWS Lambda Events and Context by binding the `LambdaEvent`, `LambdaContext` type and using `c.env`
 
+Hono では、 `LambdaEvent` 、 `LambdaContext` タイプをバインドし `c.env` で AWS Lambda イベントとコンテキストにアクセスできます。
 
 ```ts
 import { Hono } from 'hono'
@@ -142,11 +142,9 @@ app.get('/aws-lambda-info/', (c) => {
 export const handler = handle(app)
 ```
 
-## Access RequestContext
+## RequestContext へのアクセス
 
-In Hono, you can access the AWS Lambda request context by binding the `LambdaEvent` type and using `c.env.event`
-
-from `c.env.event.requestContext`.
+Hono では、 `LambdaEvent` タイプをバインドし、`c.env.event.requestContext` で AWS Lambda のリクエストコンテキストにアクセスできます。
 
 ```ts
 import { Hono } from 'hono'
@@ -167,9 +165,9 @@ app.get('/custom-context/', (c) => {
 export const handler = handle(app)
 ```
 
-### Before v3.10.0 (deprecated)
+### v3.10.0 以前 (非推奨)
 
-you can access the AWS Lambda request context by binding the `ApiGatewayRequestContext` type and using `c.env.`
+`ApiGatewayRequestContext` タイプをバインドし、 `c.env.` を使用することで AWS Lambda リクエストにアクセスできます。
 
 ```ts
 import { Hono } from 'hono'
@@ -190,9 +188,10 @@ app.get('/custom-context/', (c) => {
 export const handler = handle(app)
 ```
 
-## Lambda response streaming
+## Lambda レスポンスストリーミング
 
-By changing the invocation mode of AWS Lambda, you can achieve [Streaming Response](https://aws.amazon.com/blogs/compute/introducing-aws-lambda-response-streaming/).
+AWS Lambda の呼び出しモードを変更することで[ストリーミングレスポンス](https://aws.amazon.com/blogs/compute/introducing-aws-lambda-response-streaming/)を実現できます。
+
 
 ```diff
 fn.addFunctionUrl({
@@ -201,7 +200,7 @@ fn.addFunctionUrl({
 })
 ```
 
-Typically, the implementation requires writing chunks to NodeJS.WritableStream using awslambda.streamifyResponse, but with the AWS Lambda Adaptor, you can achieve the traditional streaming response of Hono by using streamHandle instead of handle.
+通常 awslambda.streamifyResponse を使用して NodeJS.WritableStream にチャンクを描き込む必要がありますが、 AWS Lambda アダプタを使用すると、ハンドルの代わりに streamHandle を使用することで Hono のストリーミングレスポンスを実現できます。
 
 ```ts
 import { Hono } from 'hono'
