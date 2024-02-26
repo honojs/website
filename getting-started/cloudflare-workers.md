@@ -101,7 +101,6 @@ bun run dev
 
 ## 4. デプロイ
 
-If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
 Cloudflare アカウントを持っている場合、 Cloudflare にデプロイ出来ます。 `package.json` の `$npm_execpath` を選択したパッケージマネージャに置き換える必要があります。
 
 ::: code-group
@@ -128,7 +127,6 @@ bun run deploy
 
 ## Service Worker モード / Module Worker モード
 
-There are two syntaxes for writing the Cloudflare Workers. _Service Worker mode_ and _Module Worker mode_. Using Hono, you can write with both syntax:
 Cloudflare Workers には2通りの記法があります。 _Service Worker モード_ と _Module Worker モード_ です。
 
 ```ts
