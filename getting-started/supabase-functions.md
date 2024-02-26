@@ -1,6 +1,6 @@
 # Supabase Edge Functions
 
-[Supabase](https://supabase.com/) is an open-source alternative to Firebase, offering a suite of tools similar to Firebase's capabilities, including database, authentication, storage, and now, serverless functions.
+[Supabase](https://supabase.com/) はオープンソースの Firebase 代替で、データベース、認証、ストレージ、今回使うサーバーレス関数などの Firebase の機能と同様なツールスイートを提供します。
 
 Supabase Edge Functions are server-side TypeScript functions that are distributed globally, running closer to your users for improved performance. These functions are developed using [Deno](https://deno.com/), which brings several benefits, including improved security and a modern JavaScript/TypeScript runtime.
 
