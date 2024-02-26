@@ -1,13 +1,13 @@
 # Fastly Compute
 
-[Fastly's Compute](https://www.fastly.com/products/edge-compute) offering allows us to build high scale, globally distributed applications and execute code at the edge of Fastly CDN.
+[Fastly's Compute](https://www.fastly.com/products/edge-compute) オファリングによって、大規模なでグローバルスケールのアプリケーションを構築し、 Fastry CDN のエッジで動かすことが出来ます。
 
-Hono also works on Fastly Compute.
+Hono は Fastly Compute でも動きます。
 
-## 1. Install CLI
+## 1. CLI をインストールする
 
-To use Fastly Compute, you must [create a Fastly account](https://www.fastly.com/jp/signup/) if you don't already have one.
-Then, install [Fastly CLI](https://github.com/fastly/cli).
+Fastly Compute を使用するために、 [Fastly アカウントを作成](https://www.fastly.com/jp/signup/)する必要があります。
+次に [Fastly CLI](https://github.com/fastly/cli) をインストールします。
 
 macOS
 
@@ -15,14 +15,14 @@ macOS
 brew install fastly/tap/fastly
 ```
 
-Follow this link for other OS:
+他の OS では次のドキュメントを参照してください:
 
 - [Compute services | Fastly Developer Hub](https://developer.fastly.com/learning/compute/#download-and-install-the-fastly-cli)
 
-## 2. Setup
+## 2. セットアップ
 
-A starter for Fastly Compute is available.
-Start your project with "create-hono" command.
+スターターは Fastly Compute でも使用できます。
+"create-hono" コマンドでプロジェクトを開始しましょう。
 
 ::: code-group
 
@@ -48,7 +48,7 @@ deno run -A npm:create-hono my-app
 
 :::
 
-Move to `my-app` and install the dependencies.
+`my-app` に移動して依存関係をインストールします。
 
 ::: code-group
 
@@ -76,7 +76,7 @@ bun i
 
 ## 3. Hello World
 
-Edit `src/index.ts`:
+`src/index.ts` を変更します:
 
 ```ts
 // src/index.ts
@@ -90,7 +90,7 @@ app.fire()
 
 ## 4. Run
 
-Run the development server locally. Then, access `http://localhost:7676` in your Web browser.
+ローカルで開発サーバーを起動し、ブラウザで `http://localhost:7676` にアクセスしてください。
 
 ::: code-group
 
@@ -112,7 +112,7 @@ bun run dev
 
 :::
 
-## 4. Deploy
+## 4. デプロイ
 
 ::: code-group
 
