@@ -1,16 +1,17 @@
 # Lambda@Edge
 
-[Lambda@Edge](https://aws.amazon.com/lambda/edge/) is a serverless platform by Amazon Web Services. It allows you to run Lambda functions at Amazon CloudFront's edge locations, enabling you to customize behaviors for HTTP requests/responses.
+[Lambda@Edge](https://aws.amazon.com/lambda/edge/) は Amazon Web Services のサーバーレスプラットフォームです。 これにより、 Amazon CloudFront のエッジロケーションで Lambda 関数を実行できるようになり、 HTTP リクエスト/レスポンスをカスタマイズできるようになります。
 
-Hono supports Lambda@Edge with the Node.js 18+ environment.
+Hono は Node.js 18以上の Lambda@Edge をサポートします。
 
-## 1. Setup
+## 1. セットアップ
 
-When creating the application on Lambda@Edge,
+Lambda@Edge でアプリケーションを作成する時に
 [CDK](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html)
 is useful to setup the functions such as CloudFront, IAM Role, API Gateway, and others.
+CloudFront や IAM ロール、 API ゲートウェイなどを設定するのに役立ちます。
 
-Initialize your project with the `cdk` CLI.
+`cdk` CLI を使用してプロジェクトを初期化します。
 
 ::: code-group
 
@@ -50,7 +51,7 @@ mkdir lambda
 
 ## 2. Hello World
 
-Edit `lambda/index_edge.ts`.
+`lambda/index_edge.ts` を編集します。
 
 ```ts
 import { Hono } from 'hono'
@@ -63,9 +64,9 @@ app.get('/', (c) => c.text('Hello Hono on Lambda@Edge!'))
 export const handler = handle(app)
 ```
 
-## 3. Deploy
+## 3. デプロイ
 
-Edit `bin/my-app.ts`.
+`bin/my-app.ts` を変更します。
 
 ```ts
 #!/usr/bin/env node
@@ -83,7 +84,7 @@ new MyAppStack(app, 'MyAppStack', {
 ```
 
 
-Edit `lambda/cdk-stack.ts`.
+`lambda/cdk-stack.ts` も変更します。
 
 ```ts
 import { Construct } from 'constructs';
@@ -124,15 +125,15 @@ export class MyAppStack extends cdk.Stack {
 
 ```
 
-Finally, run the command to deploy:
+最後に、以下のコマンドをを実行してデプロイします:
 
 ```
 cdk deploy
 ```
 
-## Callback
+## コールバック
 
-If you want to add Basic Auth and continue with request processing after verification, you can use `c.env.callback()`
+Basic 認証後にリクエストを処理したい場合は `c.env.callback()` を使用できます。
 
 ```ts
 import { Hono } from 'hono'
