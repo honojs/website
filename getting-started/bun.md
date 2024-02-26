@@ -1,21 +1,21 @@
 # Bun
 
-[Bun](https://bun.sh) is another JavaScript runtime. It's not Node.js or Deno. Bun includes a trans compiler, we can write the code with TypeScript.
-Hono also works on Bun.
+[Bun](https://bun.sh) はもう一つの JavaScript ランタイムです。 Node.js でも Deno でもありません。 Bun はトランスコンパイラが内蔵されており、 TypeScript でコードを書くことが出来ます。
+Hono はもちろん Bun でも動作します。
 
-## 1. Install Bun
+## 1. Bun のインストール
 
-To install `bun` command, follow the instruction in [the official web site](https://bun.sh).
+`bun` コマンドをインストールするために[公式サイト](https://bun.sh)を確認してください。
 
-## 2. Setup
+## 2. セットアップ
 
-A starter for Bun is available. Start your project with "bun create" command.
+スターターは Bun でも使用できます。 "bun create" コマンドでプロジェクトを作成してください。
 
 ```
 bun create hono my-app
 ```
 
-Move into my-app and install the dependencies.
+`my-app` に移動し、依存関係をインストールします。
 
 ```
 cd my-app
@@ -24,7 +24,7 @@ bun install
 
 ## 3. Hello World
 
-"Hello World" script is below. Almost the same as writing on other platforms.
+"Hello World" スクリプトは以下の通りです。 他のプラットフォームと良く似ていますね。
 
 ```ts
 import { Hono } from 'hono'
@@ -37,17 +37,17 @@ export default app
 
 ## 4. Run
 
-Run the command.
+以下のコマンドを実行します。
 
 ```ts
 bun run --hot src/index.ts
 ```
 
-Then, access `http://localhost:3000` in your browser.
+次に、ブラウザで `http://localhost:3000` へアクセスします。
 
-## Change port number
+## ポートを変える
 
-You can specify the port number with exporting the `port`.
+エクスポート時に `port` を指定できます。
 
 ```ts
 import { Hono } from 'hono'
@@ -62,9 +62,9 @@ export default { // [!code ++]
 } // [!code ++]
 ```
 
-## Serve static files
+## 静的ファイルの提供
 
-To server static files, use `serveStatic` imported from `hono/bun`.
+静的ファイルを提供するために `hono/bun` から `serveStatic` をインポートして使用してください、
 
 ```ts
 import { serveStatic } from 'hono/bun'
@@ -77,7 +77,7 @@ app.get('/', (c) => c.text('You can access: /static/hello.txt'))
 app.get('*', serveStatic({ path: './static/fallback.txt' }))
 ```
 
-For the above code, it will work well with the following directory structure.
+上のコードはこのようなディレクトリ構成で機能します。
 
 ```
 ./
@@ -94,7 +94,7 @@ For the above code, it will work well with the following directory structure.
 
 ### `rewriteRequestPath`
 
-If you want to map `http://localhost:3000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+`http://localhost:3000/static/*` を `./statics` にマップしたい場合、 `rewriteRequestPath` オプションを使用できます:
 
 ```ts
 app.get(
@@ -108,7 +108,7 @@ app.get(
 
 ### `mimes`
 
-You can add MIME types with `mimes`:
+MIME タイプを `mimes` で追加できます:
 
 ```ts
 app.get(
@@ -124,7 +124,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `notFoundOption`:
+リクエストされたファイルが見つからない場合の処理を `notFoundOption` で記述できます:
 
 ```ts
 app.get(
@@ -137,9 +137,9 @@ app.get(
 )
 ```
 
-## Testing
+## テスト
 
-You can use `bun:test` for testing on Bun.
+`bun:test` を使用し、 Bun でテストできます。
 
 ```ts
 import { describe, expect, it } from 'bun:test'
@@ -154,7 +154,7 @@ describe('My first test', () => {
 })
 ```
 
-Then, run the command.
+次に、このコマンドを実行します。
 
 ```
 bun test index.test.ts
