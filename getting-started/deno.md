@@ -1,25 +1,25 @@
 # Deno
 
-[Deno](https://deno.com/) is a JavaScript runtime built on V8. It's not Node.js.
-Hono also works on Deno.
+[Deno](https://deno.com/) は V8 上に構築された JavaScript ランタイムです。 Node.js ではありません。
+Hono は Deno でも動作します。
 
-You can use Hono, write the code with TypeScript, run the application with the `deno` command, and deploy it to "Deno Deploy".
+Hono を使用して TypeScript でコードを書き、 `deno` コマンドでアプリケーションを起動します。 そして "Deno Deploy" にデプロイ出来ます。
 
-## 1. Install Deno
+## 1. Deno のインストール
 
-First, install `deno` command.
-Please refer to [the official document](https://docs.deno.com/runtime/manual/getting_started/installation).
+まず `deno` コマンドをインストールします。
+[公式ドキュメント](https://docs.deno.com/runtime/manual/getting_started/installation) を参照してください。
 
-## 2. Setup
+## 2. セットアップ
 
-A starter for Deno is available.
-Start your project with "create-hono" command.
+Deno でもスターターを使用できます。
+"create-hono" コマンドでプロジェクトを作成してください。
 
 ```txt
 deno run -A npm:create-hono my-app
 ```
 
-Move into `my-app`. For Deno, you don't have to install Hono explicitly.
+`my-app` に移動しますが、 Deno では Hono を明示的にインストールする必要はありません。
 
 ```
 cd my-app
@@ -27,7 +27,7 @@ cd my-app
 
 ## 3. Hello World
 
-Write your first application.
+最初のアプリケーションを書いていきましょう。
 
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
@@ -41,23 +41,23 @@ Deno.serve(app.fetch)
 
 ## 4. Run
 
-Just this command:
+このコマンドだけです:
 
 ```
 deno run --allow-net hello.ts
 ```
 
-## Change port number
+## ポートをかえる
 
-You can specify the port number with the `port` option.
+`port` オプションでポート番号を指定できます。
 
 ```ts
 Deno.serve({ port: 8787 }, app.fetch)
 ```
 
-## Serve static files
+## 静的ファイルの提供
 
-To server static files, use `serveStatic` imported from `hono/middleware.ts`.
+静的ファイルを提供するには `hono/middleware.ts` から `serveStatic` をインポートして使用します。
 
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
@@ -73,7 +73,7 @@ app.get('*', serveStatic({ path: './static/fallback.txt' }))
 Deno.serve(app.fetch)
 ```
 
-For the above code, it will work well with the following directory structure.
+上のコードは、このようなディレクトリ構成で機能します。
 
 ```
 ./
@@ -90,7 +90,7 @@ For the above code, it will work well with the following directory structure.
 
 ### `rewriteRequestPath`
 
-If you want to map `http://localhost:8000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+`http://localhost:8000/static/*` を `./statics` にマップしたい場合、 `rewriteRequestPath` をオプションに追加してください:
 
 ```ts
 app.get(
@@ -104,7 +104,7 @@ app.get(
 
 ### `mimes`
 
-You can add MIME types with `mimes`:
+MIME 型を追加するためには `mimes` を使用します:
 
 ```ts
 app.get(
@@ -120,7 +120,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `notFoundOption`:
+`notFoundOption` を使用して、リクエストされたファイルが見つからない場合の処理を記述できます:
 
 ```ts
 app.get(
@@ -135,15 +135,15 @@ app.get(
 
 ## Deno Deploy
 
-Deno Deploy is an edge runtime platform for Deno.
-We can publish the application world widely on Deno Deploy.
+Deno Deploy は Deno のためのエッジランタイムプラットフォームです。
+Deno Deploy でワールドワイドにアプリケーションを公開できます。
 
-Hono also supports Deno Deploy. Please refer to [the official document](https://docs.deno.com/deploy/manual/).
+Hono は Deno Deploy もサポートしています。 [公式ドキュメント](https://docs.deno.com/deploy/manual/)を参照してください。
 
-## Testing
+## テスト
 
-Testing the application on Deno is easy.
-You can write with `Deno.test` and use `assert` or `assertEquals` from the standard library.
+Deno でアプリケーションをテストするのは簡単です。
+`Deno.test` と、公式ライブラリの `assert` か `assertEquals` を使用して書いてください。
 
 ```ts
 import { Hono } from 'https://deno.land/x/hono/mod.ts'
@@ -158,16 +158,16 @@ Deno.test('Hello World', async () => {
 })
 ```
 
-Then run the command:
+次にこのコマンドを実行します:
 
 ```
 deno test hello.ts
 ```
 
-## JSX Pragma
+## JSX プラグマ
 
-Hono on Deno also supports JSX middleware.
-When you use it, write JSX Pragma on the top to specify the JSX function.
+Deno 上の Hono は JSX ミドルウェアをサポートしています。
+使用する場合は、 JSX プラグマを記述して JSX 関数を指定します。
 
 ```tsx
 /** @jsx jsx */
@@ -183,20 +183,20 @@ app.get('/', (c) => {
 Deno.serve(app.fetch)
 ```
 
-## `npm:` specifier
+## `npm:` 指定子
 
-`npm:hono` is also available.
+`npm:hono` も使用できます。
 
 ```ts
 import { Hono } from 'npm:hono'
 ```
 
-You can use either `npm:hono` or `deno.land/x/hono`.
+`npm:hono` か `deno.land/x/hono` を使用できます。
 
-If you want to use Third-party Middleware, you need to use the `npm:` specifier, such as `npm:@hono/zod-validator`, and you should avoid using both `npm:` and `deno.land/x/hono` together.
+サードパーティーミドルウェアを使用する場合、 `npm:@hono/zod-validator` のように `npm:` 指定子を使用する必要があります。 また、 `npm:` と `deno.land/x/hono` の併用は避けるべきです。
 
-~~However, `npm:hono` doesn't work on Deno Deploy. So, if you want to deploy to Deno Deploy, use `deno.land/x/hono`.~~
+~~しかし、 `mpn:hono` を Deno Deploy では使用できません。 Deno Deploy で使用したい場合は `deno.land/x/hono` を使用してください。~~
 
-As of September 6, 2023, Deno announced [native npm support on Deno Deploy](https://deno.com/blog/npm-on-deno-deploy). However, it has not been tested yet on the `hono` and `@hono` packages.
+2023年9月6日現在、 Deno は [Deno Deploy でのネイティブ npm サポート](https://deno.com/blog/npm-on-deno-deploy)を発表しました。 但し、 `hono` と `@hono` はまだテストされていません。
 
-If you experience any problems, or want to run test, please open an issue/pr to the respective library.
+問題が発生した場合、テストを走らせたい場合は issue か プルリクエストを立ててください。
