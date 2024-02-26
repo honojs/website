@@ -198,7 +198,7 @@ app.get('/static/*', serveStatic({ root: './', manifest }))
 app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
-[例例](https://github.com/honojs/examples/tree/main/serve-static)をご確認ください。
+[例](https://github.com/honojs/examples/tree/main/serve-static)をご確認ください。
 
 ### `rewriteRequestPath`
 
