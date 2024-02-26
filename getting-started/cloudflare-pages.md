@@ -1,15 +1,15 @@
 # Cloudflare Pages
 
-[Cloudflare Pages](https://pages.cloudflare.com) is an edge platform for full-stack web applications.
-It serves static files and dynamic content provided by Cloudflare Workers.
+[Cloudflare Pages](https://pages.cloudflare.com) はフルスタック Web アプリケーションのためのエッジプラットフォームです。
+静的ファイルと Cloudflare Workers で動的コンテンツを配信できます。
 
-Hono fully supports Cloudflare Pages.
-It introduces a delightful developer experience. Vite's dev server is fast, and deploying with Wrangler is super quick.
+Hono は Cloudflare Pages も完全にサポートしています。
+楽しい開発体験をもたらします。 Vite による開発サーバーも Wrangler によるデプロイも非常に高速です。
 
-## 1. Setup
+## 1. セットアップ
 
-A starter for Cloudflare Pages is available.
-Start your project with "create-hono" command.
+スターターは Cloudflare Pages もサポートしています。
+"create-hono" でプロジェクトを開始しましょう。
 
 ::: code-group
 
@@ -35,7 +35,7 @@ deno run -A npm:create-hono my-app
 
 :::
 
-Move into `my-app` and install the dependencies.
+`my-app` に移動して依存関係をインストールします。
 
 ::: code-group
 
@@ -61,7 +61,7 @@ bun i
 
 :::
 
-Below is a basic directory structure.
+これは基本的なディレクトリ構成です。
 
 ```text
 ./
@@ -78,7 +78,7 @@ Below is a basic directory structure.
 
 ## 2. Hello World
 
-Edit `src/index.tsx` like the following:
+`src/index.tsx` を編集します:
 
 ```tsx
 import { Hono } from 'hono'
@@ -97,7 +97,7 @@ export default app
 
 ## 3. Run
 
-Run the development server locally. Then, access `http://localhost:5173` in your Web browser.
+ローカルで開発サーバーを起動し、ブラウザで `http://localhost:5173` へアクセスしましょう。
 
 ::: code-group
 
@@ -119,9 +119,9 @@ bun run dev
 
 :::
 
-## 4. Deploy
+## 4. デプロイ
 
-If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
+Cloudflare アカウントを持っている場合、 Cloudflare にデプロイ出来ます。 `package.json` の `$npm_execpath` をお好きなパッケージマネージャに置き換えてください。
 
 ::: code-group
 
@@ -143,10 +143,10 @@ bun run deploy
 
 :::
 
-## Bindings
+## バインディング
 
-You can use Cloudflare Bindings like variables, KV, D1, and others.
-Edit the `vite.config.ts` like the following:
+変数、 KV 、 D1 などの Cloudflare バインディングを使用できます。
+`vite.config.ts` を編集してください:
 
 ```ts
 import { getEnv } from '@hono/vite-dev-server/cloudflare-pages'
@@ -167,7 +167,7 @@ export default defineConfig({
 })
 ```
 
-When using D1, your app will read `.mf/d1/DB/db.sqlite` which is generated automatically with the following configuration:
+D1 を使用する場合、アプリは設定を読み取って `.mf/d1/DB/db.sqlite` を自動で作成します:
 
 ```ts
 export default defineConfig({
@@ -184,11 +184,11 @@ export default defineConfig({
 })
 ```
 
-## Client-side
+## クライアントサイド
 
-You can write client-side scripts and import them into your application using Vite's features.
-If `/src/client.ts` is the entry point for the client, simply write it in the script tag.
-Additionally, `import.meta.env.PROD` is useful for detecting whether it's running on a dev server or in the build phase.
+クライアントサイドスクリプトを作成し、 Vite の機能でインポートできます。
+`/src/client.ts` がクライアントエントリポイントの場合、 <script> タグに書くだけです。
+さらに、 `import.meta.env.PROD` は開発サーバーかビルド中かを知るのに役立ちます。
 
 ```tsx
 app.get('/', (c) => {
@@ -213,7 +213,7 @@ app.get('/', (c) => {
 })
 ```
 
-In order to build the script properly, you can use the example config file `vite.config.ts` as shown below.
+正しくスクリプトをビルドするためにこのような `vite.config.ts` の設定が役立ちます。
 
 ```ts
 import pages from '@hono/vite-cloudflare-pages'
@@ -245,7 +245,7 @@ export default defineConfig(({ mode }) => {
 })
 ```
 
-You can run the following command to build the server and client script.
+次のコマンドを実行して、サーバーとクライアントのスクリプトをビルドできます。
 
 ```text
 vite build --mode client && vite build
