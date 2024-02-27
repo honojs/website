@@ -189,7 +189,7 @@ export default defineConfig({
   lang: 'ja-JP',
   title: 'Hono',
   description:
-    'Cloudflare Workers、 Fastly Compute、 Deno、 Bun、 Vercel、 Netlify、 AWS Lambda、 Lambda@Edge、 Node.js とその他のための爆速 Web フレームワーク。 速いですが、それだけではありません。',
+    'Cloudflare Workers 、 Fastly Compute 、Deno 、 Bun 、 Vercel 、 Netlify 、 AWS Lambda 、 Lambda@Edge 、 Node.js などのための爆速 Web フレームワーク。 速いですが、それだけではありません。',
   lastUpdated: true,
   ignoreDeadLinks: true,
   cleanUrls: true,
