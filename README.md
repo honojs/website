@@ -12,6 +12,8 @@ Honoの公式ドキュメント [hono.dev](https://hono.dev) を日本語化す�
 このリポジトリに直接新しいドキュメントが追加されることはありません。
 新しい情報は[上流リポジトリ](https://github.com/honojs/website)に提案してください。
 
+詳しくは CONTRIBUTING.md をご確認ください。
+
 ## License
 
 MIT
