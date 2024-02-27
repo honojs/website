@@ -202,16 +202,16 @@ export default defineConfig({
   themeConfig: {
     logo: '/images/logo-small.png',
     siteTitle: 'Hono',
+    /*
     search: {
       provider: 'local'
     },
-    /*
-    algolia: {
-      appId: '1GIFSU1REV',
-      apiKey: '6a9bb2036e456356e224ece74546ca14',
-      indexName: 'hono',
-    },
     */
+    algolia: {
+      appId: 'ML5YEKHL8B',
+      apiKey: 'b37d63b7bab0db0e52ca5f5cd9c6ac21',
+      indexName: 'hono-ja',
+    },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/honojs' },
       { icon: 'discord', link: 'https://discord.gg/KMh2eNSdxV' },
