@@ -2,7 +2,7 @@
 
 `Response` を返すプリミティブを "ハンドラ" と呼びます。
 "Middleware" はハンドラの前後で使用され `Request` と `Response` を処理します。
-It's like an onion structure.
+玉ねぎのような構造です。
 
 ![Onion](/images/onion.png)
 
