@@ -1,23 +1,23 @@
 # Node.js
 
-[Node.js](https://nodejs.org/) is an open-source, cross-platform JavaScript runtime environment.
+[Node.js](https://nodejs.org/) はオープンソースでクロスプラットフォームの JavaScript ランタイム環境です。
 
-Hono was not designed for Node.js at first. But with a [Node.js Adapter](https://github.com/honojs/node-server) it can run on Node.js as well.
+Hono は Node.js 向けに設計されたわけではありませんが、 [Node.js Adapter](https://github.com/honojs/node-server) を使うと Node.js でも実行できます。
 
 ::: info
-It works on Node.js versions greater than 18.x. The specific required Node.js versions are as follows:
+Node.js 18.x 以上で動作します。 具体的に必要な Node.js のバージョンは以下の通りです:
 
 - 18.x => 18.14.1+
 - 19.x => 19.7.0+
 - 20.x => 20.0.0+
 
-Essentially, you can simply use the latest version of each major release.
+具体的には、各メジャーリリースの最新バージョンを使用するだけです。
 :::
 
-## 1. Setup
+## 1. セットアップ
 
-A starter for Node.js is available.
-Start your project with "create-hono" command.
+スターターは Node.js もサポートしています。
+"create-hono" コマンドで開発を開始しましょう。
 
 ::: code-group
 
@@ -42,7 +42,7 @@ deno run -A npm:create-hono my-app
 ```
 
 :::
-Move to `my-app` and install the dependencies.
+`my-app` に移動して依存パッケージをインストールします。
 
 ::: code-group
 
@@ -70,7 +70,7 @@ bun i
 
 ## 2. Hello World
 
-Edit `src/index.ts`:
+`src/index.ts` を編集します:
 
 ```ts
 import { serve } from '@hono/node-server'
@@ -84,7 +84,7 @@ serve(app)
 
 ## 3. Run
 
-Run the development server locally. Then, access `http://localhost:3000` in your Web browser.
+開発サーバーをローカルで起動し、ブラウザで `http://localhost:3000` にアクセスします。
 
 ::: code-group
 
@@ -102,9 +102,9 @@ pnpm dev
 
 :::
 
-## Change port number
+## ポートを変える
 
-You can specify the port number with the `port` option.
+`port` オプションでポート番号を指定できます。
 
 ```ts
 serve({
@@ -113,9 +113,9 @@ serve({
 })
 ```
 
-## Access the raw Node.js APIs
+## 生の Node.js API にアクセスする
 
-You can access the Node.js APIs from `c.env.incoming` and `c.env.outgoing`.
+Node.js API は `c.env.incoming` と `c.env.outgoing` で使用できます。
 
 ```ts
 import { Hono } from 'hono'
@@ -135,9 +135,9 @@ app.get('/', (c) => {
 serve(app)
 ```
 
-## Serve static files
+## 静的ファイルの提供
 
-You can use `serveStatic` to serve static files from the local file system.
+`serveStatic` を使用しローカルファイルシステムから静的ファイルを提供できます。
 
 ```ts
 import { serveStatic } from '@hono/node-server/serve-static'
@@ -147,7 +147,7 @@ app.use('/static/*', serveStatic({ root: './' }))
 
 ### `rewriteRequestPath`
 
-If you want to map `http://localhost:3000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+`http://localhost:3000/static/*` を `./statics` にマップしたい場合は `rewriteRequestPath` オプションを使用できます:
 
 ```ts
 app.get(
@@ -161,7 +161,7 @@ app.get(
 
 ### `mimes`
 
-You can add MIME types with `mimes`:
+`mimes` で追加の MIME タイプを指定できます:
 
 ```ts
 app.get(
@@ -177,7 +177,7 @@ app.get(
 
 ## http2
 
-You can run hono on a [Node.js http2 Server](https://nodejs.org/api/http2.html).
+Hono を [Node.js http2 Server](https://nodejs.org/api/http2.html) でも実行できます。
 
 ### unencrypted http2
 
@@ -207,7 +207,8 @@ const server = serve({
 ```
 
 ## Dockerfile
-Here is an example of a Dockerfile.
+
+Dockerfile の例:
 
 ```Dockerfile
 FROM node:20-alpine AS base
@@ -238,9 +239,9 @@ EXPOSE 3000
 CMD ["node", "/app/dist/index.js"]
 ```
 
-The following steps shall be taken in advance.
+次に以下の作業をしてください。
 
-1. Add `"outDir": ". /dist"` to the `compilerOptions` section `tsconfig.json`.
-2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
-3. Add `"build": "tsc"` to `script` section of `package.json`.
-4. Run `npm install typescript --save-dev`.
+1. `"outDir": ". /dist"` を `tsconfig.json` の `compilerOptions` に追加する。
+2. `tsconfig.json` に `"exclude": ["node_modules"]` を追加する。
+3. `package.json` の `script` に `"build": "tsc"` を追加する。
+4. `npm install typescript --save-dev` を実行する。
