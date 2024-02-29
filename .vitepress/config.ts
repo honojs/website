@@ -39,30 +39,30 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     collapsed: true,
     items: [
       { text: 'App', link: '/api/hono' },
-      { text: 'Routing', link: '/api/routing' },
+      { text: 'ルーティング', link: '/api/routing' },
       { text: 'Context', link: '/api/context' },
       { text: 'HonoRequest', link: '/api/request' },
-      { text: 'Exception', link: '/api/exception' },
-      { text: 'Presets', link: '/api/presets' },
+      { text: '例外', link: '/api/exception' },
+      { text: 'プリセット', link: '/api/presets' },
     ],
   },
   {
-    text: 'Guides',
+    text: 'ガイド',
     collapsed: true,
     items: [
-      { text: 'Middleware', link: '/guides/middleware' },
+      { text: 'ミドルウェア', link: '/guides/middleware' },
       { text: 'Helpers', link: '/guides/helpers' },
       {
         text: 'JSX',
         link: '/guides/jsx',
       },
       {
-        text: 'Client Components',
+        text: 'クライアントコンポーネント',
         link: '/guides/jsx-dom',
       },
       { text: 'Testing', link: '/guides/testing' },
       {
-        text: 'Validation',
+        text: 'バリデーション',
         link: '/guides/validation',
       },
       {
@@ -70,15 +70,15 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/guides/rpc',
       },
       {
-        text: 'Best Practices',
+        text: 'ベストプラクティス',
         link: '/guides/best-practices',
       },
       {
-        text: 'Examples',
+        text: '例',
         link: '/guides/examples',
       },
       {
-        text: 'Miscellaneous',
+        text: 'その他',
         link: '/guides/others',
       },
       {
@@ -88,11 +88,11 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     ],
   },
   {
-    text: 'Helpers',
+    text: 'ヘルパー',
     collapsed: true,
     items: [
       { text: 'Accepts', link: '/helpers/accepts' },
-      { text: 'Adapter', link: '/helpers/adapter' },
+      { text: 'アダプタ', link: '/helpers/adapter' },
       { text: 'Cookie', link: '/helpers/cookie' },
       { text: 'css', link: '/helpers/css' },
       { text: 'Dev', link: '/helpers/dev' },
@@ -100,52 +100,52 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'html', link: '/helpers/html' },
       { text: 'JWT', link: '/helpers/jwt' },
       { text: 'SSG', link: '/helpers/ssg' },
-      { text: 'Streaming', link: '/helpers/streaming' },
-      { text: 'Testing', link: '/helpers/testing' },
+      { text: 'ストリーミング', link: '/helpers/streaming' },
+      { text: 'テスト', link: '/helpers/testing' },
     ],
   },
   {
-    text: 'Middleware',
+    text: 'ミドルウェア',
     collapsed: true,
     items: [
-      { text: 'Basic Authentication', link: '/middleware/builtin/basic-auth' },
-      { text: 'Bearer Authentication', link: '/middleware/builtin/bearer-auth' },
-      { text: 'Cache', link: '/middleware/builtin/cache' },
-      { text: 'Compress', link: '/middleware/builtin/compress' },
+      { text: 'Basic 認証', link: '/middleware/builtin/basic-auth' },
+      { text: 'Bearer 認証', link: '/middleware/builtin/bearer-auth' },
+      { text: 'キャッシュ', link: '/middleware/builtin/cache' },
+      { text: '圧縮', link: '/middleware/builtin/compress' },
       { text: 'CORS', link: '/middleware/builtin/cors' },
-      { text: 'CSRF Protection', link: '/middleware/builtin/csrf' },
+      { text: 'CSRF 保護', link: '/middleware/builtin/csrf' },
       { text: 'ETag', link: '/middleware/builtin/etag' },
-      { text: 'JSX Renderer', link: '/middleware/builtin/jsx-renderer' },
+      { text: 'JSX レンダラー', link: '/middleware/builtin/jsx-renderer' },
       { text: 'JWT', link: '/middleware/builtin/jwt' },
-      { text: 'Timing', link: '/middleware/builtin/timing' },
-      { text: 'Logger', link: '/middleware/builtin/logger' },
-      { text: 'Pretty JSON', link: '/middleware/builtin/pretty-json' },
-      { text: 'Secure Headers', link: '/middleware/builtin/secure-headers' },
-      { text: '3rd-party Middleware', link: '/middleware/third-party' },
+      { text: 'タイミング', link: '/middleware/builtin/timing' },
+      { text: 'ロガー', link: '/middleware/builtin/logger' },
+      { text: 'JSON の整形', link: '/middleware/builtin/pretty-json' },
+      { text: 'セキュアヘッダ', link: '/middleware/builtin/secure-headers' },
+      { text: 'サードパーティーミドルウェア', link: '/middleware/third-party' },
     ],
   },
 ]
 
 const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
   {
-    text: 'Application',
+    text: 'アプリケーション',
     items: [
       {
-        text: 'File upload',
+        text: 'ファイルアップロード',
         link: '/snippets/file-upload',
       },
       {
-        text: 'Error handling in Validator',
+        text: 'バリデーターでエラーハンドリング',
         link: '/snippets/validator-error-handling',
       },
       {
-        text: 'Grouping routes for RPC',
+        text: 'RPC のためのルートのグループ化',
         link: '/snippets/grouping-routes-rpc',
       },
     ],
   },
   {
-    text: '3rd-party Middleware',
+    text: 'サードパーティーミドルウェア',
     items: [
       {
         text: 'Zod OpenAPI',
@@ -158,7 +158,7 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
     ],
   },
   {
-    text: 'Ecosystem',
+    text: 'エコシステム',
     items: [
       {
         text: 'Remix + Hono',
@@ -167,7 +167,7 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
     ],
   },
   {
-    text: 'Integration',
+    text: '統合',
     items: [
       {
         text: 'Cloudflare Durable Objects',
