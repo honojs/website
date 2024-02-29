@@ -1,5 +1,5 @@
 # Others
 
-These are not well tested but may work.
+これらはテストされていませんが、動く可能性があります。
 
 - Supabase Edge Functions
