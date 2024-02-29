@@ -1,9 +1,9 @@
-# Routing
+# ルーティング
 
-Routing of Hono is flexible and intuitive.
-Let's take a look.
+Hono のルーティングは柔軟で直感的です。
+では見てみましょう。
 
-## Basic
+## 基本
 
 ```ts
 // HTTP Methods
@@ -30,7 +30,7 @@ app.on(['PUT', 'DELETE'], '/post', (c) => c.text('PUT or DELETE /post'))
 app.on('GET', ['/hello', '/ja/hello', '/en/hello'], (c) => c.text('Hello'))
 ```
 
-## Path Parameter
+## パスパラメータ
 
 ```ts
 app.get('/user/:name', (c) => {
@@ -39,7 +39,7 @@ app.get('/user/:name', (c) => {
 })
 ```
 
-or all parameters at once:
+または一度に多くのパラメータを使用できます:
 
 ```ts
 app.get('/posts/:id/comment/:comment_id', (c) => {
@@ -48,14 +48,14 @@ app.get('/posts/:id/comment/:comment_id', (c) => {
 })
 ```
 
-## Optional Parameter
+## オプションのパラメータ
 
 ```ts
 // Will match `/api/animal` and `/api/animal/:type`
 app.get('/api/animal/:type?', (c) => c.text('Animal!'))
 ```
 
-## Regexp
+## 正規表現
 
 ```ts
 app.get('/post/:date{[0-9]+}/:title{[a-z]+}', (c) => {
@@ -64,7 +64,7 @@ app.get('/post/:date{[0-9]+}/:title{[a-z]+}', (c) => {
 })
 ```
 
-## Including slashes
+## スラッシュを含む
 
 ```ts
 app.get('/posts/:filename{.+\\.png$}', (c) => {
@@ -72,7 +72,7 @@ app.get('/posts/:filename{.+\\.png$}', (c) => {
 })
 ```
 
-## Chained route
+## 連鎖的なルート
 
 ```ts
 app
@@ -87,9 +87,9 @@ app
   })
 ```
 
-## Grouping
+## グループ化
 
-You can group the routes with the Hono instance and add them to the main app with the route method.
+Hono インスタンスを使用してルートをグループ化し、メインのアプリケーションで route メソッドを使用して追加します。
 
 ```ts
 const book = new Hono()
@@ -106,18 +106,18 @@ const app = new Hono()
 app.route('/book', book)
 ```
 
-## Base path
+## 基底パス
 
-You can specify the base path.
+基底パスを指定できます。
 
 ```ts
 const api = new Hono().basePath('/api')
 api.get('/book', (c) => c.text('List Books')) // GET /api/book
 ```
 
-## Routing with hostname
+## ホスト名でルーティングする
 
-It works fine if it includes a hostname.
+ホスト名をルートに含めても動作します。
 
 ```ts
 const app = new Hono({
@@ -128,9 +128,9 @@ app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
 app.get('/www2.example.com/hello', (c) => c.text('hello www2'))
 ```
 
-## Routing with `host` Header value
+## `host` ヘッダを使用したルーティング
 
-Hono can handle the `host` header value if you set the `getPath()` function in the Hono constructor.
+Hono コンストラクタに `getPath()` 関数を実装すると `host` ヘッダの値を処理できます。
 
 ```ts
 const app = new Hono({
@@ -146,11 +146,11 @@ app.get('/www1.example.com/hello', () => c.text('hello www1'))
 // })
 ```
 
-By applying this, for example, you can change the routing by `User-Agent` header.
+これを応用すれば、 `User-Agent` ヘッダでルーティングを変更するようなことも出来ます。
 
-## Routing priority
+## ルーティングの優先順序
 
-Handlers or middleware will be executed in registration order.
+ハンドラ、ミドルウェアは登録順に実行されます。
 
 ```ts
 app.get('/book/a', (c) => c.text('a')) // a
@@ -162,7 +162,7 @@ GET /book/a ---> `a`
 GET /book/b ---> `common`
 ```
 
-When a handler is executed, the process will be stopped.
+ハンドラが実行されると処理が停止します。
 
 ```ts
 app.get('*', (c) => c.text('common')) // common
@@ -173,7 +173,7 @@ app.get('/foo', (c) => c.text('foo')) // foo
 GET /foo ---> `common` // foo will not be dispatched
 ```
 
-If you have the middleware that you want to execute, write the code above the handler.
+実行したいミドルウェアがある場合は、ハンドラよりも前に記述します。
 
 ```ts
 app.use(logger())
@@ -191,10 +191,11 @@ app.get('*', (c) => c.text('fallback')) // fallback
 GET /bar ---> `fallback`
 ```
 
-## Grouping ordering
+## グループの順序
 
-Note that the mistake of grouping routings is hard to notice.
+ルーティングのグループ化の間違いは気が付きにくいので気をつけてください。
 The `route()` function takes the stored routing from the second argument (such as `three` or `two`) and adds it to its own (`two` or `app`) routing.
+`route()` 関数は、 2番目の引数から保存されたルーティング( `three` `two` など)を取得し、自分自身( `two` `app` )のルーティングに追加します。
 
 ```ts
 three.get('/hi', (c) => c.text('hi'))
@@ -204,13 +205,13 @@ app.route('/two', two)
 export default app
 ```
 
-It will return 200 response.
+これは 200 レスポンスを返しますが、
 
 ```
 GET /two/three/hi ---> `hi`
 ```
 
-However, if they are in the wrong order, it will return a 404.
+順序が間違っている場合は 404 を返します。
 
 ```ts
 three.get('/hi', (c) => c.text('hi'))
