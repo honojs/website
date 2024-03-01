@@ -1,10 +1,10 @@
 # Context
 
-To handle Request and Response, you can use `Context` object.
+Request / Response を処理するには、 `Context` オブジェクトを使用します。
 
 ## req
 
-`req` is the instance of HonoRequest.
+`req` は HonoRequest のインスタンスです。
 
 ```ts
 app.get('/hello', (c) => {
@@ -15,7 +15,7 @@ app.get('/hello', (c) => {
 
 ## body()
 
-Return the HTTP response.
+HTTP レスポンスを返します。
 
 You can set headers with `c.header()` and set HTTP status code with `c.status`.  
 This can also be set in `c.text()`, `c.json()` and so on.
