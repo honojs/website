@@ -74,7 +74,7 @@ Here are some examples of use-cases.
 | ---------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------- |
 | [cdnjs](https://cdnjs.com)                     | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the api server_.                    |
 | [Cloudflare Blog](https://blog.cloudflare.com) | Cloudflare Workers | _Some applications featured in the articles use Hono_.                                    |
-| [Unkey](https://unkey.dev/)                    | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the api server_.   |
+| [Unkey](https://unkey.dev)                     | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the api server_.   |
 | [OpenStatus](https://openstatus.dev)           | Bun                | An open-source website & API monitoring platform. _Hono is used for the api server_.      |
 | [Deno Benchmarks](https://deno.com/benchmarks) | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
 
