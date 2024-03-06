@@ -20,3 +20,6 @@ $RECYCLE.BIN/
 
 # IDE-specific settings
 .idea
+
+# Output
+dist
