@@ -66,7 +66,7 @@ app.get(
 
 To emit an endpoint specification, export its type.
 
-```ts{1,17}
+```ts {1,17}
 const route = app.get(
   '/hello',
   zValidator(

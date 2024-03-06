@@ -8,7 +8,7 @@ You can export the types of input type specified by the Validator and the output
 
 All you need to do on the server side is to write a validator, create a variable `route`.
 
-```ts{1}
+```ts {1}
 const route = app.post(
   '/posts',
   zValidator(

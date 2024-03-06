@@ -26,7 +26,7 @@ import { css, cx, keyframes, Style } from 'https://deno.land/x/hono/helper.ts'
 
 You can write CSS in the `css` template literal. In this case, it uses `headerClass` as a value of the `class` attribute. Don't forget to add `<Style />` as it contains the CSS content.
 
-```ts{10,13}
+```ts {10,13}
 app.get('/', (c) => {
   const headerClass = css`
     background-color: orange;

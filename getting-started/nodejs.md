@@ -209,7 +209,7 @@ const server = serve({
 ## Dockerfile
 Here is an example of a Dockerfile.
 
-```Dockerfile
+```dockerfile
 FROM node:20-alpine AS base
 
 FROM base AS builder
