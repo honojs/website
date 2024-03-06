@@ -19,4 +19,4 @@ MIT
 
 ## Author
 
-Yusuke Wada <https://github.com/yusukebe>
+Yusuke Wada [https://github.com/yusukebe]
