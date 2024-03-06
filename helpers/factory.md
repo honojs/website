@@ -1,3 +1,5 @@
+import { Badge } from "/app/components/Badge";
+
 # Factory Helper
 
 The Factory Helper provides useful functions for creating Hono's components such as Middleware. Sometimes it's difficult to set the proper TypeScript types, but this helper facilitates that.

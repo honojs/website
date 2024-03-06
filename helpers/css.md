@@ -1,3 +1,5 @@
+import { Badge } from "/app/components/Badge";
+
 # css Helper
 
 The css helper - `hono/css` - is Hono's built-in CSS in JS(X).

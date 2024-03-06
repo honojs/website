@@ -1,3 +1,5 @@
+import { Badge } from "/app/components/Badge";
+
 # JSX
 
 You can write HTML with JSX syntax with `hono/jsx`.

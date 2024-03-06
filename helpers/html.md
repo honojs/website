@@ -128,5 +128,5 @@ app.get('/', (c) => {
 
 Thanks to these libraries, Visual Studio Code and vim also interprets template literals as HTML, allowing syntax highlighting and formatting to be applied.
 
-- <https://marketplace.visualstudio.com/items?itemName=bierner.lit-html>
-- <https://github.com/MaxMEllon/vim-jsx-pretty>
+- [https://marketplace.visualstudio.com/items?itemName=bierner.lit-html]
+- [https://github.com/MaxMEllon/vim-jsx-pretty]

@@ -61,13 +61,13 @@ app.delete('/auth/page', basicAuth({ username: 'hono', password: 'acoolproject' 
   - The password value for the provided username to authenticate against
 - `realm`: string
   - The domain name of the realm, as part of the returned WWW-Authenticate challenge header. Default is `"Secure Area"`
-  - See: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives>
+  - See: [https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives]
 - `hashFunction`: Function
   - A function to handle hashing for safe comparison of passwords
 
 ## More Options
 
-`...users`: { `username`: string, `password`: string }[]
+`...users`: \{ `username`: string, `password`: string \}[]
 
 ## Recipes
 
