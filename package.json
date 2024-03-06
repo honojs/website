@@ -19,6 +19,7 @@
   "devDependencies": {
     "@hono/vite-ssg": "^0.1.0",
     "@mdx-js/rollup": "^3.0.1",
+    "@shikijs/rehype": "^1.1.7",
     "remark-frontmatter": "^5.0.0",
     "remark-mdx-frontmatter": "^4.0.0",
     "vite": "^5.1.5",
