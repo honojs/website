@@ -2,17 +2,9 @@
   "name": "hono.dev",
   "version": "3.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview"
-  },
+  "scripts": {},
   "repository": "git@github.com:honojs/website.git",
   "author": "Yusuke Wada <yusuke@kamawada.com>",
   "private": true,
-  "license": "MIT",
-  "devDependencies": {
-    "vitepress": "1.0.0-rc.24",
-    "vue": "^3.3.4"
-  }
+  "license": "MIT"
 }
