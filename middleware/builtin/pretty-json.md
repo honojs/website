@@ -1,3 +1,7 @@
+---
+title: Pretty JSON Middleware
+---
+
 # Pretty JSON Middleware
 
 Pretty JSON middleware enables "_JSON pretty print_" for JSON response body.

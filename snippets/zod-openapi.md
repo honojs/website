@@ -1,3 +1,7 @@
+---
+title: Zod OpenAPI
+---
+
 # Zod OpenAPI
 
 [Zod OpenAPI Hono](https://github.com/honojs/middleware/tree/main/packages/zod-openapi) is an extended Hono class that supports OpenAPI.

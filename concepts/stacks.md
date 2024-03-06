@@ -1,3 +1,7 @@
+---
+title: Hono Stacks
+---
+
 # Hono Stacks
 
 Hono makes easy things easy and hard things easy.

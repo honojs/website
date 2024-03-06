@@ -1,3 +1,7 @@
+---
+title: Lambda@Edge
+---
+
 # Lambda@Edge
 
 [Lambda@Edge](https://aws.amazon.com/lambda/edge/) is a serverless platform by Amazon Web Services. It allows you to run Lambda functions at Amazon CloudFront's edge locations, enabling you to customize behaviors for HTTP requests/responses.

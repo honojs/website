@@ -1,3 +1,7 @@
+---
+title: Best Practices
+---
+
 # Best Practices
 
 Hono is very flexible. You can write your app as you like.

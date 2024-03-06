@@ -1,3 +1,7 @@
+---
+title: Secure Headers Middleware
+---
+
 # Secure Headers Middleware
 
 Secure Headers Middleware simplifies the setup of security headers. Inspired in part by the capabilities of Helmet, it allows you to control the activation and deactivation of specific security headers.

@@ -1,3 +1,7 @@
+---
+title: AWS Lambda
+---
+
 # AWS Lambda
 
 AWS Lambda is a serverless platform by Amazon Web Services.

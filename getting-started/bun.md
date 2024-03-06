@@ -1,3 +1,7 @@
+---
+title: Bun
+---
+
 # Bun
 
 [Bun](https://bun.sh) is another JavaScript runtime. It's not Node.js or Deno. Bun includes a trans compiler, we can write the code with TypeScript.

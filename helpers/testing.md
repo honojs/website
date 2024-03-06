@@ -1,3 +1,7 @@
+---
+title: Testing Helper
+---
+
 # Testing Helper
 
 The Testing Helper provides functions to make testing of Hono applications easier.

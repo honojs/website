@@ -1,3 +1,7 @@
+---
+title: HonoRequest
+---
+
 # HonoRequest
 
 The `HonoRequest` is an object that can be taken from `c.req` which wraps a [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.

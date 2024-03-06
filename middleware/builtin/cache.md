@@ -1,3 +1,7 @@
+---
+title: Cache Middleware
+---
+
 # Cache Middleware
 
 The Cache middleware uses the Web Standard's [Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache). It caches a given response according to the `Cache-Control` headers.

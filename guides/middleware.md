@@ -1,3 +1,7 @@
+---
+title: Middleware
+---
+
 # Middleware
 
 Middleware works after/before Handler. We can get `Request` before dispatching or manipulate `Response` after dispatching.

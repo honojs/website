@@ -1,3 +1,7 @@
+---
+title: Error handling in Validator
+---
+
 # Error handling in Validator
 
 By using a validator, you can handle invalid input more easily.

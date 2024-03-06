@@ -1,3 +1,7 @@
+---
+title: JSX
+---
+
 import { Badge } from "/app/components/Badge";
 
 # JSX

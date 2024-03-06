@@ -1,3 +1,7 @@
+---
+title: Web Standard
+---
+
 # Web Standard
 
 Hono uses only **Web Standard APIs** like Fetch.

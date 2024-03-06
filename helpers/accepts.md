@@ -1,3 +1,7 @@
+---
+title: Accepts Helper
+---
+
 # Accepts Helper
 
 Accepts Helper helps to handle Accept headers in the Requests.

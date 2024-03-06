@@ -1,3 +1,7 @@
+---
+title: Cookie Helper
+---
+
 # Cookie Helper
 
 The Cookie Helper provides an easy interface to manage cookies, enabling developers to set, parse, and delete cookies seamlessly.

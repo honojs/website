@@ -1,3 +1,7 @@
+---
+title: Remix + Hono
+---
+
 # Remix + Hono
 
 [Remix](https://remix.run/) is a Web Standard based full stack framework.

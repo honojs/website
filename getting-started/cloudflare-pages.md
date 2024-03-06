@@ -1,3 +1,7 @@
+---
+title: Cloudflare Pages
+---
+
 # Cloudflare Pages
 
 [Cloudflare Pages](https://pages.cloudflare.com) is an edge platform for full-stack web applications.

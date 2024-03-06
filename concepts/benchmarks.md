@@ -1,3 +1,7 @@
+---
+title: Benchmarks
+---
+
 # Benchmarks
 
 Benchmarks are only benchmarks, but they are important to us.

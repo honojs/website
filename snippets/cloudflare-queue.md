@@ -1,3 +1,7 @@
+---
+title: Cloudflare Queues
+---
+
 # Cloudflare Queues
 
 Using Hono with [Cloudflare Queues](https://developers.cloudflare.com/queues/).

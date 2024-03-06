@@ -1,3 +1,7 @@
+---
+title: html Helper
+---
+
 # html Helper
 
 The html Helper lets you write HTML in JavaScript template literal with a tag named `html`. Using `raw()`, the content will be rendered as is. You have to escape these strings by yourself.

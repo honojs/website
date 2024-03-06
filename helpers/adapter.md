@@ -1,3 +1,7 @@
+---
+title: Adapter Helper
+---
+
 # Adapter Helper
 
 The Adapter Helper provides a seamless way to interact with various platforms through a unified interface.

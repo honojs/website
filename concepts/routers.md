@@ -1,3 +1,7 @@
+---
+title: Routers
+---
+
 # Routers
 
 The routers are the most important features for Hono.

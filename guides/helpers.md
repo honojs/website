@@ -1,3 +1,7 @@
+---
+title: Helpers
+---
+
 # Helpers
 
 Helpers are available to assist in developing your application. Unlike middleware, they don't act as handlers, but rather provide useful functions.

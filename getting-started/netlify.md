@@ -1,3 +1,7 @@
+---
+title: Netlify
+---
+
 # Netlify
 
 Netlify provides static site hosting and serverless backend services. [Edge Functions](https://docs.netlify.com/edge-functions/overview/) enables us make the web pages dynamic.

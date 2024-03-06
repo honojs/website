@@ -1,3 +1,7 @@
+---
+title: Factory Helper
+---
+
 import { Badge } from "/app/components/Badge";
 
 # Factory Helper

@@ -1,3 +1,7 @@
+---
+title: Logger Middleware
+---
+
 # Logger Middleware
 
 It's a simple logger.

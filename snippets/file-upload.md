@@ -1,3 +1,7 @@
+---
+title: File Upload
+---
+
 # File Upload
 
 In Hono, you can access to the uploaded files via `c.req.parseBody()`.

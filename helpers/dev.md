@@ -1,3 +1,7 @@
+---
+title: Dev Helper
+---
+
 # Dev Helper
 
 Dev Helper provides useful methods you can use in development.

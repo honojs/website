@@ -1,3 +1,7 @@
+---
+title: CORS Middleware
+---
+
 # CORS Middleware
 
 There are many use cases of Cloudflare Workers as Web APIs and calling them from external front-end application.

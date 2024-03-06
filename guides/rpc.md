@@ -1,3 +1,7 @@
+---
+title: RPC
+---
+
 # RPC
 
 The RPC feature allows sharing the API specifications between the server and the client.

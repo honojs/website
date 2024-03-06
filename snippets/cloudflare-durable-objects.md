@@ -1,3 +1,7 @@
+---
+title: Cloudflare Durable Objects
+---
+
 # Cloudflare Durable Objects
 
 By using Hono, you can write [Durable Objects](https://developers.cloudflare.com/durable-objects/) application easily.

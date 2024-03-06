@@ -1,3 +1,7 @@
+---
+title: Cloudflare Workers
+---
+
 # Cloudflare Workers
 
 [Cloudflare Workers](https://workers.cloudflare.com) is a JavaScript edge runtime on Cloudflare CDN.

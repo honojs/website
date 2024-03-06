@@ -1,3 +1,7 @@
+---
+title: Third-party Middleware
+---
+
 # Third-party Middleware
 
 Third-party middleware refers to middleware not bundled within the Hono package.

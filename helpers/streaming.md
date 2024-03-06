@@ -1,3 +1,7 @@
+---
+title: Streaming Helper
+---
+
 # Streaming Helper
 
 The Streaming Helper provides methods for streaming responses.

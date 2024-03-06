@@ -1,3 +1,7 @@
+---
+title: Supabase Edge Functions
+---
+
 # Supabase Edge Functions
 
 [Supabase](https://supabase.com/) is an open-source alternative to Firebase, offering a suite of tools similar to Firebase's capabilities, including database, authentication, storage, and now, serverless functions.

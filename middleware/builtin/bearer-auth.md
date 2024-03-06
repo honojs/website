@@ -1,3 +1,7 @@
+---
+title: Bearer Auth Middleware
+---
+
 # Bearer Auth Middleware
 
 The Bearer Auth Middleware provides authentication by verifying an API token in the Request header.

@@ -1,3 +1,7 @@
+---
+title: Middleware
+---
+
 # Middleware
 
 We call the primitive that returns `Response` as "Handler".

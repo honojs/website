@@ -1,3 +1,7 @@
+---
+title: htmx
+---
+
 # htmx
 
 Using Hono with [htmx](https://htmx.org/).

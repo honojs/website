@@ -1,3 +1,7 @@
+---
+title: JWT Auth Middleware
+---
+
 # JWT Auth Middleware
 
 The JWT Auth Middleware provides authentication by verifying the token with JWT.

@@ -1,3 +1,7 @@
+---
+title: App - Hono
+---
+
 # App - Hono
 
 `Hono` is the primary object.

@@ -1,3 +1,7 @@
+---
+title: Examples
+---
+
 # Examples
 
 How about using Hono to create an application like this?

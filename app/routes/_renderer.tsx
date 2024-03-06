@@ -19,8 +19,8 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
             <a href='/'>My Blog</a>
           </h1>
         </header>
-        <main>
-          <article>{children}</article>
+        <main class={frontmatter?.title ? "prose" : undefined}>
+          {children}
         </main>
         <footer>
           <p>&copy; 2024 My Blog. All rights reserved.</p>

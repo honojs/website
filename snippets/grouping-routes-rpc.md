@@ -1,3 +1,7 @@
+---
+title: Grouping routes for RPC
+---
+
 # Grouping routes for RPC
 
 If you want to enable type inference for multiple `app`s correctly, you can use `app.route()` as follows:

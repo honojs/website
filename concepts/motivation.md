@@ -1,3 +1,7 @@
+---
+title: Philosophy
+---
+
 # Philosophy
 
 In this section, we talk about the concept, or philosophy, of Hono.

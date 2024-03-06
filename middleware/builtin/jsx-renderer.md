@@ -1,3 +1,7 @@
+---
+title: JSX Renderer Middleware
+---
+
 # JSX Renderer Middleware
 
 JSX Renderer Middleware allows you to set up the layout when rendering JSX with the `c.render()` function, without the need for using `c.setRenderer()`. Additionally, it enables access to instances of Context within components through the use of `useRequestContext()`.

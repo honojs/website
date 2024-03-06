@@ -1,3 +1,7 @@
+---
+title: JWT Authentication Helper
+---
+
 # JWT Authentication Helper
 
 This helper provides functions for encoding, decoding, signing, and verifying JSON Web Tokens (JWTs). JWTs are commonly used for authentication and authorization purposes in web applications. This helper offers robust JWT functionality with support for various cryptographic algorithms.

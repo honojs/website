@@ -1,3 +1,7 @@
+---
+title: Basic Auth Middleware
+---
+
 # Basic Auth Middleware
 
 This middleware can apply Basic authentication to a specified path.

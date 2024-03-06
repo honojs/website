@@ -1,3 +1,7 @@
+---
+title: Server-Timing Middleware
+---
+
 # Server-Timing Middleware
 
 The [Server-Timing](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing) Middleware provides

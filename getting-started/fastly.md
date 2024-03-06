@@ -1,3 +1,7 @@
+---
+title: Fastly Compute
+---
+
 # Fastly Compute
 
 [Fastly's Compute](https://www.fastly.com/products/edge-compute) offering allows us to build high scale, globally distributed applications and execute code at the edge of Fastly CDN.

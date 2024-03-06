@@ -1,3 +1,7 @@
+---
+title: Swagger UI
+---
+
 # Swagger UI
 
 [Swagger UI Middleware](https://github.com/honojs/middleware/tree/main/packages/swagger-ui) provides a middleware and a component for integrating [Swagger UI](https://swagger.io/docs/open-source-tools/swagger-ui/usage/installation/) with Hono applications.

@@ -1,3 +1,7 @@
+---
+title: Validation
+---
+
 # Validation
 
 Hono provides only a very thin Validator.

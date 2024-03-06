@@ -1,3 +1,7 @@
+---
+title: CSRF Protection
+---
+
 # CSRF Protection
 
 CSRF Protection Middleware prevents CSRF attacks by checking request headers.
