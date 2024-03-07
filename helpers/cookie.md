@@ -64,6 +64,7 @@ app.get('/signed-cookie', async (c) => {
 - `path`: string
 - `secure`: boolean
 - `sameSite`: `'Strict'` | `'Lax'` | `'None'`
+- `prefix`: `secure` | `'host'`
 - `partitioned`: boolean
 
 Example:
@@ -105,5 +106,31 @@ deleteCookie(c, 'banana', {
   path: '/',
   secure: true,
   domain: 'example.com',
+})
+```
+
+## `__Secure-` and `__Host-` prefix
+
+The Cookie helper supports `__Secure-` and `__Host-` prefix for cookies names.
+
+If you want to verify if the cookie name has a prefix, specify the prefix option.
+
+```ts
+const securePrefixCookie = getCookie(c, 'yummy_cookie', 'secure')
+const hostPrefixCookie = getCookie(c, 'yummy_cookie', 'host')
+
+const securePrefixSignedCookie = await getSignedCookie(c, secret, 'fortune_cookie', 'secure')
+const hostPrefixSignedCookie = await getSignedCookie(c, secret, 'fortune_cookie', 'host')
+```
+
+Also, if you wish to specify a prefix when setting the cookie, specify a value for the prefix option.
+
+```ts
+setCookie(c, 'delicious_cookie', 'macha', {
+  prefix: 'secure', // or `host`
+})
+
+await setSignedCookie(c, 'delicious_cookie', 'macha', 'secret choco chips', {
+  prefix: 'secure', // or `host`
 })
 ```
