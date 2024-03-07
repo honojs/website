@@ -60,6 +60,9 @@ hono/jsx/dom has Hooks that are compatible or partially compatible with React. Y
 - `useDeferredValue()`
 - `useMemo()`
 - `useLayoutEffect()`
+- `useReducer()`
+- `useDebugValue()`
+- `createElement()`
 - `memo()`
 - `isValidElement()`
 
