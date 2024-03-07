@@ -101,6 +101,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'SSG', link: '/helpers/ssg' },
       { text: 'Streaming', link: '/helpers/streaming' },
       { text: 'Testing', link: '/helpers/testing' },
+      { text: 'WebSocket', link: '/helpers/websocket' },
     ],
   },
   {
