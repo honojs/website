@@ -70,14 +70,14 @@ Here are some examples of use-cases.
 
 ## Who is using Hono?
 
-| Project                                        | Platform           | What for?                                                                                 |
-| ---------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------- |
-| [cdnjs](https://cdnjs.com)                     | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the api server_.                    |
-| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/)  | Cloudflare Workers | Serverless SQL databases. _Hono is used for the internal api server_.|
-| [Unkey](https://unkey.dev)                     | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the api server_.   |
-| [OpenStatus](https://openstatus.dev)           | Bun                | An open-source website & API monitoring platform. _Hono is used for the api server_.      |
-| [Deno Benchmarks](https://deno.com/benchmarks) | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
-| [Deno Docs](https://docs.deno.com/)            | Deno               | An official Deno documentation site. _Hono is used for the web server_.                   |
+| Project                                                            | Platform           | What for?                                                                               |
+| ------------------------------------------------------------------ | ------------------ | --------------------------------------------------------------------------------------- |
+| [cdnjs](https://cdnjs.com)                                         | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the api server_.                  |
+| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/) | Cloudflare Workers | Serverless SQL databases. _Hono is used for the internal api server_.                   |
+| [Unkey](https://unkey.dev)                                         | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the api server_. |
+| [OpenStatus](https://openstatus.dev)                               | Bun                | An open-source website & API monitoring platform. _Hono is used for the api server_.    |
+| [Deno Benchmarks](https://deno.com/benchmarks)                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.               |
+| [Deno Docs](https://docs.deno.com/)                                | Deno               | An official Deno documentation site. _Hono is used for the web server_.                 |
 
 And the following.
 
@@ -157,6 +157,7 @@ Out of the box, Hono provides middleware and helpers for:
 
 - [Basic Authentication](/middleware/builtin/basic-auth)
 - [Bearer Authentication](/middleware/builtin/bearer-auth)
+- [Body Limit](/middleware/builtin/body-limit)
 - [Cache](/middleware/builtin/cache)
 - [Compress](/middleware/builtin/compress)
 - [Cookie](/helpers/cookie)
