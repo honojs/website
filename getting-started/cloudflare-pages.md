@@ -145,44 +145,108 @@ bun run deploy
 
 ## Bindings
 
-You can use Cloudflare Bindings like variables, KV, D1, and others.
-Edit the `vite.config.ts` like the following:
+You can use Cloudflare Bindings like Variables, KV, D1, and others.
+In this section, let's use Variables and KV.
+
+### Create `wrangler.toml`
+
+First, create `wrangler.toml` for local Bindings:
+
+```
+touch wrangler.toml
+```
+
+Edit `wrangler.toml`. Specify Variable with the name `MY_NAME`.
+
+```toml
+name = "my-project-name"
+compatibility_date = "2023-12-01"
+
+[vars]
+MY_NAME = "Hono"
+```
+
+### Create KV
+
+Next, make the KV. Run the following `wrangler` command:
+
+```
+wrangler kv:namespace create MY_KV --preview
+```
+
+Note down the `preview_id` as the following output:
+
+```
+{ binding = "MY_KV", preview_id = "abcdef" }
+```
+
+Specify `preview_id` with the name of Bindings, `MY_KV`:
+
+```toml
+[[kv_namespaces]]
+binding = "MY_KV"
+id = "abcdef"
+```
+
+### Edit `vite.config.ts`
+
+Edit the `vite.config.ts` with using Wrangler's API `getPlatformProxy` like the following:
 
 ```ts
-import { getEnv } from '@hono/vite-dev-server/cloudflare-pages'
+import build from '@hono/vite-cloudflare-pages'
+import devServer from '@hono/vite-dev-server'
+import { defineConfig } from 'vite'
+import { getPlatformProxy } from 'wrangler'
 
-export default defineConfig({
-  plugins: [
-    pages(),
-    devServer({
-      entry: 'src/index.tsx',
-      env: getEnv({
-        bindings: {
-          NAME: 'Hono',
+export default defineConfig(async ({ command }) => {
+  if (command === 'build') {
+    return {
+      plugins: [build()],
+    }
+  }
+  const { env, dispose } = await getPlatformProxy()
+  return {
+    plugins: [
+      devServer({
+        entry: 'src/index.tsx',
+        adapter: {
+          env,
+          onServerClose: dispose,
         },
-        kvNamespaces: ['MY_KV'],
       }),
-    }),
-  ],
+    ],
+  }
 })
 ```
 
-When using D1, your app will read `.mf/d1/DB/db.sqlite` which is generated automatically with the following configuration:
+### Use Bindings in your application
+
+Use Variable and KV in your application. Set the types.
 
 ```ts
-export default defineConfig({
-  plugins: [
-    pages(),
-    devServer({
-      entry: 'src/index.tsx',
-      env: getEnv({
-        d1Databases: ['DB'],
-        d1Persist: true,
-      }),
-    }),
-  ],
+type Bindings = {
+  MY_NAME: string
+  MY_KV: KVNamespace
+}
+
+const app = new Hono<{
+  Bindings: Bindings
+}>()
+```
+
+Use them:
+
+```tsx
+app.get('/', async (c) => {
+  await c.env.MY_KV.put('name', c.env.MY_NAME)
+  const name = await c.env.MY_KV.get('name')
+  return c.render(<h1>Hello! {name}</h1>)
 })
 ```
+
+### In production
+
+For Cloudflare Pages, you will use `wrangler.toml` for local development, but for production, you will set up Bindings in the dashboard.
 
 ## Client-side
 
@@ -196,13 +260,9 @@ app.get('/', (c) => {
     <html>
       <head>
         {import.meta.env.PROD ? (
-          <>
-            <script type='module' src='/static/client.js'></script>
-          </>
+          <script type='module' src='/static/client.js'></script>
         ) : (
-          <>
-            <script type='module' src='/src/client.ts'></script>
-          </>
+          <script type='module' src='/src/client.ts'></script>
         )}
       </head>
       <body>
