@@ -49,3 +49,18 @@ app.onError((err, c) => {
   //...
 })
 ```
+
+## `cause`
+
+The `cause` option is available to add a [`cause`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause) data.
+
+```ts
+app.post('/auth', async (c, next) => {
+  try {
+    authorize(c)
+  } catch (e) {
+    throw new HTTPException(401, { message, cause: e })
+  }
+  await next()
+})
+```
