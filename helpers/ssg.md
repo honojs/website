@@ -112,13 +112,15 @@ Options are specified in the ToSSGOptions interface.
 ```ts
 export interface ToSSGOptions {
   dir?: string
+  concurrency?: number
   beforeRequestHook?: BeforeRequestHook
   afterResponseHook?: AfterResponseHook
   afterGenerateHook?: AfterGenerateHook
 }
 ```
 
-`dir` is the output destination for Static files. The default value is `./static`.
+- `dir` is the output destination for Static files. The default value is `./static`.
+- `concurrency` is the concurrent number of files to be generated at the same time. The default value is `2`.
 
 Each Hook will be described later.
 
