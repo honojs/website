@@ -101,6 +101,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'SSG', link: '/helpers/ssg' },
       { text: 'Streaming', link: '/helpers/streaming' },
       { text: 'Testing', link: '/helpers/testing' },
+      { text: 'WebSocket', link: '/helpers/websocket' },
     ],
   },
   {
@@ -109,6 +110,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     items: [
       { text: 'Basic Authentication', link: '/middleware/builtin/basic-auth' },
       { text: 'Bearer Authentication', link: '/middleware/builtin/bearer-auth' },
+      { text: 'Body Limit', link: '/middleware/builtin/body-limit' },
       { text: 'Cache', link: '/middleware/builtin/cache' },
       { text: 'Compress', link: '/middleware/builtin/compress' },
       { text: 'CORS', link: '/middleware/builtin/cors' },
