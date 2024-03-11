@@ -134,3 +134,23 @@ await setSignedCookie(c, 'delicious_cookie', 'macha', 'secret choco chips', {
   prefix: 'secure', // or `host`
 })
 ```
+
+## Following the best practices
+
+A New Cookie RFC (a.k.a cookie-bis) and CHIPS include some best practices for Cookie settings that developers should follow.
+
+- [RFC6265bis-13](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis-13)
+  - `Max-Age`/`Expires` limitation
+  - `--Host-`/`--Secure_` prefix limitation
+- [CHIPS-01](https://www.ietf.org/archive/id/draft-cutler-httpbis-partitioned-cookies-01.html)
+  - `Partitioned` limitation
+
+Hono is following the best practices.
+The cookie helper will throw an `Error` when parsing cookies under the following conditions:
+
+- The cookie name starts with `__Secure-`, but `secure` option is not set.
+- The cookie name starts with `__Host-`, but `secure` option is not set.
+- The cookie name starts with `__Host-`, but `path` is not `/`.
+- The cookie name starts with `__Host-`, but `domain` is not set.
+- The `maxAge` option value is greater than 400 days.
+- The `expires` option value is 400 days later than the current time.
