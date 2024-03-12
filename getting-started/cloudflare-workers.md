@@ -11,6 +11,7 @@ Let’s make your first application for Cloudflare Workers with Hono.
 
 A starter for Cloudflare Workers is available.
 Start your project with "create-hono" command.
+Select Cloudflare Workers template for this example
 
 ::: code-group
 
