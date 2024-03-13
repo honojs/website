@@ -10,6 +10,7 @@ To install `bun` command, follow the instruction in [the official web site](http
 ## 2. Setup
 
 A starter for Bun is available. Start your project with "bun create" command.
+Select `bun` template for this example.
 
 ```
 bun create hono my-app

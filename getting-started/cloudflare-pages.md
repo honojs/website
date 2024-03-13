@@ -10,6 +10,7 @@ It introduces a delightful developer experience. Vite's dev server is fast, and 
 
 A starter for Cloudflare Pages is available.
 Start your project with "create-hono" command.
+Select `cloudflare-pages` template for this example.
 
 ::: code-group
 
