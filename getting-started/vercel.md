@@ -11,6 +11,7 @@ With Hono, you can write APIs with the same syntax as other runtimes and use man
 
 A starter for Next.js is available.
 Start your project with "create-hono" command.
+Select `nextjs` template for this example.
 
 ::: code-group
 

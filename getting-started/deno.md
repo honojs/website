@@ -19,6 +19,8 @@ Start your project with "create-hono" command.
 deno run -A npm:create-hono my-app
 ```
 
+Select `deno` template for this example.
+
 Move into `my-app`. For Deno, you don't have to install Hono explicitly.
 
 ```

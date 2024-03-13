@@ -11,7 +11,7 @@ Let’s make your first application for Cloudflare Workers with Hono.
 
 A starter for Cloudflare Workers is available.
 Start your project with "create-hono" command.
-Select Cloudflare Workers template for this example
+Select `cloudflare-workers` template for this example.
 
 ::: code-group
 
@@ -144,7 +144,7 @@ But now, we recommend using Module Worker mode because such as that the binding 
 
 ## Using Hono with other event handlers
 
-You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_. 
+You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_.
 
 To do this, export `app.fetch` as the module's `fetch` handler, and then implement other handlers as needed:
 

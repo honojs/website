@@ -18,6 +18,7 @@ Essentially, you can simply use the latest version of each major release.
 
 A starter for Node.js is available.
 Start your project with "create-hono" command.
+Select `nodejs` template for this example.
 
 ::: code-group
 

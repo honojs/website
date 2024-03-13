@@ -23,6 +23,7 @@ Follow this link for other OS:
 
 A starter for Fastly Compute is available.
 Start your project with "create-hono" command.
+Select `fastly` template for this example.
 
 ::: code-group
 
