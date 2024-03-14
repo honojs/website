@@ -152,7 +152,11 @@ Next, you can utilize the `handle` function imported from `@hono/node-server/ver
 import { Hono } from 'hono'
 import { handle } from '@hono/node-server/vercel'
 
-
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+}
 
 const app = new Hono().basePath('/api')
 
