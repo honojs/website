@@ -1,7 +1,7 @@
 # Hono Stacks
 
 Hono makes easy things easy and hard things easy.
-It is suitable for just only returning JSON.
+It is suitable for not just only returning JSON.
 But it's also great for building the full-stack application including REST API servers and the client.
 
 ## RPC
