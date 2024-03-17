@@ -180,7 +180,7 @@ app.get('/echo', echoMiddleware, (c) => {
 
 ## render() / setRenderer()
 
-You can set a layout using `c.setRenderer()` within a custom middleware.
+カスタムミドルウェア内で `c.setRenderer()` を使用してレイアウトを設定できます。
 
 ```tsx
 app.use(async (c, next) => {
@@ -197,7 +197,7 @@ app.use(async (c, next) => {
 })
 ```
 
-Then, you can utilize `c.render()` to create responses within this layout.
+次に、 `c.render()` を使用してそのレイアウトでレスポンスを作成します。
 
 ```ts
 app.get('/', (c) => {
@@ -205,7 +205,7 @@ app.get('/', (c) => {
 })
 ```
 
-The output of which will be:
+このような出力になります:
 
 ```html
 <html>
