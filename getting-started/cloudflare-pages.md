@@ -161,7 +161,7 @@ Edit `wrangler.toml`. Specify Variable with the name `MY_NAME`.
 
 ```toml
 name = "my-project-name"
-compatibility_date = "2023-12-01"
+compatibility_date = "2024-03-18"
 
 [vars]
 MY_NAME = "Hono"
