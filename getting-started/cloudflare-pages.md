@@ -135,7 +135,7 @@ yarn deploy
 ```
 
 ```txt [pnpm]
-pnpm deploy
+pnpm run deploy
 ```
 
 ```txt [bun]
