@@ -35,6 +35,7 @@ import { sign } from 'hono/jwt'
 const payload = {
   sub: 'user123',
   role: 'admin',
+  exp: Math.floor(Date.now() / 1000) + 60 * 5, // Token expires in 5 minutes
 }
 const secret = 'mySecretKey'
 const token = await sign(payload, secret)
@@ -43,7 +44,7 @@ const token = await sign(payload, secret)
 ### Options
 
 - `payload`: unknown - required
-  - The JWT payload to be signed.
+  - The JWT payload to be signed. You can include other claims like in [Payload Validation](#payload-validation).
 - `secret`: string - required
   - The secret key used for JWT verification or signing.
 - `alg`: [AlgorithmTypes](#supported-algorithmtypes)
