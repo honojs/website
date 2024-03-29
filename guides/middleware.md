@@ -98,6 +98,21 @@ app.use(
 )
 ```
 
+::: warning
+In Deno, it is possible to use a different version of middleware than the Hono version, but this can lead to bugs.
+For example, this code is not working because the version is different.
+```ts
+import { Hono } from 'https://deno.land/x/hono@v2.0.0/mod.ts'
+import { upgradeWebSocket } from 'https://deno.land/x/hono@v4.1.4/helper.ts'
+
+const app = new Hono()
+
+app.get('/ws', upgradeWebSocket(() => ({
+  // ...
+})))
+```
+:::
+
 ## Custom Middleware
 
 You can write your own middleware.
