@@ -120,6 +120,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'JWT', link: '/middleware/builtin/jwt' },
       { text: 'Timing', link: '/middleware/builtin/timing' },
       { text: 'Logger', link: '/middleware/builtin/logger' },
+      { text: 'Method Override', link: '/middleware/builtin/method-override' },
       { text: 'Pretty JSON', link: '/middleware/builtin/pretty-json' },
       { text: 'Secure Headers', link: '/middleware/builtin/secure-headers' },
       { text: '3rd-party Middleware', link: '/middleware/third-party' },
