@@ -59,15 +59,12 @@ app.get('/auth/page', (c) => {
 `jwt()` is just a middleware function. If you want to use an environment variable (eg: `c.env.JWT_SECRET`), you can use it as follows:
 
 ```js
-app.use(
-  '/auth/*',
-  (c, next) => {
-    const jwtMiddleware = jwt({
-      secret: c.env.JWT_SECRET,
-    })
-    return jwtMiddleware(c, next)
-  }
-)
+app.use('/auth/*', (c, next) => {
+  const jwtMiddleware = jwt({
+    secret: c.env.JWT_SECRET,
+  })
+  return jwtMiddleware(c, next)
+})
 ```
 
 :::
@@ -79,4 +76,4 @@ app.use(
 - `cookie`: string
   - If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
 - `alg`: string
-  - An algorithm type that is used for verifying. Available types are `HS256` | `HS384` | `HS512`. Default is `HS256`.
+  - An algorithm type that is used for verifying. Available types are `HS256` | `HS384` | `HS512` | `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`. Default is `HS256`.
