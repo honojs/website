@@ -119,6 +119,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'JSX Renderer', link: '/middleware/builtin/jsx-renderer' },
       { text: 'JWT', link: '/middleware/builtin/jwt' },
       { text: 'Timing', link: '/middleware/builtin/timing' },
+      { text: 'Trailing Slash', link: '/middleware/builtin/trailing-slash' },
       { text: 'Logger', link: '/middleware/builtin/logger' },
       { text: 'Pretty JSON', link: '/middleware/builtin/pretty-json' },
       { text: 'Secure Headers', link: '/middleware/builtin/secure-headers' },
