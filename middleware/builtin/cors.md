@@ -59,7 +59,8 @@ app.use(
 app.use(
   '/api4/*',
   cors({
-    origin: (origin) => {
+    // `c` is a `Context` object
+    origin: (origin, c) => {
       return origin.endsWith('.example.com') ? origin : 'http://example.com'
     },
   })
@@ -68,7 +69,7 @@ app.use(
 
 ## Options
 
-- `origin`: string | string[] | (origin:string) => string
+- `origin`: string | string[] | (origin:string, c:Context) => string
   - The value of "_Access-Control-Allow-Origin_" CORS header. You can also pass the callback function like `origin: (origin) => (origin.endsWith('.example.com') ? origin : 'http://example.com')`. Default is `*`
 - `allowMethods`: string[]
   - The value of "_Access-Control-Allow-Methods_" CORS header. Default is `['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH']`

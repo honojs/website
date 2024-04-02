@@ -65,6 +65,7 @@ hono/jsx/dom has Hooks that are compatible or partially compatible with React. Y
 - `createElement()`
 - `memo()`
 - `isValidElement()`
+- `useId()`
 
 ## `startViewTransition()` family
 
