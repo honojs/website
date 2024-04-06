@@ -1,8 +1,8 @@
-# Tailing Slash Middleware
+# Trailing Slash Middleware
 
-This middleware resolves the handling of Trailing Slashes in GET requests.
+This middleware handles Trailing Slash in the URL on a GET request.
 
-`appendTrailingSlash` redirects to the URL to which it added the Tailing Slash if the content was not found. Also, `trimTrailingSlash` will remove the Tailing Slash.
+`appendTrailingSlash` redirects the URL to which it added the Trailing Slash if the content was not found. Also, `trimTrailingSlash` will remove the Trailing Slash.
 
 ## Import
 
