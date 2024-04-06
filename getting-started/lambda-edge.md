@@ -14,7 +14,7 @@ Initialize your project with the `cdk` CLI.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 mkdir my-app
 cd my-app
 cdk init app -l typescript
@@ -22,7 +22,7 @@ npm i hono
 mkdir lambda
 ```
 
-```txt [yarn]
+```sh [yarn]
 mkdir my-app
 cd my-app
 cdk init app -l typescript
@@ -30,7 +30,7 @@ yarn add hono
 mkdir lambda
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 mkdir my-app
 cd my-app
 cdk init app -l typescript
@@ -38,7 +38,7 @@ pnpm add hono
 mkdir lambda
 ```
 
-```txt [bun]
+```sh [bun]
 mkdir my-app
 cd my-app
 cdk init app -l typescript
@@ -126,7 +126,7 @@ export class MyAppStack extends cdk.Stack {
 
 Finally, run the command to deploy:
 
-```
+```sh
 cdk deploy
 ```
 

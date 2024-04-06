@@ -15,23 +15,23 @@ Select `cloudflare-workers` template for this example.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono my-app
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono my-app
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono my-app
 ```
 
@@ -41,22 +41,22 @@ Move to `my-app` and install the dependencies.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 cd my-app
 npm i
 ```
 
-```txt [yarn]
+```sh [yarn]
 cd my-app
 yarn
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 cd my-app
 pnpm i
 ```
 
-```txt [bun]
+```sh [bun]
 cd my-app
 bun i
 ```
@@ -82,19 +82,19 @@ Run the development server locally. Then, access `http://localhost:8787` in your
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run dev
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn dev
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm dev
 ```
 
-```txt [bun]
+```sh [bun]
 bun run dev
 ```
 
@@ -106,19 +106,19 @@ If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run deploy
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn deploy
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm run deploy
 ```
 
-```txt [bun]
+```sh [bun]
 bun run deploy
 ```
 
@@ -252,19 +252,19 @@ You have to install `@cloudflare/workers-types` if you want to have workers type
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm i --save-dev @cloudflare/workers-types
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn add -D @cloudflare/workers-types
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm add -D @cloudflare/workers-types
 ```
 
-```txt [bun]
+```sh [bun]
 bun add --dev @cloudflare/workers-types
 ```
 

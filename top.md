@@ -25,23 +25,23 @@ Just run this:
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono
 ```
 

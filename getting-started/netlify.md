@@ -12,23 +12,23 @@ Select `netlify` template for this example.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono my-app
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono my-app
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono my-app
 ```
 
@@ -38,22 +38,22 @@ Move into `my-app` and install the dependencies.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 cd my-app
 npm i
 ```
 
-```txt [yarn]
+```sh [yarn]
 cd my-app
 yarn
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 cd my-app
 pnpm i
 ```
 
-```txt [bun]
+```sh [bun]
 cd my-app
 bun i
 ```
@@ -83,7 +83,7 @@ export default handle(app)
 
 Run the development server with Netlify CLI. Then, access `http://localhost:8888` in your Web browser.
 
-```
+```sh
 netlify dev
 ```
 
@@ -91,7 +91,7 @@ netlify dev
 
 You can deploy with a `netlify deploy` command.
 
-```
+```sh
 netlify deploy --prod
 ```
 

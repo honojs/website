@@ -72,19 +72,19 @@ Install from the Npm registry.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm i zod
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn add zod
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm add zod
 ```
 
-```txt [bun]
+```sh [bun]
 bun add zod
 ```
 
@@ -135,19 +135,19 @@ You can use the [Zod Validator Middleware](https://github.com/honojs/middleware/
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm i @hono/zod-validator
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn add @hono/zod-validator
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm add @hono/zod-validator
 ```
 
-```txt [bun]
+```sh [bun]
 bun add @hono/zod-validator
 ```
 

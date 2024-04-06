@@ -14,23 +14,23 @@ Select `cloudflare-pages` template for this example.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono my-app
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono my-app
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono my-app
 ```
 
@@ -40,22 +40,22 @@ Move into `my-app` and install the dependencies.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 cd my-app
 npm i
 ```
 
-```txt [yarn]
+```sh [yarn]
 cd my-app
 yarn
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 cd my-app
 pnpm i
 ```
 
-```txt [bun]
+```sh [bun]
 cd my-app
 bun i
 ```
@@ -102,19 +102,19 @@ Run the development server locally. Then, access `http://localhost:5173` in your
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run dev
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn dev
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm dev
 ```
 
-```txt [bun]
+```sh [bun]
 bun run dev
 ```
 
@@ -126,19 +126,19 @@ If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run deploy
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn deploy
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm run deploy
 ```
 
-```txt [bun]
+```sh [bun]
 bun run deploy
 ```
 
@@ -153,7 +153,7 @@ In this section, let's use Variables and KV.
 
 First, create `wrangler.toml` for local Bindings:
 
-```
+```sh
 touch wrangler.toml
 ```
 
@@ -168,7 +168,7 @@ MY_NAME = "Hono"
 
 Next, make the KV. Run the following `wrangler` command:
 
-```
+```sh
 wrangler kv:namespace create MY_KV --preview
 ```
 
@@ -295,6 +295,6 @@ export default defineConfig(({ mode }) => {
 
 You can run the following command to build the server and client script.
 
-```text
+```sh
 vite build --mode client && vite build
 ```

@@ -10,7 +10,7 @@ With using [typed-htmx](https://github.com/Desdaemon/typed-htmx), you can write 
 
 Install:
 
-```txt
+```sh
 npm i -D typed-htmx
 ```
 
