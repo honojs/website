@@ -1,8 +1,8 @@
-# Tailing Slash Middleware
+# Trailing Slash Middleware
 
-This middleware resolves the handling of Trailing Slashes in GET requests.
+This middleware handles Trailing Slash in the URL on a GET request.
 
-`appendTrailingSlash` redirects to the URL to which it added the Tailing Slash if the content was not found. Also, `trimTrailingSlash` will remove the Tailing Slash.
+`appendTrailingSlash` redirects the URL to which it added the Trailing Slash if the content was not found. Also, `trimTrailingSlash` will remove the Trailing Slash.
 
 ## Import
 
@@ -22,7 +22,7 @@ import { appendTrailingSlash, trimTrailingSlash } from 'https://deno.land/x/hono
 
 ## Usage
 
-Example of redirecting a GET request to `/about/me` to `/about/me/`.
+Example of redirecting a GET request of `/about/me` to `/about/me/`.
 
 ```ts
 import { Hono } from 'hono'
@@ -34,7 +34,7 @@ app.use(appendTrailingSlash())
 app.get('/about/me/', (c) => c.text('With Trailing Slash'))
 ```
 
-Example of redirecting a GET request to `/about/me/` to `/about/me`.
+Example of redirecting a GET request of `/about/me/` to `/about/me`.
 
 ```ts
 import { Hono } from 'hono'
