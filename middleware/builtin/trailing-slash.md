@@ -22,7 +22,7 @@ import { appendTrailingSlash, trimTrailingSlash } from 'https://deno.land/x/hono
 
 ## Usage
 
-Example of redirecting a GET request to `/about/me` to `/about/me/`.
+Example of redirecting a GET request of `/about/me` to `/about/me/`.
 
 ```ts
 import { Hono } from 'hono'
@@ -34,7 +34,7 @@ app.use(appendTrailingSlash())
 app.get('/about/me/', (c) => c.text('With Trailing Slash'))
 ```
 
-Example of redirecting a GET request to `/about/me/` to `/about/me`.
+Example of redirecting a GET request of `/about/me/` to `/about/me`.
 
 ```ts
 import { Hono } from 'hono'
