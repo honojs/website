@@ -90,10 +90,11 @@ If you use the Pages Router, Edit `pages/api/[[...route]].ts`.
 ```ts
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
+import type { PageConfig } from 'next'
 
-export const config = {
+export const config: PageConfig = {
   runtime: "edge",
-};
+}
 
 const app = new Hono().basePath("/api")
 
