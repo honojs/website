@@ -46,7 +46,7 @@ Deno.serve(app.fetch)
 Just this command:
 
 ```
-deno run --allow-net main.ts
+deno task start
 ```
 
 ## Change port number
