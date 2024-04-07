@@ -12,13 +12,13 @@ To install `bun` command, follow the instruction in [the official web site](http
 A starter for Bun is available. Start your project with "bun create" command.
 Select `bun` template for this example.
 
-```
+```sh
 bun create hono my-app
 ```
 
 Move into my-app and install the dependencies.
 
-```
+```sh
 cd my-app
 bun install
 ```
@@ -40,7 +40,7 @@ export default app
 
 Run the command.
 
-```ts
+```sh
 bun run dev
 ```
 
@@ -157,6 +157,6 @@ describe('My first test', () => {
 
 Then, run the command.
 
-```
+```sh
 bun test index.test.ts
 ```

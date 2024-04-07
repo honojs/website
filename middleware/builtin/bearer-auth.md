@@ -5,7 +5,7 @@ The HTTP clients accessing the endpoint will add the `Authorization` header with
 
 Using `curl` from the terminal, it would look like this:
 
-```
+```sh
 curl -H 'Authorization: Bearer honoiscool' http://localhost:8787/auth/page
 ```
 

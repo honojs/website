@@ -15,7 +15,7 @@ Please refer to [the official document](https://docs.deno.com/runtime/manual/get
 A starter for Deno is available.
 Start your project with "create-hono" command.
 
-```txt
+```sh
 deno run -A npm:create-hono my-app
 ```
 
@@ -23,7 +23,7 @@ Select `deno` template for this example.
 
 Move into `my-app`. For Deno, you don't have to install Hono explicitly.
 
-```
+```sh
 cd my-app
 ```
 
@@ -45,7 +45,7 @@ Deno.serve(app.fetch)
 
 Just this command:
 
-```
+```sh
 deno task start
 ```
 
@@ -162,7 +162,7 @@ Deno.test('Hello World', async () => {
 
 Then run the command:
 
-```
+```sh
 deno test hello.ts
 ```
 
