@@ -41,7 +41,7 @@ export default app
 Run the command.
 
 ```sh
-bun run --hot src/index.ts
+bun run dev
 ```
 
 Then, access `http://localhost:3000` in your browser.
@@ -125,7 +125,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `notFoundOption`:
+You can specify handling when the requested file is not found with `onNotFound`:
 
 ```ts
 app.get(

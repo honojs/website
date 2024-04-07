@@ -46,7 +46,7 @@ Deno.serve(app.fetch)
 Just this command:
 
 ```sh
-deno run --allow-net main.ts
+deno task start
 ```
 
 ## Change port number
@@ -122,7 +122,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `notFoundOption`:
+You can specify handling when the requested file is not found with `onNotFound`:
 
 ```ts
 app.get(
