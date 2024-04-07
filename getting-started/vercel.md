@@ -152,8 +152,13 @@ Next, you can utilize the `handle` function imported from `@hono/node-server/ver
 ```ts
 import { Hono } from 'hono'
 import { handle } from '@hono/node-server/vercel'
+import type { PageConfig } from 'next'
 
-
+export const config: PageConfig = {
+  api: {
+    bodyParser: false,
+  },
+}
 
 const app = new Hono().basePath('/api')
 
