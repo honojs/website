@@ -232,6 +232,7 @@ RUN adduser --system --uid 1001 hono
 
 COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
 COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
+COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
 
 USER hono
 EXPOSE 3000
@@ -245,3 +246,4 @@ The following steps shall be taken in advance.
 2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
 3. Add `"build": "tsc"` to `script` section of `package.json`.
 4. Run `npm install typescript --save-dev`.
+5. Add `"type": "module"` to `package.json`.
