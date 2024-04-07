@@ -10,7 +10,7 @@ Most of this middleware leverages external libraries.
 - [Qwik City](https://github.com/honojs/middleware/tree/main/packages/qwik-city)
 - [tRPC Server](https://github.com/honojs/middleware/tree/main/packages/trpc-server)
 - [TypeBox Validator](https://github.com/honojs/middleware/tree/main/packages/typebox-validator)
-- [Verify RSA JWT](https://github.com/wataruoguchi/verify-rsa-jwt-cloudflare-worker)
+- [Verify RSA JWT (JWKS)](https://github.com/wataruoguchi/verify-rsa-jwt-cloudflare-worker)
 - [Typia Validator](https://github.com/honojs/middleware/tree/main/packages/typia-validator)
 - [Valibot Validator](https://github.com/honojs/middleware/tree/main/packages/valibot-validator)
 - [Zod OpenAPI](https://github.com/honojs/middleware/tree/main/packages/zod-openapi)
