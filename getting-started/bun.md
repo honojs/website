@@ -125,7 +125,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `notFoundOption`:
+You can specify handling when the requested file is not found with `onNotFound`:
 
 ```ts
 app.get(
