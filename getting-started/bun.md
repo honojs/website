@@ -41,7 +41,7 @@ export default app
 Run the command.
 
 ```ts
-bun run --hot src/index.ts
+bun run dev
 ```
 
 Then, access `http://localhost:3000` in your browser.
