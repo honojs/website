@@ -12,14 +12,14 @@ head:
 layout: home
 hero:
   name: Hono
-  text: Fast, Lightweight, Web-standards
-  tagline: Runs on any JavaScript runtime.
+  text: Web application framework
+  tagline: Fast, lightweight, built on web standards. Support for any JavaScript runtime.
   image:
     src: /images/code.webp
     alt: Hono
   actions:
     - theme: brand
-      text: View Docs
+      text: Get Started
       link: /top
     - theme: alt
       text: View on GitHub

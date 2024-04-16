@@ -165,6 +165,10 @@
   font-weight: 700 !important;
 }
 
+.tagline {
+  max-width: 500px !important;
+}
+
 .DocSearch-Button {
   background-color: var(--vp-c-bg-soft);
 }
