@@ -112,7 +112,7 @@ export default function App() {
 
 The `viewTransition()` function allows you to get the unique `view-transition-name`.
 
-You can use it with the `keyframres()`, The `::view-transition-old()` is converted to `::view-transition-old(${uniqueName))`.
+You can use it with the `keyframes()`, The `::view-transition-old()` is converted to `::view-transition-old(${uniqueName))`.
 
 ```tsx
 import { useState, startViewTransition } from 'hono/jsx'
