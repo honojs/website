@@ -6,7 +6,7 @@ Hono also works on Fastly Compute.
 
 ## 1. Install CLI
 
-To use Fastly Compute, you must [create a Fastly account](https://www.fastly.com/jp/signup/) if you don't already have one.
+To use Fastly Compute, you must [create a Fastly account](https://www.fastly.com/signup/) if you don't already have one.
 Then, install [Fastly CLI](https://github.com/fastly/cli).
 
 macOS
