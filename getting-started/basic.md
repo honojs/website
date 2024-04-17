@@ -103,7 +103,7 @@ Write your first application with Hono in `src/index.ts`. The example below is a
 The `import` and the final `export default` parts may vary from runtime to runtime,
 but all of the application code will run the same code everywhere.
 
-```ts
+```ts twoslash
 import { Hono } from 'hono'
 
 const app = new Hono()
