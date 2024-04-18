@@ -126,44 +126,6 @@ bun run deploy
 
 That's all!
 
-### Deploy from Github Action
-
-Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
-
-If it's a newly created token, select the **Edit Cloudflare Workers** template, if you have already another token, make sure the token has the corresponding permissions(No, token permissions are not shared between cloudflare page and cloudflare worker).
-
-then go to your Github repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
-
-then create `.github/workflows/deploy.yml` in your hono project root foler,paste the following code:
-
-```yml
-name: Deploy
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    name: Deploy
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-```
-
-then edit `wrangler.toml`, and add this code after `compatibility_date` line.
-
-```toml
-main = "src/index.ts"
-minify = true
-```
-Everything is ready! Now push the code and enjoy it.
-
 ## Service Worker mode or Module Worker mode
 
 There are two syntaxes for writing the Cloudflare Workers. _Service Worker mode_ and _Module Worker mode_. Using Hono, you can write with both syntax:
@@ -374,3 +336,41 @@ app.use('/auth/*', async (c, next) => {
 ```
 
 The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.
+
+## Deploy from Github Action
+
+Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
+
+If it's a newly created token, select the **Edit Cloudflare Workers** template, if you have already another token, make sure the token has the corresponding permissions(No, token permissions are not shared between cloudflare page and cloudflare worker).
+
+then go to your Github repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
+
+then create `.github/workflows/deploy.yml` in your hono project root foler,paste the following code:
+
+```yml
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+```
+
+then edit `wrangler.toml`, and add this code after `compatibility_date` line.
+
+```toml
+main = "src/index.ts"
+minify = true
+```
+Everything is ready! Now push the code and enjoy it.
