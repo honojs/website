@@ -58,7 +58,7 @@ Route registration is significantly faster than with RegExpRouter because it add
 
 The following is one of the benchmark results, which includes the route registration phase.
 
-```
+```console
 • GET /user/lookup/username/hey
 ----------------------------------------------------- -----------------------------
 LinearRouter     1.82 µs/iter      (1.7 µs … 2.04 µs)   1.84 µs   2.04 µs   2.04 µs
@@ -85,7 +85,7 @@ While Hono is already compact, if you need to make it even smaller for an enviro
 
 An application using only PatternRouter is under 15KB in size.
 
-```
+```console
 $ npx wrangler deploy --minify ./src/index.ts
  ⛅️ wrangler 3.20.0
 -------------------
