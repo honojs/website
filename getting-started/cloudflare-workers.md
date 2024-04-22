@@ -373,4 +373,36 @@ then edit `wrangler.toml`, and add this code after `compatibility_date` line.
 main = "src/index.ts"
 minify = true
 ```
+
 Everything is ready! Now push the code and enjoy it.
+
+## Load env when local development
+
+To configure the environment variables for local development, create the `.dev.vars` file in the root directory of the project.
+Then configure your environment variables as you would with a normal env file.
+
+```
+SECRET_KEY=value
+API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+```
+
+
+> For more details visit the official Cloudflare documentation:
+> https://developers.cloudflare.com/workers/wrangler/configuration/#secrets
+
+Then we use the [env adapter](/helpers/adapter#env) to get the environment variables in our code.
+**For Cloudflare Workers, environment variables must be obtained via `c`, not via `process.env`.**
+
+```
+import { env } from 'hono/adapter'
+
+app.get('/env', (c) => {
+  const { NAME } = env<{ NAME: string }>(c)
+  return c.text(NAME)
+})
+```
+
+Before you deploy your project to cloudflare, remember to set the environment variable/secrets in the Cloudflare Worker project's configuration.
+
+> For more details visit the official Cloudflare documentation:
+> https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard
