@@ -387,7 +387,7 @@ API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 ```
 
 
-> For more details visit the official Cloudflare documentation:
+> For more about this section you can find in the Cloudflare documentation:
 > https://developers.cloudflare.com/workers/wrangler/configuration/#secrets
 
 Then we use the [env adapter](/helpers/adapter#env) to get the environment variables in our code.
@@ -397,12 +397,12 @@ Then we use the [env adapter](/helpers/adapter#env) to get the environment varia
 import { env } from 'hono/adapter'
 
 app.get('/env', (c) => {
-  const { NAME } = env<{ NAME: string }>(c)
-  return c.text(NAME)
+  const { SECRET_KEY } = env<{ SECRET_KEY: string; API_TOKEN: string }>(c)
+  return c.text(SECRET_KEY)
 })
 ```
 
 Before you deploy your project to cloudflare, remember to set the environment variable/secrets in the Cloudflare Worker project's configuration.
 
-> For more details visit the official Cloudflare documentation:
+> For more about this section you can find in the Cloudflare documentation:
 > https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard
