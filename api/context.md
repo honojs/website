@@ -139,7 +139,6 @@ app.get('/', (c) => {
 })
 ```
 
-Pass the `Variables` as Generics to the constructor of `Hono` to make it type-safe.
 `Variables` ジェネリクスを `Hono` に渡すと型安全になります。
 
 ```ts
@@ -215,8 +214,8 @@ app.get('/', (c) => {
 </html>
 ```
 
-Additionally, this feature offers the flexibility to customize arguments.
-To ensure type safety, types can be defined as:
+また、この機能は柔軟に引数を設定することもできます。
+型安全のために、型を次のように設定できます:
 
 ```ts
 declare module 'hono' {
@@ -226,7 +225,7 @@ declare module 'hono' {
 }
 ```
 
-Here's an example of how you can use this:
+使用例を以下に示します:
 
 ```ts
 app.use('/pages/*', async (c, next) => {
@@ -285,8 +284,8 @@ app.get('/foo', async (c) => {
 
 ## env
 
-In Cloudflare Workers Environment variables, secrets, KV namespaces, D1 database, R2 bucket etc. that are bound to a worker are known as bindings.
-Regardless of type, bindings are always available as global variables and can be accessed via the context `c.env.BINDING_KEY`.
+Cloudflare Workers の環境変数、シークレット、 KV ネームスペース、 D1 データベース、 R2 バケット等... をバインディングよ呼びます。
+種類に関係なく、バインディングは常にグローバル変数として利用でき、 `c.env.BINDING_KEY` からアクセスできます。
 
 ```ts
 // Environment object for Cloudflare Workers
@@ -298,9 +297,8 @@ app.get('*', async c => {
 
 ## error
 
-If the Handler throws an error, the error object is placed in `c.error`.
-You can access it in your middleware.
-
+ハンドラでエラーが発生した場合、エラーオブジェクトは `c.error` に格納されます。
+ミドルウェアからアクセスできます。
 ```ts
 app.use(async (c, next) => {
   await next()
@@ -312,7 +310,7 @@ app.use(async (c, next) => {
 
 ## ContextVariableMap
 
-For instance, if you wish to add type definitions to variables when a specific middleware is used, you can extend `ContextVariableMap`. For example:
+例えば、特定のミドルウェアを使うときに変数へ型定義を追加したい場合、このように `ContextVariableMap` を使用できます:
 
 ```ts
 declare module 'hono' {
@@ -322,7 +320,7 @@ declare module 'hono' {
 }
 ```
 
-You can then utilize this in your middleware:
+これをミドルウェアで利用できます:
 
 ```ts
 const mw = createMiddleware(async (c, next) => {
@@ -331,7 +329,7 @@ const mw = createMiddleware(async (c, next) => {
 })
 ```
 
-In a handler, the variable is inferred as the proper type:
+ハンドラで、変数は適切な型を推論されます:
 
 ```ts
 app.get('/', (c) => {
