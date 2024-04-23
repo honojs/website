@@ -63,6 +63,14 @@ Available events:
 - `onClose`
 - `onError`
 
+::: warning
+
+If you use middleware that modifies headers (e.g., applying CORS) on a route that uses WebSocket Helper, you may encounter an error saying you can't modify immutable headers. This is because `upgradeWebSocket()` also changes headers internally.
+
+Therefore, please be cautious if you are using WebSocket Helper and middleware at the same time.
+
+:::
+
 ## RPC-mode
 
 Handlers defined with WebSocket Helper support RPC mode.
