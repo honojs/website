@@ -386,18 +386,15 @@ SECRET_KEY=value
 API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 ```
 
-
 > For more about this section you can find in the Cloudflare documentation:
 > https://developers.cloudflare.com/workers/wrangler/configuration/#secrets
 
-Then we use the [env adapter](/helpers/adapter#env) to get the environment variables in our code.
+Then we use the `c.env.*` to get the environment variables in our code.  
 **For Cloudflare Workers, environment variables must be obtained via `c`, not via `process.env`.**
 
-```
-import { env } from 'hono/adapter'
-
+```ts
 app.get('/env', (c) => {
-  const { SECRET_KEY } = env<{ SECRET_KEY: string; API_TOKEN: string }>(c)
+  const SECRET_KEY = c.env?.SECRET_KEY
   return c.text(SECRET_KEY)
 })
 ```
