@@ -162,7 +162,7 @@ If you want to create the middleware which provides a custom method,
 write like the following:
 
 ```ts
-interface Env {
+type Env = {
   Variables: {
     echo: (str: string) => string
   }
@@ -170,10 +170,10 @@ interface Env {
 
 const app = new Hono<Env>()
 
-const echoMiddleware: MiddlewareHandler<Env> = async (c, next) => {
+const echoMiddleware = createMiddleware<Env>(async (c, next) => {
   c.set('echo', (str) => str)
   await next()
-}
+})
 
 app.get('/echo', echoMiddleware, (c) => {
   return c.text(c.var.echo('Hello!'))
