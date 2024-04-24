@@ -1,8 +1,8 @@
-# Helpers
+# ヘルパー
 
-Helpers are available to assist in developing your application. Unlike middleware, they don't act as handlers, but rather provide useful functions.
+ヘルパーはアプリケーション開発をサポートします。 ミドルウェアとは違って、ハンドラとして機能するのではなく、便利な機能を提供します。
 
-For instance, here's how to use the [Cookie helper](/helpers/cookie):
+例えば、 [Cookie ヘルパー](/helpers/cookie)の使用方法はこの通りです:
 
 ```ts
 import { getCookie, setCookie } from 'hono/cookie'
@@ -17,14 +17,14 @@ app.get('/cookie', (c) => {
 })
 ```
 
-## Available Helpers
+## 利用可能なヘルパー
 
-- [Adapter](/helpers/adapter)
+- [アダプタ](/helpers/adapter)
 - [Cookie](/helpers/cookie)
 - [css](/helpers/css)
 - [Dev](/helpers/dev)
 - [Factory](/helpers/factory)
 - [html](/helpers/html)
 - [JWT](/helpers/jwt)
-- [Streaming](/helpers/streaming)
-- [Testing](/helpers/testing)
+- [ストリーミング](/helpers/streaming)
+- [テスト](/helpers/testing)
