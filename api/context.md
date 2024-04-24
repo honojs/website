@@ -17,7 +17,7 @@ app.get('/hello', (c) => {
 
 Return the HTTP response.
 
-You can set headers with `c.header()` and set HTTP status code with `c.status`.  
+You can set headers with `c.header()` and set HTTP status code with `c.status`.
 This can also be set in `c.text()`, `c.json()` and so on.
 
 ::: info
@@ -162,13 +162,15 @@ If you want to create the middleware which provides a custom method,
 write like the following:
 
 ```ts
-const app = new Hono()
-
-const echoMiddleware: MiddlewareHandler<{
+interface Env {
   Variables: {
     echo: (str: string) => string
   }
-}> = async (c, next) => {
+}
+
+const app = new Hono<Env>()
+
+const echoMiddleware: MiddlewareHandler<Env> = async (c, next) => {
   c.set('echo', (str) => str)
   await next()
 }
