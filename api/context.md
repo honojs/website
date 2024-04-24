@@ -168,7 +168,7 @@ type Env = {
   }
 }
 
-const app = new Hono<Env>()
+const app = new Hono()
 
 const echoMiddleware = createMiddleware<Env>(async (c, next) => {
   c.set('echo', (str) => str)
@@ -176,6 +176,19 @@ const echoMiddleware = createMiddleware<Env>(async (c, next) => {
 })
 
 app.get('/echo', echoMiddleware, (c) => {
+  return c.text(c.var.echo('Hello!'))
+})
+```
+
+If you want to use the middleware in multiple handlers, you can use `app.use()`.
+Then, you have to pass the `Env` as Generics to the constructor of `Hono` to make it type-safe.
+
+```ts
+const app = new Hono<Env>()
+
+app.use(echoMiddleware)
+
+app.get('/echo', (c) => {
   return c.text(c.var.echo('Hello!'))
 })
 ```
