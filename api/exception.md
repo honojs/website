@@ -1,10 +1,10 @@
-# Exception
+# 例外
 
-When a fatal error occurs, such as authentication failure, an HTTPException must be thrown.
+認証に失敗するなど、致命的なエラーが発生した場合は HTTPException を投げる必要があります。
 
 ## throw HTTPException
 
-This example throws an HTTPException from the middleware.
+HTTPException をミドルウェアから投げる例。
 
 ```ts
 import { HTTPException } from 'hono/http-exception'
@@ -20,7 +20,7 @@ app.post('/auth', async (c, next) => {
 })
 ```
 
-You can specify the response to be returned back to the user.
+ユーザーに返すレスポンスを指定できます。
 
 ```ts
 const errorResponse = new Response('Unauthorized', {
@@ -32,9 +32,9 @@ const errorResponse = new Response('Unauthorized', {
 throw new HTTPException(401, { res: errorResponse })
 ```
 
-## Handling HTTPException
+## HTTPException のハンドル
 
-You can handle the thrown HTTPException with `app.onError`.
+投げられた HTTPException には `app.onError` で処理できます。
 
 ```ts
 import { HTTPException } from 'hono/http-exception'
