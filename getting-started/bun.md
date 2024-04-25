@@ -122,3 +122,17 @@ Then, run the command.
 ```
 bun test index.test.ts
 ```
+## Obtaining Request IP Address
+
+To obtain the IP address of the client, you need to use `Bun.serve`.
+
+```ts
+Bun.serve({
+  fetch(req, server) {
+    return app.fetch(req, { ip: server.requestIP(req)})
+
+  },
+});
+```
+
+You can now access the IP address in `c.env.ip`
