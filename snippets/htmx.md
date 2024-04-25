@@ -15,7 +15,7 @@ Install:
 npm i -D typed-htmx
 ```
 
-`global.d.ts`:
+`app/global.d.ts`:
 
 Import the `typed-htmx` types:
 
