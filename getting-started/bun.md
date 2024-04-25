@@ -160,3 +160,32 @@ Then, run the command.
 ```sh
 bun test index.test.ts
 ```
+## Obtaining Request IP Address
+
+To obtain the IP address of the client, you need to use `Bun.serve`.
+You can use Bindings generics to pass the `ip` to the context and ensure type safety.
+
+```ts
+import type { SocketAddress } from 'bun'
+import { Hono } from 'hono'
+
+type Bindings = {
+  ip: SocketAddress
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/', (c) => {
+  return c.json({
+    yourIp: c.env.ip 
+    // {yourIp: {"address": "1.1.1", "family": "IPv4", "port": 56071}}
+  })
+})
+
+Bun.serve({
+  fetch(req, server) {
+    return app.fetch(req, { ip: server.requestIP(req) })
+  }
+})
+```
+
