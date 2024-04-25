@@ -135,9 +135,17 @@ Bun.serve({
 });
 ```
 
-You can now access the IP address in `c.env.ip`
+You can now access the IP address in `c.env.ip` with the following output
 
-To ensure type safety, you can use bindings like this:
+```bash
+{
+  address: "1.1.1.1",
+  family: "IPv4",
+  port: 56071,
+}
+```
+
+To ensure type safety, you can use a Bindings generics as follows:
 
 ```ts
 import type { SocketAddress } from 'bun'
