@@ -136,3 +136,29 @@ Bun.serve({
 ```
 
 You can now access the IP address in `c.env.ip`
+
+To ensure type safety, you can use bindings like this:
+
+```ts
+import type { SocketAddress } from 'bun'
+import { Hono } from 'hono'
+
+type Bindings = {
+  ip: SocketAddress
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/', (c) => {
+  return c.json({
+    yourIp: c.env.ip
+  })
+})
+
+Bun.serve({
+  fetch(req, server) {
+    return app.fetch(req, { ip: server.requestIP(req) })
+  }
+})
+```
+
