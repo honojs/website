@@ -23,7 +23,7 @@ Import the `typed-htmx` types:
 import "typed-htmx";
 ```
 
-Extend the Hono's JSX types with the typed-htmx definitions:
+Extend Hono's JSX types with the typed-htmx definitions:
 
 ```ts
 // A demo of how to augment foreign types with htmx attributes.
