@@ -125,7 +125,7 @@ bun test index.test.ts
 ## Obtaining Request IP Address
 
 To obtain the IP address of the client, you need to use `Bun.serve`.
-You can now access the IP address in `c.env.ip`. You can use Bindings generics to pass the IP to the context and ensure type safety.
+You can use Bindings generics to pass the `ip` to the context and ensure type safety.
 
 ```ts
 import type { SocketAddress } from 'bun'
