@@ -217,9 +217,7 @@ type Bindings = {
   MY_KV: KVNamespace
 }
 
-const app = new Hono<{
-  Bindings: Bindings
-}>()
+const app = new Hono<{ Bindings: Bindings }>()
 ```
 
 Use them:

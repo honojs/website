@@ -324,6 +324,13 @@ If you want to use Variables or Secret Variables in Middleware, for example, "us
 ```ts
 import { basicAuth } from 'hono/basic-auth'
 
+type Bindings = {
+  USERNAME: string
+  PASSWORD: string
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
 //...
 
 app.use('/auth/*', async (c, next) => {
@@ -392,21 +399,17 @@ API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 Then we use the `c.env.*` to get the environment variables in our code.  
 **For Cloudflare Workers, environment variables must be obtained via `c`, not via `process.env`.**
 
-```js
+```ts
+type Bindings = {
+  SECRET_KEY: string
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
 app.get('/env', (c) => {
   const SECRET_KEY = c.env.SECRET_KEY
   return c.text(SECRET_KEY)
 })
-```
-
-If you're using TypeScript, you can avoid undefined types when accessing `c.env.*` by passing in the type definition when instantiating hono.
-
-```ts
-const app = new Hono<{
-  Bindings: {
-    SECRET_KEY: string
-  }
-}>()
 ```
 
 Before you deploy your project to cloudflare, remember to set the environment variable/secrets in the Cloudflare Worker project's configuration.

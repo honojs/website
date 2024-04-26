@@ -274,10 +274,18 @@ app.get('/foo', async (c) => {
 ## event
 
 ```ts
+// Type definition to make type inference
+type Bindings = {
+  MY_KV: KVNamespace
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+
 // FetchEvent object (only set when using Service Worker syntax)
 app.get('/foo', async (c) => {
   c.event.waitUntil(
-    c.env.KV.put(key, data)
+    c.env.MY_KV.put(key, data)
   )
   ...
 })
@@ -289,10 +297,17 @@ In Cloudflare Workers Environment variables, secrets, KV namespaces, D1 database
 Regardless of type, bindings are always available as global variables and can be accessed via the context `c.env.BINDING_KEY`.
 
 ```ts
+// Type definition to make type inference
+type Bindings = {
+  MY_KV: KVNamespace
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
 // Environment object for Cloudflare Workers
-app.get('*', async c => {
-  const counter = c.env.COUNTER
-  ...
+app.get('/', (c) => {
+  c.env.MY_KV.get('my-key')
+  // ...
 })
 ```
 
