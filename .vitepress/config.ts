@@ -214,7 +214,7 @@ export default defineConfig({
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/honojs' },
-      { icon: 'discord', link: 'https://discord.gg/KMh2eNSdxV' },
+      { icon: 'discord', link: 'https://discord.gg/VARKtGvCZK' },
       { icon: 'x', link: 'https://twitter.com/honojs' },
     ],
     editLink: {
