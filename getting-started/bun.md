@@ -83,7 +83,7 @@ For the above code, it will work well with the following directory structure.
 ```
 ./
 ├── favicon.ico
-├── index.ts
+├── src
 └── static
     ├── demo
     │   └── index.html
