@@ -1,12 +1,12 @@
 # JSX
 
-You can write HTML with JSX syntax with `hono/jsx`.
+`hono/jsx` で、 HTML を JSX 構文で書くことができます。
 
-Although `hono/jsx` works on the client, you will probably use it most often when rendering content on the server side. Here are some things related to JSX that are common to both server and client.
+`hono/jsx` はクライアントでも動作しますが、サーバー側でコンテンツをレンダリングするとき最も頻繁に使うことになるでしょう。 ここでは、サーバーとクライアントの両方に共通する、 JSX に関するいくつかのことを説明します。
 
-## Settings
+## 設定
 
-To use JSX, modify the `tsconfig.json`:
+JSX を使うために `tsconfig.json` を変更します:
 
 `tsconfig.json`:
 
@@ -19,14 +19,14 @@ To use JSX, modify the `tsconfig.json`:
 }
 ```
 
-Alternatively, use the pragma directives:
+あるいは、プラグマを使用します:
 
 ```ts
 /** @jsx jsx */
 /** @jsxImportSource hono/jsx */
 ```
 
-For Deno, you have to add the pragmas and import `jsx` and `Fragment`:
+Deno では、プラグマを追加し、 `jsx` と `Fragment` をインポートする必要があります:
 
 ::: code-group
 
@@ -40,7 +40,7 @@ import { jsx, Fragment } from 'https://deno.land/x/hono/middleware.ts'
 
 :::
 
-## Usage
+## 使い方
 
 `index.tsx`:
 
@@ -76,9 +76,9 @@ app.get('/', (c) => {
 })
 ```
 
-## Fragment
+## フラグメント
 
-Use Fragment to group multiple elements without adding extra nodes:
+フラグメントを使用して、複数の要素を追加ノード無しでグループ化します:
 
 ::: code-group
 
@@ -102,7 +102,7 @@ const List = () => (
 )
 ```
 
-Or you can write it with `<></>` if it set up properly.
+きちんと設定されていれば、 `<></>` を使って書くこともできます。
 
 ```tsx
 const List = () => (
@@ -116,7 +116,7 @@ const List = () => (
 
 ## `PropsWithChildren`
 
-You can use `PropsWithChildren` to correctly infer a child element in a function component.
+`PropsWithChildren` を使用すると、関数コンポーネント内の子要素を正しく推論できます。
 
 ```tsx
 import { PropsWithChildren } from 'hono/jsx'
@@ -136,9 +136,9 @@ function Component({ title, children }: PropsWithChildren<Post>) {
 }
 ```
 
-## Inserting Raw HTML
+## 生 HTML の挿入
 
-To directly insert HTML, use `dangerouslySetInnerHTML`:
+直接 HTML を挿入するには、 `dangerouslySetInnerHTML` を使用します:
 
 ```tsx
 app.get('/foo', (c) => {
