@@ -8,7 +8,7 @@ titleTemplate: ':title'
 Hono - _**\[炎\] 🔥**_ - は小さく、シンプルで爆速なエッジ向けWebフレームワークです。
 あらゆるJavaScriptランタイムで動作します: Cloudflare Workers 、 Fastly Compute 、 Deno 、 Bun 、 Vercel 、 Netlify 、 AWS Lambda 、 Lambda@Edge そして Node.js。
 
-速いですが、それだけではありません。
+Honoは速いけど、速いだけではありません。
 
 ```ts
 import { Hono } from 'hono'
@@ -49,7 +49,7 @@ deno run -A npm:create-hono
 
 ## 特徴
 
-- **爆速** 🚀 - `RegExpRouter` は非常に高速なルーターです。 線形ループを使用しません。 速い!
+- **爆速** 🚀 - `RegExpRouter` は非常に高速なルーターです。 線形ループを使用しません。 めちゃくちゃ速い!
 - **軽量** 🪶 - `hono/tiny` プリセットは 14KB 未満です。 Hono は依存関係が無く Web Standard API のみを使用します。
 - **マルチランタイム** 🌍 - Cloudflare Workers 、 Fastly Compute 、 Deno 、 Bun 、 AWS Lambda 、 Node.js で動作します。 同じコードがすべてのプラットフォーム上で動作します。
 - **バッテリー同梱** 🔋 - Hono にはビルドインミドルウェア、カスタムミドルウェア、サードパーティーミドルウェア及びヘルパーが含まれています。 バッテリー同梱!
