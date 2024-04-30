@@ -182,7 +182,7 @@ body {
 }
 
 @media screen and (max-width: 960px) {
-  .VPHero.has-image .image {
+  .VPHero.has-image .image:not(:has(.kawaii)) {
     display: none;
   }
 }

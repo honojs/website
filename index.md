@@ -54,6 +54,7 @@ onMounted(() => {
     const images = document.querySelectorAll('.VPImage.image-src')
     images.forEach((img) => {
       img.src = '/images/hono-kawaii.png'
+      img.classList.add("kawaii")
     })
   }
   if (kawaii === 'true') {
@@ -69,6 +70,7 @@ onMounted(() => {
     const images = document.querySelectorAll('.VPImage.image-src')
     images.forEach((img) => {
       img.src = '/images/code.webp'
+      img.classList.remove("kawaii")
     })
   } else if (preferredKawaii) {
     setKawaii()
