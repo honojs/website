@@ -38,3 +38,40 @@ features:
     title: Delightful DX
     details: Super clean APIs. First-class TypeScript support. Now, we've got "Types".
 ---
+
+<script setup>
+// Heavily inspired by React
+// https://github.com/reactjs/react.dev/pull/6817
+import { onMounted } from 'vue'
+onMounted(() => {
+  var preferredKawaii
+  try {
+    preferredKawaii = localStorage.getItem('kawaii')
+  } catch (err) {}
+  const urlParams = new URLSearchParams(window.location.search)
+  const kawaii = urlParams.get('kawaii')
+  const setKawaii = () => {
+    const images = document.querySelectorAll('.VPImage.image-src')
+    images.forEach((img) => {
+      img.src = '/images/hono-kawaii.png'
+    })
+  }
+  if (kawaii === 'true') {
+    try {
+      localStorage.setItem('kawaii', true)
+    } catch (err) {}
+    console.log('kawaii mode enabled. logo credits to @sawaratsuki1004 via https://github.com/SAWARATSUKI/ServiceLogos');
+    setKawaii()
+  } else if (kawaii === 'false') {
+    try {
+      localStorage.removeItem('kawaii', false)
+    } catch (err) {}
+    const images = document.querySelectorAll('.VPImage.image-src')
+    images.forEach((img) => {
+      img.src = '/images/code.webp'
+    })
+  } else if (preferredKawaii) {
+    setKawaii()
+  }
+})
+</script>
