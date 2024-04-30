@@ -147,9 +147,9 @@ app.get('/foo', (c) => {
 })
 ```
 
-## Memoization
+## メモ
 
-Optimize your components by memoizing computed strings using `memo`:
+`memo` を使用して、計算済みの文字列を保存することでコンポーネントを最適化します:
 
 ::: code-group
 
