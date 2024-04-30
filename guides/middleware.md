@@ -146,8 +146,16 @@ const logger = createMiddleware(async (c, next) => {
   console.log(`[${c.req.method}] ${c.req.url}`)
   await next()
 })
-
 ```
+:::info
+Type generics can be used with `createMiddleware`:
+
+```ts
+createMiddleware<{Bindings: Bindings}>(async (c, next) =>
+```
+:::
+
+### Modify the Response After Next
 Additionally, middleware can be designed to modify responses if necessary:
 
 ```ts
@@ -157,14 +165,6 @@ const stripRes = createMiddleware(async (c, next) => {
   c.res = new Response('New Response')
 })
 ```
-
-:::info
-Type generics can be used with `createMiddleware`:
-
-```ts
-createMiddleware<{Bindings: Bindings}>(async (c, next) =>
-```
-:::
 
 ## Third-party Middleware
 
