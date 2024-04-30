@@ -115,7 +115,7 @@ app.get('/ws', upgradeWebSocket(() => ({
 
 ## Custom Middleware
 
-You can write your own middleware.
+You can write your own middleware directly inside `app.use()`:
 
 ```ts
 // Custom logger
@@ -131,6 +131,39 @@ app.use('/message/*', async (c, next) => {
 })
 
 app.get('/message/hello', (c) => c.text('Hello Middleware!'))
+```
+
+However, embedding middleware directly within `app.use()` can limit its reusability. Therefore, we can separate our
+middleware into different files.
+
+To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use 
+[`createMiddleware()`](/helpers/factory#createmiddleware) from Hono's factory.
+
+```ts
+import { createMiddleware } from 'hono/factory'
+
+const logger = createMiddleware(async (c, next) => {
+  console.log(`[${c.req.method}] ${c.req.url}`)
+  await next()
+})
+```
+:::info
+Type generics can be used with `createMiddleware`:
+
+```ts
+createMiddleware<{Bindings: Bindings}>(async (c, next) =>
+```
+:::
+
+### Modify the Response After Next
+Additionally, middleware can be designed to modify responses if necessary:
+
+```ts
+const stripRes = createMiddleware(async (c, next) => {
+  await next()
+  c.res = undefined
+  c.res = new Response('New Response')
+})
 ```
 
 ## Third-party Middleware
