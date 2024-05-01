@@ -221,7 +221,8 @@ export default defineConfig({
     },
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2022-present Yusuke Wada & Hono contributors',
+      copyright:
+        'Copyright © 2022-present Yusuke Wada & Hono contributors. "kawaii" logo is created by SAWARATSUKI',
     },
     nav: [
       { text: 'Docs', link: '/top' },
