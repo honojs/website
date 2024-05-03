@@ -104,5 +104,7 @@ app.use(
   - _See:_ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
 - `prefix`: string
   - The prefix (or known as `schema`) for the Authorization header value. Default is `"Bearer"`
+- `headerName`: string
+  - The header name. Default is `Authorization`
 - `hashFunction`: Function
   - A function to handle hashing for safe comparison of authentication tokens
