@@ -1,12 +1,12 @@
 # RPC
 
-The RPC feature allows sharing the API specifications between the server and the client.
+The RPC feature allows sharing of the API specifications between the server and the client.
 
 You can export the types of input type specified by the Validator and the output type emitted by `json()`. And Hono Client will able to import it.
 
 ## Server
 
-All you need to do on the server side is to write a validator, create a variable `route`.
+All you need to do on the server side is to write a validator and create a variable `route`. The following example uses [Zod Validator](https://github.com/honojs/middleware/tree/main/packages/zod-validator).
 
 ```ts{1}
 const route = app.post(
@@ -63,13 +63,71 @@ const res = await client.posts.$post({
 })
 ```
 
-The `res` is compatible with "fetch" Response. You can retrieve data from the server with `res.json()`.
+The `res` is compatible with the "fetch" Response. You can retrieve data from the server with `res.json()`.
 
 ```ts
 if (res.ok) {
   const data = await res.json()
   console.log(data.message)
 }
+```
+
+## Status code
+
+If you explicitly specify the status code, such as `200` or `404`, in `c.json()`. It will be added as a type for passing to the client.
+
+```ts
+// server.ts
+const app = new Hono().get(
+  '/posts',
+  zValidator(
+    'query',
+    z.object({
+      id: z.string(),
+    })
+  ),
+  async (c) => {
+    const { id } = c.req.valid('query')
+    const post: Post | undefined = await getPost(id)
+
+    if (post === undefined) {
+      return c.json({ error: 'not found' }, 404) // Specify 404
+    }
+
+    return c.json({ post }, 200) // Specify 200
+  }
+)
+
+export type AppType = typeof app
+```
+
+You can get the data by the status code.
+
+```ts
+// client.ts
+const client = hc<AppType>('http://localhost:8787/')
+
+const res = await client.posts.$get({
+  query: {
+    id: '123',
+  },
+})
+
+if (res.status === 404) {
+  const data: { error: string } = await res.json()
+  console.log(data.error)
+}
+
+if (res.ok) {
+  const data: { post: Post } = await res.json()
+  console.log(data.post)
+}
+
+// { post: Post } | { error: string }
+type ResponseType = InferResponseType<typeof client.posts.$get>
+
+// { post: Post }
+type ResponseType200 = InferResponseType<typeof client.posts.$get, 200>
 ```
 
 ## Path parameters
@@ -134,9 +192,43 @@ const client = hc<AppType>('/api', {
 })
 ```
 
+## `init` option
+
+You can pass the fetch's `RequestInit` object to the request as the `init` option. Below is an example of aborting a Request.
+
+```ts
+import { hc } from 'hono/client'
+
+const client = hc<AppType>('http://localhost:8787/')
+
+const abortController = new AbortController()
+const res = await client.api.posts.$post(
+  {
+    json: {
+      // Request body
+    },
+  },
+  {
+    // RequestInit object
+    init: {
+      signal: abortController.signal,
+    },
+  }
+)
+
+// ...
+
+abortController.abort()
+```
+
+::: info
+A `RequestInit` object defined by `init` takes the highest priority. It could be used to overwrite things set by other options like `body | method | headers`.
+:::
+
 ## `$url()`
 
 You can get a `URL` object for accessing the endpoint by using `$url()`.
+
 ::: warning
 You have to pass in an absolute URL for this to work. Passing in a relative URL `/` will result in the following error.
 
@@ -144,11 +236,11 @@ You have to pass in an absolute URL for this to work. Passing in a relative URL 
 
 ```ts
 // ❌ Will throw error
-const client = hc<typeof route>('/')
+const client = hc<AppType>('/')
 client.api.post.$url()
 
 // ✅ Will work as expected
-const client = hc<AppType>('http://localhost:8787')
+const client = hc<AppType>('http://localhost:8787/')
 client.api.post.$url()
 ```
 
@@ -176,7 +268,7 @@ console.log(url.pathname) // `/api/posts/123`
 
 You can set the custom `fetch` method.
 
-In the following example script for Cloudflare Worker, Service Bindings' `fetch` method is used instead of the default `fetch`.
+In the following example script for Cloudflare Worker, the Service Bindings' `fetch` method is used instead of the default `fetch`.
 
 ```toml
 # wrangler.toml
@@ -242,9 +334,9 @@ const App = () => {
 export default App
 ```
 
-## Using with larger applications
+## Using RPC with larger applications
 
-In the case of a larger application, such as the example mentioned in [Building a larger application](/guides/best-practices#building-a-larger-application), you need to be careful about the type inference.
+In the case of a larger application, such as the example mentioned in [Building a larger application](/guides/best-practices#building-a-larger-application), you need to be careful about the type of inference.
 A simple way to do this is to chain the handlers so that the types are always inferred.
 
 ```ts

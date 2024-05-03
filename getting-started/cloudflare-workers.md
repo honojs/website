@@ -159,6 +159,10 @@ export default {
 
 ## Serve static files
 
+::: warning
+This "Serve static files" feature for Cloudflare Workers has been deprecated. If you want to create an application that serves static assets files, use [Cloudflare Pages](/getting-started/cloudflare-pages) instead of Cloudflare Workers.
+:::
+
 You need to set it up to serve static files.
 Static files are distributed by using Workers Sites.
 To enable this feature, edit `wrangler.toml` and specify the directory where the static files will be placed.

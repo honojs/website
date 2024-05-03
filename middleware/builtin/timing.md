@@ -80,7 +80,7 @@ app.use(
 - `autoEnd`: boolean
   - If `startTime()` should end automatically at the end of the request.
   - If disabled, not manually ended timers will not be shown.
-- `crossOrigin`: boolean | string
+- `crossOrigin`: boolean | string | `(c: Context) => boolean | string`
   - The origin this timings header should be readable.
     - If false, only from current origin.
     - If true, from all origin.
