@@ -109,6 +109,12 @@ deleteCookie(c, 'banana', {
 })
 ```
 
+`deleteCookie` returns the deleted value:
+
+```ts
+const deletedCookie = deleteCookie(c, 'delicious_cookie')
+```
+
 ## `__Secure-` and `__Host-` prefix
 
 The Cookie helper supports `__Secure-` and `__Host-` prefix for cookies names.
