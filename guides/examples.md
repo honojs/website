@@ -93,10 +93,6 @@ app.get('/', async (_c) => {
 The headers of `Response` returned by `fetch` are immutable. So, an error will occur if you modify it.
 :::
 
-## JSX
-
-This section was moved to [JSX Guide](/guides/jsx).
-
 ## More Examples
 
 See: [Hono Examples](https://github.com/honojs/examples)
