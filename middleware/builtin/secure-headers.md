@@ -145,3 +145,68 @@ app.use(
   })
 )
 ```
+
+### `nonce` attribute
+
+You can add a [`nonce` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) to a `script` or `style` element by adding the `NONCE` imported from `hono/secure-headers` to a `scriptSrc` or `styleSrc`:
+
+```tsx
+import { secureHeaders, NONCE } from 'hono/secure-headers'
+
+// Set the pre-defined nonce value to `scriptSrc`:
+app.get(
+  '*',
+  secureHeaders({
+    contentSecurityPolicy: {
+      scriptSrc: [NONCE, 'https://allowed1.example.com'],
+    },
+  })
+)
+
+// Get the value from `c.get('secureHeadersNonce')`:
+app.get('/', (c) => {
+  return c.html(
+    <html>
+      <body>
+        {/** contents */}
+        <script src='/js/client.js' nonce={c.get('secureHeadersNonce')} />
+      </body>
+    </html>
+  )
+})
+```
+
+If you want to generate the nonce value yourself, you can also specify a function as the following:
+
+```tsx
+const app = new Hono<{
+  Variables: { myNonce: string }
+}>()
+
+const myNonceGenerator: ContentSecurityPolicyOptionHandler = (c) => {
+  // This function is called on every request.
+  const nonce = Math.random().toString(36).slice(2)
+  c.set('myNonce', nonce)
+  return `'nonce-${nonce}'`
+}
+
+app.get(
+  '*',
+  secureHeaders({
+    contentSecurityPolicy: {
+      scriptSrc: [myNonceGenerator, 'https://allowed1.example.com'],
+    },
+  })
+)
+
+app.get('/', (c) => {
+  return c.html(
+    <html>
+      <body>
+        {/** contents */}
+        <script src='/js/client.js' nonce={c.get('myNonce')} />
+      </body>
+    </html>
+  )
+})
+```
