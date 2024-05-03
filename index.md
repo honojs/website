@@ -13,7 +13,7 @@ layout: home
 hero:
   name: Hono
   text: Web application framework
-  tagline: Fast, lightweight, built on web standards. Support for any JavaScript runtime.
+  tagline: Fast, lightweight, built on Web Standards. Support for any JavaScript runtime.
   image:
     src: /images/code.webp
     alt: Hono
