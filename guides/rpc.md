@@ -6,7 +6,7 @@ You can export the types of input type specified by the Validator and the output
 
 ## Server
 
-All you need to do on the server side is to write a validator, create a variable `route`.
+All you need to do on the server side is to write a validator, create a variable `route`. The following example uses [Zod Validator](https://github.com/honojs/middleware/tree/main/packages/zod-validator).
 
 ```ts{1}
 const route = app.post(
@@ -70,6 +70,64 @@ if (res.ok) {
   const data = await res.json()
   console.log(data.message)
 }
+```
+
+## Status code
+
+If you explicitly specify a status code, such as `200` or `404`, in `c.json()`, it will be added as a type for passing to the client.
+
+```ts
+// server.ts
+const app = new Hono().get(
+  '/posts',
+  zValidator(
+    'query',
+    z.object({
+      id: z.string(),
+    })
+  ),
+  async (c) => {
+    const { id } = c.req.valid('query')
+    const post: Post | undefined = await getPost(id)
+
+    if (post === undefined) {
+      return c.json({ error: 'not found' }, 404) // Specify 404
+    }
+
+    return c.json({ post }, 200) // Specify 200
+  }
+)
+
+export type AppType = typeof app
+```
+
+You can get the data by the status code.
+
+```ts
+// client.ts
+const client = hc<AppType>('http://localhost')
+
+const res = await client.posts.$get({
+  query: {
+    id: '123',
+  },
+})
+
+if (res.status === 404) {
+  const data: { error: string } = await res.json()
+  console.log(data.error)
+}
+
+if (res.ok) {
+  const data: { post: Post } = await res.json()
+  console.log(data.post)
+}
+
+// { post: Post } | { error: string }
+type ResponseType = InferResponseType<typeof client.posts.$get>
+
+// { post: Post }
+type ResponseType200 = InferResponseType<typeof client.posts.$get, 200>
 ```
 
 ## Path parameters
@@ -242,7 +300,7 @@ const App = () => {
 export default App
 ```
 
-## Using with larger applications
+## Using RPC with larger applications
 
 In the case of a larger application, such as the example mentioned in [Building a larger application](/guides/best-practices#building-a-larger-application), you need to be careful about the type inference.
 A simple way to do this is to chain the handlers so that the types are always inferred.
