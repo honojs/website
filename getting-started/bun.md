@@ -65,7 +65,7 @@ export default { // [!code ++]
 
 ## Serve static files
 
-To server static files, use `serveStatic` imported from `hono/bun`.
+To serve static files, use `serveStatic` imported from `hono/bun`.
 
 ```ts
 import { serveStatic } from 'hono/bun'
