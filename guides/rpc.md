@@ -2,7 +2,7 @@
 
 The RPC feature allows sharing of the API specifications between the server and the client.
 
-You can export the types of input type specified by the Validator and the output type emitted by `json()`. And Hono Client will able to import it.
+You can export the types of input type specified by the Validator and the output type emitted by `json()`. And Hono Client will be able to import it.
 
 ## Server
 
