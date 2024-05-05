@@ -20,3 +20,4 @@ Most of this middleware leverages external libraries.
 - [esbuild Transpiler](https://github.com/honojs/middleware/tree/main/packages/esbuild-transpiler)
 - [Prometheus Metrics](https://github.com/honojs/middleware/tree/main/packages/prometheus)
 - [Auth.js(Next Auth)](https://github.com/honojs/middleware/tree/main/packages/auth-js)
+- [Hono Rate Limiter](https://github.com/rhinobase/hono-rate-limiter)
