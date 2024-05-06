@@ -91,4 +91,4 @@ Here are the available runtimes keys, unavailable runtime key runtimes may be su
 - `node`
 - `edge-light` - Vercel Edge Functions
 - `fastly` - Fastly Compute
-- `other` - Other unknown available runtimes
+- `other` - Other unknown runtimes keys
