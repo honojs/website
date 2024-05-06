@@ -20,26 +20,40 @@ import { env, getRuntimeKey } from 'https://deno.land/x/hono/helper.ts'
 
 ## `env()`
 
-The `env()` function facilitates retrieving environment variables across different runtimes, extending beyond just Cloudflare Workers' Bindings.
+The `env()` function facilitates retrieving environment variables across different runtimes, extending beyond just Cloudflare Workers' Bindings. The value that can be retrieved with `env(c)` may be different for each runtimes.
 
 ```ts
 import { env } from 'hono/adapter'
 
 app.get('/env', (c) => {
+  // NAME is process.env.NAME on Node.js or Bun
+  // NAME is the value written in `wrangler.toml` on Cloudflare
   const { NAME } = env<{ NAME: string }>(c)
   return c.text(NAME)
 })
 ```
 
-Supported Runtimes:
+Supported Runtimes, Serverless Platforms and Cloud Services:
 
 - Cloudflare Workers
+  -  wrangler.toml
 - Deno
+  -  `Deno.env.set`
+  -  `.env` file
 - Bun
+  -  `process.env`
 - Node.js
+  -  `process.env`
 - Vercel
+  -  [Environment Variables on Vercel](https://vercel.com/docs/projects/environment-variables)
 - AWS Lambda
-- Lambda@Edge
+  -  [Environment Variables on AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/samples-blank.html#samples-blank-architecture)
+- Lambda@Edge\
+  Environment Variables on Lambda are [not supported](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html) by Lambda@Edge, you need to use [Lamdba@Edge event](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html) as an alternative.
+- Fastly Compute\
+  On Fastly Compute, you can use the ConfigStore to manage user-defined data.
+- Netlify\
+  On Netlify, you can use the [Netlify Contexts](https://docs.netlify.com/site-deploys/overview/#deploy-contexts) to manage user-defined data.
 
 ### Specify the runtime
 
@@ -67,14 +81,14 @@ app.get('/', (c) => {
 })
 ```
 
-### Available Runtimes
+### Available Runtimes Keys
 
-Here are the supported runtimes, with some being inspired by [WinterCG's Runtime Keys](https://runtime-keys.proposal.wintercg.org/):
+Here are the available runtimes keys, unavailable runtime key runtimes may be supported and labeled as `other`, with some being inspired by [WinterCG's Runtime Keys](https://runtime-keys.proposal.wintercg.org/):
 
-- `node`
+- `workerd` - Cloudflare Workers
 - `deno`
 - `bun`
-- `workerd` - Cloudflare Workers
-- `fastly`
+- `node`
 - `edge-light` - Vercel Edge Functions
-- `other`
+- `fastly` - Fastly Compute
+- `other` - Other unknown available runtimes
