@@ -8,6 +8,7 @@ Most of this middleware leverages external libraries.
 - [Firebase Auth](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
 - [Zod Validator](https://github.com/honojs/middleware/tree/main/packages/zod-validator)
 - [Qwik City](https://github.com/honojs/middleware/tree/main/packages/qwik-city)
+- [RONIN (Database)](https://github.com/ronin-co/hono-client)
 - [tRPC Server](https://github.com/honojs/middleware/tree/main/packages/trpc-server)
 - [TypeBox Validator](https://github.com/honojs/middleware/tree/main/packages/typebox-validator)
 - [Verify RSA JWT (JWKS)](https://github.com/wataruoguchi/verify-rsa-jwt-cloudflare-worker)
