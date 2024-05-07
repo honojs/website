@@ -226,7 +226,7 @@ CMD ["node", "/app/dist/index.js"]
 
 The following steps shall be taken in advance.
 
-1. Add `"outDir": ". /dist"` to the `compilerOptions` section `tsconfig.json`.
+1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
 2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
 3. Add `"build": "tsc"` to `script` section of `package.json`.
 4. Run `npm install typescript --save-dev`.
