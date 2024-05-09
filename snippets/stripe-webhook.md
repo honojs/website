@@ -2,6 +2,27 @@
 
 This introduces how to create an API with Hono to receive Stripe Webhook events.
 
+## Preparation
+
+Please install the official Stripe SDK at first:
+
+```bash
+% npm install stripe
+```
+
+And put the following values on the `.dev.vars` file to insert the Stripe API keys:
+
+```
+STRIPE_API_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+```
+
+You can learn about the Stripe API keys by the following documents:
+
+- Secret Key: https://docs.stripe.com/keys
+- Webhook secret: https://docs.stripe.com/webhooks
+
+
 ## How to protect the API for Stripe Webhook events
 
 The API that processes webhook events is publicly accessible.
