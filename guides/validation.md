@@ -171,7 +171,8 @@ const route = app.post(
     })
   ),
   (c) => {
-    // ...
+    const validated = c.req.valid("form");
+    // ... use your validated data
   }
 )
 ```
