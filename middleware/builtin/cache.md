@@ -54,7 +54,7 @@ app.get(
 
 ## Options
 
-- `cacheName`: string - _required_
+- `cacheName`: string | `(c: Context) => string | Promise<string>` - _required_
   - The name of the cache. Can be used to store multiple caches with different identifiers.
 - `wait`: boolean
   - A boolean indicating if Hono should wait for the Promise of the `cache.put` function to resolve before continuing with the request. _Required to be true for the Deno environment_. Default is `false`.
@@ -62,3 +62,5 @@ app.get(
   - A string of directives for the `Cache-Control` header. See the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) for more information. When this option is not provided, no `Cache-Control` header is added to requests.
 - `vary`: string | string[]
   - Sets the `Vary` header in the response. If the original response header already contains a `Vary` header, the values are merged, removing any duplicates. Setting this to `*` will result in an error. For more details on the Vary header and its implications for caching strategies, refer to the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Vary).
+- `keyGenerator`: `(c: Context) => string | Promise<string>` -
+  - Generates keys for every request in the `cacheName` store. This can be used to cache data based on request parameters or context parameters. Default is `c.req.url`.
