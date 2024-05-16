@@ -184,7 +184,9 @@ app.get('/', (c) => {
 
 Bun.serve({
   fetch(req, server) {
-    return app.fetch(req, { ip: server.requestIP(req) })
+    const untypedServer = server as unknown as any
+    untypedServer.ip = server.requestIP(req)
+    return app.fetch(req, untypedServer)
   }
 })
 ```
