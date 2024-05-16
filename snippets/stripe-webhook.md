@@ -30,10 +30,13 @@ The API that processes webhook events is publicly accessible.
 ```javascript
 import Stripe from 'stripe';
 import { Hono } from 'hono';
+import { env } from 'hono/adapter';
+
 const app = new Hono();
 
 app.post("/webhook", async (context) => {
-    const stripe = new Stripe(context.env.STRIPE_API_KEY);
+    const { STRIPE_SECRET_API_KEY } = env(context);
+    const stripe = new Stripe(STRIPE_SECRET_API_KEY);
     const event = await context.req.json();
     switch(event.type) {
         case "payment_intent.created": {
@@ -57,19 +60,18 @@ Learn more: https://docs.stripe.com/webhooks?lang=node#verify-official-libraries
 To perform signature verification with Stripe, the raw request body is needed.
 When using a framework, you need to ensure that the original body is not modified. If any changes are made to the raw request body, the verification will fail.
 
-Here, we introduce implementation methods for major hosting environments and frameworks.
-
-### Deploying to Cloudflare ( Workers / Pages )
-
-When processing Stripe webhook events on Cloudflare Workers or Cloudflare Pages functions, the raw request body can be obtained from `context.req.text()`.
+In the case of Hono, we can get the raw request body by the `context.req.text()` method. So we can create the webhook API like the following example:
 
 ```js
 import Stripe from 'stripe';
 import { Hono } from 'hono';
+import { env } from 'hono/adapter';
+
 const app = new Hono();
 
 app.post("/webhook", async (context) => {
-    const stripe = new Stripe(context.env.STRIPE_API_KEY);
+    const { STRIPE_SECRET_API_KEY, STRIPE_WEBHOOK_SECRET } = env(context);
+    const stripe = new Stripe(STRIPE_SECRET_API_KEY);
     const event = await context.req.json(); // [!code --]
     const signature = context.req.header('stripe-signature'); // [!code ++]
     try { // [!code ++]
@@ -80,9 +82,7 @@ app.post("/webhook", async (context) => {
         const event = await stripe.webhooks.constructEventAsync( // [!code ++]
             body, // [!code ++]
             signature, // [!code ++]
-            context.env.STRIPE_WEBHOOK_SECRET, // [!code ++]
-            undefined, // [!code ++]
-            Stripe.createSubtleCryptoProvider() // [!code ++]
+            STRIPE_WEBHOOK_SECRET // [!code ++]
         ); // [!code ++]
         switch(event.type) {
             case "payment_intent.created": {
@@ -103,47 +103,6 @@ app.post("/webhook", async (context) => {
 export default app;
 ```
 
-### Deploying as a Node.js Application  
-
-For Node.js applications, the raw request body can be obtained from `Buffer.from(await request.arrayBuffer())`.
-
-```js
-import Stripe from 'stripe';
-import { Hono } from 'hono';
-const app = new Hono();
-
-app.post("/webhook", async (context) => {
-    const stripe = new Stripe(context.env.STRIPE_API_KEY);
-    const event = await context.req.json(); // [!code --]
-    const signature = context.req.header('stripe-signature'); // [!code ++]
-    try { // [!code ++]
-        if (!signature) { // [!code ++]
-            return context.text("", 400); // [!code ++]
-        } // [!code ++]
-        const body = Buffer.from(await request.arrayBuffer()); // [!code ++]
-        const event = await stripe.webhooks.constructEventAsync( // [!code ++]
-            body, // [!code ++]
-            signature, // [!code ++]
-            context.env.STRIPE_WEBHOOK_SECRET // [!code ++]
-        ); // [!code ++]
-        switch(event.type) {
-            case "payment_intent.created": {
-                console.log(event.data.object)
-                break
-            }
-            default:
-                break
-        }
-        return context.text("", 200);
-      } catch (err) { // [!code ++]
-        const errorMessage = `⚠️  Webhook signature verification failed. ${err instanceof Error ? err.message : "Internal server error"}` // [!code ++]
-        console.log(errorMessage); // [!code ++]
-        return context.text(errorMessage, 400); // [!code ++]
-      } // [!code ++]
-})
-
-export default app;
-```
 
 ## Lear more
 
