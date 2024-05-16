@@ -63,27 +63,27 @@ Here, we introduce implementation methods for major hosting environments and fra
 
 When processing Stripe webhook events on Cloudflare Workers or Cloudflare Pages functions, the raw request body can be obtained from `context.req.text()`.
 
-```diff
+```js
 import Stripe from 'stripe';
 import { Hono } from 'hono';
 const app = new Hono();
 
 app.post("/webhook", async (context) => {
     const stripe = new Stripe(context.env.STRIPE_API_KEY);
--    const event = await context.req.json();
-+    const signature = context.req.header('stripe-signature');
-+    try {
-+        if (!signature) {
-+            return context.text("", 400);
-+        }
-+        const body = await context.req.text();
-+        const event = await stripe.webhooks.constructEventAsync(
-+            body,
-+            signature,
-+            context.env.STRIPE_WEBHOOK_SECRET,
-+            undefined,
-+            Stripe.createSubtleCryptoProvider()
-+        );
+    const event = await context.req.json(); // [!code --]
+    const signature = context.req.header('stripe-signature'); // [!code ++]
+    try { // [!code ++]
+        if (!signature) { // [!code ++]
+            return context.text("", 400); // [!code ++]
+        } // [!code ++]
+        const body = await context.req.text(); // [!code ++]
+        const event = await stripe.webhooks.constructEventAsync( // [!code ++]
+            body, // [!code ++]
+            signature, // [!code ++]
+            context.env.STRIPE_WEBHOOK_SECRET, // [!code ++]
+            undefined, // [!code ++]
+            Stripe.createSubtleCryptoProvider() // [!code ++]
+        ); // [!code ++]
         switch(event.type) {
             case "payment_intent.created": {
                 console.log(event.data.object)
@@ -93,11 +93,11 @@ app.post("/webhook", async (context) => {
                 break
         }
         return context.text("", 200);
-+      } catch (err) {
-+        const errorMessage = `⚠️  Webhook signature verification failed. ${err instanceof Error ? err.message : "Internal server error"}`
-+        console.log(errorMessage);
-+        return context.text(errorMessage, 400);
-+      }
+      } catch (err) { // [!code ++]
+        const errorMessage = `⚠️  Webhook signature verification failed. ${err instanceof Error ? err.message : "Internal server error"}` // [!code ++]
+        console.log(errorMessage); // [!code ++]
+        return context.text(errorMessage, 400); // [!code ++]
+      } // [!code ++]
 })
 
 export default app;
@@ -107,25 +107,25 @@ export default app;
 
 For Node.js applications, the raw request body can be obtained from `Buffer.from(await request.arrayBuffer())`.
 
-```diff
+```js
 import Stripe from 'stripe';
 import { Hono } from 'hono';
 const app = new Hono();
 
 app.post("/webhook", async (context) => {
     const stripe = new Stripe(context.env.STRIPE_API_KEY);
--    const event = await context.req.json();
-+    const signature = context.req.header('stripe-signature');
-+    try {
-+        if (!signature) {
-+            return context.text("", 400);
-+        }
-+        const body = Buffer.from(await request.arrayBuffer());
-+        const event = await stripe.webhooks.constructEventAsync(
-+            body,
-+            signature,
-+            context.env.STRIPE_WEBHOOK_SECRET
-+        );
+    const event = await context.req.json(); // [!code --]
+    const signature = context.req.header('stripe-signature'); // [!code ++]
+    try { // [!code ++]
+        if (!signature) { // [!code ++]
+            return context.text("", 400); // [!code ++]
+        } // [!code ++]
+        const body = Buffer.from(await request.arrayBuffer()); // [!code ++]
+        const event = await stripe.webhooks.constructEventAsync( // [!code ++]
+            body, // [!code ++]
+            signature, // [!code ++]
+            context.env.STRIPE_WEBHOOK_SECRET // [!code ++]
+        ); // [!code ++]
         switch(event.type) {
             case "payment_intent.created": {
                 console.log(event.data.object)
@@ -135,11 +135,11 @@ app.post("/webhook", async (context) => {
                 break
         }
         return context.text("", 200);
-+      } catch (err) {
-+        const errorMessage = `⚠️  Webhook signature verification failed. ${err instanceof Error ? err.message : "Internal server error"}`
-+        console.log(errorMessage);
-+        return context.text(errorMessage, 400);
-+      }
+      } catch (err) { // [!code ++]
+        const errorMessage = `⚠️  Webhook signature verification failed. ${err instanceof Error ? err.message : "Internal server error"}` // [!code ++]
+        console.log(errorMessage); // [!code ++]
+        return context.text(errorMessage, 400); // [!code ++]
+      } // [!code ++]
 })
 
 export default app;
