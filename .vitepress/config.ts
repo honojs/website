@@ -185,6 +185,10 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
         text: 'htmx',
         link: '/snippets/htmx',
       },
+      {
+        text: 'Stripe Webhook',
+        link: '/snippets/stripe-webhook'
+      }
     ],
   },
 ]
