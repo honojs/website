@@ -22,37 +22,9 @@ You can learn about the Stripe API keys by the following documents:
 - Secret Key: https://docs.stripe.com/keys
 - Webhook secret: https://docs.stripe.com/webhooks
 
-
 ## How to protect the API for Stripe Webhook events
 
-The API that processes webhook events is publicly accessible.
-
-```javascript
-import Stripe from 'stripe';
-import { Hono } from 'hono';
-import { env } from 'hono/adapter';
-
-const app = new Hono();
-
-app.post("/webhook", async (context) => {
-    const { STRIPE_SECRET_API_KEY } = env(context);
-    const stripe = new Stripe(STRIPE_SECRET_API_KEY);
-    const event = await context.req.json();
-    switch(event.type) {
-        case "payment_intent.created": {
-            console.log(event.data.object)
-            break
-        }
-        default:
-            break
-    }
-    return context.text("", 200);
-})
-
-export default app;
-```
-
-Therefore, a mechanism is needed to protect it from attacks such as malicious third parties spoofing Stripe's webhook event objects and sending requests. In Stripe's case, you can protect the API by issuing a webhook secret and verifying each request.
+The API that processes webhook events is publicly accessible.Therefore, a mechanism is needed to protect it from attacks such as malicious third parties spoofing Stripe's webhook event objects and sending requests. In Stripe's case, you can protect the API by issuing a webhook secret and verifying each request.
 
 Learn more: https://docs.stripe.com/webhooks?lang=node#verify-official-libraries  
 
@@ -62,7 +34,7 @@ When using a framework, you need to ensure that the original body is not modifie
 
 In the case of Hono, we can get the raw request body by the `context.req.text()` method. So we can create the webhook API like the following example:
 
-```js
+```ts
 import Stripe from 'stripe';
 import { Hono } from 'hono';
 import { env } from 'hono/adapter';
