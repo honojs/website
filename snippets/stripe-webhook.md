@@ -44,33 +44,33 @@ const app = new Hono();
 app.post("/webhook", async (context) => {
     const { STRIPE_SECRET_API_KEY, STRIPE_WEBHOOK_SECRET } = env(context);
     const stripe = new Stripe(STRIPE_SECRET_API_KEY);
-    const event = await context.req.json(); // [!code --]
-    const signature = context.req.header('stripe-signature'); // [!code ++]
-    try { // [!code ++]
-        if (!signature) { // [!code ++]
-            return context.text("", 400); // [!code ++]
-        } // [!code ++]
-        const body = await context.req.text(); // [!code ++]
-        const event = await stripe.webhooks.constructEventAsync( // [!code ++]
-            body, // [!code ++]
-            signature, // [!code ++]
-            STRIPE_WEBHOOK_SECRET // [!code ++]
-        ); // [!code ++]
+    const event = await context.req.json();
+    const signature = context.req.header('stripe-signature');
+    try {
+        if (!signature) {
+            return context.text("", 400);
+        }
+        const body = await context.req.text();
+        const event = await stripe.webhooks.constructEventAsync(
+            body,
+            signature,
+            STRIPE_WEBHOOK_SECRET
+        );
         switch(event.type) {
             case "payment_intent.created": {
-                console.log(event.data.object)
+                console.log(event.data.object);
                 break
             }
             default:
                 break
         }
         return context.text("", 200);
-      } catch (err) { // [!code ++]
-        const errorMessage = `⚠️  Webhook signature verification failed. ${err instanceof Error ? err.message : "Internal server error"}` // [!code ++]
-        console.log(errorMessage); // [!code ++]
-        return context.text(errorMessage, 400); // [!code ++]
-      } // [!code ++]
-})
+      } catch (err) {
+        const errorMessage = `⚠️  Webhook signature verification failed. ${err instanceof Error ? err.message : "Internal server error"}`;
+        console.log(errorMessage);
+        return context.text(errorMessage, 400);
+      }
+});
 
 export default app;
 ```
