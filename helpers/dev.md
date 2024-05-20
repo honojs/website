@@ -49,7 +49,9 @@ app.post('/posts', (c) => {
   // ...
 })
 
-showRoutes(app)
+showRoutes(app, {
+  verbose: true,
+})
 ```
 
 When this application starts running, the routes will be shown in your console as follows:
