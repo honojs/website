@@ -93,6 +93,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     items: [
       { text: 'Accepts', link: '/helpers/accepts' },
       { text: 'Adapter', link: '/helpers/adapter' },
+      { text: 'ConnInfo', link: '/helpers/conninfo' },
       { text: 'Cookie', link: '/helpers/cookie' },
       { text: 'css', link: '/helpers/css' },
       { text: 'Dev', link: '/helpers/dev' },
@@ -187,8 +188,8 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
       },
       {
         text: 'Stripe Webhook',
-        link: '/snippets/stripe-webhook'
-      }
+        link: '/snippets/stripe-webhook',
+      },
     ],
   },
 ]
