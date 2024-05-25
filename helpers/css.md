@@ -6,19 +6,10 @@ You can write CSS in JSX in a JavaScript template literal named `css`. The retur
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { css, cx, keyframes, Style } from 'hono/css'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { css, cx, keyframes, Style } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## `css` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
 

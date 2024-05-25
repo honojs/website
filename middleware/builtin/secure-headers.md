@@ -4,19 +4,10 @@ Secure Headers Middleware simplifies the setup of security headers. Inspired in 
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { secureHeaders } from 'hono/secure-headers'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { secureHeaders } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 
@@ -152,6 +143,12 @@ You can add a [`nonce` attribute](https://developer.mozilla.org/en-US/docs/Web/H
 
 ```tsx
 import { secureHeaders, NONCE } from 'hono/secure-headers'
+import type { SecureHeadersVariables } from 'hono/secure-headers'
+
+// Specify the variable types to infer the `c.get('secureHeadersNonce')`:
+type Variables = SecureHeadersVariables
+
+const app = new Hono<{ Variables: Variables }>()
 
 // Set the pre-defined nonce value to `scriptSrc`:
 app.get(

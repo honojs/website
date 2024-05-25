@@ -11,19 +11,10 @@ curl -H 'Authorization: Bearer honoiscool' http://localhost:8787/auth/page
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { bearerAuth } from 'hono/bearer-auth'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { bearerAuth } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 
