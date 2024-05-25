@@ -17,6 +17,16 @@ const redirects: {
     pattern: /^\/((api|concepts|getting-started|guides|helpers|middleware).*)/,
     to: '/docs/$1',
   },
+  {
+    description: '/top has been moved to /docs/',
+    pattern: /^\/top/,
+    to: '/docs/',
+  },
+  {
+    description: '/snippets/top has been moved to /snippets/',
+    pattern: /^\/snippets\/top/,
+    to: '/snippets/',
+  },
 ]
 
 const redirectChangedPath = (currentPath: string) => {
