@@ -124,6 +124,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Method Override', link: '/middleware/builtin/method-override' },
       { text: 'Pretty JSON', link: '/middleware/builtin/pretty-json' },
       { text: 'Secure Headers', link: '/middleware/builtin/secure-headers' },
+      { text: 'Timeout', link: '/middleware/builtin/timeout' },
       { text: 'Timing', link: '/middleware/builtin/timing' },
       { text: 'Trailing Slash', link: '/middleware/builtin/trailing-slash' },
       { text: '3rd-party Middleware', link: '/middleware/third-party' },
