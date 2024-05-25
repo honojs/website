@@ -160,7 +160,7 @@ export default {
 ## Serve static files
 
 ::: warning
-This "Serve static files" feature for Cloudflare Workers has been deprecated. If you want to create an application that serves static assets files, use [Cloudflare Pages](/getting-started/cloudflare-pages) instead of Cloudflare Workers.
+This "Serve static files" feature for Cloudflare Workers has been deprecated. If you want to create an application that serves static assets files, use [Cloudflare Pages](/docs/getting-started/cloudflare-pages) instead of Cloudflare Workers.
 :::
 
 You need to set it up to serve static files.

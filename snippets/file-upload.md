@@ -17,4 +17,4 @@ app.post('/upload', async (c) => {
 
 ## References
 
-- [API - HonoRequest - parseBody](/api/request#parsebody)
+- [API - HonoRequest - parseBody](/docs/api/request#parsebody)
