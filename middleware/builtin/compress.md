@@ -10,19 +10,10 @@ This middleware compresses the response body, according to `Accept-Encoding` req
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { compress } from 'hono/compress'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { compress } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 

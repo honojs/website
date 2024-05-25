@@ -8,19 +8,10 @@ Old browsers that do not send `Origin` headers, or environments that use reverse
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { csrf } from 'hono/csrf'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { csrf } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 

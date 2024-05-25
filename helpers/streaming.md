@@ -4,19 +4,10 @@ The Streaming Helper provides methods for streaming responses.
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { stream, streamText, streamSSE } from 'hono/streaming'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { stream, streamText, streamSSE } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## `stream()`
 
@@ -84,19 +75,23 @@ This argument is optional, if you don't specify it, the error will be output as 
 
 ```ts
 app.get('/stream', (c) => {
-  return stream(c, async (stream) => {
-    // Write a process to be executed when aborted.
-    stream.onAbort(() => {
-      console.log('Aborted!')
-    })
-    // Write a Uint8Array.
-    await stream.write(new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f]))
-    // Pipe a readable stream.
-    await stream.pipe(anotherReadableStream)
-  }, (err, stream) => {
-    stream.writeln('An error occurred!')
-    console.error(err)
-  })
+  return stream(
+    c,
+    async (stream) => {
+      // Write a process to be executed when aborted.
+      stream.onAbort(() => {
+        console.log('Aborted!')
+      })
+      // Write a Uint8Array.
+      await stream.write(new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f]))
+      // Pipe a readable stream.
+      await stream.pipe(anotherReadableStream)
+    },
+    (err, stream) => {
+      stream.writeln('An error occurred!')
+      console.error(err)
+    }
+  )
 })
 ```
 

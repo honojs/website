@@ -92,7 +92,7 @@ If you want to use SSG on Deno or Bun, a `toSSG` function is provided for each f
 For Deno:
 
 ```ts
-import { toSSG } from 'https://deno.land/x/hono/helper.ts'
+import { toSSG } from 'hono/deno'
 
 toSSG(app) // The second argument is an option typed `ToSSGOptions`.
 ```

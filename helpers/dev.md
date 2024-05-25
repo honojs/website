@@ -2,19 +2,10 @@
 
 Dev Helper provides useful methods you can use in development.
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { getRouterName, showRoutes } from 'hono/dev'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { getRouterName, showRoutes } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## `getRouterName()`
 
