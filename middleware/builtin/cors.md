@@ -5,8 +5,6 @@ For them we have to implement CORS, let's do this with middleware as well.
 
 ## Import
 
-::: code-group
-
 ```ts
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
