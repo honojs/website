@@ -9,23 +9,23 @@ Starter templates are available for each platform. Use the following "create-hon
 ::: code-group
 
 ```sh [npm]
-npm create hono@latest my-app
+npm create hono@latest
 ```
 
 ```sh [yarn]
-yarn create hono my-app
+yarn create hono
 ```
 
 ```sh [pnpm]
-pnpm create hono my-app
+pnpm create hono@latest
 ```
 
 ```sh [bun]
-bunx create-hono my-app
+bun create hono@latest
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono my-app
+deno run -A npm:create-hono@latest
 ```
 
 :::
