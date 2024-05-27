@@ -44,7 +44,6 @@ const app = new Hono();
 app.post("/webhook", async (context) => {
     const { STRIPE_SECRET_API_KEY, STRIPE_WEBHOOK_SECRET } = env(context);
     const stripe = new Stripe(STRIPE_SECRET_API_KEY);
-    const event = await context.req.json();
     const signature = context.req.header('stripe-signature');
     try {
         if (!signature) {
