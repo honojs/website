@@ -34,15 +34,15 @@ yarn create hono
 ```
 
 ```sh [pnpm]
-pnpm create hono
+pnpm create hono@latest
 ```
 
 ```sh [bun]
-bunx create-hono
+bun create hono@latest
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono
+deno run -A npm:create-hono@latest
 ```
 
 :::

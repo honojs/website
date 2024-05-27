@@ -17,15 +17,15 @@ yarn create hono my-app
 ```
 
 ```sh [pnpm]
-pnpm create hono my-app
+pnpm create hono@latest my-app
 ```
 
 ```sh [bun]
-bunx create-hono my-app
+bun create hono@latest my-app
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono my-app
+deno run -A npm:create-hono@latest my-app
 ```
 
 :::
