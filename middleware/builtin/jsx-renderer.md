@@ -4,19 +4,10 @@ JSX Renderer Middleware allows you to set up the layout when rendering JSX with 
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { jsxRenderer, useRequestContext } from 'hono/jsx-renderer'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { jsxRenderer, useRequestContext } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 

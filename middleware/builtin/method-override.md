@@ -4,19 +4,10 @@ This middleware executes the handler of the specified method, which is different
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { methodOverride } from 'hono/method-override'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { methodOverride } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 

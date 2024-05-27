@@ -4,25 +4,10 @@ The Cookie Helper provides an easy interface to manage cookies, enabling develop
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { getCookie, getSignedCookie, setCookie, setSignedCookie, deleteCookie } from 'hono/cookie'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import {
-  getCookie,
-  getSignedCookie,
-  setCookie,
-  setSignedCookie,
-  deleteCookie,
-} from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## Usage
 

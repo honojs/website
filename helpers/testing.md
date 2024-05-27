@@ -4,14 +4,10 @@ The Testing Helper provides functions to make testing of Hono applications easie
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { testClient } from 'hono/testing'
 ```
-
-:::
 
 ## `testClient()`
 

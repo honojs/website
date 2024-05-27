@@ -6,19 +6,10 @@ This middleware handles Trailing Slash in the URL on a GET request.
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { appendTrailingSlash, trimTrailingSlash } from 'hono/trailing-slash'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { appendTrailingSlash, trimTrailingSlash } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 

@@ -5,24 +5,19 @@ The JWT Auth Middleware provides authentication by verifying the token with JWT.
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { jwt } from 'hono/jwt'
+import type { JwtVariables } from 'hono/jwt'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { jwt } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 
-```js
-const app = new Hono()
+```ts
+// Specify the variable types to infer the `c.get('jwtPayload')`:
+type Variables = JwtVariables
+
+const app = new Hono<{ Variables: Variables }>()
 
 app.use(
   '/auth/*',
@@ -38,7 +33,7 @@ app.get('/auth/page', (c) => {
 
 Get payload:
 
-```js
+```ts
 const app = new Hono()
 
 app.use(

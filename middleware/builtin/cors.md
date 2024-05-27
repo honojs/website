@@ -7,17 +7,10 @@ For them we have to implement CORS, let's do this with middleware as well.
 
 ::: code-group
 
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { cors } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 

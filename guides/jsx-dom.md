@@ -70,6 +70,7 @@ hono/jsx/dom has Hooks that are compatible or partially compatible with React. Y
 - `forwardRef()`
 - `useImperativeHandle()`
 - `useSyncExternalStore()`
+- `useInsertionEffect()`
 
 ## `startViewTransition()` family
 

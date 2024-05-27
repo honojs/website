@@ -10,19 +10,10 @@ See [Usage](#usage) below for instructions on each platform.
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { cache } from 'hono/cache'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { cache } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 
