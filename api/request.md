@@ -128,7 +128,7 @@ const body = await c.req.parseBody({ dot: true })
 
 ## json()
 
-Parse Request body of type `application/json`
+Parses the request body of type `application/json`
 
 ```ts
 app.post('/entry', async (c) => {
@@ -139,7 +139,7 @@ app.post('/entry', async (c) => {
 
 ## text()
 
-Parse Request body of type `text/plain`
+Parses the request body of type `text/plain`
 
 ```ts
 app.post('/entry', async (c) => {
@@ -150,11 +150,33 @@ app.post('/entry', async (c) => {
 
 ## arrayBuffer()
 
-Parse Request body as an `ArrayBuffer`
+Parses the request body as an `ArrayBuffer`
 
 ```ts
 app.post('/entry', async (c) => {
   const body = await c.req.arrayBuffer()
+  ...
+})
+```
+
+## blob()
+
+Parses the request body as a `Blob`.
+
+```ts
+app.post('/entry', async (c) => {
+  const body = await c.req.blob()
+  ...
+})
+```
+
+## formData()
+
+Parses the request body as a `FormData`.
+
+```ts
+app.post('/entry', async (c) => {
+  const body = await c.req.formData()
   ...
 })
 ```
