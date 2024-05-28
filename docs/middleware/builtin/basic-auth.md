@@ -7,19 +7,10 @@ For more information about how the Basic auth scheme works under the hood, see t
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { basicAuth } from 'hono/basic-auth'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { basicAuth } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 

@@ -93,6 +93,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     items: [
       { text: 'Accepts', link: '/docs/helpers/accepts' },
       { text: 'Adapter', link: '/docs/helpers/adapter' },
+      { text: 'ConnInfo', link: '/docs/helpers/conninfo' },
       { text: 'Cookie', link: '/docs/helpers/cookie' },
       { text: 'css', link: '/docs/helpers/css' },
       { text: 'Dev', link: '/docs/helpers/dev' },
@@ -123,6 +124,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Method Override', link: '/docs/middleware/builtin/method-override' },
       { text: 'Pretty JSON', link: '/docs/middleware/builtin/pretty-json' },
       { text: 'Secure Headers', link: '/docs/middleware/builtin/secure-headers' },
+      { text: 'Timeout', link: '/docs/middleware/builtin/timeout' },
       { text: 'Timing', link: '/docs/middleware/builtin/timing' },
       { text: 'Trailing Slash', link: '/docs/middleware/builtin/trailing-slash' },
       { text: '3rd-party Middleware', link: '/docs/middleware/third-party' },
@@ -187,8 +189,8 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
       },
       {
         text: 'Stripe Webhook',
-        link: '/snippets/stripe-webhook'
-      }
+        link: '/snippets/stripe-webhook',
+      },
     ],
   },
 ]

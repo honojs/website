@@ -26,19 +26,16 @@ Alternatively, use the pragma directives:
 /** @jsxImportSource hono/jsx */
 ```
 
-For Deno, you have to add the pragmas and import `jsx` and `Fragment`:
+For Deno, you have to modify the `deno.json` instead of the `tsconfig.json`:
 
-::: code-group
-
-```ts [Deno]
-/** @jsx jsx */
-/** @jsxFrag Fragment */
-
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { jsx, Fragment } from 'https://deno.land/x/hono/middleware.ts'
+```json
+{
+  "compilerOptions": {
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx"
+  }
+}
 ```
-
-:::
 
 ## Usage
 
@@ -82,19 +79,9 @@ export default app
 
 Use Fragment to group multiple elements without adding extra nodes:
 
-::: code-group
-
-```ts [npm]
-import { Fragment } from 'hono/jsx'
-```
-
-```ts [Deno]
-import { Fragment } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
-
 ```tsx
+import { Fragment } from 'hono/jsx'
+
 const List = () => (
   <Fragment>
     <p>first child</p>
@@ -152,18 +139,6 @@ app.get('/foo', (c) => {
 ## Memoization
 
 Optimize your components by memoizing computed strings using `memo`:
-
-::: code-group
-
-```ts [npm]
-import { memo } from 'hono/jsx'
-```
-
-```ts [Deno]
-import { memo } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ```tsx
 import { memo } from 'hono/jsx'
@@ -376,22 +351,6 @@ export default app
 ## With JSX Renderer Middleware
 
 The [JSX Renderer Middleware](/docs/middleware/builtin/jsx-renderer) allows you to create HTML pages more easily with the JSX.
-
-## Pre-Compile
-
-`hono/jsx` supports [the `precompile` feature for Deno](https://deno.com/blog/v1.38#fastest-jsx-transform). To enable it, write `deno.json` as follows.
-
-```json
-{
-  "compilerOptions": {
-    "jsx": "precompile",
-    "jsxImportSource": "hono/jsx"
-  },
-  "imports": {
-    "hono/jsx/jsx-runtime": "https://deno.land/x/hono@v3.10.0/jsx/jsx-runtime.ts"
-  }
-}
-```
 
 ## Override type definitions
 

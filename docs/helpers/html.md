@@ -4,19 +4,10 @@ The html Helper lets you write HTML in JavaScript template literal with a tag na
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { html, raw } from 'hono/html'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { html, raw } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## `html`
 

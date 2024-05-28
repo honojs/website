@@ -4,19 +4,10 @@ The Adapter Helper provides a seamless way to interact with various platforms th
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { env, getRuntimeKey } from 'hono/adapter'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { env, getRuntimeKey } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## `env()`
 
@@ -36,19 +27,19 @@ app.get('/env', (c) => {
 Supported Runtimes, Serverless Platforms and Cloud Services:
 
 - Cloudflare Workers
-  -  `wrangler.toml`
+  - `wrangler.toml`
 - Deno
-  -  [`Deno.env`](https://docs.deno.com/runtime/manual/basics/env_variables)
-  -  `.env` file
+  - [`Deno.env`](https://docs.deno.com/runtime/manual/basics/env_variables)
+  - `.env` file
 - Bun
-  -  [`Bun.env`](https://bun.sh/guides/runtime/set-env)
-  -  `process.env`
+  - [`Bun.env`](https://bun.sh/guides/runtime/set-env)
+  - `process.env`
 - Node.js
-  -  `process.env`
+  - `process.env`
 - Vercel
-  -  [Environment Variables on Vercel](https://vercel.com/docs/projects/environment-variables)
+  - [Environment Variables on Vercel](https://vercel.com/docs/projects/environment-variables)
 - AWS Lambda
-  -  [Environment Variables on AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/samples-blank.html#samples-blank-architecture)
+  - [Environment Variables on AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/samples-blank.html#samples-blank-architecture)
 - Lambda@Edge\
   Environment Variables on Lambda are [not supported](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/add-origin-custom-headers.html) by Lambda@Edge, you need to use [Lamdba@Edge event](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html) as an alternative.
 - Fastly Compute\

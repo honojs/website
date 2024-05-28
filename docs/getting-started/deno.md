@@ -32,13 +32,13 @@ cd my-app
 Write your first application.
 
 ```ts
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
+import { Hono } from 'hono'
 
 const app = new Hono()
 
 app.get('/', (c) => c.text('Hello Deno!'))
 
-Deno.serve(app.fetch)
+export default app
 ```
 
 ## 4. Run
@@ -51,10 +51,15 @@ deno task start
 
 ## Change port number
 
-You can specify the port number with the `port` option.
+You can specify the port number by updating the `deno.json``:
 
-```ts
-Deno.serve({ port: 8787 }, app.fetch)
+```json
+{
+  "tasks": {
+    "start": "deno serve main.ts"  // [!code --]
+    "start": "deno serve --port 8787 main.ts"  // [!code ++]
+  }
+}
 ```
 
 ## Serve static files
@@ -62,8 +67,8 @@ Deno.serve({ port: 8787 }, app.fetch)
 To server static files, use `serveStatic` imported from `hono/middleware.ts`.
 
 ```ts
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { serveStatic } from 'https://deno.land/x/hono/middleware.ts'
+import { Hono } from 'hono'
+import { serveStatic } from 'hono/deno'
 
 const app = new Hono()
 
@@ -72,7 +77,7 @@ app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 app.get('/', (c) => c.text('You can access: /static/hello.txt'))
 app.get('*', serveStatic({ path: './static/fallback.txt' }))
 
-Deno.serve(app.fetch)
+export default app
 ```
 
 For the above code, it will work well with the following directory structure.
@@ -115,7 +120,7 @@ app.get(
     mimes: {
       m3u8: 'application/vnd.apple.mpegurl',
       ts: 'video/mp2t',
-    }
+    },
   })
 )
 ```
@@ -148,7 +153,7 @@ Testing the application on Deno is easy.
 You can write with `Deno.test` and use `assert` or `assertEquals` from the standard library.
 
 ```ts
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
+import { Hono } from 'hono'
 import { assertEquals } from 'https://deno.land/std/assert/mod.ts'
 
 Deno.test('Hello World', async () => {
@@ -166,39 +171,29 @@ Then run the command:
 deno test hello.ts
 ```
 
-## JSX Pragma
-
-Hono on Deno also supports JSX middleware.
-When you use it, write JSX Pragma on the top to specify the JSX function.
-
-```tsx
-/** @jsx jsx */
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { jsx } from 'https://deno.land/x/hono/middleware.ts'
-
-const app = new Hono()
-
-app.get('/', (c) => {
-  return c.html(<h1>Hello Deno!</h1>)
-})
-
-Deno.serve(app.fetch)
-```
-
 ## `npm:` specifier
 
-`npm:hono` is also available.
+`npm:hono` is also available. You can use it by fixing the `deno.json`:
 
-```ts
-import { Hono } from 'npm:hono'
+```json
+{
+  "imports": {
+    "hono": "jsr:@hono/hono" // [!code --]
+    "hono": "npm:hono" // [!code ++]
+  }
+}
 ```
 
-You can use either `npm:hono` or `deno.land/x/hono`.
+You can use either `npm:hono` or `jsr:@hono/hono`.
 
-If you want to use Third-party Middleware, you need to use the `npm:` specifier, such as `npm:@hono/zod-validator`, and you should avoid using both `npm:` and `deno.land/x/hono` together.
+If you want to use Third-party Middleware such as `npm:@hono/zod-validator` with the TypeScript Type inferences, you need to use the `npm:` specifier.
 
-~~However, `npm:hono` doesn't work on Deno Deploy. So, if you want to deploy to Deno Deploy, use `deno.land/x/hono`.~~
-
-As of September 6, 2023, Deno announced [native npm support on Deno Deploy](https://deno.com/blog/npm-on-deno-deploy). However, it has not been tested yet on the `hono` and `@hono` packages.
-
-If you experience any problems, or want to run test, please open an issue/pr to the respective library.
+```json
+{
+  "imports": {
+    "hono": "npm:hono",
+    "zod": "npm:zod",
+    "@hono/zod-validator": "npm:@hono/zod-validator"
+  }
+}
+```

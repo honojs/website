@@ -22,19 +22,10 @@ will be:
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { prettyJSON } from 'hono/pretty-json'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { prettyJSON } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 

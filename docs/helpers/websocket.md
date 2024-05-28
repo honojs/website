@@ -13,8 +13,8 @@ import { upgradeWebSocket } from 'hono/cloudflare-workers'
 ```
 
 ```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { upgradeWebSocket } from 'https://deno.land/x/hono/helper.ts'
+import { Hono } from 'hono'
+import { upgradeWebSocket } from 'hono/deno'
 ```
 
 ```ts [Bun]

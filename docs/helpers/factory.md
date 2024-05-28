@@ -4,19 +4,10 @@ The Factory Helper provides useful functions for creating Hono's components such
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { createFactory, createMiddleware } from 'hono/factory'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { createFactory, createMiddleware } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## `createFactory()`
 
