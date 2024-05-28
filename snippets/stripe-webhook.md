@@ -75,7 +75,7 @@ export default app;
 ```
 
 
-## Lear more
+## Learn more
 
 - Details on Stripe Webhooks:
 https://docs.stripe.com/webhooks
