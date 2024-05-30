@@ -109,7 +109,7 @@ body['foo']
 
 ### Dot notation
 
-If you setg the `dot` option `true`, the return value is structured based on the dot notation.
+If you set the `dot` option `true`, the return value is structured based on the dot notation.
 
 Imagine receiving the following data:
 
