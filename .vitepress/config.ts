@@ -232,6 +232,7 @@ export default defineConfig({
         'Copyright © 2022-present Yusuke Wada & Hono contributors. "kawaii" logo is created by SAWARATSUKI.',
     },
     nav: [
+      { text: 'API', link: '/api' },
       { text: 'Docs', link: '/top' },
       { text: 'Snippets', link: '/snippets/top' },
       { text: 'Examples', link: 'https://github.com/honojs/examples' },
