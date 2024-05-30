@@ -203,6 +203,15 @@ app.get('/static/*', serveStatic({ root: './', manifest }))
 app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
+TypeScript cannot resolve the special __STATIC_CONTENT_MANIFEST variable used to import the manifest. This variable is specific to Cloudflare Workers' environment and isn't recognized by TypeScript out of the box.
+You can tell TypeScript about this special module by declaring it in a type definition file. Create a new .d.ts file in your project, such as custom.d.ts, and add the following declaration:
+```ts
+declare module '__STATIC_CONTENT_MANIFEST' {
+  const manifest: { [key: string]: string };
+  export default manifest;
+}
+```
+
 See [Example](https://github.com/honojs/examples/tree/main/serve-static).
 
 ### `rewriteRequestPath`
