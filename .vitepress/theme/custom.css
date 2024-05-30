@@ -97,7 +97,7 @@
  * Component: Code
  * -------------------------------------------------------------------------- */
 :root {
-  --vp-code-block-color: var(--vp-c-text-dark-1);
+  --vp-code-block-color: var(--vp-c-text-1);
   --vp-code-block-bg: rgb(246, 248, 250);
 
   --vp-code-tab-divider: var(--vp-c-text-light-3);
@@ -165,6 +165,10 @@
   font-weight: 700 !important;
 }
 
+.tagline {
+  max-width: 500px !important;
+}
+
 .DocSearch-Button {
   background-color: var(--vp-c-bg-soft);
 }
@@ -178,7 +182,7 @@ body {
 }
 
 @media screen and (max-width: 960px) {
-  .VPHero.has-image .image {
+  .VPHero.has-image .image:not(:has(.kawaii)) {
     display: none;
   }
 }

@@ -8,72 +8,47 @@ Edge Functions support writing in Deno and TypeScript, and deployment is made ea
 
 A starter for Netlify is available.
 Start your project with "create-hono" command.
+Select `netlify` template for this example.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono my-app
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono my-app
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono my-app
 ```
 
 :::
 
-Move into `my-app` and install the dependencies.
-
-::: code-group
-
-```txt [npm]
-cd my-app
-npm i
-```
-
-```txt [yarn]
-cd my-app
-yarn
-```
-
-```txt [pnpm]
-cd my-app
-pnpm i
-```
-
-```txt [bun]
-cd my-app
-bun i
-```
-
-:::
+Move into `my-app`.
 
 ## 2. Hello World
 
 Edit `netlify/edge-functions/index.ts`:
 
 ```ts
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { handle } from 'https://deno.land/x/hono/adapter/netlify/mod.ts'
+import { Hono } from 'jsr:@hono/hono'
+import { handle } from 'jsr:@hono/hono/netlify'
 
 const app = new Hono()
 
-app.get('/country', (c) =>
-  c.json({
-    message: 'Hello Netlify!',
-  })
-)
+app.get('/', (c) => {
+  return c.text('Hello Hono!')
+})
 
 export default handle(app)
 ```
@@ -82,7 +57,7 @@ export default handle(app)
 
 Run the development server with Netlify CLI. Then, access `http://localhost:8888` in your Web browser.
 
-```
+```sh
 netlify dev
 ```
 
@@ -90,7 +65,7 @@ netlify dev
 
 You can deploy with a `netlify deploy` command.
 
-```
+```sh
 netlify deploy --prod
 ```
 
@@ -99,16 +74,21 @@ netlify deploy --prod
 You can access the Netlify's `Context` through `c.env`:
 
 ```ts
-// netlify/edge-functions/index.ts
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { prettyJSON } from 'https://deno.land/x/hono/middleware.ts'
+import { Hono } from 'jsr:@hono/hono'
+import { handle } from 'jsr:@hono/hono/netlify'
 
-import { handle } from 'https://deno.land/x/hono/adapter/netlify/mod.ts'
-import type { Env } from 'https://deno.land/x/hono/adapter/netlify/mod.ts'
+// Import the type definition
+import type { Context } from 'https://edge.netlify.com/'
+
+export type Env = {
+  Bindings: {
+    context: Context
+  }
+}
 
 const app = new Hono<Env>()
 
-app.get('/country', prettyJSON(), (c) =>
+app.get('/country', (c) =>
   c.json({
     'You are in': c.env.context.geo.country?.name,
   })

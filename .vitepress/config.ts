@@ -29,9 +29,9 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Netlify', link: '/getting-started/netlify' },
       { text: 'AWS Lambda', link: '/getting-started/aws-lambda' },
       { text: 'Lambda@Edge', link: '/getting-started/lambda-edge' },
+      { text: 'Azure Functions', link: '/getting-started/azure-functions' },
       { text: 'Supabase Functions', link: '/getting-started/supabase-functions' },
       { text: 'Node.js', link: '/getting-started/nodejs' },
-      { text: 'Others', link: '/getting-started/others' },
     ],
   },
   {
@@ -93,6 +93,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     items: [
       { text: 'Accepts', link: '/helpers/accepts' },
       { text: 'Adapter', link: '/helpers/adapter' },
+      { text: 'ConnInfo', link: '/helpers/conninfo' },
       { text: 'Cookie', link: '/helpers/cookie' },
       { text: 'css', link: '/helpers/css' },
       { text: 'Dev', link: '/helpers/dev' },
@@ -102,6 +103,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'SSG', link: '/helpers/ssg' },
       { text: 'Streaming', link: '/helpers/streaming' },
       { text: 'Testing', link: '/helpers/testing' },
+      { text: 'WebSocket', link: '/helpers/websocket' },
     ],
   },
   {
@@ -110,6 +112,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     items: [
       { text: 'Basic Authentication', link: '/middleware/builtin/basic-auth' },
       { text: 'Bearer Authentication', link: '/middleware/builtin/bearer-auth' },
+      { text: 'Body Limit', link: '/middleware/builtin/body-limit' },
       { text: 'Cache', link: '/middleware/builtin/cache' },
       { text: 'Compress', link: '/middleware/builtin/compress' },
       { text: 'CORS', link: '/middleware/builtin/cors' },
@@ -117,10 +120,13 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'ETag', link: '/middleware/builtin/etag' },
       { text: 'JSX Renderer', link: '/middleware/builtin/jsx-renderer' },
       { text: 'JWT', link: '/middleware/builtin/jwt' },
-      { text: 'Timing', link: '/middleware/builtin/timing' },
       { text: 'Logger', link: '/middleware/builtin/logger' },
+      { text: 'Method Override', link: '/middleware/builtin/method-override' },
       { text: 'Pretty JSON', link: '/middleware/builtin/pretty-json' },
       { text: 'Secure Headers', link: '/middleware/builtin/secure-headers' },
+      { text: 'Timeout', link: '/middleware/builtin/timeout' },
+      { text: 'Timing', link: '/middleware/builtin/timing' },
+      { text: 'Trailing Slash', link: '/middleware/builtin/trailing-slash' },
       { text: '3rd-party Middleware', link: '/middleware/third-party' },
     ],
   },
@@ -181,6 +187,10 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
         text: 'htmx',
         link: '/snippets/htmx',
       },
+      {
+        text: 'Stripe Webhook',
+        link: '/snippets/stripe-webhook',
+      },
     ],
   },
 ]
@@ -218,7 +228,8 @@ export default defineConfig({
     },
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2022-present Yusuke Wada & Hono contributors',
+      copyright:
+        'Copyright © 2022-present Yusuke Wada & Hono contributors. "kawaii" logo is created by SAWARATSUKI.',
     },
     nav: [
       { text: 'Docs', link: '/top' },

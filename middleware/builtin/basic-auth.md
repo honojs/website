@@ -7,19 +7,10 @@ For more information about how the Basic auth scheme works under the hood, see t
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { basicAuth } from 'hono/basic-auth'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { basicAuth } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 
@@ -53,12 +44,28 @@ app.delete('/auth/page', basicAuth({ username: 'hono', password: 'acoolproject' 
 })
 ```
 
+If you want to verify the user by yourself, specify the `verifyUser` option; returning `true` means it is accepted.
+
+```ts
+const app = new Hono()
+
+app.use(
+  basicAuth({
+    verifyUser: (username, password, c) => {
+      return username === 'dynamic-user' && password === 'hono-password'
+    },
+  })
+)
+```
+
 ## Options
 
 - `username`: string - _required_
   - The username of the user who is authenticating
 - `password`: string - _required_
   - The password value for the provided username to authenticate against
+- `verifyUser`: `(username: string, password: string, c: Context) => boolean | Promise<boolean>`
+  - The function to verify the user
 - `realm`: string
   - The domain name of the realm, as part of the returned WWW-Authenticate challenge header. Default is `"Secure Area"`
   - See: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives>

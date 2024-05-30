@@ -35,6 +35,7 @@ import { sign } from 'hono/jwt'
 const payload = {
   sub: 'user123',
   role: 'admin',
+  exp: Math.floor(Date.now() / 1000) + 60 * 5, // Token expires in 5 minutes
 }
 const secret = 'mySecretKey'
 const token = await sign(payload, secret)
@@ -43,7 +44,7 @@ const token = await sign(payload, secret)
 ### Options
 
 - `payload`: unknown - required
-  - The JWT payload to be signed.
+  - The JWT payload to be signed. You can include other claims like in [Payload Validation](#payload-validation).
 - `secret`: string - required
   - The secret key used for JWT verification or signing.
 - `alg`: [AlgorithmTypes](#supported-algorithmtypes)
@@ -141,3 +142,13 @@ The module supports the following JWT cryptographic algorithms:
 - `HS256`: HMAC using SHA-256
 - `HS384`: HMAC using SHA-384
 - `HS512`: HMAC using SHA-512
+- `RS256`: RSASSA-PKCS1-v1_5 using SHA-256
+- `RS384`: RSASSA-PKCS1-v1_5 using SHA-384
+- `RS512`: RSASSA-PKCS1-v1_5 using SHA-512
+- `PS256`: RSASSA-PSS using SHA-256 and MGF1 with SHA-256
+- `PS384`: RSASSA-PSS using SHA-386 and MGF1 with SHA-386
+- `PS512`: RSASSA-PSS using SHA-512 and MGF1 with SHA-512
+- `ES256`: ECDSA using P-256 and SHA-256
+- `ES384`: ECDSA using P-384 and SHA-384
+- `ES512`: ECDSA using P-521 and SHA-512
+- `EdDSA`: EdDSA using Ed25519

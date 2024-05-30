@@ -11,26 +11,27 @@ Let’s make your first application for Cloudflare Workers with Hono.
 
 A starter for Cloudflare Workers is available.
 Start your project with "create-hono" command.
+Select `cloudflare-workers` template for this example.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono my-app
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono my-app
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono my-app
 ```
 
@@ -40,22 +41,22 @@ Move to `my-app` and install the dependencies.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 cd my-app
 npm i
 ```
 
-```txt [yarn]
+```sh [yarn]
 cd my-app
 yarn
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 cd my-app
 pnpm i
 ```
 
-```txt [bun]
+```sh [bun]
 cd my-app
 bun i
 ```
@@ -81,19 +82,19 @@ Run the development server locally. Then, access `http://localhost:8787` in your
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run dev
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn dev
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm dev
 ```
 
-```txt [bun]
+```sh [bun]
 bun run dev
 ```
 
@@ -105,19 +106,19 @@ If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run deploy
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn deploy
 ```
 
-```txt [pnpm]
-pnpm deploy
+```sh [pnpm]
+pnpm run deploy
 ```
 
-```txt [bun]
+```sh [bun]
 bun run deploy
 ```
 
@@ -143,7 +144,7 @@ But now, we recommend using Module Worker mode because such as that the binding 
 
 ## Using Hono with other event handlers
 
-You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_. 
+You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_.
 
 To do this, export `app.fetch` as the module's `fetch` handler, and then implement other handlers as needed:
 
@@ -152,11 +153,15 @@ const app = new Hono()
 
 export default {
   fetch: app.fetch,
-  scheduled: async (batch, env) => {}
+  scheduled: async (batch, env) => {},
 }
 ```
 
 ## Serve static files
+
+::: warning
+This "Serve static files" feature for Cloudflare Workers has been deprecated. If you want to create an application that serves static assets files, use [Cloudflare Pages](/getting-started/cloudflare-pages) instead of Cloudflare Workers.
+:::
 
 You need to set it up to serve static files.
 Static files are distributed by using Workers Sites.
@@ -232,7 +237,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `notFoundOption`:
+You can specify handling when the requested file is not found with `onNotFound`:
 
 ```ts
 app.get(
@@ -251,19 +256,19 @@ You have to install `@cloudflare/workers-types` if you want to have workers type
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm i --save-dev @cloudflare/workers-types
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn add -D @cloudflare/workers-types
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm add -D @cloudflare/workers-types
 ```
 
-```txt [bun]
+```sh [bun]
 bun add --dev @cloudflare/workers-types
 ```
 
@@ -323,6 +328,13 @@ If you want to use Variables or Secret Variables in Middleware, for example, "us
 ```ts
 import { basicAuth } from 'hono/basic-auth'
 
+type Bindings = {
+  USERNAME: string
+  PASSWORD: string
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
 //...
 
 app.use('/auth/*', async (c, next) => {
@@ -335,3 +347,76 @@ app.use('/auth/*', async (c, next) => {
 ```
 
 The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.
+
+## Deploy from Github Action
+
+Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
+
+If it's a newly created token, select the **Edit Cloudflare Workers** template, if you have already another token, make sure the token has the corresponding permissions(No, token permissions are not shared between cloudflare page and cloudflare worker).
+
+then go to your Github repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
+
+then create `.github/workflows/deploy.yml` in your hono project root foler,paste the following code:
+
+```yml
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+```
+
+then edit `wrangler.toml`, and add this code after `compatibility_date` line.
+
+```toml
+main = "src/index.ts"
+minify = true
+```
+
+Everything is ready! Now push the code and enjoy it.
+
+## Load env when local development
+
+To configure the environment variables for local development, create the `.dev.vars` file in the root directory of the project.
+Then configure your environment variables as you would with a normal env file.
+
+```
+SECRET_KEY=value
+API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+```
+
+> For more about this section you can find in the Cloudflare documentation:
+> https://developers.cloudflare.com/workers/wrangler/configuration/#secrets
+
+Then we use the `c.env.*` to get the environment variables in our code.  
+**For Cloudflare Workers, environment variables must be obtained via `c`, not via `process.env`.**
+
+```ts
+type Bindings = {
+  SECRET_KEY: string
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/env', (c) => {
+  const SECRET_KEY = c.env.SECRET_KEY
+  return c.text(SECRET_KEY)
+})
+```
+
+Before you deploy your project to cloudflare, remember to set the environment variable/secrets in the Cloudflare Worker project's configuration.
+
+> For more about this section you can find in the Cloudflare documentation:
+> https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard

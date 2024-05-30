@@ -92,7 +92,7 @@ If you want to use SSG on Deno or Bun, a `toSSG` function is provided for each f
 For Deno:
 
 ```ts
-import { toSSG } from 'https://deno.land/x/hono/helper.ts'
+import { toSSG } from 'hono/deno'
 
 toSSG(app) // The second argument is an option typed `ToSSGOptions`.
 ```
@@ -112,13 +112,17 @@ Options are specified in the ToSSGOptions interface.
 ```ts
 export interface ToSSGOptions {
   dir?: string
+  concurrency?: number
   beforeRequestHook?: BeforeRequestHook
   afterResponseHook?: AfterResponseHook
   afterGenerateHook?: AfterGenerateHook
+  extensionMap?: Record<string, string>
 }
 ```
 
-`dir` is the output destination for Static files. The default value is `./static`.
+- `dir` is the output destination for Static files. The default value is `./static`.
+- `concurrency` is the concurrent number of files to be generated at the same time. The default value is `2`.
+- `extensionMap` is a map containing the `Content-Type` as a key and the string of the extension as a value. This is used to determine the file extension of the output file.
 
 Each Hook will be described later.
 
@@ -200,15 +204,29 @@ The following rules apply to the registered route information and the generated 
 
 ### File Extension
 
-The file extension depends on the content returned by each route. For example, `c.html` or `c.render` is saved as `.html`.
+The file extension depends on the `Content-Type` returned by each route. For example, responses from `c.html` are saved as `.html`.
+
+If you want to customize the file extensions, set the `extensionMap` option.
+
+```ts
+import { toSSG, defaultExtensionMap } from 'hono/ssg'
+
+// Save `application/x-html` content with `.html`
+toSSG(app, fs, {
+  extensionMap: {
+    'application/x-html': 'html',
+    ...defaultExtensionMap,
+  },
+})
+```
 
 Note that paths ending with a slash are saved as index.ext regardless of the extension.
 
 ```ts
-# save to ./static/html/index.html
+// save to ./static/html/index.html
 app.get('/html/', (c) => c.html('html'))
 
-# save to ./static/text/index.txt
+// save to ./static/text/index.txt
 app.get('/text/', (c) => c.text('text'))
 ```
 

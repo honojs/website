@@ -4,25 +4,10 @@ The Cookie Helper provides an easy interface to manage cookies, enabling develop
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { getCookie, getSignedCookie, setCookie, setSignedCookie, deleteCookie } from 'hono/cookie'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import {
-  getCookie,
-  getSignedCookie,
-  setCookie,
-  setSignedCookie,
-  deleteCookie,
-} from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## Usage
 
@@ -64,6 +49,8 @@ app.get('/signed-cookie', async (c) => {
 - `path`: string
 - `secure`: boolean
 - `sameSite`: `'Strict'` | `'Lax'` | `'None'`
+- `prefix`: `secure` | `'host'`
+- `partitioned`: boolean
 
 Example:
 
@@ -106,3 +93,55 @@ deleteCookie(c, 'banana', {
   domain: 'example.com',
 })
 ```
+
+`deleteCookie` returns the deleted value:
+
+```ts
+const deletedCookie = deleteCookie(c, 'delicious_cookie')
+```
+
+## `__Secure-` and `__Host-` prefix
+
+The Cookie helper supports `__Secure-` and `__Host-` prefix for cookies names.
+
+If you want to verify if the cookie name has a prefix, specify the prefix option.
+
+```ts
+const securePrefixCookie = getCookie(c, 'yummy_cookie', 'secure')
+const hostPrefixCookie = getCookie(c, 'yummy_cookie', 'host')
+
+const securePrefixSignedCookie = await getSignedCookie(c, secret, 'fortune_cookie', 'secure')
+const hostPrefixSignedCookie = await getSignedCookie(c, secret, 'fortune_cookie', 'host')
+```
+
+Also, if you wish to specify a prefix when setting the cookie, specify a value for the prefix option.
+
+```ts
+setCookie(c, 'delicious_cookie', 'macha', {
+  prefix: 'secure', // or `host`
+})
+
+await setSignedCookie(c, 'delicious_cookie', 'macha', 'secret choco chips', {
+  prefix: 'secure', // or `host`
+})
+```
+
+## Following the best practices
+
+A New Cookie RFC (a.k.a cookie-bis) and CHIPS include some best practices for Cookie settings that developers should follow.
+
+- [RFC6265bis-13](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis-13)
+  - `Max-Age`/`Expires` limitation
+  - `--Host-`/`--Secure_` prefix limitation
+- [CHIPS-01](https://www.ietf.org/archive/id/draft-cutler-httpbis-partitioned-cookies-01.html)
+  - `Partitioned` limitation
+
+Hono is following the best practices.
+The cookie helper will throw an `Error` when parsing cookies under the following conditions:
+
+- The cookie name starts with `__Secure-`, but `secure` option is not set.
+- The cookie name starts with `__Host-`, but `secure` option is not set.
+- The cookie name starts with `__Host-`, but `path` is not `/`.
+- The cookie name starts with `__Host-`, but `domain` is not set.
+- The `maxAge` option value is greater than 400 days.
+- The `expires` option value is 400 days later than the current time.

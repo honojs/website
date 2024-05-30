@@ -2,19 +2,10 @@
 
 Dev Helper provides useful methods you can use in development.
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { getRouterName, showRoutes } from 'hono/dev'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { getRouterName, showRoutes } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## `getRouterName()`
 
@@ -49,7 +40,9 @@ app.post('/posts', (c) => {
   // ...
 })
 
-showRoutes(app)
+showRoutes(app, {
+  verbose: true,
+})
 ```
 
 When this application starts running, the routes will be shown in your console as follows:
@@ -64,5 +57,5 @@ POST  /v1/posts
 
 - `verbose`: boolean - optional
   - When set to `true`, it displays verbose information.
-- `colorized`: boolean - optional
+- `colorize`: boolean - optional
   - When set to `false`, the output will not be colored.

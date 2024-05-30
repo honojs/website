@@ -10,14 +10,15 @@ To install `bun` command, follow the instruction in [the official web site](http
 ## 2. Setup
 
 A starter for Bun is available. Start your project with "bun create" command.
+Select `bun` template for this example.
 
-```
+```sh
 bun create hono my-app
 ```
 
 Move into my-app and install the dependencies.
 
-```
+```sh
 cd my-app
 bun install
 ```
@@ -39,8 +40,8 @@ export default app
 
 Run the command.
 
-```ts
-bun run --hot src/index.ts
+```sh
+bun run dev
 ```
 
 Then, access `http://localhost:3000` in your browser.
@@ -64,7 +65,7 @@ export default { // [!code ++]
 
 ## Serve static files
 
-To server static files, use `serveStatic` imported from `hono/bun`.
+To serve static files, use `serveStatic` imported from `hono/bun`.
 
 ```ts
 import { serveStatic } from 'hono/bun'
@@ -82,7 +83,7 @@ For the above code, it will work well with the following directory structure.
 ```
 ./
 ├── favicon.ico
-├── index.ts
+├── src
 └── static
     ├── demo
     │   └── index.html
@@ -124,7 +125,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `notFoundOption`:
+You can specify handling when the requested file is not found with `onNotFound`:
 
 ```ts
 app.get(
@@ -156,6 +157,35 @@ describe('My first test', () => {
 
 Then, run the command.
 
-```
+```sh
 bun test index.test.ts
 ```
+## Obtaining Request IP Address
+
+To obtain the IP address of the client, you need to use `Bun.serve`.
+You can use Bindings generics to pass the `ip` to the context and ensure type safety.
+
+```ts
+import type { SocketAddress } from 'bun'
+import { Hono } from 'hono'
+
+type Bindings = {
+  ip: SocketAddress
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/', (c) => {
+  return c.json({
+    yourIp: c.env.ip 
+    // {yourIp: {"address": "1.1.1", "family": "IPv4", "port": 56071}}
+  })
+})
+
+Bun.serve({
+  fetch(req, server) {
+    return app.fetch(req, { ip: server.requestIP(req) })
+  }
+})
+```
+

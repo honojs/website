@@ -17,7 +17,7 @@ app.get('/hello', (c) => {
 
 Return the HTTP response.
 
-You can set headers with `c.header()` and set HTTP status code with `c.status`.  
+You can set headers with `c.header()` and set HTTP status code with `c.status`.
 This can also be set in `c.text()`, `c.json()` and so on.
 
 ::: info
@@ -162,18 +162,33 @@ If you want to create the middleware which provides a custom method,
 write like the following:
 
 ```ts
-const app = new Hono()
-
-const echoMiddleware: MiddlewareHandler<{
+type Env = {
   Variables: {
     echo: (str: string) => string
   }
-}> = async (c, next) => {
-  c.set('echo', (str) => str)
-  await next()
 }
 
+const app = new Hono()
+
+const echoMiddleware = createMiddleware<Env>(async (c, next) => {
+  c.set('echo', (str) => str)
+  await next()
+})
+
 app.get('/echo', echoMiddleware, (c) => {
+  return c.text(c.var.echo('Hello!'))
+})
+```
+
+If you want to use the middleware in multiple handlers, you can use `app.use()`.
+Then, you have to pass the `Env` as Generics to the constructor of `Hono` to make it type-safe.
+
+```ts
+const app = new Hono<Env>()
+
+app.use(echoMiddleware)
+
+app.get('/echo', (c) => {
   return c.text(c.var.echo('Hello!'))
 })
 ```
@@ -274,10 +289,18 @@ app.get('/foo', async (c) => {
 ## event
 
 ```ts
+// Type definition to make type inference
+type Bindings = {
+  MY_KV: KVNamespace
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+
 // FetchEvent object (only set when using Service Worker syntax)
 app.get('/foo', async (c) => {
   c.event.waitUntil(
-    c.env.KV.put(key, data)
+    c.env.MY_KV.put(key, data)
   )
   ...
 })
@@ -289,10 +312,17 @@ In Cloudflare Workers Environment variables, secrets, KV namespaces, D1 database
 Regardless of type, bindings are always available as global variables and can be accessed via the context `c.env.BINDING_KEY`.
 
 ```ts
+// Type definition to make type inference
+type Bindings = {
+  MY_KV: KVNamespace
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
 // Environment object for Cloudflare Workers
-app.get('*', async c => {
-  const counter = c.env.COUNTER
-  ...
+app.get('/', (c) => {
+  c.env.MY_KV.get('my-key')
+  // ...
 })
 ```
 

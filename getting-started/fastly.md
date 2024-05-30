@@ -6,12 +6,12 @@ Hono also works on Fastly Compute.
 
 ## 1. Install CLI
 
-To use Fastly Compute, you must [create a Fastly account](https://www.fastly.com/jp/signup/) if you don't already have one.
+To use Fastly Compute, you must [create a Fastly account](https://www.fastly.com/signup/) if you don't already have one.
 Then, install [Fastly CLI](https://github.com/fastly/cli).
 
 macOS
 
-```
+```sh
 brew install fastly/tap/fastly
 ```
 
@@ -23,26 +23,27 @@ Follow this link for other OS:
 
 A starter for Fastly Compute is available.
 Start your project with "create-hono" command.
+Select `fastly` template for this example.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono my-app
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono my-app
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono my-app
 ```
 
@@ -52,22 +53,22 @@ Move to `my-app` and install the dependencies.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 cd my-app
 npm i
 ```
 
-```txt [yarn]
+```sh [yarn]
 cd my-app
 yarn
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 cd my-app
 pnpm i
 ```
 
-```txt [bun]
+```sh [bun]
 cd my-app
 bun i
 ```
@@ -94,19 +95,19 @@ Run the development server locally. Then, access `http://localhost:7676` in your
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run dev
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn dev
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm dev
 ```
 
-```txt [bun]
+```sh [bun]
 bun run dev
 ```
 
@@ -116,19 +117,19 @@ bun run dev
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run deploy
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn deploy
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm deploy
 ```
 
-```txt [bun]
+```sh [bun]
 bun run deploy
 ```
 

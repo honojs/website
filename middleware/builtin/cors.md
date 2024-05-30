@@ -5,19 +5,10 @@ For them we have to implement CORS, let's do this with middleware as well.
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { cors } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 
@@ -59,7 +50,8 @@ app.use(
 app.use(
   '/api4/*',
   cors({
-    origin: (origin) => {
+    // `c` is a `Context` object
+    origin: (origin, c) => {
       return origin.endsWith('.example.com') ? origin : 'http://example.com'
     },
   })
@@ -68,7 +60,7 @@ app.use(
 
 ## Options
 
-- `origin`: string | string[] | (origin:string) => string
+- `origin`: string | string[] | (origin:string, c:Context) => string
   - The value of "_Access-Control-Allow-Origin_" CORS header. You can also pass the callback function like `origin: (origin) => (origin.endsWith('.example.com') ? origin : 'http://example.com')`. Default is `*`
 - `allowMethods`: string[]
   - The value of "_Access-Control-Allow-Methods_" CORS header. Default is `['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH']`

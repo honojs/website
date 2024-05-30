@@ -4,19 +4,10 @@ Accepts Helper helps to handle Accept headers in the Requests.
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { accepts } from 'hono/accepts'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { accepts } from 'https://deno.land/x/hono/helper.ts'
-```
-
-:::
 
 ## `accepts()`
 

@@ -60,8 +60,17 @@ hono/jsx/dom has Hooks that are compatible or partially compatible with React. Y
 - `useDeferredValue()`
 - `useMemo()`
 - `useLayoutEffect()`
+- `useReducer()`
+- `useDebugValue()`
+- `createElement()`
 - `memo()`
 - `isValidElement()`
+- `useId()`
+- `createRef()`
+- `forwardRef()`
+- `useImperativeHandle()`
+- `useSyncExternalStore()`
+- `useInsertionEffect()`
 
 ## `startViewTransition()` family
 
@@ -108,7 +117,7 @@ export default function App() {
 
 The `viewTransition()` function allows you to get the unique `view-transition-name`.
 
-You can use it with the `keyframres()`, The `::view-transition-old()` is converted to `::view-transition-old(${uniqueName))`.
+You can use it with the `keyframes()`, The `::view-transition-old()` is converted to `::view-transition-old(${uniqueName))`.
 
 ```tsx
 import { useState, startViewTransition } from 'hono/jsx'

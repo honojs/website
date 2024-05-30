@@ -25,24 +25,24 @@ Just run this:
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono
 ```
 
-```txt [pnpm]
-pnpm create hono
+```sh [pnpm]
+pnpm create hono@latest
 ```
 
-```txt [bun]
-bunx create-hono
+```sh [bun]
+bun create hono@latest
 ```
 
-```txt [deno]
-deno run -A npm:create-hono
+```sh [deno]
+deno run -A npm:create-hono@latest
 ```
 
 :::
@@ -70,18 +70,21 @@ Here are some examples of use-cases.
 
 ## Who is using Hono?
 
-| Project                                        | Platform           | What for?                                                                                 |
-| ---------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------- |
-| [cdnjs API Server](https://cdnjs.com/api)      | Cloudflare Workers | A free and open-source CDN service. _Hono is used for their API services_.                |
-| [Polyfill.io](https://www.polyfill.io/v3/)     | Fastly Compute     | A CDN service that provides necessary browser polyfills. _Hono is used as a core server_. |
-| [Ultra](https://ultrajs.dev)                   | Deno               | A React/Deno framework. _Hono is used for the internal server_.                           |
-| [Deno Benchmarks](https://deno.com/benchmarks) | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                 |
-| [Cloudflare Blog](https://blog.cloudflare.com) | Cloudflare Workers | _Some applications featured in the articles use Hono_.                                    |
+| Project                                                            | Platform           | What for?                                                                               |
+| ------------------------------------------------------------------ | ------------------ | --------------------------------------------------------------------------------------- |
+| [cdnjs](https://cdnjs.com)                                         | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the api server_.                  |
+| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/) | Cloudflare Workers | Serverless SQL databases. _Hono is used for the internal api server_.                   |
+| [Unkey](https://unkey.dev)                                         | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the api server_. |
+| [OpenStatus](https://openstatus.dev)                               | Bun                | An open-source website & API monitoring platform. _Hono is used for the api server_.    |
+| [Deno Benchmarks](https://deno.com/benchmarks)                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.               |
+| [Deno Docs](https://docs.deno.com/)                                | Deno               | An official Deno documentation site. _Hono is used for the web server_.                 |
 
 And the following.
 
 - [Drivly](https://driv.ly/) - Cloudflare Workers
 - [repeat.dev](https://repeat.dev/) - Cloudflare Workers
+
+Do you want to see more? See [Who is using Hono in production?](https://github.com/orgs/honojs/discussions/1510).
 
 ## Hono in 1 minute
 
@@ -154,6 +157,7 @@ Out of the box, Hono provides middleware and helpers for:
 
 - [Basic Authentication](/middleware/builtin/basic-auth)
 - [Bearer Authentication](/middleware/builtin/bearer-auth)
+- [Body Limit](/middleware/builtin/body-limit)
 - [Cache](/middleware/builtin/cache)
 - [Compress](/middleware/builtin/compress)
 - [Cookie](/helpers/cookie)

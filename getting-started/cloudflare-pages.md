@@ -10,26 +10,27 @@ It introduces a delightful developer experience. Vite's dev server is fast, and 
 
 A starter for Cloudflare Pages is available.
 Start your project with "create-hono" command.
+Select `cloudflare-pages` template for this example.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono my-app
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono my-app
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono my-app
 ```
 
@@ -39,22 +40,22 @@ Move into `my-app` and install the dependencies.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 cd my-app
 npm i
 ```
 
-```txt [yarn]
+```sh [yarn]
 cd my-app
 yarn
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 cd my-app
 pnpm i
 ```
 
-```txt [bun]
+```sh [bun]
 cd my-app
 bun i
 ```
@@ -101,19 +102,19 @@ Run the development server locally. Then, access `http://localhost:5173` in your
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run dev
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn dev
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm dev
 ```
 
-```txt [bun]
+```sh [bun]
 bun run dev
 ```
 
@@ -125,19 +126,19 @@ If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run deploy
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn deploy
 ```
 
-```txt [pnpm]
-pnpm deploy
+```sh [pnpm]
+pnpm run deploy
 ```
 
-```txt [bun]
+```sh [bun]
 bun run deploy
 ```
 
@@ -145,44 +146,93 @@ bun run deploy
 
 ## Bindings
 
-You can use Cloudflare Bindings like variables, KV, D1, and others.
-Edit the `vite.config.ts` like the following:
+You can use Cloudflare Bindings like Variables, KV, D1, and others.
+In this section, let's use Variables and KV.
+
+### Create `wrangler.toml`
+
+First, create `wrangler.toml` for local Bindings:
+
+```sh
+touch wrangler.toml
+```
+
+Edit `wrangler.toml`. Specify Variable with the name `MY_NAME`.
+
+```toml
+[vars]
+MY_NAME = "Hono"
+```
+
+### Create KV
+
+Next, make the KV. Run the following `wrangler` command:
+
+```sh
+wrangler kv:namespace create MY_KV --preview
+```
+
+Note down the `preview_id` as the following output:
+
+```
+{ binding = "MY_KV", preview_id = "abcdef" }
+```
+
+Specify `preview_id` with the name of Bindings, `MY_KV`:
+
+```toml
+[[kv_namespaces]]
+binding = "MY_KV"
+id = "abcdef"
+```
+
+### Edit `vite.config.ts`
+
+Edit the `vite.config.ts`:
 
 ```ts
-import { getEnv } from '@hono/vite-dev-server/cloudflare-pages'
+import devServer from '@hono/vite-dev-server'
+import adapter from '@hono/vite-dev-server/cloudflare'
+import build from '@hono/vite-cloudflare-pages'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
   plugins: [
-    pages(),
     devServer({
       entry: 'src/index.tsx',
-      env: getEnv({
-        bindings: {
-          NAME: 'Hono',
-        },
-        kvNamespaces: ['MY_KV'],
-      }),
+      adapter, // Cloudflare Adapter
     }),
+    build(),
   ],
 })
 ```
 
-When using D1, your app will read `.mf/d1/DB/db.sqlite` which is generated automatically with the following configuration:
+### Use Bindings in your application
+
+Use Variable and KV in your application. Set the types.
 
 ```ts
-export default defineConfig({
-  plugins: [
-    pages(),
-    devServer({
-      entry: 'src/index.tsx',
-      env: getEnv({
-        d1Databases: ['DB'],
-        d1Persist: true,
-      }),
-    }),
-  ],
+type Bindings = {
+  MY_NAME: string
+  MY_KV: KVNamespace
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+```
+
+Use them:
+
+```tsx
+app.get('/', async (c) => {
+  await c.env.MY_KV.put('name', c.env.MY_NAME)
+  const name = await c.env.MY_KV.get('name')
+  return c.render(<h1>Hello! {name}</h1>)
 })
 ```
+
+### In production
+
+For Cloudflare Pages, you will use `wrangler.toml` for local development, but for production, you will set up Bindings in the dashboard.
 
 ## Client-side
 
@@ -196,13 +246,9 @@ app.get('/', (c) => {
     <html>
       <head>
         {import.meta.env.PROD ? (
-          <>
-            <script type='module' src='/static/client.js'></script>
-          </>
+          <script type='module' src='/static/client.js'></script>
         ) : (
-          <>
-            <script type='module' src='/src/client.ts'></script>
-          </>
+          <script type='module' src='/src/client.ts'></script>
         )}
       </head>
       <body>
@@ -247,6 +293,6 @@ export default defineConfig(({ mode }) => {
 
 You can run the following command to build the server and client script.
 
-```text
+```sh
 vite build --mode client && vite build
 ```

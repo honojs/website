@@ -4,19 +4,10 @@ Secure Headers Middleware simplifies the setup of security headers. Inspired in 
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { secureHeaders } from 'hono/secure-headers'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { secureHeaders } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 
@@ -144,4 +135,75 @@ app.use(
     },
   })
 )
+```
+
+### `nonce` attribute
+
+You can add a [`nonce` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) to a `script` or `style` element by adding the `NONCE` imported from `hono/secure-headers` to a `scriptSrc` or `styleSrc`:
+
+```tsx
+import { secureHeaders, NONCE } from 'hono/secure-headers'
+import type { SecureHeadersVariables } from 'hono/secure-headers'
+
+// Specify the variable types to infer the `c.get('secureHeadersNonce')`:
+type Variables = SecureHeadersVariables
+
+const app = new Hono<{ Variables: Variables }>()
+
+// Set the pre-defined nonce value to `scriptSrc`:
+app.get(
+  '*',
+  secureHeaders({
+    contentSecurityPolicy: {
+      scriptSrc: [NONCE, 'https://allowed1.example.com'],
+    },
+  })
+)
+
+// Get the value from `c.get('secureHeadersNonce')`:
+app.get('/', (c) => {
+  return c.html(
+    <html>
+      <body>
+        {/** contents */}
+        <script src='/js/client.js' nonce={c.get('secureHeadersNonce')} />
+      </body>
+    </html>
+  )
+})
+```
+
+If you want to generate the nonce value yourself, you can also specify a function as the following:
+
+```tsx
+const app = new Hono<{
+  Variables: { myNonce: string }
+}>()
+
+const myNonceGenerator: ContentSecurityPolicyOptionHandler = (c) => {
+  // This function is called on every request.
+  const nonce = Math.random().toString(36).slice(2)
+  c.set('myNonce', nonce)
+  return `'nonce-${nonce}'`
+}
+
+app.get(
+  '*',
+  secureHeaders({
+    contentSecurityPolicy: {
+      scriptSrc: [myNonceGenerator, 'https://allowed1.example.com'],
+    },
+  })
+)
+
+app.get('/', (c) => {
+  return c.html(
+    <html>
+      <body>
+        {/** contents */}
+        <script src='/js/client.js' nonce={c.get('myNonce')} />
+      </body>
+    </html>
+  )
+})
 ```

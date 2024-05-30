@@ -77,39 +77,58 @@ app.post('/entry', async (c) => {
 
 ```ts
 const body = await c.req.parseBody()
-body['hoge']
+body['foo']
 ```
 
-`body['hoge']` is `(string | File)`.
+`body['foo']` is `(string | File)`.
 
 If multiple files are uploaded, the last one will be used.
 
-**Multiple files**
+### Multiple files
 
 ```ts
 const body = await c.req.parseBody()
-body['hoge[]']
+body['foo[]']
 ```
 
-`body['hoge[]']` is always `(string | File)[]`.
+`body['foo[]']` is always `(string | File)[]`.
 
 `[]` postfix is required.
 
-**Multiple files with same name**
+### Multiple files with same name
 
 ```ts
 const body = await c.req.parseBody({ all: true })
-body['hoge']
+body['foo']
 ```
 
 `all` option is disabled by default.
 
-- If `body['hoge']` is multiple files, it will be parsed to `(string | File)[]`.
-- If `body['hoge']` is single file, it will be parsed to `(string | File)`.
+- If `body['foo']` is multiple files, it will be parsed to `(string | File)[]`.
+- If `body['foo']` is single file, it will be parsed to `(string | File)`.
+
+### Dot notation
+
+If you setg the `dot` option `true`, the return value is structured based on the dot notation.
+
+Imagine receiving the following data:
+
+```ts
+const data = new FormData()
+data.append('obj.key1', 'value1')
+data.append('obj.key2', 'value2')
+```
+
+You can get the structured value by setting the `dot` option `true`:
+
+```ts
+const body = await c.req.parseBody({ dot: true })
+// body is `{ obj: { key1: 'value1', key2: 'value2' } }`
+```
 
 ## json()
 
-Parse Request body of type `application/json`
+Parses the request body of type `application/json`
 
 ```ts
 app.post('/entry', async (c) => {
@@ -120,7 +139,7 @@ app.post('/entry', async (c) => {
 
 ## text()
 
-Parse Request body of type `text/plain`
+Parses the request body of type `text/plain`
 
 ```ts
 app.post('/entry', async (c) => {
@@ -131,11 +150,33 @@ app.post('/entry', async (c) => {
 
 ## arrayBuffer()
 
-Parse Request body as an `ArrayBuffer`
+Parses the request body as an `ArrayBuffer`
 
 ```ts
 app.post('/entry', async (c) => {
   const body = await c.req.arrayBuffer()
+  ...
+})
+```
+
+## blob()
+
+Parses the request body as a `Blob`.
+
+```ts
+app.post('/entry', async (c) => {
+  const body = await c.req.blob()
+  ...
+})
+```
+
+## formData()
+
+Parses the request body as a `FormData`.
+
+```ts
+app.post('/entry', async (c) => {
+  const body = await c.req.formData()
   ...
 })
 ```

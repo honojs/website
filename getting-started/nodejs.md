@@ -18,26 +18,27 @@ Essentially, you can simply use the latest version of each major release.
 
 A starter for Node.js is available.
 Start your project with "create-hono" command.
+Select `nodejs` template for this example.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono my-app
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono my-app
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono my-app
 ```
 
@@ -46,22 +47,22 @@ Move to `my-app` and install the dependencies.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 cd my-app
 npm i
 ```
 
-```txt [yarn]
+```sh [yarn]
 cd my-app
 yarn
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 cd my-app
 pnpm i
 ```
 
-```txt [bun]
+```sh [bun]
 cd my-app
 bun i
 ```
@@ -88,15 +89,15 @@ Run the development server locally. Then, access `http://localhost:3000` in your
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run dev
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn dev
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm dev
 ```
 
@@ -159,22 +160,6 @@ app.get(
 )
 ```
 
-### `mimes`
-
-You can add MIME types with `mimes`:
-
-```ts
-app.get(
-  '/static/*',
-  serveStatic({
-    mimes: {
-      m3u8: 'application/vnd.apple.mpegurl',
-      ts: 'video/mp2t',
-    }
-  })
-)
-```
-
 ## http2
 
 You can run hono on a [Node.js http2 Server](https://nodejs.org/api/http2.html).
@@ -231,6 +216,7 @@ RUN adduser --system --uid 1001 hono
 
 COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
 COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
+COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
 
 USER hono
 EXPOSE 3000
@@ -240,7 +226,8 @@ CMD ["node", "/app/dist/index.js"]
 
 The following steps shall be taken in advance.
 
-1. Add `"outDir": ". /dist"` to the `compilerOptions` section `tsconfig.json`.
+1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
 2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
 3. Add `"build": "tsc"` to `script` section of `package.json`.
 4. Run `npm install typescript --save-dev`.
+5. Add `"type": "module"` to `package.json`.

@@ -4,18 +4,14 @@ The Testing Helper provides functions to make testing of Hono applications easie
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { testClient } from 'hono/testing'
 ```
 
-:::
-
 ## `testClient()`
 
-The `testingClient()` takes an instance of Hono as its first argument and returns an object of the [Hono Client](/guides/rpc#client). By using this, you can define your request with the editor completion.
+The `testClient()` takes an instance of Hono as its first argument and returns an object of the [Hono Client](/guides/rpc#client). By using this, you can define your request with the editor completion.
 
 ```ts
 import { testClient } from 'hono/testing'

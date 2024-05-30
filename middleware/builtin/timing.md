@@ -10,24 +10,19 @@ since [timers only show the time of last I/O](https://developers.cloudflare.com/
 
 ## Import
 
-::: code-group
-
 ```ts [npm]
 import { Hono } from 'hono'
 import { timing, setMetric, startTime, endTime } from 'hono/timing'
+import type { TimingVariables } from 'hono/timing'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { timing, setMetric, startTime, endTime } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 
 ```js
-const app = new Hono()
+// Specify the variable types to infer the `c.get('metric')`:
+type Variables = TimingVariables
+
+const app = new Hono<{ Variables: Variables }>()
 
 // add the middleware to your router
 app.use(timing());
@@ -80,7 +75,7 @@ app.use(
 - `autoEnd`: boolean
   - If `startTime()` should end automatically at the end of the request.
   - If disabled, not manually ended timers will not be shown.
-- `crossOrigin`: boolean | string
+- `crossOrigin`: boolean | string | `(c: Context) => boolean | string`
   - The origin this timings header should be readable.
     - If false, only from current origin.
     - If true, from all origin.

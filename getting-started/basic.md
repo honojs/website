@@ -8,24 +8,24 @@ Starter templates are available for each platform. Use the following "create-hon
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
-pnpm create hono my-app
+```sh [pnpm]
+pnpm create hono@latest my-app
 ```
 
-```txt [bun]
-bunx create-hono my-app
+```sh [bun]
+bun create hono@latest my-app
 ```
 
-```txt [deno]
-deno run -A npm:create-hono my-app
+```sh [deno]
+deno run -A npm:create-hono@latest my-app
 ```
 
 :::
@@ -50,22 +50,22 @@ The template will be pulled into `my-app`, so go to it and install the dependenc
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 cd my-app
 npm i
 ```
 
-```txt [yarn]
+```sh [yarn]
 cd my-app
 yarn
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 cd my-app
 pnpm i
 ```
 
-```txt [bun]
+```sh [bun]
 cd my-app
 bun i
 ```
@@ -76,19 +76,19 @@ Once the package installation is complete, run the following command to start up
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run dev
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn dev
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm dev
 ```
 
-```txt [bun]
+```sh [bun]
 bun run dev
 ```
 
@@ -119,19 +119,19 @@ Start the development server and access `http://localhost:8787` with your browse
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run dev
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn dev
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm dev
 ```
 
-```txt [bun]
+```sh [bun]
 bun run dev
 ```
 

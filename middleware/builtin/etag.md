@@ -4,19 +4,10 @@ Using this middleware, you can add ETag headers easily.
 
 ## Import
 
-::: code-group
-
-```ts [npm]
+```ts
 import { Hono } from 'hono'
 import { etag } from 'hono/etag'
 ```
-
-```ts [Deno]
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import { etag } from 'https://deno.land/x/hono/middleware.ts'
-```
-
-:::
 
 ## Usage
 
@@ -29,7 +20,28 @@ app.get('/etag/abc', (c) => {
 })
 ```
 
+## The retained headers
+
+The 304 Response must include the headers that would have been sent in an equivalent 200 OK response. The default headers are Cache-Control, Content-Location, Date, ETag, Expires, and Vary.
+
+If you want to add the header that is sent, you can use `retainedHeaders` option and `RETAINED_304_HEADERS` strings array variable that includes the default headers:
+
+```ts
+import { etag, RETAINED_304_HEADERS } from 'hono/etag'
+
+// ...
+
+app.use(
+  '/etag/*',
+  etag({
+    retainedHeaders: ['x-message', ...RETAINED_304_HEADERS],
+  })
+)
+```
+
 ## Options
 
 - `weak`: boolean
   - Define using or not using a [weak validation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests#weak_validation). If `true` is set, then `w/` is added to the prefix of the value. Default is `false`.
+- `retainedHeaders`: string[]
+  - The headers that you want to retain in the 304 Response.

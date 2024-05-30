@@ -11,26 +11,27 @@ With Hono, you can write APIs with the same syntax as other runtimes and use man
 
 A starter for Next.js is available.
 Start your project with "create-hono" command.
+Select `nextjs` template for this example.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm create hono@latest my-app
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn create hono my-app
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm create hono my-app
 ```
 
-```txt [bun]
+```sh [bun]
 bunx create-hono my-app
 ```
 
-```txt [deno]
+```sh [deno]
 deno run -A npm:create-hono my-app
 ```
 
@@ -40,22 +41,22 @@ Move into `my-app` and install the dependencies.
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 cd my-app
 npm i
 ```
 
-```txt [yarn]
+```sh [yarn]
 cd my-app
 yarn
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 cd my-app
 pnpm i
 ```
 
-```txt [bun]
+```sh [bun]
 cd my-app
 bun i
 ```
@@ -89,10 +90,11 @@ If you use the Pages Router, Edit `pages/api/[[...route]].ts`.
 ```ts
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
+import type { PageConfig } from 'next'
 
-export const config = {
+export const config: PageConfig = {
   runtime: "edge",
-};
+}
 
 const app = new Hono().basePath("/api")
 
@@ -111,19 +113,19 @@ Run the development server locally. Then, access `http://localhost:3000` in your
 
 ::: code-group
 
-```txt [npm]
+```sh [npm]
 npm run dev
 ```
 
-```txt [yarn]
+```sh [yarn]
 yarn dev
 ```
 
-```txt [pnpm]
+```sh [pnpm]
 pnpm dev
 ```
 
-```txt [bun]
+```sh [bun]
 bun run dev
 ```
 
@@ -141,7 +143,7 @@ You can also run Hono on Next.js running on the Node.js runtime.
 
 First, install the Node.js adapter.
 
-```
+```sh
 npm i @hono/node-server
 ```
 
@@ -150,8 +152,13 @@ Next, you can utilize the `handle` function imported from `@hono/node-server/ver
 ```ts
 import { Hono } from 'hono'
 import { handle } from '@hono/node-server/vercel'
+import type { PageConfig } from 'next'
 
-
+export const config: PageConfig = {
+  api: {
+    bodyParser: false,
+  },
+}
 
 const app = new Hono().basePath('/api')
 
