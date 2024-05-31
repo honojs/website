@@ -1,0 +1,67 @@
+{
+  "plugin": ["typedoc-plugin-markdown", "typedoc-vitepress-theme"],
+  "entryPoints": ["temp_src/**/*.ts"],
+  "entryPointStrategy": "resolve",
+  "outputFileStrategy": "members",
+  "out": "docs/api",
+  "jsDocCompatibility": {
+    "defaultTag": true,
+    "exampleTag": true
+  },
+  "exclude": ["**/*.test.ts*", "**/types.ts", "**/test-utils/**/*"],
+
+  "searchInComments": false,
+
+  // skip typescript error checking
+  "skipErrorChecking": true,
+
+  // clean output directory
+  "cleanOutputDir": true,
+
+  //
+  // "commentStyle": "line",
+
+  // ignore private, external and protected variables and methods.
+  "excludePrivate": true,
+  "excludeExternals": true,
+  "excludeProtected": true,
+
+  // don't include source file location in docs
+  "disableSources": true,
+
+  // typedoc-plugin-markdown options
+  "mergeReadme": true,
+  "hidePageHeader": true,
+  "hideBreadcrumbs": true,
+  "useCodeBlocks": true,
+  "expandObjects": true,
+  "expandParameters": true,
+  "parametersFormat": "table",
+  "propertiesFormat": "list",
+
+  // we're not using github pages to deploy hono.dev
+  "githubPages": false,
+
+  "validation": {
+    "notExported": false,
+    "notDocumented": true,
+    "invalidLink": true
+  },
+
+  "navigationModel": {
+    // disable groups organization (type aliases, variables, function, etc.)
+    // this makes moving in the docs faster
+    "excludeGroups": true,
+
+    // don't organize by group (type aliases, variables, function, etc.)
+    "excludeCategories": true,
+
+    // organize by folders
+    "excludeFolders": false
+  },
+
+  "sidebar": {
+    "collapse": false,
+    "pretty": true
+  }
+}
