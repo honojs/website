@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "typedoc": "^0.25.13",
+    "typedoc-plugin-markdown": "^4.0.3",
     "vitepress": "1.1.0",
     "vue": "^3.3.4"
   }
