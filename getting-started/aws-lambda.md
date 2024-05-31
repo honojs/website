@@ -214,7 +214,7 @@ import { streamHandle } from 'hono/aws-lambda'
 const app = new Hono()
 
 app.get('/stream', async (c) => {
-  return streamSSE(c, async (stream) => {
+  return streamText(c, async (stream) => {
     for (let i = 0; i < 3; i++) {
       await stream.writeln(`${i}`)
       await stream.sleep(1)
