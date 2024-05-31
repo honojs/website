@@ -1,5 +1,6 @@
-import { defineConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
+import { defineConfig } from 'vitepress'
+import typedocSidebar from '../docs/api/typedoc-sidebar.json'
 
 const sidebars = (): DefaultTheme.SidebarItem[] => [
   {
@@ -232,7 +233,7 @@ export default defineConfig({
         'Copyright © 2022-present Yusuke Wada & Hono contributors. "kawaii" logo is created by SAWARATSUKI.',
     },
     nav: [
-      { text: 'API', link: '/api' },
+      { text: 'API', link: '/docs/api/' },
       { text: 'Docs', link: '/top' },
       { text: 'Snippets', link: '/snippets/top' },
       { text: 'Examples', link: 'https://github.com/honojs/examples' },
@@ -240,6 +241,7 @@ export default defineConfig({
     ],
     sidebar: {
       '/': sidebars(),
+      '/docs/api/': typedocSidebar,
       '/snippets/': sidebarsSnippets(),
     },
   },
