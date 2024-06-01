@@ -41,8 +41,7 @@ This command creates a new Edge Function with the specified name in your project
 Edit the `hello-world` function by modifying the file `supabase/functions/hello-world/index.ts`:
 
 ```ts
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-import type { Context } from 'https://deno.land/x/hono/mod.ts'
+import { Hono } from 'jsr:@hono/hono'
 
 // change this to your function name
 const functionName = 'hello-world'
