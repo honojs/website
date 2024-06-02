@@ -140,7 +140,9 @@ app.fire()
 export default app
 ```
 
+::: info
 But now, we recommend using Module Worker mode because such as that the binding variables are localized.
+:::
 
 ## Using Hono with other event handlers
 
