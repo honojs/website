@@ -4,6 +4,9 @@ The RPC feature allows sharing of the API specifications between the server and 
 
 You can export the types of input type specified by the Validator and the output type emitted by `json()`. And Hono Client will be able to import it.
 
+> [!NOTE]  
+> For the RPC types to work properly in a monorepo, in both the Client's and Server's tsconfig.json files, set `"strict": true` in `compilerOptions`. [Read more.](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)
+
 ## Server
 
 All you need to do on the server side is to write a validator and create a variable `route`. The following example uses [Zod Validator](https://github.com/honojs/middleware/tree/main/packages/zod-validator).
