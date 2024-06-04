@@ -28,7 +28,7 @@ bun install
 On an existing Bun project, we only need to install `hono` dependencies on the project root directory via
 
 ```sh
-bun install hono
+bun add hono
 ```
 
 ## 3. Hello World
