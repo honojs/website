@@ -1,4 +1,3 @@
-import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import Layout from './Layout.vue'
 import './custom.css'
