@@ -148,9 +148,7 @@ export const handler = handle(app)
 
 ## Access RequestContext
 
-In Hono, you can access the AWS Lambda request context by binding the `LambdaEvent` type and using `c.env.event`
-
-from `c.env.event.requestContext`.
+In Hono, you can access the AWS Lambda request context by binding the `LambdaEvent` type and using `c.env.event.requestContext`.
 
 ```ts
 import { Hono } from 'hono'
