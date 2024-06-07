@@ -85,6 +85,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'FAQs',
         link: '/guides/faq',
       },
+      {
+        text: 'Prisma',
+        link: '/guides/prisma'
+      }
     ],
   },
   {
