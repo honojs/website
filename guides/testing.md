@@ -57,6 +57,41 @@ test('POST /posts', async () => {
 })
 ```
 
+To make a request to `POST /posts` with `JSON` data, do the following.
+
+```ts
+test('POST /posts', async () => {
+  const res = await app.request('/posts', {
+    method: 'POST',
+    body: JSON.stringify({ message: 'hello hono' }),
+    headers: new Headers({ 'Content-Type': 'application/json' }),
+  })
+  expect(res.status).toBe(201)
+  expect(res.headers.get('X-Custom')).toBe('Thank you')
+  expect(await res.json()).toEqual({
+    message: 'Created',
+  })
+});
+```
+
+To make a request to `POST /posts` with `multipart/form-data` data, do the following.
+
+```ts
+test('POST /posts', async () => {
+  const formData = new FormData()
+  formData.append('message', 'hello')
+  const res = await app.request('/posts', {
+    method: 'POST',
+    body: formData,
+  })
+  expect(res.status).toBe(201)
+  expect(res.headers.get('X-Custom')).toBe('Thank you')
+  expect(await res.json()).toEqual({
+    message: 'Created',
+  })
+});
+```
+
 You can also pass an instance of the Request class.
 
 ```ts
