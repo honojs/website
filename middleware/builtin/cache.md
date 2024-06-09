@@ -20,7 +20,7 @@ import { cache } from 'hono/cache'
 ::: code-group
 
 ```ts [Cloudflare Workers]
-app.get(
+app.use(
   '*',
   cache({
     cacheName: 'my-app',
@@ -31,7 +31,7 @@ app.get(
 
 ```ts [Deno]
 // Must use `wait: true` for the Deno runtime
-app.get(
+app.use(
   '*',
   cache({
     cacheName: 'my-app',
