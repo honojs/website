@@ -68,6 +68,7 @@ export default app // [!code --]
 export default { // [!code ++]
   port: 3000, // [!code ++]
   fetch: app.fetch, // [!code ++]
+  request: app.request, // [!code ++]
 } // [!code ++]
 ```
 
@@ -156,8 +157,7 @@ import app from '.'
 
 describe('My first test', () => {
   it('Should return 200 Response', async () => {
-    const req = new Request('http://localhost/')
-    const res = await app.fetch(req)
+    const res = await app.request('/')
     expect(res.status).toBe(200)
   })
 })
