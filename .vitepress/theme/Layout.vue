@@ -8,31 +8,23 @@ const { page } = useData()
 const router = useRouter()
 
 const redirects: {
-  description: string
   pattern: RegExp
   to: string
 }[] = [
   {
-    description: 'Paths moved to /docs',
-    pattern: /^\/((api|concepts|getting-started|guides|helpers|middleware).*)/,
+    pattern: /^(?=\/(api|concepts|getting-started|guides|helpers|middleware))/,
     to: '/docs/$1',
   },
   {
-    description: '/top has been moved to /docs/',
-    pattern: /^\/top/,
-    to: '/docs/',
-  },
-  {
-    description: '/snippets/top has been moved to /snippets/',
-    pattern: /^\/snippets\/top/,
-    to: '/snippets/',
+    pattern: /\/top$/,
+    to: '/',
   },
 ]
 
 const redirectChangedPath = (currentPath: string) => {
-  redirects.some(({ description, pattern, to }) => {
+  redirects.some(({ pattern, to }) => {
     if (pattern.test(currentPath)) {
-      console.log(`redirect hit: ${description}`)
+      console.log(`redirect hit: ${currentPath}`)
       router.go(currentPath.replace(pattern, to))
       return true
     }
