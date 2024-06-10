@@ -9,6 +9,7 @@ To install `bun` command, follow the instruction in [the official web site](http
 
 ## 2. Setup
 
+### 2.1. Setup a new project
 A starter for Bun is available. Start your project with "bun create" command.
 Select `bun` template for this example.
 
@@ -21,6 +22,13 @@ Move into my-app and install the dependencies.
 ```sh
 cd my-app
 bun install
+```
+
+### 2.2. Setup an existing project
+On an existing Bun project, we only need to install `hono` dependencies on the project root directory via
+
+```sh
+bun add hono
 ```
 
 ## 3. Hello World
@@ -160,32 +168,3 @@ Then, run the command.
 ```sh
 bun test index.test.ts
 ```
-## Obtaining Request IP Address
-
-To obtain the IP address of the client, you need to use `Bun.serve`.
-You can use Bindings generics to pass the `ip` to the context and ensure type safety.
-
-```ts
-import type { SocketAddress } from 'bun'
-import { Hono } from 'hono'
-
-type Bindings = {
-  ip: SocketAddress
-}
-
-const app = new Hono<{ Bindings: Bindings }>()
-
-app.get('/', (c) => {
-  return c.json({
-    yourIp: c.env.ip 
-    // {yourIp: {"address": "1.1.1", "family": "IPv4", "port": 56071}}
-  })
-})
-
-Bun.serve({
-  fetch(req, server) {
-    return app.fetch(req, { ip: server.requestIP(req) })
-  }
-})
-```
-

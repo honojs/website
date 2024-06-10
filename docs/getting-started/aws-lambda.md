@@ -21,6 +21,7 @@ cd my-app
 cdk init app -l typescript
 npm i hono
 mkdir lambda
+touch lambda/index.ts
 ```
 
 ```sh [yarn]
@@ -29,6 +30,7 @@ cd my-app
 cdk init app -l typescript
 yarn add hono
 mkdir lambda
+touch lambda/index.ts
 ```
 
 ```sh [pnpm]
@@ -37,6 +39,7 @@ cd my-app
 cdk init app -l typescript
 pnpm add hono
 mkdir lambda
+touch lambda/index.ts
 ```
 
 ```sh [bun]
@@ -45,6 +48,7 @@ cd my-app
 cdk init app -l typescript
 bun add hono
 mkdir lambda
+touch lambda/index.ts
 ```
 
 :::
@@ -144,9 +148,7 @@ export const handler = handle(app)
 
 ## Access RequestContext
 
-In Hono, you can access the AWS Lambda request context by binding the `LambdaEvent` type and using `c.env.event`
-
-from `c.env.event.requestContext`.
+In Hono, you can access the AWS Lambda request context by binding the `LambdaEvent` type and using `c.env.event.requestContext`.
 
 ```ts
 import { Hono } from 'hono'
@@ -210,7 +212,7 @@ import { streamHandle } from 'hono/aws-lambda'
 const app = new Hono()
 
 app.get('/stream', async (c) => {
-  return c.streamText(async (stream) => {
+  return streamText(c, async (stream) => {
     for (let i = 0; i < 3; i++) {
       await stream.writeln(`${i}`)
       await stream.sleep(1)
