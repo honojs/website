@@ -13,7 +13,7 @@ const redirects: {
 }[] = [
   {
     pattern: /^(?=\/(api|concepts|getting-started|guides|helpers|middleware))/,
-    to: '/docs/$1',
+    to: '/docs',
   },
   {
     pattern: /\/top$/,
