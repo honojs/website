@@ -18,7 +18,7 @@ npm i -D typed-htmx
 On `src/global.d.ts` (or `app/global.d.ts` if you're using HonoX), import the `typed-htmx` types:
 
 ```ts
-import "typed-htmx";
+import 'typed-htmx'
 ```
 
 Extend Hono's JSX types with the typed-htmx definitions:
@@ -27,10 +27,9 @@ Extend Hono's JSX types with the typed-htmx definitions:
 // A demo of how to augment foreign types with htmx attributes.
 // In this case, Hono sources its types from its own namespace, so we do the same
 // and directly extend its namespace.
-declare global {
-  namespace Hono {
-    interface HTMLAttributes extends HtmxAttributes {
-    }
+declare module 'hono/jsx' {
+  namespace JSX {
+    interface HTMLAttributes extends HtmxAttributes {}
   }
 }
 ```
