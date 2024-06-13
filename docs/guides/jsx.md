@@ -357,10 +357,10 @@ The [JSX Renderer Middleware](/docs/middleware/builtin/jsx-renderer) allows you 
 You can override the type definition to add your custom elements and attributes.
 
 ```ts
-declare global {
+declare module 'hono/jsx' {
   namespace JSX {
     interface IntrinsicElements {
-      'my-custom-element': Hono.HTMLAttributes & {
+      'my-custom-element': HTMLAttributes & {
         'x-event'?: 'click' | 'scroll'
       }
     }
