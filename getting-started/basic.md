@@ -229,13 +229,18 @@ And, you can make your own middleware.
 
 ## Adapter
 
-There are Adapters for platform-dependent functions, e.g., handling static files.
-For example, to handle static files in Cloudflare Workers, import `hono/cloudflare-workers`.
+There are Adapters for platform-dependent functions, e.g., handling static files or WebSocket.
+For example, to handle WebSocket in Cloudflare Workers, import `hono/cloudflare-workers`.
 
 ```ts
-import { serveStatic } from 'hono/cloudflare-workers'
+import { upgradeWebSocket } from 'hono/cloudflare-workers'
 
-app.get('/static/*', serveStatic({ root: './' }))
+app.get(
+  '/ws',
+  upgradeWebSocket((c) => {
+    // ...
+  })
+)
 ```
 
 ## Next step
