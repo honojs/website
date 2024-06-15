@@ -230,10 +230,10 @@ And, you can make your own middleware.
 ## Adapter
 
 There are Adapters for platform-dependent functions, e.g., handling static files.
-For example, to handle static files in Cloudflare Workers, import `hono/cloudflare-workers`.
+For example, to handle static files in Bun, import `hono/bun`.
 
 ```ts
-import { serveStatic } from 'hono/cloudflare-workers'
+import { serveStatic } from 'hono/bun'
 
 app.get('/static/*', serveStatic({ root: './' }))
 ```
