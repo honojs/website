@@ -229,7 +229,7 @@ And, you can make your own middleware.
 
 ## Adapter
 
-There are Adapters for platform-dependent functions, e.g., handling WebSocket.
+There are Adapters for platform-dependent functions, e.g., handling static files or WebSocket.
 For example, to handle WebSocket in Cloudflare Workers, import `hono/cloudflare-workers`.
 
 ```ts
