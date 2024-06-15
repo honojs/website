@@ -23,4 +23,4 @@ You can sponsor Hono authors via the GitHub sponsor program.
 
 - GitHub repository: <a href="https://github.com/honojs">https://github.com/honojs</a>
 - npm registry: <a href="https://www.npmjs.com/package/hono">https://www.npmjs.com/package/hono</a>
-- Deno module: <a href="https://deno.land/x/hono">https://deno.land/x/hono</a>
+- JSR: <a href="https://jsr.io/@hono/hono">https://jsr.io/@hono/hono</a>
