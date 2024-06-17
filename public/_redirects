@@ -1,9 +1,9 @@
 /top / 301
-/snippets/top 301
+/snippets/top /snippets/ 301
 
-/api/* /:splat 301
-/concepts/* /:splat 301
-/getting-started/* /:splat 301
-/guides/* /:splat 301
-/helpers/* /:splat 301
-/middleware/* /:splat 301
+/api/* /docs/api/:splat 301
+/concepts/* /docs/concepts/:splat 301
+/getting-started/* /docs/getting-started/:splat 301
+/guides/* /docs/guides/:splat 301
+/helpers/* /docs/helpers/:splat 301
+/middleware/* /docs/middleware/:splat 301
