@@ -1,2 +1,9 @@
-/home301 / 301
-/home302 / 302
+/top / 301
+/snippets/top /snippets/ 301
+
+/api/* /docs/api/:splat 301
+/concepts/* /docs/concepts/:splat 301
+/getting-started/* /docs/getting-started/:splat 301
+/guides/* /docs/guides/:splat 301
+/helpers/* /docs/helpers/:splat 301
+/middleware/* /docs/middleware/:splat 301

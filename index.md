@@ -20,7 +20,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /top
+      link: /docs/
     - theme: alt
       text: View on GitHub
       link: https://github.com/honojs/hono

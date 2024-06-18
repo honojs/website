@@ -105,7 +105,7 @@ Fastest is Hono
 ✨  Done in 28.06s.
 ```
 
-See [more benchmarks](/concepts/benchmarks).
+See [more benchmarks](/docs/concepts/benchmarks).
 
 ## Lightweight
 
@@ -129,7 +129,7 @@ Total Upload: 11.47 KiB / gzip: 4.34 KiB
 
 **LinearRouter** registers the routes very quickly, so it's suitable for an environment that initializes applications every time. **PatternRouter** simply adds and matches the pattern, making it small.
 
-See [more information about routes](/concepts/routers).
+See [more information about routes](/docs/concepts/routers).
 
 ## Web Standard
 
@@ -147,7 +147,7 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 
 And by using [a Node.js adaptor](https://github.com/honojs/node-server), Hono works on Node.js.
 
-See [more information about Web Standard](/concepts/web-standard).
+See [more information about Web Standard](/docs/concepts/web-standard).
 
 ## Middleware & Helpers
 
@@ -155,22 +155,22 @@ See [more information about Web Standard](/concepts/web-standard).
 
 Out of the box, Hono provides middleware and helpers for:
 
-- [Basic Authentication](/middleware/builtin/basic-auth)
-- [Bearer Authentication](/middleware/builtin/bearer-auth)
-- [Body Limit](/middleware/builtin/body-limit)
-- [Cache](/middleware/builtin/cache)
-- [Compress](/middleware/builtin/compress)
-- [Cookie](/helpers/cookie)
-- [CORS](/middleware/builtin/cors)
-- [ETag](/middleware/builtin/etag)
-- [html](/helpers/html)
-- [JSX](/guides/jsx)
-- [JWT Authentication](/middleware/builtin/jwt)
-- [Logger](/middleware/builtin/logger)
-- [Pretty JSON](/middleware/builtin/pretty-json)
-- [Secure Headers](/middleware/builtin/secure-headers)
-- [SSG](/helpers/ssg)
-- [Streaming](/helpers/streaming)
+- [Basic Authentication](/docs/middleware/builtin/basic-auth)
+- [Bearer Authentication](/docs/middleware/builtin/bearer-auth)
+- [Body Limit](/docs/middleware/builtin/body-limit)
+- [Cache](/docs/middleware/builtin/cache)
+- [Compress](/docs/middleware/builtin/compress)
+- [Cookie](/docs/helpers/cookie)
+- [CORS](/docs/middleware/builtin/cors)
+- [ETag](/docs/middleware/builtin/etag)
+- [html](/docs/helpers/html)
+- [JSX](/docs/guides/jsx)
+- [JWT Authentication](/docs/middleware/builtin/jwt)
+- [Logger](/docs/middleware/builtin/logger)
+- [Pretty JSON](/docs/middleware/builtin/pretty-json)
+- [Secure Headers](/docs/middleware/builtin/secure-headers)
+- [SSG](/docs/helpers/ssg)
+- [Streaming](/docs/helpers/streaming)
 - [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
 - [Firebase Authentication](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
@@ -187,7 +187,7 @@ const app = new Hono()
 app.use(etag(), logger())
 ```
 
-See [more information about Middleware](/concepts/middleware).
+See [more information about Middleware](/docs/concepts/middleware).
 
 ## Developer Experience
 
@@ -203,4 +203,4 @@ For example, the path parameters will be literal types.
 And, the Validator and Hono Client `hc` enable the RPC mode. In RPC mode,
 you can use your favorite validator such as Zod and easily share server-side API specs with the client and build type-safe applications.
 
-See [Hono Stacks](/concepts/stacks).
+See [Hono Stacks](/docs/concepts/stacks).
