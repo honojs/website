@@ -305,7 +305,7 @@ app.get('/with-suspense', async (c) => {
 ## Integration with html Middleware
 
 Combine the JSX and html middlewares for powerful templating.
-For in-depth details, consult the [html middleware documentation](/helpers/html).
+For in-depth details, consult the [html middleware documentation](/docs/helpers/html).
 
 ```tsx
 import { Hono } from 'hono'
@@ -350,7 +350,7 @@ export default app
 
 ## With JSX Renderer Middleware
 
-The [JSX Renderer Middleware](/middleware/builtin/jsx-renderer) allows you to create HTML pages more easily with the JSX.
+The [JSX Renderer Middleware](/docs/middleware/builtin/jsx-renderer) allows you to create HTML pages more easily with the JSX.
 
 ## Override type definitions
 

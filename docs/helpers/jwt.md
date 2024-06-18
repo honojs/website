@@ -11,7 +11,7 @@ import { decode, sign, verify } from 'hono/jwt'
 ```
 
 ::: info
-[JWT Middleware](/middleware/builtin/jwt) also import the `jwt` function from the `hono/jwt`.
+[JWT Middleware](/docs/middleware/builtin/jwt) also import the `jwt` function from the `hono/jwt`.
 :::
 
 ## `sign()`

@@ -201,7 +201,7 @@ Available targets are below.
 - `cookie`
 - `param`
 
-See the [Validation section](/guides/validation) for usage examples.
+See the [Validation section](/docs/guides/validation) for usage examples.
 
 ## routePath()
 
