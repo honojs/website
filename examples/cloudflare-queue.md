@@ -2,8 +2,6 @@
 
 Using Hono with [Cloudflare Queues](https://developers.cloudflare.com/queues/).
 
-## Snippets
-
 :::code-group
 
 ```ts [index.ts]
@@ -63,7 +61,7 @@ name = "my-worker"
 
 :::
 
-## References
+## See also
 
 - [Cloudflare Queues](https://developers.cloudflare.com/queues/)
 - [Cloudflare Queues with R2 Example](https://developers.cloudflare.com/queues/examples/send-errors-to-r2/)

@@ -2,9 +2,7 @@
 
 Using Hono with [htmx](https://htmx.org/).
 
-## Snippets
-
-### typed-htmx
+## typed-htmx
 
 By using [typed-htmx](https://github.com/Desdaemon/typed-htmx), you can write JSX with TypeScript definitions for htmx attributes.
 We can follow the same pattern found on the [typed-htmx Example Project](https://github.com/Desdaemon/typed-htmx/blob/main/example/src/types.d.ts) to use it with `hono/jsx`.
@@ -34,7 +32,7 @@ declare module 'hono/jsx' {
 }
 ```
 
-## References
+## See also
 
 - [htmx](https://htmx.org/)
 - [typed-htmx](https://github.com/Desdaemon/typed-htmx)

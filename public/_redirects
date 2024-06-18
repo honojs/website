@@ -7,3 +7,4 @@
 /guides/* /docs/guides/:splat 301
 /helpers/* /docs/helpers/:splat 301
 /middleware/* /docs/middleware/:splat 301
+/snippets/* /examples/:splat 301
