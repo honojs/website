@@ -1,6 +1,6 @@
 # Remix
 
-[Remix](https://remix.run/) is a Web Standard-based full-stack framework.
+[Remix](https://remix.run/) is a Web Standards-based full-stack framework.
 
 Now, Remix and Hono can be used together through the fetch API.
 
