@@ -89,7 +89,13 @@ export default function App() {
   return (
     <>
       <Style />
-      <button onClick={() => startViewTransition(() => setShowLargeImage((state) => !state))}>
+      <button
+        onClick={() =>
+          startViewTransition(() =>
+            setShowLargeImage((state) => !state)
+          )
+        }
+      >
         Click!
       </button>
       <div>
@@ -148,7 +154,13 @@ export default function App() {
   return (
     <>
       <Style />
-      <button onClick={() => startViewTransition(() => setShowLargeImage((state) => !state))}>
+      <button
+        onClick={() =>
+          startViewTransition(() =>
+            setShowLargeImage((state) => !state)
+          )
+        }
+      >
         Click!
       </button>
       <div>
@@ -212,7 +224,13 @@ export default function App() {
   return (
     <>
       <Style />
-      <button onClick={() => startViewTransition(() => setShowLargeImage((state) => !state))}>
+      <button
+        onClick={() =>
+          startViewTransition(() =>
+            setShowLargeImage((state) => !state)
+          )
+        }
+      >
         Click!
       </button>
       <div>

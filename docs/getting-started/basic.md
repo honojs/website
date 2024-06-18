@@ -167,7 +167,9 @@ We can easily handle POST, PUT, and DELETE not only GET.
 
 ```ts
 app.post('/posts', (c) => c.text('Created!', 201))
-app.delete('/posts/:id', (c) => c.text(`${c.req.param('id')} is deleted!`))
+app.delete('/posts/:id', (c) =>
+  c.text(`${c.req.param('id')} is deleted!`)
+)
 ```
 
 ## Return HTML

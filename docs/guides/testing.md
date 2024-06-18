@@ -71,7 +71,7 @@ test('POST /posts', async () => {
   expect(await res.json()).toEqual({
     message: 'Created',
   })
-});
+})
 ```
 
 To make a request to `POST /posts` with `multipart/form-data` data, do the following.
@@ -89,7 +89,7 @@ test('POST /posts', async () => {
   expect(await res.json()).toEqual({
     message: 'Created',
   })
-});
+})
 ```
 
 You can also pass an instance of the Request class.
@@ -117,7 +117,11 @@ To set `c.env` for testing, you can pass it as the 3rd parameter to `app.request
 ```ts
 const MOCK_ENV = {
   API_HOST: 'example.com',
-  DB: { prepare: () => { /* mocked D1 */ } },
+  DB: {
+    prepare: () => {
+      /* mocked D1 */
+    },
+  },
 }
 
 test('GET /posts', async () => {

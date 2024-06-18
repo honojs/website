@@ -164,7 +164,9 @@ const buttonClass = css`
 const primaryClass = css`
   background: orange;
 `
-const Button = () => <a class={cx(buttonClass, primaryClass)}>Click!</a>
+const Button = () => (
+  <a class={cx(buttonClass, primaryClass)}>Click!</a>
+)
 ```
 
 It can also compose simple strings.

@@ -227,7 +227,9 @@ It returns matched routes within the handler, which is useful for debugging.
 app.use(async function logger(c, next) {
   await next()
   c.req.matchedRoutes.forEach(({ handler, method, path }, i) => {
-    const name = handler.name || (handler.length < 2 ? '[handler]' : '[middleware]')
+    const name =
+      handler.name ||
+      (handler.length < 2 ? '[handler]' : '[middleware]')
     console.log(
       method,
       ' ',

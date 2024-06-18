@@ -17,7 +17,9 @@ The `testClient()` takes an instance of Hono as its first argument and returns a
 import { testClient } from 'hono/testing'
 
 it('test', async () => {
-  const app = new Hono().get('/search', (c) => c.json({ hello: 'world' }))
+  const app = new Hono().get('/search', (c) =>
+    c.json({ hello: 'world' })
+  )
   const res = await testClient(app).search.$get()
 
   expect(await res.json()).toEqual({ hello: 'world' })

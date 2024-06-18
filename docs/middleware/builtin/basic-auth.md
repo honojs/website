@@ -39,9 +39,13 @@ app.get('/auth/page', (c) => {
   return c.text('Viewing page')
 })
 
-app.delete('/auth/page', basicAuth({ username: 'hono', password: 'acoolproject' }), (c) => {
-  return c.text('Page deleted')
-})
+app.delete(
+  '/auth/page',
+  basicAuth({ username: 'hono', password: 'acoolproject' }),
+  (c) => {
+    return c.text('Page deleted')
+  }
+)
 ```
 
 If you want to verify the user by yourself, specify the `verifyUser` option; returning `true` means it is accepted.
@@ -52,7 +56,9 @@ const app = new Hono()
 app.use(
   basicAuth({
     verifyUser: (username, password, c) => {
-      return username === 'dynamic-user' && password === 'hono-password'
+      return (
+        username === 'dynamic-user' && password === 'hono-password'
+      )
     },
   })
 )

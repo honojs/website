@@ -38,7 +38,8 @@ const app = new Hono()
 app.use(
   '*',
   secureHeaders({
-    strictTransportSecurity: 'max-age=63072000; includeSubDomains; preload',
+    strictTransportSecurity:
+      'max-age=63072000; includeSubDomains; preload',
     xFrameOptions: 'DENY',
     xXssProtection: '1',
   })
@@ -166,7 +167,10 @@ app.get('/', (c) => {
     <html>
       <body>
         {/** contents */}
-        <script src='/js/client.js' nonce={c.get('secureHeadersNonce')} />
+        <script
+          src='/js/client.js'
+          nonce={c.get('secureHeadersNonce')}
+        />
       </body>
     </html>
   )

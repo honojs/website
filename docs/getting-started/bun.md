@@ -10,6 +10,7 @@ To install `bun` command, follow the instruction in [the official web site](http
 ## 2. Setup
 
 ### 2.1. Setup a new project
+
 A starter for Bun is available. Start your project with "bun create" command.
 Select `bun` template for this example.
 
@@ -25,6 +26,7 @@ bun install
 ```
 
 ### 2.2. Setup an existing project
+
 On an existing Bun project, we only need to install `hono` dependencies on the project root directory via
 
 ```sh
@@ -58,6 +60,7 @@ Then, access `http://localhost:3000` in your browser.
 
 You can specify the port number with exporting the `port`.
 
+<!-- prettier-ignore -->
 ```ts
 import { Hono } from 'hono'
 
@@ -110,7 +113,8 @@ app.get(
   '/static/*',
   serveStatic({
     root: './',
-    rewriteRequestPath: (path) => path.replace(/^\/static/, '/statics'),
+    rewriteRequestPath: (path) =>
+      path.replace(/^\/static/, '/statics'),
   })
 )
 ```
@@ -126,7 +130,7 @@ app.get(
     mimes: {
       m3u8: 'application/vnd.apple.mpegurl',
       ts: 'video/mp2t',
-    }
+    },
   })
 )
 ```

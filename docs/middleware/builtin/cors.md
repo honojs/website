@@ -52,7 +52,9 @@ app.use(
   cors({
     // `c` is a `Context` object
     origin: (origin, c) => {
-      return origin.endsWith('.example.com') ? origin : 'http://example.com'
+      return origin.endsWith('.example.com')
+        ? origin
+        : 'http://example.com'
     },
   })
 )

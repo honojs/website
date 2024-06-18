@@ -37,7 +37,8 @@ app.use(
 app.use(
   '*',
   csrf({
-    origin: (origin) => /https:\/\/(\w+\.)?myapp\.example\.com$/.test(origin),
+    origin: (origin) =>
+      /https:\/\/(\w+\.)?myapp\.example\.com$/.test(origin),
   })
 )
 ```
