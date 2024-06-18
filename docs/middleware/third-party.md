@@ -26,6 +26,7 @@ Most of this middleware leverages external libraries.
 - [tRPC Server](https://github.com/honojs/middleware/tree/main/packages/trpc-server)
 - [TypeBox Validator](https://github.com/honojs/middleware/tree/main/packages/typebox-validator)
 - [Typia Validator](https://github.com/honojs/middleware/tree/main/packages/typia-validator)
+- [unknownutil Validator](https://github.com/ryoppippi/hono-unknownutil-validator)
 - [Valibot Validator](https://github.com/honojs/middleware/tree/main/packages/valibot-validator)
 - [Verify RSA JWT (JWKS)](https://github.com/wataruoguchi/verify-rsa-jwt-cloudflare-worker)
 - [Zod OpenAPI](https://github.com/honojs/middleware/tree/main/packages/zod-openapi)
