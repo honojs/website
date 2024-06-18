@@ -5,7 +5,7 @@ titleTemplate: ':title'
 
 # Hono
 
-Hono - _**\[炎\] means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework for the Edges.
+Hono - _**means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework built on Web Standards.
 It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js.
 
 Fast, but not only fast.
@@ -50,7 +50,7 @@ deno run -A npm:create-hono@latest
 ## Features
 
 - **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
-- **Lightweight** 🪶 - The `hono/tiny` preset is under 14kB. Hono has zero dependencies and uses only the Web Standard API.
+- **Lightweight** 🪶 - The `hono/tiny` preset is under 14kB. Hono has zero dependencies and uses only the Web Standards.
 - **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute, Deno, Bun, AWS Lambda, or Node.js. The same code runs on all platforms.
 - **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
 - **Delightful DX** 😃 - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
@@ -131,9 +131,9 @@ Total Upload: 11.47 KiB / gzip: 4.34 KiB
 
 See [more information about routes](/docs/concepts/routers).
 
-## Web Standard
+## Web Standards
 
-Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
+Thanks to the use of the **Web Standards**, Hono works on a lot of platforms.
 
 - Cloudflare Workers
 - Cloudflare Pages
@@ -147,7 +147,7 @@ Thanks to the use of the **Web Standard API**, Hono works on a lot of platforms.
 
 And by using [a Node.js adaptor](https://github.com/honojs/node-server), Hono works on Node.js.
 
-See [more information about Web Standard](/docs/concepts/web-standard).
+See [more information about Web Standards](/docs/concepts/web-standard).
 
 ## Middleware & Helpers
 

@@ -1,7 +1,7 @@
 # API
 
 Hono's API is simple.
-Just composed by extended objects from Web Standard API.
+Just composed by extended objects from Web Standards.
 So, you can understand it well quickly.
 
 In this section, we introduce API of Hono like below.
