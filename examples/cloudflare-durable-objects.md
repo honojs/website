@@ -2,9 +2,7 @@
 
 By using Hono, you can write [Durable Objects](https://developers.cloudflare.com/durable-objects/) application easily.
 
-## Snippets
-
-Hono can handle `fetch` event of Durable Objects and you can use with powerful router.
+Hono can handle a `fetch` event of Durable Objects and you can use it with the powerful router.
 
 ```ts
 import { Hono } from 'hono'
@@ -44,7 +42,7 @@ export class Counter {
 }
 ```
 
-## References
+## See also
 
 - [Durable Objects](https://developers.cloudflare.com/durable-objects/)
 - [Durable Objects with Hono Example](https://github.com/honojs/examples/blob/main/durable-objects/README.md)

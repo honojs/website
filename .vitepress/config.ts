@@ -11,7 +11,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Benchmarks', link: '/docs/concepts/benchmarks' },
       { text: 'Web Standard', link: '/docs/concepts/web-standard' },
       { text: 'Middleware', link: '/docs/concepts/middleware' },
-      { text: 'Developer Experience', link: '/docs/concepts/developer-experience.md' },
+      {
+        text: 'Developer Experience',
+        link: '/docs/concepts/developer-experience.md',
+      },
       { text: 'Hono Stacks', link: '/docs/concepts/stacks' },
     ],
   },
@@ -20,17 +23,38 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     collapsed: true,
     items: [
       { text: 'Basic', link: '/docs/getting-started/basic' },
-      { text: 'Cloudflare Workers', link: '/docs/getting-started/cloudflare-workers' },
-      { text: 'Cloudflare Pages', link: '/docs/getting-started/cloudflare-pages' },
+      {
+        text: 'Cloudflare Workers',
+        link: '/docs/getting-started/cloudflare-workers',
+      },
+      {
+        text: 'Cloudflare Pages',
+        link: '/docs/getting-started/cloudflare-pages',
+      },
       { text: 'Deno', link: '/docs/getting-started/deno' },
       { text: 'Bun', link: '/docs/getting-started/bun' },
-      { text: 'Fastly Compute', link: '/docs/getting-started/fastly' },
+      {
+        text: 'Fastly Compute',
+        link: '/docs/getting-started/fastly',
+      },
       { text: 'Vercel', link: '/docs/getting-started/vercel' },
       { text: 'Netlify', link: '/docs/getting-started/netlify' },
-      { text: 'AWS Lambda', link: '/docs/getting-started/aws-lambda' },
-      { text: 'Lambda@Edge', link: '/docs/getting-started/lambda-edge' },
-      { text: 'Azure Functions', link: '/docs/getting-started/azure-functions' },
-      { text: 'Supabase Functions', link: '/docs/getting-started/supabase-functions' },
+      {
+        text: 'AWS Lambda',
+        link: '/docs/getting-started/aws-lambda',
+      },
+      {
+        text: 'Lambda@Edge',
+        link: '/docs/getting-started/lambda-edge',
+      },
+      {
+        text: 'Azure Functions',
+        link: '/docs/getting-started/azure-functions',
+      },
+      {
+        text: 'Supabase Functions',
+        link: '/docs/getting-started/supabase-functions',
+      },
       { text: 'Node.js', link: '/docs/getting-started/nodejs' },
     ],
   },
@@ -74,10 +98,6 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/guides/best-practices',
       },
       {
-        text: 'Examples',
-        link: '/docs/guides/examples',
-      },
-      {
         text: 'Miscellaneous',
         link: '/docs/guides/others',
       },
@@ -110,43 +130,81 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'Middleware',
     collapsed: true,
     items: [
-      { text: 'Basic Authentication', link: '/docs/middleware/builtin/basic-auth' },
-      { text: 'Bearer Authentication', link: '/docs/middleware/builtin/bearer-auth' },
-      { text: 'Body Limit', link: '/docs/middleware/builtin/body-limit' },
+      {
+        text: 'Basic Authentication',
+        link: '/docs/middleware/builtin/basic-auth',
+      },
+      {
+        text: 'Bearer Authentication',
+        link: '/docs/middleware/builtin/bearer-auth',
+      },
+      {
+        text: 'Body Limit',
+        link: '/docs/middleware/builtin/body-limit',
+      },
       { text: 'Cache', link: '/docs/middleware/builtin/cache' },
       { text: 'Compress', link: '/docs/middleware/builtin/compress' },
       { text: 'CORS', link: '/docs/middleware/builtin/cors' },
-      { text: 'CSRF Protection', link: '/docs/middleware/builtin/csrf' },
+      {
+        text: 'CSRF Protection',
+        link: '/docs/middleware/builtin/csrf',
+      },
       { text: 'ETag', link: '/docs/middleware/builtin/etag' },
-      { text: 'JSX Renderer', link: '/docs/middleware/builtin/jsx-renderer' },
+      {
+        text: 'JSX Renderer',
+        link: '/docs/middleware/builtin/jsx-renderer',
+      },
       { text: 'JWT', link: '/docs/middleware/builtin/jwt' },
       { text: 'Logger', link: '/docs/middleware/builtin/logger' },
-      { text: 'Method Override', link: '/docs/middleware/builtin/method-override' },
-      { text: 'Pretty JSON', link: '/docs/middleware/builtin/pretty-json' },
-      { text: 'Secure Headers', link: '/docs/middleware/builtin/secure-headers' },
+      {
+        text: 'Method Override',
+        link: '/docs/middleware/builtin/method-override',
+      },
+      {
+        text: 'Pretty JSON',
+        link: '/docs/middleware/builtin/pretty-json',
+      },
+      {
+        text: 'Secure Headers',
+        link: '/docs/middleware/builtin/secure-headers',
+      },
       { text: 'Timeout', link: '/docs/middleware/builtin/timeout' },
       { text: 'Timing', link: '/docs/middleware/builtin/timing' },
-      { text: 'Trailing Slash', link: '/docs/middleware/builtin/trailing-slash' },
-      { text: '3rd-party Middleware', link: '/docs/middleware/third-party' },
+      {
+        text: 'Trailing Slash',
+        link: '/docs/middleware/builtin/trailing-slash',
+      },
+      {
+        text: '3rd-party Middleware',
+        link: '/docs/middleware/third-party',
+      },
     ],
   },
 ]
 
-const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
+export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
   {
-    text: 'Application',
+    text: 'Applications',
     items: [
       {
+        text: 'Web API',
+        link: '/examples/web-api',
+      },
+      {
+        text: 'Proxy',
+        link: '/examples/proxy',
+      },
+      {
         text: 'File upload',
-        link: '/snippets/file-upload',
+        link: '/examples/file-upload',
       },
       {
         text: 'Error handling in Validator',
-        link: '/snippets/validator-error-handling',
+        link: '/examples/validator-error-handling',
       },
       {
         text: 'Grouping routes for RPC',
-        link: '/snippets/grouping-routes-rpc',
+        link: '/examples/grouping-routes-rpc',
       },
     ],
   },
@@ -155,41 +213,36 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
     items: [
       {
         text: 'Zod OpenAPI',
-        link: '/snippets/zod-openapi',
+        link: '/examples/zod-openapi',
       },
       {
         text: 'Swagger UI',
-        link: '/snippets/swagger-ui',
+        link: '/examples/swagger-ui',
       },
     ],
   },
   {
-    text: 'Ecosystem',
-    items: [
-      {
-        text: 'Remix + Hono',
-        link: '/snippets/with-remix',
-      },
-    ],
-  },
-  {
-    text: 'Integration',
+    text: 'Integrations',
     items: [
       {
         text: 'Cloudflare Durable Objects',
-        link: '/snippets/cloudflare-durable-objects',
+        link: '/examples/cloudflare-durable-objects',
       },
       {
         text: 'Cloudflare Queue',
-        link: '/snippets/cloudflare-queue',
+        link: '/examples/cloudflare-queue',
+      },
+      {
+        text: 'Remix',
+        link: '/examples/with-remix',
       },
       {
         text: 'htmx',
-        link: '/snippets/htmx',
+        link: '/examples/htmx',
       },
       {
         text: 'Stripe Webhook',
-        link: '/snippets/stripe-webhook',
+        link: '/examples/stripe-webhook',
       },
     ],
   },
@@ -233,21 +286,38 @@ export default defineConfig({
     },
     nav: [
       { text: 'Docs', link: '/docs/' },
-      { text: 'Snippets', link: '/snippets/' },
-      { text: 'Examples', link: 'https://github.com/honojs/examples' },
-      { text: 'Discussions', link: 'https://github.com/orgs/honojs/discussions' },
+      { text: 'Examples', link: '/examples/' },
+      {
+        text: 'Discussions',
+        link: 'https://github.com/orgs/honojs/discussions',
+      },
     ],
     sidebar: {
       '/': sidebars(),
-      '/snippets/': sidebarsSnippets(),
+      '/examples/': sidebarsExamples(),
     },
   },
   head: [
-    ['meta', { property: 'og:image', content: 'https://hono.dev/images/hono-title.png' }],
+    [
+      'meta',
+      {
+        property: 'og:image',
+        content: 'https://hono.dev/images/hono-title.png',
+      },
+    ],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'twitter:domain', content: 'hono.dev' }],
-    ['meta', { property: 'twitter:image', content: 'https://hono.dev/images/hono-title.png' }],
-    ['meta', { property: 'twitter:card', content: 'summary_large_image' }],
+    [
+      'meta',
+      {
+        property: 'twitter:image',
+        content: 'https://hono.dev/images/hono-title.png',
+      },
+    ],
+    [
+      'meta',
+      { property: 'twitter:card', content: 'summary_large_image' },
+    ],
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
   ],
   titleTemplate: ':title - Hono',

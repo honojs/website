@@ -1,9 +1,5 @@
 # File Upload
 
-In Hono, you can access to the uploaded files via `c.req.parseBody()`.
-
-## Snippets
-
 You can upload a file with `multipart/form-data` content type. The uploaded file will be available in `c.req.parseBody()`.
 
 ```ts
@@ -15,6 +11,6 @@ app.post('/upload', async (c) => {
 })
 ```
 
-## References
+## See also
 
 - [API - HonoRequest - parseBody](/docs/api/request#parsebody)

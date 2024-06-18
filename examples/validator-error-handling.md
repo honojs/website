@@ -1,10 +1,6 @@
 # Error handling in Validator
 
-By using a validator, you can handle invalid input more easily.
-
-## Snippets
-
-You can utilize the callback result for implementing custom error handling.
+By using a validator, you can handle invalid input more easily. This example shows you can utilize the callback result for implementing custom error handling.
 
 Although this snippet employs [Zod Validator](https://github.com/honojs/middleware/blob/main/packages/zod-validator), you can apply a similar approach with any supported validator library.
 
@@ -34,7 +30,7 @@ app.post(
 )
 ```
 
-## References
+## See also
 
 - [Zod Validator](https://github.com/honojs/middleware/blob/main/packages/zod-validator)
 - [Valibot Validator](https://github.com/honojs/middleware/tree/main/packages/valibot-validator)

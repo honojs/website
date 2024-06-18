@@ -1,11 +1,7 @@
 # Zod OpenAPI
 
 [Zod OpenAPI Hono](https://github.com/honojs/middleware/tree/main/packages/zod-openapi) is an extended Hono class that supports OpenAPI.
-With it, you can validate values and types using [Zod](https://zod.dev/) and generate OpenAPI Swagger documentation.
-
-## Snippets
-
-On this website, only basic usage is shown.
+With it, you can validate values and types using [Zod](https://zod.dev/) and generate OpenAPI Swagger documentation. On this website, only basic usage is shown.
 
 First, define your schemas with Zod. The `z` object should be imported from `@hono/zod-openapi`:
 
@@ -96,6 +92,6 @@ You can start your app just like you would with Hono. For Cloudflare Workers and
 export default app
 ```
 
-## View more
+## See also
 
 - [Zod OpenAPI Hono](https://github.com/honojs/middleware/tree/main/packages/zod-openapi)
