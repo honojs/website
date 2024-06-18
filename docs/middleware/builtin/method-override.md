@@ -53,7 +53,10 @@ You can change the default values or use the header value and query value:
 
 ```ts
 app.use('/posts', methodOverride({ app, form: '_custom_name' }))
-app.use('/posts', methodOverride({ app, header: 'X-METHOD-OVERRIDE' }))
+app.use(
+  '/posts',
+  methodOverride({ app, header: 'X-METHOD-OVERRIDE' })
+)
 app.use('/posts', methodOverride({ app, query: '_method' }))
 ```
 

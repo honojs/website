@@ -83,21 +83,22 @@ Create `src/functions/httpTrigger.ts`:
 
 ```ts
 // src/functions/httpTrigger.ts
-import { app } from "@azure/functions";
-import { azureHonoHandler } from "@marplex/hono-azurefunc-adapter";
-import honoApp from "../app";
+import { app } from '@azure/functions'
+import { azureHonoHandler } from '@marplex/hono-azurefunc-adapter'
+import honoApp from '../app'
 
-app.http("httpTrigger", {
-  methods: [ //Add all your supported HTTP methods here
-    "GET",
-    "POST",
-    "DELETE",
-    "PUT"
+app.http('httpTrigger', {
+  methods: [
+    //Add all your supported HTTP methods here
+    'GET',
+    'POST',
+    'DELETE',
+    'PUT',
   ],
-  authLevel: "anonymous",
-  route: "{*proxy}",
-  handler: azureHonoHandler(honoApp.fetch)
-});
+  authLevel: 'anonymous',
+  route: '{*proxy}',
+  handler: azureHonoHandler(honoApp.fetch),
+})
 ```
 
 ## 4. Run
@@ -151,7 +152,6 @@ bun run build
 ```
 
 :::
-
 
 Deploy your project to the function app in Azure Cloud. Replace `<YourFunctionAppName>` with the name of your app.
 

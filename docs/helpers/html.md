@@ -17,7 +17,7 @@ const app = new Hono()
 app.get('/:username', (c) => {
   const { username } = c.req.param()
   return c.html(
-    html`<!DOCTYPE html>
+    html`<!doctype html>
       <h1>Hello! ${username}!</h1>`
   )
 })

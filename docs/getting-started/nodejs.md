@@ -123,7 +123,9 @@ import { Hono } from 'hono'
 import { serve, type HttpBindings } from '@hono/node-server'
 // or `Http2Bindings` if you use HTTP2
 
-type Bindings = HttpBindings & {/* ... */}
+type Bindings = HttpBindings & {
+  /* ... */
+}
 
 const app = new Hono<{ Bindings: Bindings }>()
 
@@ -155,7 +157,8 @@ app.get(
   '/static/*',
   serveStatic({
     root: './',
-    rewriteRequestPath: (path) => path.replace(/^\/static/, '/statics'),
+    rewriteRequestPath: (path) =>
+      path.replace(/^\/static/, '/statics'),
   })
 )
 ```
@@ -192,6 +195,7 @@ const server = serve({
 ```
 
 ## Dockerfile
+
 Here is an example of a Dockerfile.
 
 ```Dockerfile

@@ -130,7 +130,10 @@ if (res.ok) {
 type ResponseType = InferResponseType<typeof client.posts.$get>
 
 // { post: Post }
-type ResponseType200 = InferResponseType<typeof client.posts.$get, 200>
+type ResponseType200 = InferResponseType<
+  typeof client.posts.$get,
+  200
+>
 ```
 
 ## Path parameters
@@ -282,7 +285,9 @@ services = [
 
 ```ts
 // src/client.ts
-const client = hc<CreateProfileType>('/', { fetch: c.env.AUTH.fetch.bind(c.env.AUTH) })
+const client = hc<CreateProfileType>('/', {
+  fetch: c.env.AUTH.fetch.bind(c.env.AUTH),
+})
 ```
 
 ## Infer
@@ -314,10 +319,11 @@ const App = () => {
   const client = hc<AppType>('/api')
   const $get = client.hello.$get
 
-  const fetcher = (arg: InferRequestType<typeof $get>) => async () => {
-    const res = await $get(arg)
-    return await res.json()
-  }
+  const fetcher =
+    (arg: InferRequestType<typeof $get>) => async () => {
+      const res = await $get(arg)
+      return await res.json()
+    }
 
   const { data, error, isLoading } = useSWR(
     'api-hello',

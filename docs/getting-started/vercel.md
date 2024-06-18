@@ -71,7 +71,7 @@ If you use the App Router, Edit `app/api/[[...route]]/route.ts`. Refer to the [S
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 
-export const runtime = 'edge';
+export const runtime = 'edge'
 
 const app = new Hono().basePath('/api')
 
@@ -93,10 +93,10 @@ import { handle } from 'hono/vercel'
 import type { PageConfig } from 'next'
 
 export const config: PageConfig = {
-  runtime: "edge",
+  runtime: 'edge',
 }
 
-const app = new Hono().basePath("/api")
+const app = new Hono().basePath('/api')
 
 app.get('/hello', (c) => {
   return c.json({

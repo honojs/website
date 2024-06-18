@@ -101,16 +101,21 @@ app.use(
 ::: warning
 In Deno, it is possible to use a different version of middleware than the Hono version, but this can lead to bugs.
 For example, this code is not working because the version is different.
+
 ```ts
 import { Hono } from 'jsr:@hono/hono@4.4.0'
 import { upgradeWebSocket } from 'jsr:@hono/hono@4.4.5/deno'
 
 const app = new Hono()
 
-app.get('/ws', upgradeWebSocket(() => ({
-  // ...
-})))
+app.get(
+  '/ws',
+  upgradeWebSocket(() => ({
+    // ...
+  }))
+)
 ```
+
 :::
 
 ## Custom Middleware
@@ -136,7 +141,7 @@ app.get('/message/hello', (c) => c.text('Hello Middleware!'))
 However, embedding middleware directly within `app.use()` can limit its reusability. Therefore, we can separate our
 middleware into different files.
 
-To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use 
+To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use
 [`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory.
 
 ```ts
@@ -147,15 +152,18 @@ const logger = createMiddleware(async (c, next) => {
   await next()
 })
 ```
+
 :::info
 Type generics can be used with `createMiddleware`:
 
 ```ts
 createMiddleware<{Bindings: Bindings}>(async (c, next) =>
 ```
+
 :::
 
 ### Modify the Response After Next
+
 Additionally, middleware can be designed to modify responses if necessary:
 
 ```ts

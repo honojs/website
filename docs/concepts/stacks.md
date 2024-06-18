@@ -166,7 +166,12 @@ The client with React and React Query.
 
 ```tsx
 // src/App.tsx
-import { useQuery, useMutation, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {
+  useQuery,
+  useMutation,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 import { AppType } from '../functions/api/[[route]]'
 import { hc, InferResponseType, InferRequestType } from 'hono/client'
 

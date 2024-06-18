@@ -83,7 +83,9 @@ app.get('/stream', (c) => {
         console.log('Aborted!')
       })
       // Write a Uint8Array.
-      await stream.write(new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f]))
+      await stream.write(
+        new Uint8Array([0x48, 0x65, 0x6c, 0x6c, 0x6f])
+      )
       // Pipe a readable stream.
       await stream.pipe(anotherReadableStream)
     },

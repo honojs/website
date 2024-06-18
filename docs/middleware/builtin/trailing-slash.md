@@ -8,7 +8,10 @@ This middleware handles Trailing Slash in the URL on a GET request.
 
 ```ts
 import { Hono } from 'hono'
-import { appendTrailingSlash, trimTrailingSlash } from 'hono/trailing-slash'
+import {
+  appendTrailingSlash,
+  trimTrailingSlash,
+} from 'hono/trailing-slash'
 ```
 
 ## Usage

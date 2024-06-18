@@ -212,7 +212,8 @@ app.get(
   '/static/*',
   serveStatic({
     root: './',
-    rewriteRequestPath: (path) => path.replace(/^\/static/, '/statics'),
+    rewriteRequestPath: (path) =>
+      path.replace(/^\/static/, '/statics'),
   })
 )
 ```

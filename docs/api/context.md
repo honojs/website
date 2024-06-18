@@ -236,7 +236,10 @@ To ensure type safety, types can be defined as:
 ```ts
 declare module 'hono' {
   interface ContextRenderer {
-    (content: string | Promise<string>, head: { title: string }): Response | Promise<Response>
+    (
+      content: string | Promise<string>,
+      head: { title: string }
+    ): Response | Promise<Response>
   }
 }
 ```

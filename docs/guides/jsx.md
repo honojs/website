@@ -54,7 +54,9 @@ const Layout: FC = (props) => {
   )
 }
 
-const Top: FC<{ messages: string[] }> = (props: { messages: string[] }) => {
+const Top: FC<{ messages: string[] }> = (props: {
+  messages: string[]
+}) => {
   return (
     <Layout>
       <h1>Hello Hono!</h1>
@@ -318,15 +320,16 @@ interface SiteData {
   children?: any
 }
 
-const Layout = (props: SiteData) => html`<!DOCTYPE html>
-  <html>
-    <head>
-      <title>${props.title}</title>
-    </head>
-    <body>
-      ${props.children}
-    </body>
-  </html>`
+const Layout = (props: SiteData) =>
+  html`<!doctype html>
+    <html>
+      <head>
+        <title>${props.title}</title>
+      </head>
+      <body>
+        ${props.children}
+      </body>
+    </html>`
 
 const Content = (props: { siteData: SiteData; name: string }) => (
   <Layout {...props.siteData}>

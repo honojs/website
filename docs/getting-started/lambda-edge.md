@@ -69,44 +69,43 @@ Edit `bin/my-app.ts`.
 
 ```ts
 #!/usr/bin/env node
-import 'source-map-support/register';
-import * as cdk from 'aws-cdk-lib';
-import { MyAppStack } from '../lib/my-app-stack';
+import 'source-map-support/register'
+import * as cdk from 'aws-cdk-lib'
+import { MyAppStack } from '../lib/my-app-stack'
 
-const app = new cdk.App();
+const app = new cdk.App()
 new MyAppStack(app, 'MyAppStack', {
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
     region: 'us-east-1',
   },
-});
+})
 ```
-
 
 Edit `lambda/cdk-stack.ts`.
 
 ```ts
-import { Construct } from 'constructs';
-import * as cdk from 'aws-cdk-lib';
-import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
-import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
-import * as s3 from 'aws-cdk-lib/aws-s3';
+import { Construct } from 'constructs'
+import * as cdk from 'aws-cdk-lib'
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront'
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins'
+import * as lambda from 'aws-cdk-lib/aws-lambda'
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
+import * as s3 from 'aws-cdk-lib/aws-s3'
 
 export class MyAppStack extends cdk.Stack {
-  public readonly edgeFn: lambda.Function;
+  public readonly edgeFn: lambda.Function
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+    super(scope, id, props)
     const edgeFn = new NodejsFunction(this, 'edgeViewer', {
       entry: 'lambda/index_edge.ts',
       handler: 'handler',
       runtime: lambda.Runtime.NODEJS_20_X,
-    });
+    })
 
     // Upload any html
-    const originBucket = new s3.Bucket(this, 'originBucket');
+    const originBucket = new s3.Bucket(this, 'originBucket')
 
     new cloudfront.Distribution(this, 'Cdn', {
       defaultBehavior: {
@@ -118,10 +117,9 @@ export class MyAppStack extends cdk.Stack {
           },
         ],
       },
-    });
+    })
   }
 }
-
 ```
 
 Finally, run the command to deploy:

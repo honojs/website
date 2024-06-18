@@ -51,7 +51,9 @@ Within the handler you can get the validated value with `c.req.valid('form')`.
 Validation targets include `json`, `query`, `header`, `param` and `cookie` in addition to `form`.
 
 ## Multiple validators
+
 You can also include multiple validators to validate different parts of request:
+
 ```ts
 app.post(
   '/posts/:id',
@@ -59,7 +61,7 @@ app.post(
   validator('query', ...),
   validator('json', ...),
   (c) => {
-    //... 
+    //...
   }
 ```
 
@@ -171,7 +173,7 @@ const route = app.post(
     })
   ),
   (c) => {
-    const validated = c.req.valid("form");
+    const validated = c.req.valid('form')
     // ... use your validated data
   }
 )

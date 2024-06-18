@@ -71,7 +71,11 @@ The arguments for toSSG are specified in ToSSGInterface.
 
 ```ts
 export interface ToSSGInterface {
-  (app: Hono, fsModule: FileSystemModule, options?: ToSSGOptions): Promise<ToSSGResult>
+  (
+    app: Hono,
+    fsModule: FileSystemModule,
+    options?: ToSSGOptions
+  ): Promise<ToSSGResult>
 }
 ```
 
@@ -81,7 +85,10 @@ export interface ToSSGInterface {
 ```ts
 export interface FileSystemModule {
   writeFile(path: string, data: string | Uint8Array): Promise<void>
-  mkdir(path: string, options: { recursive: boolean }): Promise<void | string>
+  mkdir(
+    path: string,
+    options: { recursive: boolean }
+  ): Promise<void | string>
 }
 ```
 
@@ -145,7 +152,9 @@ You can customize the process of `toSSG` by specifying the following custom hook
 ```ts
 export type BeforeRequestHook = (req: Request) => Request | false
 export type AfterResponseHook = (res: Response) => Response | false
-export type AfterGenerateHook = (result: ToSSGResult) => void | Promise<void>
+export type AfterGenerateHook = (
+  result: ToSSGResult
+) => void | Promise<void>
 ```
 
 ### BeforeRequestHook/AfterResponseHook
