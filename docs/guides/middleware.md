@@ -102,8 +102,8 @@ app.use(
 In Deno, it is possible to use a different version of middleware than the Hono version, but this can lead to bugs.
 For example, this code is not working because the version is different.
 ```ts
-import { Hono } from 'https://deno.land/x/hono@v2.0.0/mod.ts'
-import { upgradeWebSocket } from 'https://deno.land/x/hono@v4.1.4/helper.ts'
+import { Hono } from 'jsr:@hono/hono@4.4.0'
+import { upgradeWebSocket } from 'jsr:@hono/hono@4.4.5/deno'
 
 const app = new Hono()
 

@@ -150,11 +150,15 @@ Hono also supports Deno Deploy. Please refer to [the official document](https://
 ## Testing
 
 Testing the application on Deno is easy.
-You can write with `Deno.test` and use `assert` or `assertEquals` from the standard library.
+You can write with `Deno.test` and use `assert` or `assertEquals` from [@std/assert](https://jsr.io/@std/assert).
+
+```sh
+deno add @std/assert
+```
 
 ```ts
 import { Hono } from 'hono'
-import { assertEquals } from 'https://deno.land/std/assert/mod.ts'
+import { assertEquals } from '@std/assert'
 
 Deno.test('Hello World', async () => {
   const app = new Hono()
