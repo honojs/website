@@ -100,7 +100,7 @@ The following screenshots show the results on Node.js.
 
 ### On Bun
 
-The followings show the results on Bun.
+The following screenshots show the results on Bun.
 
 ![bench](/images/bench09.png)
 
