@@ -143,7 +143,8 @@ It works fine if it includes a hostname.
 
 ```ts
 const app = new Hono({
-  getPath: (req) => req.url.replace(/^https?:\/(.+?)$/, '$1'),
+  getPath: (req) =>
+    req.url.replace(/^https?:\/(.+?)(?:\?.*)?$/, '$1'),
 })
 
 app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
