@@ -244,6 +244,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Stripe Webhook',
         link: '/examples/stripe-webhook',
       },
+      {
+        text: 'Prisma on Cloudflare',
+        link: '/examples/prisma',
+      },
     ],
   },
 ]
