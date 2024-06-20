@@ -15,9 +15,9 @@ npx prisma init
 
 ## Setup Prisma Accelerate
 
-To setup Accelerate, go to [Prisma Accelerate](https://www.prisma.io/data-platform/accelerate?via=start&gad_source=1&gclid=CjwKCAjwvIWzBhAlEiwAHHWgvX8l8e7xQtqurVYanQ6LmbNheNvCB-4FL0G6BFEfPrUdGyH3qSllqxoCXDoQAvD_BwE) and log in.
+To setup Accelerate, go to [Prisma Accelerate](https://www.prisma.io/data-platform/accelerate?via=start&gad_source=1&gclid=CjwKCAjwvIWzBhAlEiwAHHWgvX8l8e7xQtqurVYanQ6LmbNheNvCB-4FL0G6BFEfPrUdGyH3qSllqxoCXDoQAvD_BwE) and log in or register for free.
 
-After logging in, you will be taken to a page where you can create a new Accelerate project. and log in or register for free
+After logging in, you will be taken to a page where you can create a new Accelerate project.
 
 ![Accelerate Page](/images/prismaAcceleratePage.png)
 
@@ -63,7 +63,7 @@ DIRECT_URL="your_neon_tech_url"
 Now, go to your `schema.prisma` file and set the URLs like this:
 
 ::: code-group
-```ts [.env]
+```ts [schema.prisma]
 generator client {
   provider = "prisma-client-js"
 }
