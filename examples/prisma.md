@@ -1,6 +1,6 @@
 # Using Prisma on Cloudflare Workers
 
-There are two ways to use Prisma with Cloudflare Workers, we will be using Prisma Accelerate, but you can also use the Prisma [Driver Adapter](https://www.prisma.io/docs/orm/overview/databases/database-drivers)
+There are two ways to use Prisma with Cloudflare Workers, we will be using Prisma Accelerate, but you can also use the Prisma [Driver Adapter](https://www.prisma.io/docs/orm/overview/databases/database-drivers).
 
 ### Install Prisma
 
@@ -8,7 +8,7 @@ Install Prisma on your Hono Cloudflare Workers. Here, I am using neon.tech free 
 
 Go to [neon.tech](https://neon.tech/) and create a free PostgreSQL database.
 
-```ts
+```bash
 npm i prisma --save-dev
 npx prisma init
 ```
@@ -41,7 +41,7 @@ You will see something like this:
 
 Click `Generate API Key` and you will receive a new API key similar to the one below:
 
-```ts
+```bash
 DATABASE_URL="prisma://accelerate...."
 ```
 
@@ -77,6 +77,7 @@ datasource db {
 :::
 
 Create a function like this, which you can use in your project later:
+
 ::: code-group
 ```ts
 import { PrismaClient } from '@prisma/client/edge'
@@ -112,7 +113,7 @@ const app = new Hono<{
 
 app.post('/', async (c) => {
     // Now you can use it wherever you want
-    const prisma = getPrisma(c.env?.DATABASE_URL);
+    const prisma = getPrisma(c.env.DATABASE_URL);
 });
 ```
 :::
