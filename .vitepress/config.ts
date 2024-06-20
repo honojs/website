@@ -225,6 +225,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
     text: 'Integrations',
     items: [
       {
+        text: 'Pylon (GraphQL)',
+        link: '/examples/pylon',
+      },
+      {
         text: 'Cloudflare Durable Objects',
         link: '/examples/cloudflare-durable-objects',
       },
