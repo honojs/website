@@ -79,7 +79,7 @@ datasource db {
 Create a function like this, which you can use in your project later:
 
 ::: code-group
-```ts
+```ts [prismaFunction.ts]
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 
@@ -95,7 +95,7 @@ export const getPrisma = (database_url: string) => {
 Here is an example of how you can use this function in your project:
 
 ::: code-group
-```ts
+```ts [index.ts]
 import { Hono } from 'hono';
 import { sign, verify } from 'hono/jwt';
 import { getPrisma } from '../usefulFun/prismaFun';
