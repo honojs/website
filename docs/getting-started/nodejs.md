@@ -230,8 +230,27 @@ CMD ["node", "/app/dist/index.js"]
 
 The following steps shall be taken in advance.
 
-1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
-2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
-3. Add `"build": "tsc"` to `script` section of `package.json`.
-4. Run `npm install typescript --save-dev`.
-5. Add `"type": "module"` to `package.json`.
+1. Run `npm install typescript tsc-alias --save-dev`.
+2. Modify the `package.json`.
+    ```diff
+    {
+    + "type": "module",
+      "scripts": {
+        ...
+    +   "build": "tsc && tsc-alias"
+      }
+    }
+    ```
+3. Modify the `tsconfig.json` 
+    ```diff
+    {
+      "compilerOptions": {
+        ...
+    +   "outDir": "./dist" 
+      },
+    + "exclude": ["node_modules"],
+    + "tsc-alias": {
+    +   "resolveFullPaths": true
+    + }
+    }
+    ```
