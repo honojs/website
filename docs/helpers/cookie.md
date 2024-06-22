@@ -164,7 +164,7 @@ A New Cookie RFC (a.k.a cookie-bis) and CHIPS include some best practices for Co
 
 - [RFC6265bis-13](https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis-13)
   - `Max-Age`/`Expires` limitation
-  - `--Host-`/`--Secure_` prefix limitation
+  - `__Host-`/`__Secure-` prefix limitation
 - [CHIPS-01](https://www.ietf.org/archive/id/draft-cutler-httpbis-partitioned-cookies-01.html)
   - `Partitioned` limitation
 
