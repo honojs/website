@@ -6,8 +6,8 @@
     "dev": "vitepress dev",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "format": "yarn prettier --check ./docs ./examples index.md",
-    "format:fix": "yarn prettier --check --write ./docs ./examples index.md"
+    "format": "prettier --check ./docs ./examples index.md",
+    "format:fix": "prettier --check --write ./docs ./examples index.md"
   },
   "repository": "git@github.com:honojs/website.git",
   "author": "Yusuke Wada <yusuke@kamawada.com>",
