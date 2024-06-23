@@ -33,6 +33,8 @@ Bun.serve({
 
 :::
 
+If you use Node.js, you can use [@hono/node-ws](https://github.com/honojs/middleware/tree/main/packages/node-ws).
+
 ## `upgradeWebSocket()`
 
 `upgradeWebSocket()` returns a handler for handling WebSocket.
