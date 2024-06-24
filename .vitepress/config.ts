@@ -248,6 +248,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Prisma on Cloudflare',
         link: '/examples/prisma',
       },
+      {
+        text: 'Pylon (GraphQL)',
+        link: '/examples/pylon',
+      },
     ],
   },
 ]
