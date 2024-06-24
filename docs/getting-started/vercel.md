@@ -170,3 +170,7 @@ app.get('/hello', (c) => {
 
 export default handle(app)
 ```
+
+In order for this to work, it's important to disable Vercel node.js helpers by setting up an enviroment variable in your project dashboard or in your `.env` file
+
+`NODEJS_HELPERS=0`
