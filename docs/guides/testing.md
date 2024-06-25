@@ -128,3 +128,59 @@ test('GET /posts', async () => {
   const res = await app.request('/posts', {}, MOCK_ENV)
 })
 ```
+
+## Context
+
+To set `c.set()` for testing, you can create a new app and add a custom testing middleware.
+
+For example, let's add a mock user object to "jwt" to all routes:
+
+```ts
+// Create a mock object
+const mockUser = {
+  id: "550e8400-e29b-41d4-a716-446655440000",
+  email: "johndoe@example.com",
+  age: 26
+};
+
+let app: Hono;
+
+beforeEach(() => {
+  app = new Hono();
+  
+  // Set any test data to your context
+  app.use("*", async (c, next) => {
+    c.set("user", mockUser);
+    await next();
+  });
+});
+
+```
+
+Now during testing your context will have the mock object to which you can make assertions:
+```ts
+test('GET /friends', async () => {
+  // When the request is made, the c.get("user") will be the mockUser
+  const res = await app.request('/friends', MOCK_ENV)
+  expect(res.status).toBe(200)
+  expect(respository.getFriends).toHaveBeenCalledWith(mockUser.id);
+})
+```
+
+You can also test your own routes, make sure to add any middleware before routing:
+
+```ts
+let app: Hono;
+
+beforeEach(() => {
+  app = new Hono();
+  
+  app.use("*", async (c, next) => {
+    // Make changes to your context
+    await next();
+  });
+
+  // Routing after middleware
+  app.route("/", myHonoApp);
+});
+```
