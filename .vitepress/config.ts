@@ -56,6 +56,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/supabase-functions',
       },
       { text: 'Node.js', link: '/docs/getting-started/nodejs' },
+      { text: 'Ali Function Compute', link: '/docs/getting-started/ali-function-compute' },
     ],
   },
   {
