@@ -130,7 +130,7 @@ import { handle } from 'hono/aws-lambda'
 
 type Bindings = {
   event: LambdaEvent
-  context: LambdaContext
+  lambdaContext: LambdaContext
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -138,7 +138,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 app.get('/aws-lambda-info/', (c) => {
   return c.json({
     isBase64Encoded: c.env.event.isBase64Encoded,
-    awsRequestId: c.env.context.awsRequestId,
+    awsRequestId: c.env.lambdaContext.awsRequestId,
   })
 })
 
