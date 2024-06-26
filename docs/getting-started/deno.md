@@ -38,7 +38,7 @@ const app = new Hono()
 
 app.get('/', (c) => c.text('Hello Deno!'))
 
-export default app
+Deno.serve(app.fetch)
 ```
 
 ## 4. Run
@@ -51,15 +51,11 @@ deno task start
 
 ## Change port number
 
-You can specify the port number by updating the `deno.json``:
+You can specify the port number by updating the arguments of `Deno.serve` in `main.ts`:
 
-```json
-{
-  "tasks": {
-    "start": "deno serve main.ts"  // [!code --]
-    "start": "deno serve --port 8787 main.ts"  // [!code ++]
-  }
-}
+```ts
+Deno.serve(app.fetch) // [!code --]
+Deno.serve({ port: 8787 }, app.fetch) // [!code ++]
 ```
 
 ## Serve static files
@@ -77,7 +73,7 @@ app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 app.get('/', (c) => c.text('You can access: /static/hello.txt'))
 app.get('*', serveStatic({ path: './static/fallback.txt' }))
 
-export default app
+Deno.serve(app.fetch)
 ```
 
 For the above code, it will work well with the following directory structure.
