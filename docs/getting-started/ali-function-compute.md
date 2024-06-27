@@ -15,7 +15,7 @@ npm install @serverless-devs/s -g
 Add the AK & SK configuration
 
 ```sh
-s config add 
+s config add
 # Please select a provider: Alibaba Cloud (alibaba)
 # Input your AccessKeyID & AccessKeySecret
 ```
@@ -50,38 +50,38 @@ Edit `scripts` section in `package.json`:
 Edit `src/index.ts`:
 
 ```ts
-import { serve } from "@hono/node-server";
-import { Hono } from "hono";
+import { serve } from '@hono/node-server'
+import { Hono } from 'hono'
 
-const REQUEST_ID_HEADER = "x-fc-request-id";
+const REQUEST_ID_HEADER = 'x-fc-request-id'
 
-const app = new Hono();
+const app = new Hono()
 
-app.post("/initialize", (c) => {
-  console.log(`RequestId: ${c.req.header(REQUEST_ID_HEADER)}`);
-  return c.text("Initialize");
-});
+app.post('/initialize', (c) => {
+  console.log(`RequestId: ${c.req.header(REQUEST_ID_HEADER)}`)
+  return c.text('Initialize')
+})
 
-app.post("/invoke", (c) => {
-  console.log(`RequestId: ${c.req.header(REQUEST_ID_HEADER)}`);
-  return c.text("Invoke");
-});
+app.post('/invoke', (c) => {
+  console.log(`RequestId: ${c.req.header(REQUEST_ID_HEADER)}`)
+  return c.text('Invoke')
+})
 
-app.get("/", (c) => {
-  return c.text("Hello from index!");
-});
+app.get('/', (c) => {
+  return c.text('Hello from index!')
+})
 
-app.get("/hello", (c) => {
-  return c.text("Hi!");
-});
+app.get('/hello', (c) => {
+  return c.text('Hi!')
+})
 
-const port = 9000;
-console.log(`Server is running on port ${port}`);
+const port = 9000
+console.log(`Server is running on port ${port}`)
 
 serve({
   fetch: app.fetch,
   port,
-});
+})
 ```
 
 Edit `tsconfig.json`
@@ -94,13 +94,11 @@ Edit `tsconfig.json`
     "moduleResolution": "Bundler",
     "strict": true,
     "skipLibCheck": true,
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "types": [],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx"
-  },
+  }
 }
 ```
 
@@ -109,18 +107,18 @@ Edit `s.yaml`:
 ```yaml
 edition: 3.0.0
 name: my-app
-access: "default"
+access: 'default'
 
 vars:
-  region: "us-west-1"
+  region: 'us-west-1'
 
 resources:
   my_app:
     component: fc3
     props:
-      region: ${vars.region}              
-      functionName: "my-app"
-      runtime: "custom.debian10"
+      region: ${vars.region}
+      functionName: 'my-app'
+      runtime: 'custom.debian10'
       description: 'hello world by Hono'
       timeout: 10
       memorySize: 512
