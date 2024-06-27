@@ -22,6 +22,31 @@ s config add
 
 ## 2. Hello World
 
+Create a new project in a new directory:
+
+```sh
+npm init
+```
+
+Add the required dependencies:
+
+```sh
+npm add hono @hono/node-server
+npm add esbuild --save-dev
+```
+
+Edit `scripts` section in `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts",
+    "dev": "node ./dist/index.js",
+    "deploy": "s deploy -y"
+  }
+}
+```
+
 Edit `src/index.ts`:
 
 ```ts
@@ -57,26 +82,6 @@ serve({
   fetch: app.fetch,
   port,
 });
-```
-
-Edit `package.json`:
-
-```json
-{
-  "scripts": {
-    "build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts",
-    "dev": "node ./dist/index.js",
-    "deploy": "s deploy -y"
-  },
-  "dependencies": {
-    "esbuild": "^0.21.4",
-    "@hono/node-server": "^1.11.2",
-    "hono": "^4.4.3"
-  },
-  "devDependencies": {
-    "@serverless-devs/s": "^3.0.8"
-  }
-}
 ```
 
 Edit `tsconfig.json`
@@ -151,7 +156,7 @@ resources:
 Finally, run the command to deploy:
 
 ```sh
-npm run install # install dependencies
+npm install # install dependencies
 npm run build # Compile the TypeScript code to JavaScript
 npm run deploy # Deploy the function to Alibaba Cloud Function Compute
 ```
