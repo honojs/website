@@ -75,6 +75,12 @@ if (res.ok) {
 }
 ```
 
+::: warning File Upload
+
+Currently, the client does not support file uploading.
+
+:::
+
 ## Status code
 
 If you explicitly specify the status code, such as `200` or `404`, in `c.json()`. It will be added as a type for passing to the client.
