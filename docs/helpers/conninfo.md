@@ -39,7 +39,7 @@ app.get('/', (c) => {
 The type definitions of the values that you can get from `getConnInfo()` are the following:
 
 ```ts
-type AddressType = 'IPv6' | 'IPv4' | 'unknown'
+type AddressType = 'IPv6' | 'IPv4'
 
 type NetAddrInfo = {
   /**
