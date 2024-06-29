@@ -131,24 +131,23 @@ test('GET /posts', async () => {
 
 ## Context
 
-To set `c.set()` for testing, you can create a new app and add a custom testing middleware.
+To set values into your context `c.set()` for testing, create a custom testing middleware and add it before your test(s) run.
 
 For example, let's add a mock user object to "jwt" to all routes:
 
 ```ts
-// Create a mock object
 const mockUser = {
   id: "550e8400-e29b-41d4-a716-446655440000",
   email: "johndoe@example.com",
   age: 26
 };
 
+// Create a Hono app instance and set middleware before each test
 let app: Hono;
-
 beforeEach(() => {
   app = new Hono();
   
-  // Set any test data to your context
+  // Create a middleware and set any test data into the context
   app.use("*", async (c, next) => {
     c.set("user", mockUser);
     await next();
@@ -161,17 +160,16 @@ Now during testing your context will have the mock object to which you can make 
 ```ts
 test('GET /friends', async () => {
   // When the request is made, the c.get("user") will be the mockUser
-  const res = await app.request('/friends', MOCK_ENV)
+  const res = await app.request('/friends', {MOCK_ENV})
   expect(res.status).toBe(200)
   expect(respository.getFriends).toHaveBeenCalledWith(mockUser.id);
 })
 ```
 
-You can also test your own routes, make sure to add any middleware before routing:
+You can also test your route handlers, in this case you must **add the middleware before routing**:
 
 ```ts
 let app: Hono;
-
 beforeEach(() => {
   app = new Hono();
   
@@ -180,7 +178,7 @@ beforeEach(() => {
     await next();
   });
 
-  // Routing after middleware
+  // Routing after any middleware(s)
   app.route("/", myHonoApp);
 });
 ```
