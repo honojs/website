@@ -145,7 +145,7 @@ Thanks to the use of the **Web Standards**, Hono works on a lot of platforms.
 - Lambda@Edge
 - Others
 
-And by using [a Node.js adaptor](https://github.com/honojs/node-server), Hono works on Node.js.
+And by using [a Node.js adapter](https://github.com/honojs/node-server), Hono works on Node.js.
 
 See [more information about Web Standards](/docs/concepts/web-standard).
 
