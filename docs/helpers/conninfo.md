@@ -11,6 +11,11 @@ import { Hono } from 'hono'
 import { getConnInfo } from 'hono/cloudflare-workers'
 ```
 
+```ts [Vercel]
+import { Hono } from 'hono'
+import { getConnInfo } from 'hono/vercel'
+```
+
 ```ts [Deno]
 import { Hono } from 'hono'
 import { getConnInfo } from 'hono/deno'
