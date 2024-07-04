@@ -4,7 +4,7 @@ The JWT Auth Middleware provides authentication by verifying the token with JWT.
 The middleware will check for an `Authorization` header if the `cookie` option is not set.
 
 :::info
-The Authorization header sent from the client must have a specified scheme. 
+The Authorization header sent from the client must have a specified scheme.
 
 Example: `Bearer my.token.value` or `Basic my.token.value`
 :::
@@ -72,9 +72,12 @@ app.use('/auth/*', (c, next) => {
 
 ## Options
 
-- `secret`: string - _required_
-  - A value of your secret key.
-- `cookie`: string
-  - If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
-- `alg`: string
-  - An algorithm type that is used for verifying. Available types are `HS256` | `HS384` | `HS512` | `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`. Default is `HS256`.
+### <Badge type="danger" text="required" /> secret: `string`
+A value of your secret key.
+### <Badge type="info" text="optional" /> cookie: `string`
+If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
+### <Badge type="info" text="optional" /> alg: `string`
+An algorithm type that is used for verifying.  
+The default value is `HS256`.
+
+Available types are `HS256` | `HS384` | `HS512` | `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`.  
