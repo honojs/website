@@ -21,6 +21,11 @@ import { Hono } from 'hono'
 import { getConnInfo } from 'hono/bun'
 ```
 
+```ts [Lambda@Edge]
+import { Hono } from 'hono'
+import { getConnInfo } from 'hono/bun'
+```
+
 ```ts [Node.js]
 import { Hono } from 'hono'
 import { getConnInfo } from '@hono/node-server/conninfo'
