@@ -4,7 +4,7 @@ The JWT Auth Middleware provides authentication by verifying the token with JWT.
 The middleware will check for an `Authorization` header if the `cookie` option is not set.
 
 :::info
-The Authorization header sent from the client must have a specified scheme. 
+The Authorization header sent from the client must have a specified scheme.
 
 Example: `Bearer my.token.value` or `Basic my.token.value`
 :::
