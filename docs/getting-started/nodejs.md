@@ -203,7 +203,7 @@ FROM node:20-alpine AS base
 
 FROM base AS builder
 
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache gcompat
 WORKDIR /app
 
 COPY package*json tsconfig.json src ./

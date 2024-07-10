@@ -47,22 +47,23 @@ DATABASE_URL="prisma://accelerate...."
 
 Copy this `DATABASE_URL` and store it in `.dev.vars` and `.env` so that prisma cli can access it later on.
 
-
 ## Set Up Prisma in Your Project
+
 The neon.tech URL you received can also be used as an alternative and provide Prisma with more options, so store it for later use:
 
+::: code-group
 
-::: code-group  
-```ts [.dev.vars]  
-DATABASE_URL="your_prisma_accelerate_url"  
-DIRECT_URL="your_neon_tech_url"  
-``` 
+```bash [.dev.vars]
+DATABASE_URL="your_prisma_accelerate_url"
+DIRECT_URL="your_neon_tech_url
+```
+
 :::
-
 
 Now, go to your `schema.prisma` file and set the URLs like this:
 
 ::: code-group
+
 ```ts [schema.prisma]
 generator client {
   provider = "prisma-client-js"
@@ -74,46 +75,51 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 ```
+
 :::
 
 Create a function like this, which you can use in your project later:
 
 ::: code-group
+
 ```ts [prismaFunction.ts]
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 
 export const getPrisma = (database_url: string) => {
-    const prisma = new PrismaClient({
-        datasourceUrl: database_url,
-      }).$extends(withAccelerate());
-    return prisma
+  const prisma = new PrismaClient({
+    datasourceUrl: database_url,
+  }).$extends(withAccelerate())
+  return prisma
 }
 ```
+
 :::
 
 Here is an example of how you can use this function in your project:
 
 ::: code-group
+
 ```ts [index.ts]
-import { Hono } from 'hono';
-import { sign, verify } from 'hono/jwt';
-import { getPrisma } from '../usefulFun/prismaFun';
+import { Hono } from 'hono'
+import { sign, verify } from 'hono/jwt'
+import { getPrisma } from '../usefulFun/prismaFun'
 
 // Create the main Hono app
 const app = new Hono<{
   Bindings: {
     DATABASE_URL: string
     JWT_SECRET: string
-  },
-  Variables: {
-    userId: string,
   }
-}>();
+  Variables: {
+    userId: string
+  }
+}>()
 
 app.post('/', async (c) => {
-    // Now you can use it wherever you want
-    const prisma = getPrisma(c.env.DATABASE_URL);
-});
+  // Now you can use it wherever you want
+  const prisma = getPrisma(c.env.DATABASE_URL)
+})
 ```
+
 :::
