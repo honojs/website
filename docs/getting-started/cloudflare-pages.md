@@ -145,16 +145,16 @@ bun run deploy
 :::
 
 ### Deploy via the Cloudflare dashboard with GitHub
+
 1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
 2. In Account Home, select Workers & Pages > Create application > Pages > Connect to Git.
 3. Authorize your GitHub account, and select the repository. In Set up builds and deployments, provide the following information:
 
 | Configuration option | Value           |
-|----------------------|-----------------|
+| -------------------- | --------------- |
 | Production branch    | `main`          |
 | Build command        | `npm run build` |
 | Build directory      | `dist`          |
-
 
 ## Bindings
 
