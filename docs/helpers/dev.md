@@ -56,6 +56,9 @@ POST  /v1/posts
 ## Options
 
 ### <Badge type="info" text="optional" /> verbose: `boolean`
+
 When set to `true`, it displays verbose information.
+
 ### <Badge type="info" text="optional" /> colorize: `boolean`
+
 When set to `false`, the output will not be colored.

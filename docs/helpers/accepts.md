@@ -42,11 +42,19 @@ export type AcceptHeader =
 ```
 
 ## Options
+
 ### <Badge type="danger" text="required" /> header: `AcceptHeader`
+
 The target accept header.
+
 ### <Badge type="danger" text="required" /> supports: `string[]`
+
 The header values which your application supports.
+
 ### <Badge type="danger" text="required" /> default: `string`
+
 The default values.
+
 ### <Badge type="info" text="optional" /> match: `(accepts: Accept[], config: acceptsConfig) => string`
+
 The custom match function.

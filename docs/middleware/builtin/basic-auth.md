@@ -67,15 +67,24 @@ app.use(
 ## Options
 
 ### <Badge type="danger" text="required" /> username: `string`
+
 The username of the user who is authenticating.
+
 ### <Badge type="danger" text="required" /> password: `string`
+
 The password value for the provided username to authenticate against.
+
 ### <Badge type="info" text="optional" /> realm: `string`
+
 The domain name of the realm, as part of the returned WWW-Authenticate challenge header. The default is `"Secure Area"`.  
 See more: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
+
 ### <Badge type="info" text="optional" /> hashFunction: `Function`
+
 A function to handle hashing for safe comparison of passwords.
+
 ### <Badge type="info" text="optional" /> verifyUser: `(username: string, password: string, c: Context) => boolean | Promise<boolean>`
+
 The function to verify the user.
 
 ## More Options

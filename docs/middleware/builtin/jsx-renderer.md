@@ -36,6 +36,7 @@ app.get('/page/about', (c) => {
 ## Options
 
 ### <Badge type="info" text="optional" /> docType: `boolean` | `string`
+
 If you do not want to add a DOCTYPE at the beginning of the HTML, set the `docType` option to `false`.
 
 ```tsx

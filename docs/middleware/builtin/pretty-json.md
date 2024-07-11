@@ -41,4 +41,5 @@ app.get('/', (c) => {
 ## Options
 
 ### <Badge type="info" text="optional" /> space: `number`
+
 Number of spaces for indentation. The default is `2`.

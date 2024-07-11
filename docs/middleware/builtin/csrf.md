@@ -46,4 +46,5 @@ app.use(
 ## Options
 
 ### <Badge type="info" text="optional" /> origin: `string` | `string[]` | `Function`
+
 Specify origins.

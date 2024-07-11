@@ -42,6 +42,9 @@ app.use(
 ## Options
 
 ### <Badge type="info" text="optional" /> weak: `boolean`
+
 Define using or not using a [weak validation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests#weak_validation). If `true` is set, then `w/` is added to the prefix of the value. The default is `false`.
+
 ### <Badge type="info" text="optional" /> retainedHeaders: `string[]`
+
 The headers that you want to retain in the 304 Response.
