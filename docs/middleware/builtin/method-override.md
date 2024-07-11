@@ -62,7 +62,7 @@ app.use('/posts', methodOverride({ app, query: '_method' }))
 
 ## Options
 
-### <Badge type="info" text="optional" /> app: `Hono`
+### <Badge type="danger" text="required" /> app: `Hono`
 
 The instance of `Hono` is used in your application.
 
