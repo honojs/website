@@ -42,13 +42,14 @@ const token = await sign(payload, secret)
 ```
 
 ### Options
+<br/>
 
-- `payload`: unknown - required
-  - The JWT payload to be signed. You can include other claims like in [Payload Validation](#payload-validation).
-- `secret`: string - required
-  - The secret key used for JWT verification or signing.
-- `alg`: [AlgorithmTypes](#supported-algorithmtypes)
-  - The algorithm used for JWT signing or verification. Default is HS256.
+#### <Badge type="danger" text="required" /> payload: `unknown`
+The JWT payload to be signed. You can include other claims like in [Payload Validation](#payload-validation).
+#### <Badge type="danger" text="required" /> secret: `string`
+The secret key used for JWT verification or signing.
+#### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
+The algorithm used for JWT signing or verification. The default is HS256.
 
 ## `verify()`
 
@@ -76,13 +77,14 @@ console.log(decodedPayload)
 ```
 
 ### Options
+<br/>
 
-- `token`: string - required
-  - The JWT token to be verified.
-- `secret`: string - required
-  - The secret key used for JWT verification or signing.
-- `alg`: [AlgorithmTypes](#supported-algorithmtypes)
-  - The algorithm used for JWT signing or verification. Default is HS256.
+#### <Badge type="danger" text="required" /> token: `string`
+The JWT token to be verified.
+#### <Badge type="danger" text="required" /> secret: `string`
+The secret key used for JWT verification or signing.
+#### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
+The algorithm used for JWT signing or verification. The default is HS256.
 
 ## `decode()`
 
@@ -108,9 +110,10 @@ console.log('Decoded Payload:', payload)
 ```
 
 ### Options
+<br/>
 
-- `token`: string - required
-  - The JWT token to be decoded.
+#### <Badge type="danger" text="required" /> token: `string`
+The JWT token to be decoded.
 
 > The `decode` function allows you to inspect the header and payload of a JWT token _**without**_ performing verification. This can be useful for debugging or extracting information from JWT tokens.
 

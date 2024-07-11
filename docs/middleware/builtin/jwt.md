@@ -78,6 +78,6 @@ A value of your secret key.
 If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
 ### <Badge type="info" text="optional" /> alg: `string`
 An algorithm type that is used for verifying.  
-The default value is `HS256`.
+The default is `HS256`.
 
 Available types are `HS256` | `HS384` | `HS512` | `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`.  

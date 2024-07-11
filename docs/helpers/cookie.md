@@ -52,15 +52,15 @@ app.get('/signed-cookie', async (c) => {
 
 ### `setCookie` & `setSignedCookie`
 
-- `domain`: string
-- `expires`: Date
-- `httpOnly`: boolean
-- `maxAge`: number
-- `path`: string
-- `secure`: boolean
-- `sameSite`: `'Strict'` | `'Lax'` | `'None'`
-- `prefix`: `secure` | `'host'`
-- `partitioned`: boolean
+- domain: `string`
+- expires: `Date`
+- httpOnly: `boolean`
+- maxAge: `number`
+- path: `string`
+- secure: `boolean`
+- sameSite: `'Strict'` | `'Lax'` | `'None'`
+- prefix: `secure` | `'host'`
+- partitioned: `boolean`
 
 Example:
 
@@ -96,9 +96,9 @@ await setSignedCookie(
 
 ### `deleteCookie`
 
-- `path`: string
-- `secure`: boolean
-- `domain`: string
+- path: `string`
+- secure: `boolean`
+- domain: `string`
 
 Example:
 

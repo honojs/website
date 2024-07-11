@@ -35,11 +35,11 @@ You can also extend the middleware further by providing your own `PrintFunc` fun
 
 The Logger Middleware accepts an optional `PrintFunc` function as a parameter. This function allows you to customize the logger and add additional logs.
 
-### Options
+## Options
 
-- `PrintFunc(str: string, ...rest: string[])`: Optional function
-  - `str`: Passed by the logger.
-  - `...rest`: Additional string props to be printed to console.
+### <Badge type="info" text="optional" /> fn: `PrintFunc(str: string, ...rest: string[])`
+- `str`: Passed by the logger.
+- `...rest`: Additional string props to be printed to console.
 
 ### Example
 
