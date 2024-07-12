@@ -141,7 +141,7 @@ export default defineService({
   Query: {
     hello: () => {
       const context = getContext()
-      return `Hello, ${context.req.headers.get('user-agent')}`
+      return `Hello, ${context.req.header('user-agent')}`
     },
   },
 })
