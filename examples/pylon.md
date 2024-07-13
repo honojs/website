@@ -111,8 +111,8 @@ export default defineService({
     user: User.getById,
   },
   Mutation: {
-    createPost: (userId: string, title: string, content: string) => {
-      const user = User.getById(userId)
+    createPost: async (userId: string, title: string, content: string) => {
+      const user = await User.getById(userId)
       return user.$createPost(title, content)
     },
   },
