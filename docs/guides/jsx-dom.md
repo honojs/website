@@ -71,6 +71,9 @@ hono/jsx/dom has Hooks that are compatible or partially compatible with React. Y
 - `useImperativeHandle()`
 - `useSyncExternalStore()`
 - `useInsertionEffect()`
+- `useFormStatus()`
+- `useActionState()`
+- `useOptimistic()`
 
 ## `startViewTransition()` family
 
