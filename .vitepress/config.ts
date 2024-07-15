@@ -55,7 +55,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'Supabase Functions',
         link: '/docs/getting-started/supabase-functions',
       },
-      { text: 'Ali Function Compute', link: '/docs/getting-started/ali-function-compute' },
+      {
+        text: 'Ali Function Compute',
+        link: '/docs/getting-started/ali-function-compute',
+      },
       { text: 'Node.js', link: '/docs/getting-started/nodejs' },
     ],
   },
@@ -151,6 +154,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/middleware/builtin/csrf',
       },
       { text: 'ETag', link: '/docs/middleware/builtin/etag' },
+      {
+        text: 'IP Restriction',
+        link: '/docs/middleware/builtin/ip-restriction',
+      },
       {
         text: 'JSX Renderer',
         link: '/docs/middleware/builtin/jsx-renderer',
