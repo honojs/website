@@ -308,3 +308,56 @@ You can run the following command to build the server and client script.
 ```sh
 vite build --mode client && vite build
 ```
+
+## Cloudflare Pages Middleware
+
+Cloudflare Pages uses its own [middleware](https://developers.cloudflare.com/pages/functions/middleware/) system that is different from Hono's middleware. You can enable it by exporting `onRequest` in a file named `_middleware.ts` like this:
+
+```ts
+// functions/_middleware.ts
+export async function onRequest(pagesContext) {
+  console.log(`You are accessing ${pagesContext.request.url}`)
+  return await pagesContext.next()
+}
+```
+
+Using `handleMiddleware`, you can use Hono's middleware as Cloudflare Pages middleware.
+
+```ts
+// functions/_middleware.ts
+import { handleMiddleware } from 'hono/cloudflare-pages'
+
+export const onRequest = handleMiddleware(async (c, next) => {
+  console.log(`You are accessing ${c.req.url}`)
+  await next()
+})
+```
+
+You can also use built-in and 3rd party middleware for Hono. For example, to add Basic Authentication, you can use [Hono's Basic Authentication Middleware](/docs/middleware/builtin/basic-auth).
+
+```ts
+// functions/_middleware.ts
+import { handleMiddleware } from 'hono/cloudflare-pages'
+import { basicAuth } from 'hono/basic-auth'
+
+export const onRequest = handleMiddleware(
+  basicAuth({
+    username: 'hono',
+    password: 'acoolproject',
+  })
+)
+```
+
+If you want to apply multiple middleware, you can write it like this:
+
+```ts
+import { handleMiddleware } from 'hono/cloudflare-pages'
+
+// ...
+
+export const onRequest = [
+  handleMiddleware(middleware1),
+  handleMiddleware(middleware2),
+  handleMiddleware(middleware3),
+]
+```
