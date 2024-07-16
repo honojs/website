@@ -21,6 +21,16 @@ import { Hono } from 'hono'
 import { getConnInfo } from 'hono/bun'
 ```
 
+```ts [Vercel]
+import { Hono } from 'hono'
+import { getConnInfo } from 'hono/vercel'
+```
+
+```ts [Lambda@Edge]
+import { Hono } from 'hono'
+import { getConnInfo } from 'hono/lambda-edge'
+```
+
 ```ts [Node.js]
 import { Hono } from 'hono'
 import { getConnInfo } from '@hono/node-server/conninfo'
@@ -44,7 +54,7 @@ app.get('/', (c) => {
 The type definitions of the values that you can get from `getConnInfo()` are the following:
 
 ```ts
-type AddressType = 'IPv6' | 'IPv4' | 'unknown'
+type AddressType = 'IPv6' | 'IPv4' | undefined
 
 type NetAddrInfo = {
   /**
@@ -74,11 +84,11 @@ type NetAddrInfo = {
 )
 
 /**
- * HTTP Connection infomation
+ * HTTP Connection information
  */
 interface ConnInfo {
   /**
-   * Remote infomation
+   * Remote information
    */
   remote: NetAddrInfo
 }
