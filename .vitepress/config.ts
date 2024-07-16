@@ -59,6 +59,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'Ali Function Compute',
         link: '/docs/getting-started/ali-function-compute',
       },
+      {
+        text: 'Service Worker',
+        link: '/docs/getting-started/service-worker',
+      },
       { text: 'Node.js', link: '/docs/getting-started/nodejs' },
     ],
   },
