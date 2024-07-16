@@ -151,6 +151,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/middleware/builtin/body-limit',
       },
       { text: 'Cache', link: '/docs/middleware/builtin/cache' },
+      { text: 'Combine', link: '/docs/middleware/builtin/combine' },
       { text: 'Compress', link: '/docs/middleware/builtin/compress' },
       { text: 'CORS', link: '/docs/middleware/builtin/cors' },
       {
