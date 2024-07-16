@@ -177,6 +177,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/middleware/builtin/pretty-json',
       },
       {
+        text: 'Request ID',
+        link: '/docs/middleware/builtin/request-id',
+      },
+      {
         text: 'Secure Headers',
         link: '/docs/middleware/builtin/secure-headers',
       },
