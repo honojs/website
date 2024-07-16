@@ -7,6 +7,7 @@ Most of this middleware leverages external libraries.
 - [Auth.js(Next Auth)](https://github.com/honojs/middleware/tree/main/packages/auth-js)
 - [Bun Transpiler](https://github.com/honojs/middleware/tree/main/packages/bun-transpiler)
 - [Clerk Auth](https://github.com/honojs/middleware/tree/main/packages/clerk-auth)
+- [Effect Schema Validator](https://github.com/honojs/middleware/tree/main/packages/effect-validator)
 - [esbuild Transpiler](https://github.com/honojs/middleware/tree/main/packages/esbuild-transpiler)
 - [ESLint Config](https://github.com/honojs/middleware/tree/main/packages/eslint-config)
 - [Firebase Auth](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
