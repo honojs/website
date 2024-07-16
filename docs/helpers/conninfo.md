@@ -21,6 +21,16 @@ import { Hono } from 'hono'
 import { getConnInfo } from 'hono/bun'
 ```
 
+```ts [Vercel]
+import { Hono } from 'hono'
+import { getConnInfo } from 'hono/vercel'
+```
+
+```ts [Lambda@Edge]
+import { Hono } from 'hono'
+import { getConnInfo } from 'hono/lambda-edge'
+```
+
 ```ts [Node.js]
 import { Hono } from 'hono'
 import { getConnInfo } from '@hono/node-server/conninfo'
