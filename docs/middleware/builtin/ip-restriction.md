@@ -81,5 +81,3 @@ app.use(
   )
 )
 ```
-
-## Options
