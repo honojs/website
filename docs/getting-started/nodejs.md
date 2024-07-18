@@ -173,7 +173,7 @@ You can run hono on a [Node.js http2 Server](https://nodejs.org/api/http2.html).
 import { createServer } from 'node:http2'
 
 const server = serve({
-  fetch: app.fetch
+  fetch: app.fetch,
   createServer,
 })
 ```

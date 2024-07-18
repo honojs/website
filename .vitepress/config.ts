@@ -55,7 +55,14 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'Supabase Functions',
         link: '/docs/getting-started/supabase-functions',
       },
-      { text: 'Ali Function Compute', link: '/docs/getting-started/ali-function-compute' },
+      {
+        text: 'Ali Function Compute',
+        link: '/docs/getting-started/ali-function-compute',
+      },
+      {
+        text: 'Service Worker',
+        link: '/docs/getting-started/service-worker',
+      },
       { text: 'Node.js', link: '/docs/getting-started/nodejs' },
     ],
   },
@@ -144,6 +151,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/middleware/builtin/body-limit',
       },
       { text: 'Cache', link: '/docs/middleware/builtin/cache' },
+      { text: 'Combine', link: '/docs/middleware/builtin/combine' },
       { text: 'Compress', link: '/docs/middleware/builtin/compress' },
       { text: 'CORS', link: '/docs/middleware/builtin/cors' },
       {
@@ -151,6 +159,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/middleware/builtin/csrf',
       },
       { text: 'ETag', link: '/docs/middleware/builtin/etag' },
+      {
+        text: 'IP Restriction',
+        link: '/docs/middleware/builtin/ip-restriction',
+      },
       {
         text: 'JSX Renderer',
         link: '/docs/middleware/builtin/jsx-renderer',
@@ -164,6 +176,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       {
         text: 'Pretty JSON',
         link: '/docs/middleware/builtin/pretty-json',
+      },
+      {
+        text: 'Request ID',
+        link: '/docs/middleware/builtin/request-id',
       },
       {
         text: 'Secure Headers',
