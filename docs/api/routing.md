@@ -207,7 +207,7 @@ app.get('/foo', (c) => c.text('foo'))
 If you want to have a "_fallback_" handler, write the code below the other handler.
 
 ```ts
-app.get('/foo', (c) => c.text('foo')) // foo
+app.get('/bar', (c) => c.text('bar')) // bar
 app.get('*', (c) => c.text('fallback')) // fallback
 ```
 
