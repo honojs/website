@@ -86,16 +86,27 @@ app.use(
 
 ## Options
 
-- `token`: string | string[] - _required_
-  - The string to validate the incoming bearer token against
-- `verifyToken`: `(token: string, c: Context) => boolean | Promise<boolean>`
-  - The function to verify the token
-- `realm`: string
-  - The domain name of the realm, as part of the returned WWW-Authenticate challenge header. Default is `""`
-  - _See:_ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
-- `prefix`: string
-  - The prefix (or known as `schema`) for the Authorization header value. Default is `"Bearer"`
-- `headerName`: string
-  - The header name. Default is `Authorization`
-- `hashFunction`: Function
-  - A function to handle hashing for safe comparison of authentication tokens
+### <Badge type="danger" text="required" /> token: `string` | `string[]`
+
+The string to validate the incoming bearer token against.
+
+### <Badge type="info" text="optional" /> realm: `string`
+
+The domain name of the realm, as part of the returned WWW-Authenticate challenge header. The default is `""`.
+See more: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
+
+### <Badge type="info" text="optional" /> prefix: `string`
+
+The prefix (or known as `schema`) for the Authorization header value. The default is `"Bearer"`.
+
+### <Badge type="info" text="optional" /> headerName: `string`
+
+The header name. The default value is `Authorization`.
+
+### <Badge type="info" text="optional" /> hashFunction: `Function`
+
+A function to handle hashing for safe comparison of authentication tokens.
+
+### <Badge type="info" text="optional" /> verifyToken: `(token: string, c: Context) => boolean | Promise<boolean>`
+
+The function to verify the token.

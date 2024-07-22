@@ -35,9 +35,14 @@ const app = new Hono<{
 
 ## Options
 
-- `limitLength`: number
-  - The maximum length of the request ID. The default is `255`.
-- `headerName`: string
-  - The header name used for the request ID. The default is `X-Request-Id`.
-- `generator`: `(c: Context) => string`
-  - The request ID generation function. By default, it uses `crypto.randomUUID()`.
+### <Badge type="info" text="optional" /> limitLength: `number`
+
+The maximum length of the request ID. The default is `255`.
+
+### <Badge type="info" text="optional" /> headerName: `string`
+
+The header name used for the request ID. The default is `X-Request-Id`.
+
+### <Badge type="info" text="optional" /> generator: `(c: Context) => string`
+
+The request ID generation function. By default, it uses `crypto.randomUUID()`.

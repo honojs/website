@@ -35,7 +35,7 @@ app.get('/page/about', (c) => {
 
 ## Options
 
-### `docType`: `boolean` | `string`
+### <Badge type="info" text="optional" /> docType: `boolean` | `string`
 
 If you do not want to add a DOCTYPE at the beginning of the HTML, set the `docType` option to `false`.
 
@@ -76,7 +76,7 @@ app.use(
 )
 ```
 
-### `stream`: `boolean` | `Record<string, string>`
+### <Badge type="info" text="optional" /> stream: `boolean` | `Record<string, string>`
 
 If you set it to `true` or provide a Record value, it will be rendered as a streaming response.
 

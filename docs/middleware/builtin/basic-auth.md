@@ -66,21 +66,30 @@ app.use(
 
 ## Options
 
-- `username`: string - _required_
-  - The username of the user who is authenticating
-- `password`: string - _required_
-  - The password value for the provided username to authenticate against
-- `verifyUser`: `(username: string, password: string, c: Context) => boolean | Promise<boolean>`
-  - The function to verify the user
-- `realm`: string
-  - The domain name of the realm, as part of the returned WWW-Authenticate challenge header. Default is `"Secure Area"`
-  - See: <https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives>
-- `hashFunction`: Function
-  - A function to handle hashing for safe comparison of passwords
+### <Badge type="danger" text="required" /> username: `string`
+
+The username of the user who is authenticating.
+
+### <Badge type="danger" text="required" /> password: `string`
+
+The password value for the provided username to authenticate against.
+
+### <Badge type="info" text="optional" /> realm: `string`
+
+The domain name of the realm, as part of the returned WWW-Authenticate challenge header. The default is `"Secure Area"`.  
+See more: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
+
+### <Badge type="info" text="optional" /> hashFunction: `Function`
+
+A function to handle hashing for safe comparison of passwords.
+
+### <Badge type="info" text="optional" /> verifyUser: `(username: string, password: string, c: Context) => boolean | Promise<boolean>`
+
+The function to verify the user.
 
 ## More Options
 
-`...users`: { `username`: string, `password`: string }[]
+### <Badge type="info" text="optional" /> ...users: `{ username: string, password: string }[]`
 
 ## Recipes
 
