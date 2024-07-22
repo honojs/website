@@ -174,6 +174,21 @@ const stripRes = createMiddleware(async (c, next) => {
 })
 ```
 
+## Context access inside Middleware arguments
+
+To access the context inside middleware arguments, directly use the context parameter provided by `app.use`. See the example below for clarification.
+
+```ts
+import { cors } from 'hono/cors'
+
+app.use('*', async (c, next) => {
+  const middleware = cors({
+    origin: c.env.CORS_ORIGIN,
+  })
+  return middleware(c, next)
+})
+```
+
 ## Third-party Middleware
 
 Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries.
