@@ -1,7 +1,7 @@
-# WebSocket Helper
+# WebSocket ヘルパー
 
-WebSocket Helperは、HonoアプリケーションのサーバーサイドWebSocketのヘルパーです。
-現在、Cloudflare Workers / Pages、Deno、およびBunアダプターが利用可能です。
+WebSocket ヘルパーは、 Hono アプリケーションのサーバーサイド WebSocket のヘルパーです。
+現在、 Cloudflare Workers / Pages 、 Deno 、および Bun アダプタが利用可能です。
 
 ## Import
 
@@ -33,11 +33,11 @@ Bun.serve({
 
 :::
 
-Node.js なら: [@hono/node-ws](https://github.com/honojs/middleware/tree/main/packages/node-ws).
+Node.js なら: [@hono/node-ws](https://github.com/honojs/middleware/tree/main/packages/node-ws)
 
 ## `upgradeWebSocket()`
 
-`upgradeWebSocket()` は WebSocket をハンドルするためのハンドラーを返します。
+`upgradeWebSocket()` は WebSocket をハンドルするためのハンドラを返します。
 
 ```ts
 const app = new Hono()
@@ -67,14 +67,14 @@ app.get(
 
 ::: warning
 
-WebSocket Helper を使用するルートでヘッダーを変更するミドルウェア( CORS など)を使用している場合、イミュータブルなヘッドを変更できないというエラーが発生する可能性があります。これは、`upgradeWebSocket()`が内部的にヘッダーを変更するためです。
-なので、WebSocketヘルパーとミドルウェアを同時に使用している場合は注意してください。
+WebSocket ヘルパーを使用するルートでヘッダを変更するミドルウェア ( CORS など) を使用している場合、イミュータブルなヘッドを変更できないというエラーが発生する可能性があります。これは、 `upgradeWebSocket()` が内部的にヘッダを変更するためです。
+なので、 WebSocket ヘルパーとミドルウェアを同時に使用している場合は注意してください。
 
 :::
 
-## RPC-mode
+## RPC モード
 
-WebSocketヘルパーで定義されたハンドラーは、RPCモードをサポートしています。
+WebSocket ヘルパーで定義されたハンドラーは、 RPC モードをサポートしています。
 
 ```ts
 // server.ts
@@ -92,11 +92,11 @@ const client = hc<WebSocketApp>('http://localhost:8787')
 const socket = client.ws.$ws() // A WebSocket object for a client
 ```
 
-## Examples
+## 例
 
 WebSocket を使った例:
 
-### Server and Client
+### サーバーとクライアント
 
 ```ts
 // server.ts
