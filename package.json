@@ -5,14 +5,17 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",
-    "preview": "vitepress preview"
+    "preview": "vitepress preview",
+    "format": "yarn prettier --check ./docs ./examples index.md",
+    "format:fix": "yarn prettier --check --write ./docs ./examples index.md"
   },
   "repository": "git@github.com:honojs/website.git",
   "author": "Yusuke Wada <yusuke@kamawada.com>",
   "private": true,
   "license": "MIT",
   "devDependencies": {
-    "vitepress": "1.0.0-rc.24",
+    "prettier": "^3.3.2",
+    "vitepress": "1.1.0",
     "vue": "^3.3.4"
   }
 }

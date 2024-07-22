@@ -6,84 +6,112 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'コンセプト',
     collapsed: true,
     items: [
-      { text: 'モチベーション', link: '/concepts/motivation' },
-      { text: 'ルーター', link: '/concepts/routers' },
-      { text: 'ベンチマーク', link: '/concepts/benchmarks' },
-      { text: 'Web 標準', link: '/concepts/web-standard' },
-      { text: 'ミドルウェア', link: '/concepts/middleware' },
-      { text: '開発体験', link: '/concepts/developer-experience.md' },
-      { text: 'Hono Stacks', link: '/concepts/stacks' },
+      { text: 'モチベーション', link: '/docs/concepts/motivation' },
+      { text: 'ルーター', link: '/docs/concepts/routers' },
+      { text: 'ベンチマーク', link: '/docs/concepts/benchmarks' },
+      { text: 'Web 標準', link: '/docs/concepts/web-standard' },
+      { text: 'ミドルウェア', link: '/docs/concepts/middleware' },
+      {
+        text: '開発体験',
+        link: '/docs/concepts/developer-experience.md',
+      },
+      { text: 'Hono Stacks', link: '/docs/concepts/stacks' },
     ],
   },
   {
     text: 'Getting Started',
     collapsed: true,
     items: [
-      { text: 'Basic', link: '/getting-started/basic' },
-      { text: 'Cloudflare Workers', link: '/getting-started/cloudflare-workers' },
-      { text: 'Cloudflare Pages', link: '/getting-started/cloudflare-pages' },
-      { text: 'Deno', link: '/getting-started/deno' },
-      { text: 'Bun', link: '/getting-started/bun' },
-      { text: 'Fastly Compute', link: '/getting-started/fastly' },
-      { text: 'Vercel', link: '/getting-started/vercel' },
-      { text: 'Netlify', link: '/getting-started/netlify' },
-      { text: 'AWS Lambda', link: '/getting-started/aws-lambda' },
-      { text: 'Lambda@Edge', link: '/getting-started/lambda-edge' },
-      { text: 'Supabase Functions', link: '/getting-started/supabase-functions' },
-      { text: 'Node.js', link: '/getting-started/nodejs' },
-      { text: 'Others', link: '/getting-started/others' },
+      { text: 'Basic', link: '/docs/getting-started/basic' },
+      {
+        text: 'Cloudflare Workers',
+        link: '/docs/getting-started/cloudflare-workers',
+      },
+      {
+        text: 'Cloudflare Pages',
+        link: '/docs/getting-started/cloudflare-pages',
+      },
+      { text: 'Deno', link: '/docs/getting-started/deno' },
+      { text: 'Bun', link: '/docs/getting-started/bun' },
+      {
+        text: 'Fastly Compute',
+        link: '/docs/getting-started/fastly',
+      },
+      { text: 'Vercel', link: '/docs/getting-started/vercel' },
+      { text: 'Netlify', link: '/docs/getting-started/netlify' },
+      {
+        text: 'AWS Lambda',
+        link: '/docs/getting-started/aws-lambda',
+      },
+      {
+        text: 'Lambda@Edge',
+        link: '/docs/getting-started/lambda-edge',
+      },
+      {
+        text: 'Azure Functions',
+        link: '/docs/getting-started/azure-functions',
+      },
+      {
+        text: 'Supabase Functions',
+        link: '/docs/getting-started/supabase-functions',
+      },
+      {
+        text: 'Ali Function Compute',
+        link: '/docs/getting-started/ali-function-compute',
+      },
+      {
+        text: 'Service Worker',
+        link: '/docs/getting-started/service-worker',
+      },
+      { text: 'Node.js', link: '/docs/getting-started/nodejs' },
     ],
   },
   {
     text: 'API',
     collapsed: true,
     items: [
-      { text: 'App', link: '/api/hono' },
-      { text: 'ルーティング', link: '/api/routing' },
-      { text: 'Context', link: '/api/context' },
-      { text: 'HonoRequest', link: '/api/request' },
-      { text: '例外', link: '/api/exception' },
-      { text: 'プリセット', link: '/api/presets' },
+      { text: 'App', link: '/docs/api/hono' },
+      { text: 'ルーティング', link: '/docs/api/routing' },
+      { text: 'Context', link: '/docs/api/context' },
+      { text: 'HonoRequest', link: '/docs/api/request' },
+      { text: '例外', link: '/docs/api/exception' },
+      { text: 'プリセット', link: '/docs/api/presets' },
     ],
   },
   {
     text: 'ガイド',
     collapsed: true,
     items: [
-      { text: 'ミドルウェア', link: '/guides/middleware' },
-      { text: 'Helpers', link: '/guides/helpers' },
+      { text: 'ミドルウェア', link: '/docs/guides/middleware' },
+      { text: 'Helpers', link: '/docs/guides/helpers' },
       {
         text: 'JSX',
-        link: '/guides/jsx',
+        link: '/docs/guides/jsx',
       },
       {
         text: 'クライアントコンポーネント',
-        link: '/guides/jsx-dom',
+        link: '/docs/guides/jsx-dom',
       },
-      { text: 'Testing', link: '/guides/testing' },
+      { text: 'Testing', link: '/docs/guides/testing' },
       {
         text: 'バリデーション',
-        link: '/guides/validation',
+        link: '/docs/guides/validation',
       },
       {
         text: 'RPC',
-        link: '/guides/rpc',
+        link: '/docs/guides/rpc',
       },
       {
         text: 'ベストプラクティス',
-        link: '/guides/best-practices',
+        link: '/docs/guides/best-practices',
       },
       {
         text: '例',
-        link: '/guides/examples',
-      },
-      {
-        text: 'その他',
-        link: '/guides/others',
+        link: '/docs/guides/others',
       },
       {
         text: 'FAQs',
-        link: '/guides/faq',
+        link: '/docs/guides/faq',
       },
     ],
   },
@@ -91,56 +119,109 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'ヘルパー',
     collapsed: true,
     items: [
-      { text: 'Accepts', link: '/helpers/accepts' },
-      { text: 'アダプタ', link: '/helpers/adapter' },
-      { text: 'Cookie', link: '/helpers/cookie' },
-      { text: 'css', link: '/helpers/css' },
-      { text: 'Dev', link: '/helpers/dev' },
-      { text: 'Factory', link: '/helpers/factory' },
-      { text: 'html', link: '/helpers/html' },
-      { text: 'JWT', link: '/helpers/jwt' },
-      { text: 'SSG', link: '/helpers/ssg' },
-      { text: 'ストリーミング', link: '/helpers/streaming' },
-      { text: 'テスト', link: '/helpers/testing' },
+      { text: 'Accepts', link: '/docs/helpers/accepts' },
+      { text: 'アダプタ', link: '/docs/helpers/adapter' },
+      { text: 'ConnInfo', link: '/docs/helpers/conninfo' },
+      { text: 'Cookie', link: '/docs/helpers/cookie' },
+      { text: 'css', link: '/docs/helpers/css' },
+      { text: 'Dev', link: '/docs/helpers/dev' },
+      { text: 'Factory', link: '/docs/helpers/factory' },
+      { text: 'html', link: '/docs/helpers/html' },
+      { text: 'JWT', link: '/docs/helpers/jwt' },
+      { text: 'SSG', link: '/docs/helpers/ssg' },
+      { text: 'ストリーミング', link: '/docs/helpers/streaming' },
+      { text: 'テスト', link: '/docs/helpers/testing' },
+      { text: 'WebSocket', link: '/docs/helpers/websocket' },
     ],
   },
   {
     text: 'ミドルウェア',
     collapsed: true,
     items: [
-      { text: 'Basic 認証', link: '/middleware/builtin/basic-auth' },
-      { text: 'Bearer 認証', link: '/middleware/builtin/bearer-auth' },
-      { text: 'キャッシュ', link: '/middleware/builtin/cache' },
-      { text: '圧縮', link: '/middleware/builtin/compress' },
-      { text: 'CORS', link: '/middleware/builtin/cors' },
-      { text: 'CSRF 保護', link: '/middleware/builtin/csrf' },
-      { text: 'ETag', link: '/middleware/builtin/etag' },
-      { text: 'JSX レンダラー', link: '/middleware/builtin/jsx-renderer' },
-      { text: 'JWT', link: '/middleware/builtin/jwt' },
-      { text: 'タイミング', link: '/middleware/builtin/timing' },
-      { text: 'ロガー', link: '/middleware/builtin/logger' },
-      { text: 'JSON の整形', link: '/middleware/builtin/pretty-json' },
-      { text: 'セキュアヘッダ', link: '/middleware/builtin/secure-headers' },
-      { text: 'サードパーティーミドルウェア', link: '/middleware/third-party' },
+      {
+        text: 'Basic 認証',
+        link: '/docs/middleware/builtin/basic-auth',
+      },
+      {
+        text: 'Bearer 認証',
+        link: '/docs/middleware/builtin/bearer-auth',
+      },
+      {
+        text: 'Body Limit',
+        link: '/docs/middleware/builtin/body-limit',
+      },
+      { text: 'キャッシュ', link: '/docs/middleware/builtin/cache' },
+      { text: 'Combine', link: '/docs/middleware/builtin/combine' },
+      { text: '圧縮', link: '/docs/middleware/builtin/compress' },
+      { text: 'CORS', link: '/docs/middleware/builtin/cors' },
+      {
+        text: 'CSRF 保護',
+        link: '/docs/middleware/builtin/csrf',
+      },
+      { text: 'ETag', link: '/docs/middleware/builtin/etag' },
+      {
+        text: 'IP Restriction',
+        link: '/docs/middleware/builtin/ip-restriction',
+      },
+      {
+        text: 'JSX レンダラー',
+        link: '/docs/middleware/builtin/jsx-renderer',
+      },
+      { text: 'JWT', link: '/docs/middleware/builtin/jwt' },
+      { text: 'Logger', link: '/docs/middleware/builtin/logger' },
+      {
+        text: 'Method Override',
+        link: '/docs/middleware/builtin/method-override',
+      },
+      {
+        text: 'JSON の整形',
+        link: '/docs/middleware/builtin/pretty-json',
+      },
+      {
+        text: 'Request ID',
+        link: '/docs/middleware/builtin/request-id',
+      },
+      {
+        text: 'セキュアヘッダ',
+        link: '/docs/middleware/builtin/secure-headers',
+      },
+      { text: 'Timeout', link: '/docs/middleware/builtin/timeout' },
+      { text: 'Timing', link: '/docs/middleware/builtin/timing' },
+      {
+        text: 'Trailing Slash',
+        link: '/docs/middleware/builtin/trailing-slash',
+      },
+      {
+        text: 'サードパーティーミドルウェア',
+        link: '/docs/middleware/third-party',
+      },
     ],
   },
 ]
 
-const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
+export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
   {
     text: 'アプリケーション',
     items: [
       {
+        text: 'Web API',
+        link: '/examples/web-api',
+      },
+      {
+        text: 'Proxy',
+        link: '/examples/proxy',
+      },
+      {
         text: 'ファイルアップロード',
-        link: '/snippets/file-upload',
+        link: '/examples/file-upload',
       },
       {
         text: 'バリデーターでエラーハンドリング',
-        link: '/snippets/validator-error-handling',
+        link: '/examples/validator-error-handling',
       },
       {
         text: 'RPC のためのルートのグループ化',
-        link: '/snippets/grouping-routes-rpc',
+        link: '/examples/grouping-routes-rpc',
       },
     ],
   },
@@ -149,20 +230,11 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
     items: [
       {
         text: 'Zod OpenAPI',
-        link: '/snippets/zod-openapi',
+        link: '/examples/zod-openapi',
       },
       {
         text: 'Swagger UI',
-        link: '/snippets/swagger-ui',
-      },
-    ],
-  },
-  {
-    text: 'エコシステム',
-    items: [
-      {
-        text: 'Remix + Hono',
-        link: '/snippets/with-remix',
+        link: '/examples/swagger-ui',
       },
     ],
   },
@@ -171,15 +243,31 @@ const sidebarsSnippets = (): DefaultTheme.SidebarItem[] => [
     items: [
       {
         text: 'Cloudflare Durable Objects',
-        link: '/snippets/cloudflare-durable-objects',
+        link: '/examples/cloudflare-durable-objects',
       },
       {
         text: 'Cloudflare Queue',
-        link: '/snippets/cloudflare-queue',
+        link: '/examples/cloudflare-queue',
+      },
+      {
+        text: 'Remix',
+        link: '/examples/with-remix',
       },
       {
         text: 'htmx',
-        link: '/snippets/htmx',
+        link: '/examples/htmx',
+      },
+      {
+        text: 'Stripe Webhook',
+        link: '/examples/stripe-webhook',
+      },
+      {
+        text: 'Prisma on Cloudflare',
+        link: '/examples/prisma',
+      },
+      {
+        text: 'Pylon (GraphQL)',
+        link: '/examples/pylon',
       },
     ],
   },
@@ -223,25 +311,43 @@ export default defineConfig({
     },
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2022-present Yusuke Wada & Hono contributors',
+      copyright:
+        'Copyright © 2022-present Yusuke Wada & Hono contributors. "kawaii" logo is created by SAWARATSUKI.',
     },
     nav: [
-      { text: 'Docs', link: '/top' },
-      { text: 'Snippets', link: '/snippets/top' },
-      { text: 'Examples', link: 'https://github.com/honojs/examples' },
-      { text: 'Discussions', link: 'https://github.com/orgs/honojs/discussions' },
+      { text: 'Docs', link: '/docs/' },
+      { text: 'Examples', link: '/examples/' },
+      {
+        text: 'Discussions',
+        link: 'https://github.com/orgs/honojs/discussions',
+      },
     ],
     sidebar: {
       '/': sidebars(),
-      '/snippets/': sidebarsSnippets(),
+      '/examples/': sidebarsExamples(),
     },
   },
   head: [
-    ['meta', { property: 'og:image', content: 'https://hono.dev/images/hono-title.png' }],
+    [
+      'meta',
+      {
+        property: 'og:image',
+        content: 'https://hono.dev/images/hono-title.png',
+      },
+    ],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'twitter:domain', content: 'hono.dev' }],
-    ['meta', { property: 'twitter:image', content: 'https://hono.dev/images/hono-title.png' }],
-    ['meta', { property: 'twitter:card', content: 'summary_large_image' }],
+    [
+      'meta',
+      {
+        property: 'twitter:image',
+        content: 'https://hono.dev/images/hono-title.png',
+      },
+    ],
+    [
+      'meta',
+      { property: 'twitter:card', content: 'summary_large_image' },
+    ],
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
   ],
   titleTemplate: ':title - Hono',

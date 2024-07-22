@@ -12,15 +12,15 @@ head:
 layout: home
 hero:
   name: Hono
-  text: 高速、 軽量、 Web 標準
-  tagline: あらゆる JavaScript ランタイムで動作します。
+  text: Webアプリケーションフレームワーク
+  tagline: 高速、 軽量、 Web 標準。 あらゆる JavaScript ランタイムをサポートします。
   image:
     src: /images/code.webp
     alt: Hono
   actions:
     - theme: brand
-      text: ドキュメント
-      link: /top
+      text: Get Started
+      link: /docs/
     - theme: alt
       text: GitHub
       link: https://github.com/honojs/hono
@@ -38,3 +38,42 @@ features:
     title: 楽しい開発体験
     details: 超クリーンな API。 最高級の TypeScript サポート。 Now, we've got "Types".
 ---
+
+<script setup>
+// Heavily inspired by React
+// https://github.com/reactjs/react.dev/pull/6817
+import { onMounted } from 'vue'
+onMounted(() => {
+  var preferredKawaii
+  try {
+    preferredKawaii = localStorage.getItem('kawaii')
+  } catch (err) {}
+  const urlParams = new URLSearchParams(window.location.search)
+  const kawaii = urlParams.get('kawaii')
+  const setKawaii = () => {
+    const images = document.querySelectorAll('.VPImage.image-src')
+    images.forEach((img) => {
+      img.src = '/images/hono-kawaii.png'
+      img.classList.add("kawaii")
+    })
+  }
+  if (kawaii === 'true') {
+    try {
+      localStorage.setItem('kawaii', true)
+    } catch (err) {}
+    console.log('kawaii mode enabled. logo credits to @sawaratsuki1004 via https://github.com/SAWARATSUKI/ServiceLogos');
+    setKawaii()
+  } else if (kawaii === 'false') {
+    try {
+      localStorage.removeItem('kawaii', false)
+    } catch (err) {}
+    const images = document.querySelectorAll('.VPImage.image-src')
+    images.forEach((img) => {
+      img.src = '/images/code.webp'
+      img.classList.remove("kawaii")
+    })
+  } else if (preferredKawaii) {
+    setKawaii()
+  }
+})
+</script>

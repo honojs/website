@@ -4,7 +4,7 @@
 
   --vp-c-gray: #8e8e93;
 
-  --vp-c-text-light-1: #000000;
+  --vp-c-text-light-1: #1f2328;
   --vp-c-text-light-2: #454545;
   --vp-c-text-light-3: #959595;
 
@@ -18,6 +18,11 @@
   --vp-c-orange-lighter: #ff9c24;
   --vp-c-orange-dark: #e07700;
   --vp-c-orange-darker: #d68e22;
+
+  --vp-c-badge-green-light: #308b58;
+  --vp-c-badge-green-light-bg: #bff8d7;
+  --vp-c-badge-green-dark: #1fd85d;
+  --vp-c-badge-green-dark-bg: #308b5769;
 }
 
 /**
@@ -72,6 +77,9 @@
   --vp-sidebar-bg-color: var(--vp-c-bg-alt);
   --vp-code-copy-code-bg: var(--vp-code-block-bg);
   --vp-code-copy-code-hover-bg: var(--vp-code-block-bg);
+
+  --vp-badge-info-text: var(--vp-c-badge-green-light);
+  --vp-badge-info-bg: var(--vp-c-badge-green-light-bg);
 }
 
 :root {
@@ -85,7 +93,7 @@
  *
  * -------------------------------------------------------------------------- */
 
- :root {
+:root {
   --vp-c-brand-1: var(--vp-c-orange);
   --vp-c-brand-2: var(--vp-c-orange-light);
   --vp-c-brand-3: var(--vp-c-orange-lighter);
@@ -97,7 +105,7 @@
  * Component: Code
  * -------------------------------------------------------------------------- */
 :root {
-  --vp-code-block-color: var(--vp-c-text-dark-1);
+  --vp-code-block-color: var(--vp-c-text-1);
   --vp-code-block-bg: rgb(246, 248, 250);
 
   --vp-code-tab-divider: var(--vp-c-text-light-3);
@@ -155,6 +163,9 @@
 
   --vp-code-color: var(--vp-c-text-dark-1);
   --vp-code-tab-text-color: var(--vp-c-text-dark-2);
+
+  --vp-badge-info-text: var(--vp-c-badge-green-dark);
+  --vp-badge-info-bg: var(--vp-c-badge-green-dark-bg);
 }
 
 .vp-doc h1, .vp-doc h2, .vp-doc h3, .vp-doc h4, .vp-doc h5, .vp-doc h6 {
@@ -163,6 +174,10 @@
 
 .title {
   font-weight: 700 !important;
+}
+
+.tagline {
+  max-width: 500px !important;
 }
 
 .DocSearch-Button {
@@ -178,7 +193,7 @@ body {
 }
 
 @media screen and (max-width: 960px) {
-  .VPHero.has-image .image {
+  .VPHero.has-image .image:not(:has(.kawaii)) {
     display: none;
   }
 }
