@@ -85,3 +85,16 @@ The value of "_Access-Control-Allow-Credentials_" CORS header.
 ### <Badge type="info" text="optional" /> exposeHeaders: `string[]`
 
 The value of "_Access-Control-Expose-Headers_" CORS header. The default is `[]`.
+
+## Environment-dependent CORS configuration
+
+If you want to adjust CORS configuration according to the execution environment, such as development or production, injecting values from environment variables is convenient as it eliminates the need for the application to be aware of its own execution environment. See the example below for clarification.
+
+```ts
+app.use('*', async (c, next) => {
+  const corsMiddlewareHandler = cors({
+    origin: c.env.CORS_ORIGIN,
+  })
+  return corsMiddlewareHandler(c, next)
+})
+```
