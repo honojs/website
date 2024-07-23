@@ -1,6 +1,6 @@
-# Streaming Helper
+# Streaming ヘルパー
 
-The Streaming Helper provides methods for streaming responses.
+Streaming ヘルパーは、SSE（Server-Sent Events）などのストリーミングレスポンスのためのメソッドを提供します。
 
 ## Import
 
@@ -11,7 +11,7 @@ import { stream, streamText, streamSSE } from 'hono/streaming'
 
 ## `stream()`
 
-It returns a simple streaming response as `Response` object.
+`stream()`は簡素なストリーミングレスポンスを `Response` オブジェクトとして返します。
 
 ```ts
 app.get('/stream', (c) => {
@@ -30,7 +30,7 @@ app.get('/stream', (c) => {
 
 ## `streamText()`
 
-It returns a streaming response with `Content-Type:text/plain`, `Transfer-Encoding:chunked`, and `X-Content-Type-Options:nosniff` headers.
+`Content-Type:text/plain`, `Transfer-Encoding:chunked`, and `X-Content-Type-Options:nosniff` をヘッダーにもつストリーミングレスポンスを返します。
 
 ```ts
 app.get('/streamText', (c) => {
@@ -47,7 +47,7 @@ app.get('/streamText', (c) => {
 
 ## `streamSSE()`
 
-It allows you to stream Server-Sent Events (SSE) seamlessly.
+サーバー送信イベント（SSE：Server-Sent Events）をシームレスにストリーミングできます。
 
 ```ts
 const app = new Hono()
@@ -70,8 +70,7 @@ app.get('/sse', async (c) => {
 
 ## Error Handling
 
-The third argument of the streaming helper is an error handler.
-This argument is optional, if you don't specify it, the error will be output as a console error.
+Streaming ヘルパーの第3引数はエラー・ハンドラです。この引数はオプションで、指定しなければエラーはコンソールエラーとして出力されます。
 
 ```ts
 app.get('/stream', (c) => {
@@ -97,12 +96,12 @@ app.get('/stream', (c) => {
 })
 ```
 
-The stream will be automatically closed after the callbacks are executed.
+コールバックが実行された後、ストリームは自動的に閉じられます。
 
 ::: warning
 
-If the callback function of the streaming helper throws an error, the `onError` event of Hono will not be triggered.
+Streaming ヘルパーのコールバック関数内でエラーが発生した場合, `onError` イベントは発火しません。
 
-`onError` is a hook to handle errors before the response is sent and overwrite the response. However, when the callback function is executed, the stream has already started, so it cannot be overwritten.
+`onError` はレスポンスが送信される前にエラーをハンドルし、レスポンスを上書きするためのフックです。しかしながら、コールバック関数が実行された時点でストリームは既に開始されているので、上書きすることはできません。
 
 :::
