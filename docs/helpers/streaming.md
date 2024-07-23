@@ -1,6 +1,6 @@
 # Streaming ヘルパー
 
-Streaming ヘルパーは、SSE（Server-Sent Events）などのストリーミングレスポンスのためのメソッドを提供します。
+Streaming ヘルパーは、 SSE (Server-Sent Events) などのストリーミングレスポンスのためのメソッドを提供します。
 
 ## Import
 
@@ -11,7 +11,7 @@ import { stream, streamText, streamSSE } from 'hono/streaming'
 
 ## `stream()`
 
-`stream()`は簡素なストリーミングレスポンスを `Response` オブジェクトとして返します。
+`stream()` は簡素なストリーミングレスポンスを `Response` オブジェクトとして返します。
 
 ```ts
 app.get('/stream', (c) => {
@@ -30,7 +30,7 @@ app.get('/stream', (c) => {
 
 ## `streamText()`
 
-`Content-Type:text/plain`, `Transfer-Encoding:chunked`, and `X-Content-Type-Options:nosniff` をヘッダーにもつストリーミングレスポンスを返します。
+`Content-Type:text/plain` 、 `Transfer-Encoding:chunked` 、 `X-Content-Type-Options:nosniff` をヘッダーにもつストリーミングレスポンスを返します。
 
 ```ts
 app.get('/streamText', (c) => {
@@ -47,7 +47,7 @@ app.get('/streamText', (c) => {
 
 ## `streamSSE()`
 
-サーバー送信イベント（SSE：Server-Sent Events）をシームレスにストリーミングできます。
+サーバー送信イベント (SSE: Server-Sent Events) をシームレスにストリーミングできます。
 
 ```ts
 const app = new Hono()
@@ -70,7 +70,7 @@ app.get('/sse', async (c) => {
 
 ## Error Handling
 
-Streaming ヘルパーの第3引数はエラー・ハンドラです。この引数はオプションで、指定しなければエラーはコンソールエラーとして出力されます。
+Streaming ヘルパーの第3引数はエラー・ハンドラです。 この引数はオプションで、指定しなければエラーはコンソールエラーとして出力されます。
 
 ```ts
 app.get('/stream', (c) => {
@@ -100,8 +100,8 @@ app.get('/stream', (c) => {
 
 ::: warning
 
-Streaming ヘルパーのコールバック関数内でエラーが発生した場合, `onError` イベントは発火しません。
+Streaming ヘルパーのコールバック関数内でエラーが発生した場合、 `onError` イベントは発火しません。
 
-`onError` はレスポンスが送信される前にエラーをハンドルし、レスポンスを上書きするためのフックです。しかしながら、コールバック関数が実行された時点でストリームは既に開始されているので、上書きすることはできません。
+`onError` はレスポンスが送信される前にエラーをハンドルし、レスポンスを上書きするためのフックです。 しかしながら、コールバック関数が実行された時点でストリームは既に開始されているので、上書きすることはできません。
 
 :::
