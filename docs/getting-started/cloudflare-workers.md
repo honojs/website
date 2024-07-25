@@ -201,8 +201,6 @@ app.get('/static/*', serveStatic({ root: './', manifest }))
 app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
-See [Example](https://github.com/honojs/examples/tree/main/serve-static).
-
 ### `rewriteRequestPath`
 
 If you want to map `http://localhost:8787/static/*` to `./assets/statics`, you can use the `rewriteRequestPath` option:
