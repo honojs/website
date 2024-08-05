@@ -172,6 +172,20 @@ app.get('/page/info', (c) => {
 })
 ```
 
+::: warning
+You can't use `useRequestContext()` with the Deno's `precompile` JSX option. Use the `react-jsx`:
+
+```json
+   "compilerOptions": {
+     "jsx": "precompile", // [!code --]
+     "jsx": "react-jsx", // [!code ++]
+     "jsxImportSource": "hono/jsx"
+   }
+ }
+```
+
+:::
+
 ## Extending `ContextRenderer`
 
 By defining `ContextRenderer` as shown below, you can pass additional content to the renderer. This is handy, for instance, when you want to change the contents of the head tag depending on the page.
