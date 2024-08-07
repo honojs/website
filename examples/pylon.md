@@ -10,7 +10,7 @@ Any breaking changes in your code are instantly reflected in your API, enabling 
 
 ### Setup Pylon
 
-You have to install Pylon as described in [their documentation](https://pylon.cronit.io/docs/installation/).
+You have to install Pylon as described in [their documentation](https://pylon.cronit.io/docs/installation).
 
 ### Creating a new project
 
@@ -64,7 +64,7 @@ Pylon integrates with ZITADEL, a cloud-native identity and access management sol
 
 ## Create a more complex API
 
-Pylon allows you to create more complex APIs by leveraging its real-time schema generation capabilities. For more information about supported TypeScript types and how to define your API, refer to the [Pylon documentation](https://pylon.cronit.io/docs/type-safety-and-type-integration/)
+Pylon allows you to create more complex APIs by leveraging its real-time schema generation capabilities. For more information about supported TypeScript types and how to define your API, refer to the [Pylon documentation](https://pylon.cronit.io/docs/core-concepts/type-safety-and-type-integration)
 
 This example demonstrates how to define complex types and services in Pylon. By leveraging TypeScript classes and methods, you can create powerful APIs that interact with databases, external services, and other resources.
 
@@ -147,7 +147,7 @@ export default defineService({
 })
 ```
 
-For more information about the Hono context object and its properties, refer to the [Hono documentation](https://hono.dev/docs/api/context) and [Pylon documentation](https://pylon.cronit.io/docs/context-management).
+For more information about the Hono context object and its properties, refer to the [Hono documentation](https://hono.dev/docs/api/context) and [Pylon documentation](https://pylon.cronit.io/docs/core-concepts/context-management).
 
 ## Where does Hono fit in?
 
@@ -179,11 +179,11 @@ export const configureApp: PylonAPI['configureApp'] = (app) => {
 
 Pylon is a powerful web framework that simplifies the development of GraphQL APIs. By leveraging TypeScript type definitions, Pylon provides real-time schema generation, enhancing type safety and reducing errors. With Pylon, you can quickly build secure and scalable APIs that meet your business requirements. Pylons integration with Hono allows you to use all the features of Hono while focusing on GraphQL API development.
 
-For more information about Pylon, check out the [official documentation](https://pylon.cronit.io/).
+For more information about Pylon, check out the [official documentation](https://pylon.cronit.io).
 
 ## See also
 
 - [Pylon](https://github.com/getcronit/pylon)
-- [Pylon documentation](https://pylon.cronit.io/docs)
+- [Pylon documentation](https://pylon.cronit.io)
 - [Hono documentation](https://hono.dev/docs)
 - [ZITADEL documentation](https://zitadel.com/docs/examples/secure-api/pylon)
