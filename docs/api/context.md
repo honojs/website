@@ -126,7 +126,7 @@ app.use('/', async (c, next) => {
 
 ## set() / get()
 
-Set the value specified by the key with `set` and use it later with `get`.
+Get and set arbitrary key-value pairs, with a lifetime of the current request. This allows passing specific values between middleware or from middleware to route handlers.
 
 ```ts
 app.use(async (c, next) => {
@@ -149,6 +149,8 @@ type Variables = {
 
 const app = new Hono<{ Variables: Variables }>()
 ```
+
+The value of `c.set` / `c.get` are retained only within the same request. They cannot be shared or persisted across different requests.
 
 ## var
 
