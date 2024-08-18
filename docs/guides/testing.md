@@ -10,6 +10,8 @@ In this section, let's test with Cloudflare Workers and Jest.
 All you do is create a Request and pass it to the Hono application to validate the Response.
 And, you can use `app.request` the useful method.
 
+> For a typed test client see the [testing helper](/docs/helpers/testing).
+
 For example, consider an application that provides the following REST API.
 
 ```ts
