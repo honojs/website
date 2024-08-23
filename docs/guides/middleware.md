@@ -189,6 +189,27 @@ app.use('*', async (c, next) => {
 })
 ```
 
+### Extending the Context in Middleware
+
+To extend the context inside middleware, use `c.set`. You can make this type-safe by passing a `{ Variables: { yourVariable: YourVariableType } }` generic argument to the `createMiddleware` function.
+
+```ts
+import { createMiddleware } from 'hono/factory'
+
+const echoMiddleware = createMiddleware<{
+  Variables: {
+    echo: (str: string) => string
+  }
+}>(async (c, next) => {
+  c.set('echo', (str) => str)
+  await next()
+})
+
+app.get('/echo', echoMiddleware, (c) => {
+  return c.text(c.var.echo('Hello!'))
+})
+```
+
 ## Third-party Middleware
 
 Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries.
