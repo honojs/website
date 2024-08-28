@@ -245,7 +245,7 @@ Introducing built-in middleware that supports SSG.
 
 ### ssgParams
 
-You can use an API like `generateStaticPaths` of Next.js.
+You can use an API like `generateStaticParams` of Next.js.
 
 Example:
 
