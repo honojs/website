@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
+
 
 const sidebars = (): DefaultTheme.SidebarItem[] => [
   {
@@ -286,6 +288,9 @@ export default defineConfig({
       light: 'github-light',
       dark: 'github-dark',
     },
+    config(md) {
+      md.use(groupIconMdPlugin)
+    },
   },
   themeConfig: {
     logo: '/images/logo-small.png',
@@ -346,4 +351,13 @@ export default defineConfig({
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
   ],
   titleTemplate: ':title - Hono',
+  vite: {
+    plugins: [
+      groupIconVitePlugin({
+        customIcon: {
+          cloudflare: 'logos:cloudflare-workers-icon'
+        }
+      })
+    ],
+  }
 })
