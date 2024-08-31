@@ -42,6 +42,7 @@ For Deno, you have to modify the `deno.json` instead of the `tsconfig.json`:
 `index.tsx`:
 
 ```tsx
+import { Hono } from 'hono'
 import type { FC } from 'hono/jsx'
 
 const app = new Hono()
