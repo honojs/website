@@ -32,7 +32,6 @@ Most of this middleware leverages external libraries.
 
 - [Bun Transpiler](https://github.com/honojs/middleware/tree/main/packages/bun-transpiler)
 - [esbuild Transpiler](https://github.com/honojs/middleware/tree/main/packages/esbuild-transpiler)
-- [ESLint Config](https://github.com/honojs/middleware/tree/main/packages/eslint-config)
 - [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
 - [Hono Rate Limiter](https://github.com/rhinobase/hono-rate-limiter)
 - [Node WebSocket Helper](https://github.com/honojs/middleware/tree/main/packages/node-ws)
