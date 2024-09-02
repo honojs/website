@@ -181,7 +181,7 @@ MY_NAME = "Hono"
 Next, make the KV. Run the following `wrangler` command:
 
 ```sh
-wrangler kv:namespace create MY_KV --preview
+wrangler kv namespace create MY_KV --preview
 ```
 
 Note down the `preview_id` as the following output:
