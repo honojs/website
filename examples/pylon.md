@@ -1,5 +1,6 @@
-:warning: **Pylon Requires Bun:** This project currently depends on the [Bun runtime](https://bun.sh). If you need support for a different runtime, please upvote and follow the discussion on Issue https://github.com/getcronit/pylon/issues/6 to help us prioritize it.
-
+::: warning
+**Pylon Requires Bun:** This project currently depends on the [Bun runtime](https://bun.sh). If you need support for a different runtime, please upvote and follow the discussion on Issue https://github.com/getcronit/pylon/issues/6 to help us prioritize it.
+:::
 
 # Pylon
 
