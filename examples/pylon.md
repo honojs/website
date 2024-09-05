@@ -1,8 +1,8 @@
+# Pylon
+
 ::: warning
 **Pylon Requires Bun:** This project currently depends on the [Bun runtime](https://bun.sh). If you need support for a different runtime, please upvote and follow the discussion on issue https://github.com/getcronit/pylon/issues/6 to help us prioritize it.
 :::
-
-# Pylon
 
 Building a GraphQL API with Pylon is simple and straightforward. Pylon is a backend framework that is built on top of Hono and provides code-first GraphQL API development.
 
