@@ -1,41 +1,27 @@
 # Best Practices
 
-Hono is very flexible. You can write your app as you like.
-However, there are best practices that are better to follow.
+Hono is very flexible. You can write your app as you like. However, there are best practices that are better to follow.
 
-## Don't make "Controllers" when possible
+## Use Controllers with Proper Type Inference
 
-When possible, you should not create "Ruby on Rails-like Controllers".
+TypeScript can infer types correctly when using route parameters. Here’s an example of how you can define a controller and verify that type inference is working with a `number` type by using `typeof`:
 
 ```ts
-// 🙁
-// A RoR-like Controller
-const booksList = (c: Context) => {
-  return c.json('list books')
+interface RouteParams extends Env {
+  Params: { id: number };
 }
 
-app.get('/books', booksList)
-```
+const bookHandler = (c: Context<RouteParams>) => {
+  const id = Number(c.req.param('id')); // Ensure 'id' is converted to a number
+  
+  // Log the type of 'id' to demonstrate that type inference is working
+  console.log('Type of id:', typeof id); // Should output 'number'
+  
+  return c.json(`Book ID: ${id}`);
+};
 
-The issue is related to types. For example, the path parameter cannot be inferred in the Controller without writing complex generics.
-
-```ts
-// 🙁
-// A RoR-like Controller
-const bookPermalink = (c: Context) => {
-  const id = c.req.param('id') // Can't infer the path param
-  return c.json(`get ${id}`)
-}
-```
-
-Therefore, you don't need to create RoR-like controllers and should write handlers directly after path definitions.
-
-```ts
-// 😃
-app.get('/books/:id', (c) => {
-  const id = c.req.param('id') // Can infer the path param
-  return c.json(`get ${id}`)
-})
+// Route with controller function
+app.get('/books/:id', bookHandler);
 ```
 
 ## `factory.createHandlers()` in `hono/factory`
