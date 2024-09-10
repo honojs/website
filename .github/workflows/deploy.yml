@@ -9,7 +9,7 @@ jobs:
         with:
           node-version: 22.x
       - run: npm install -g yarn
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
       - run: yarn build
       - uses: cloudflare/wrangler-action@v3
         with:
