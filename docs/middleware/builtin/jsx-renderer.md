@@ -117,7 +117,8 @@ If `true` is set, the following headers are added:
 ```ts
 {
   'Transfer-Encoding': 'chunked',
-  'Content-Type': 'text/html; charset=UTF-8'
+  'Content-Type': 'text/html; charset=UTF-8',
+  'Content-Encoding': 'Identity'
 }
 ```
 
