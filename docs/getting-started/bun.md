@@ -150,6 +150,19 @@ app.get(
 )
 ```
 
+### `precompressed`
+
+The `precompressed` option checks if files with extensions like `.br` or `.gz` are available and serves them based on the `Accept-Encoding` header. It prioritizes Brotli, then Zstd, and Gzip. If none are available, it serves the original file.
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    precompressed: true,
+  })
+)
+```
+
 ## Testing
 
 You can use `bun:test` for testing on Bun.
