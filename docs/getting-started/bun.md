@@ -135,6 +135,22 @@ app.get(
 )
 ```
 
+### `onFound`
+
+You can specify handling when the requested file is found with `onFound`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    // ...
+    onFound: (_path, c) => {
+      c.header('Cache-Control', `public, immutable, max-age=31536000`)
+    },
+  })
+)
+```
+
 ### `onNotFound`
 
 You can specify handling when the requested file is not found with `onNotFound`:
