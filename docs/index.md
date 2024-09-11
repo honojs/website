@@ -159,6 +159,7 @@ Out of the box, Hono provides middleware and helpers for:
 - [Body Limit](/docs/middleware/builtin/body-limit)
 - [Cache](/docs/middleware/builtin/cache)
 - [Compress](/docs/middleware/builtin/compress)
+- [Context Storage](/docs/middleware/builtin/context-storage)
 - [Cookie](/docs/helpers/cookie)
 - [CORS](/docs/middleware/builtin/cors)
 - [ETag](/docs/middleware/builtin/etag)

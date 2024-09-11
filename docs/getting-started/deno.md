@@ -122,6 +122,22 @@ app.get(
 )
 ```
 
+### `onFound`
+
+You can specify handling when the requested file is found with `onFound`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    // ...
+    onFound: (_path, c) => {
+      c.header('Cache-Control', `public, immutable, max-age=31536000`)
+    },
+  })
+)
+```
+
 ### `onNotFound`
 
 You can specify handling when the requested file is not found with `onNotFound`:
@@ -133,6 +149,19 @@ app.get(
     onNotFound: (path, c) => {
       console.log(`${path} is not found, you access ${c.req.path}`)
     },
+  })
+)
+```
+
+### `precompressed`
+
+The `precompressed` option checks if files with extensions like `.br` or `.gz` are available and serves them based on the `Accept-Encoding` header. It prioritizes Brotli, then Zstd, and Gzip. If none are available, it serves the original file.
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    precompressed: true,
   })
 )
 ```

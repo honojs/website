@@ -87,6 +87,10 @@ A function to handle hashing for safe comparison of passwords.
 
 The function to verify the user.
 
+### <Badge type="info" text="optional" /> invalidUserMessage: `string | object | MessageFunction`
+
+`MessageFunction` is `(c: Context) => string | object | Promise<string | object>`. The custom message if the user is invalid.
+
 ## More Options
 
 ### <Badge type="info" text="optional" /> ...users: `{ username: string, password: string }[]`

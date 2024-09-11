@@ -155,6 +155,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Cache', link: '/docs/middleware/builtin/cache' },
       { text: 'Combine', link: '/docs/middleware/builtin/combine' },
       { text: 'Compress', link: '/docs/middleware/builtin/compress' },
+      { text: 'Context Storage', link: '/docs/middleware/builtin/context-storage' },
       { text: 'CORS', link: '/docs/middleware/builtin/cors' },
       {
         text: 'CSRF Protection',

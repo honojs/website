@@ -110,3 +110,15 @@ A function to handle hashing for safe comparison of authentication tokens.
 ### <Badge type="info" text="optional" /> verifyToken: `(token: string, c: Context) => boolean | Promise<boolean>`
 
 The function to verify the token.
+
+### <Badge type="info" text="optional" /> noAuthenticationHeaderMessage: `string | object | MessageFunction`
+
+`MessageFunction` is `(c: Context) => string | object | Promise<string | object>`. The custom message if it does not have an authentication header.
+
+### <Badge type="info" text="optional" /> invalidAuthenticationHeaderMessage: `string | object | MessageFunction`
+
+The custom message if the authentication header is invalid.
+
+### <Badge type="info" text="optional" /> invalidTokenMessage: `string | object | MessageFunction`
+
+The custom message if the token is invalid.
