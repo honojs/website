@@ -361,3 +361,45 @@ export const onRequest = [
   handleMiddleware(middleware3),
 ]
 ```
+
+### Accessing `EventContext`
+
+You can access [`EventContext`](https://developers.cloudflare.com/pages/functions/api-reference/#eventcontext) object via `c.env` in `handleMiddleware`.
+
+```ts
+// functions/_middleware.ts
+import { handleMiddleware } from 'hono/cloudflare-pages'
+
+export const onRequest = [
+  handleMiddleware(async (c, next) => {
+    c.env.eventContext.data.user = 'Joe'
+    await next()
+  }),
+]
+```
+
+Then, you can access the data value in via `c.env.eventContext` in the handler:
+
+```ts
+// functions/api/[[route]].ts
+import type { EventContext } from 'hono/cloudflare-pages'
+import { handle } from 'hono/cloudflare-pages'
+
+// ...
+
+type Env = {
+  Bindings: {
+    eventContext: EventContext
+  }
+}
+
+const app = new Hono<Env>()
+
+app.get('/hello', (c) => {
+  return c.json({
+    message: `Hello, ${c.env.eventContext.data.user}!`, // 'Joe'
+  })
+})
+
+export const onRequest = handle(app)
+```
