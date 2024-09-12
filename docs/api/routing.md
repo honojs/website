@@ -162,7 +162,7 @@ const app = new Hono({
     req.url.replace(/^https?:\/\/[^/]+(\/[^?]*)/, '$1'),
 })
 
-app.get('/www1.example.com/hello', () => c.text('hello www1'))
+app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
 
 // A following request will match the route:
 // new Request('http://www1.example.com/hello', {
