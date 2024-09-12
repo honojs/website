@@ -252,6 +252,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/cloudflare-queue',
       },
       {
+        text: 'Cloudflare Testing',
+        link: '/examples/cloudflare-vitest',
+      },
+      {
         text: 'Remix',
         link: '/examples/with-remix',
       },
