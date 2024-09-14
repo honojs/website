@@ -464,3 +464,22 @@ const app = new Hono()
 
 Specifying just single type argument make a difference in performance, while it may take you a lot of time and effort if you have a lot of routes.
 
+#### split your app and client into multiple files
+As described in [Using RPC with larger applications](#using-rpc-with-larger-applications), you can split your app into multiple apps. You can also create a client for each app:
+
+```ts
+// authors-cli.ts
+import { app as authorsApp } from './authors'
+import { hc } from 'hono/client'
+
+const authorsClient = hc<typeof authorsApp>('/authors')
+
+// books-cli.ts
+import { app as booksApp } from './books'
+import { hc } from 'hono/client'
+
+const booksClient = hc<typeof booksApp>('/books')
+```
+
+This way, `tsserver` doesn't need to instantiate types for all routes at once.
+
