@@ -395,3 +395,62 @@ export type AppType = typeof routes
 ```
 
 You can now create a new client using the registered AppType and use it as you would normally.
+
+## Known issues
+### IDE performance
+When using RPC, the more routes you have, the slower your IDE will become. One of the main reasons for this is that massive amounts of type instantiations are executed to infer the type of your app.
+
+For example, suppose your app has a route like this:
+
+```ts
+// index.ts
+const app = new Hono()
+  .get('foo/:id', (c) => c.json({ ok: true }, 200))
+
+export default app
+```
+
+Hono will infer the type as follows:
+
+```ts
+const app = Hono<BlankEnv, BlankSchema, "/">()
+  .get<
+    "foo/:id",
+    "foo/:id",
+    JSONRespondReturn<{ ok: boolean }, 200>,
+    BlankInput,
+    BlankEnv
+  >('foo/:id', (c) => c.json({ ok: true }, 200))
+```
+
+This is a type instantiation for a single route. While the user doesn't need to write these type arguments manually, which is a good thing, it's known that type instantiation takes much time. `tsserver` does this time consuming task every time you use the app. If you have a lot of routes, this can slow down your IDE significantly.
+
+However, we have some tips to mitigate this issue.
+
+#### compile your app before using it
+`d.ts` for `index.ts` is like this:
+
+```ts
+// index.d.ts
+import { Hono } from 'hono';
+declare const app: Hono<import("hono/types").BlankEnv, {
+    "foo/:id": {
+        $get: {
+            input: {
+                param: {
+                    id: string;
+                };
+            };
+            output: {
+                ok: boolean;
+            };
+            outputFormat: "json";
+            status: 200;
+        };
+    };
+}, "/">;
+export default app;
+```
+
+Now `tsserver` doesn't instantiate type arguments of `app` every time you use it, so your IDE will be faster.
+
