@@ -427,7 +427,7 @@ This is a type instantiation for a single route. While the user doesn't need to 
 
 However, we have some tips to mitigate this issue.
 
-#### compile your app before using it
+#### compile your app before using it (recommended)
 `d.ts` for `index.ts` is like this:
 
 ```ts
@@ -452,5 +452,15 @@ declare const app: Hono<import("hono/types").BlankEnv, {
 export default app;
 ```
 
-Now `tsserver` doesn't instantiate type arguments of `app` every time you use it, so your IDE will be faster.
+Now `tsserver` doesn't instantiate type arguments of `app` every time you use it because it's already done. It will make your IDE a lot faster!
+
+#### specify type arguments manually
+This is a bit cumbersome, but you can specify type arguments manually to avoid type instantiation.
+
+```ts
+const app = new Hono()
+  .get<'foo/:id'>('foo/:id', (c) => c.json({ ok: true }, 200))
+```
+
+Specifying just single type argument make a difference in performance, while it may take you a lot of time and effort if you have a lot of routes.
 
