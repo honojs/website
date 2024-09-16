@@ -1,4 +1,4 @@
-on: [pull_request]
+on: pull_request_target
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -13,6 +13,6 @@ jobs:
       - run: yarn build
       - uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ vars.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy .vitepress/dist/ --project-name=hono
