@@ -454,6 +454,12 @@ export default app;
 
 Now `tsserver` doesn't instantiate type arguments of `app` every time you use it because it's already done. It will make your IDE a lot faster!
 
+If your project is a monorepo, this solution does fit well. Using a tool like [`turborepo`](https://turbo.build/repo/docs), you can easily separate the server project and the client project and get better integration managing dependencies between them.
+
+If your client and server are in the same project, [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) of `tsc` is a good option.
+
+You can also coordinate your build process manually with tools like `concurrently` or `npm-run-all`. Here is [an example repository](https://github.com/yusukebe/hono-rpc-with-d-ts).
+
 #### specify type arguments manually
 This is a bit cumbersome, but you can specify type arguments manually to avoid type instantiation.
 
