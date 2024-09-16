@@ -403,17 +403,15 @@ When using RPC, the more routes you have, the slower your IDE will become. One o
 For example, suppose your app has a route like this:
 
 ```ts
-// index.ts
-const app = new Hono()
+// app.ts
+export const app = new Hono()
   .get('foo/:id', (c) => c.json({ ok: true }, 200))
-
-export default app
 ```
 
 Hono will infer the type as follows:
 
 ```ts
-const app = Hono<BlankEnv, BlankSchema, "/">()
+export const app = Hono<BlankEnv, BlankSchema, "/">()
   .get<
     "foo/:id",
     "foo/:id",
@@ -427,38 +425,39 @@ This is a type instantiation for a single route. While the user doesn't need to 
 
 However, we have some tips to mitigate this issue.
 
-#### compile your app before using it (recommended)
-`d.ts` for `index.ts` is like this:
+#### compile your code before using it (recommended)
+`tsc` can do heavy tasks like type instantiation at compile time! Then, `tsserver` doesn't need to instantiate all the type arguments every time you use it. It will make your IDE a lot faster!
+
+Compiling your client including the server app gives you the best performance. Put the following code in your project:
 
 ```ts
-// index.d.ts
-import { Hono } from 'hono';
-declare const app: Hono<import("hono/types").BlankEnv, {
-    "foo/:id": {
-        $get: {
-            input: {
-                param: {
-                    id: string;
-                };
-            };
-            output: {
-                ok: boolean;
-            };
-            outputFormat: "json";
-            status: 200;
-        };
-    };
-}, "/">;
-export default app;
+import { app } from './app'
+import { hc } from 'hono/client'
+
+// this is a trick to calculate the type when compiling
+const client = hc<typeof app>('')
+export type Client = typeof client
+
+export const hcWithType = (...args: Parameters<typeof hc>): Client => hc<typeof app>(...args)
 ```
 
-Now `tsserver` doesn't instantiate type arguments of `app` every time you use it because it's already done. It will make your IDE a lot faster!
+After compiling, you can use `hcWithType` instead of `hc` to get the client with the type already calculated.
 
-If your project is a monorepo, this solution does fit well. Using a tool like [`turborepo`](https://turbo.build/repo/docs), you can easily separate the server project and the client project and get better integration managing dependencies between them.
+```ts
+const client = hcWithType('http://localhost:8787/')
+const res = await client.posts.$post({
+  form: {
+    title: 'Hello',
+    body: 'Hono is a cool project',
+  },
+})
+```
 
-If your client and server are in the same project, [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) of `tsc` is a good option.
+If your project is a monorepo, this solution does fit well. Using a tool like [`turborepo`](https://turbo.build/repo/docs), you can easily separate the server project and the client project and get better integration managing dependencies between them. Here is [a working example](https://github.com/m-shaka/hono-rpc-perf-tips-example).
 
-You can also coordinate your build process manually with tools like `concurrently` or `npm-run-all`. Here is [an example repository](https://github.com/yusukebe/hono-rpc-with-d-ts).
+If your client and server are in a single project, [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) of `tsc` is a good option.
+
+You can also coordinate your build process manually with tools like `concurrently` or `npm-run-all`.
 
 #### specify type arguments manually
 This is a bit cumbersome, but you can specify type arguments manually to avoid type instantiation.
