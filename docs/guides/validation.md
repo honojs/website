@@ -50,6 +50,44 @@ Within the handler you can get the validated value with `c.req.valid('form')`.
 
 Validation targets include `json`, `query`, `header`, `param` and `cookie` in addition to `form`.
 
+::: warning
+When you validate `header`, you need to use **lowercase** name as the key.
+
+If you want to validate the `Idempotency-Key` header, you have to use `idempotency-key` as the key.
+
+```ts
+// ❌ this will not work
+app.post("/api", validator("header", (value, c) => {
+  // idempotencyKey is always undefined
+  // so this middleware always return 400 as not expected
+  const idempotencyKey = value["Idempotency-Key"]
+
+  if (idempotencyKey == undefined || idempotencyKey === "") {
+    throw HTTPException(400, { message: "Idempotency-Key is required" })
+  }
+  return { idempotencyKey }
+}), (c) => {
+  const { idempotencyKey } = c.req.valid("header")
+  // ...
+})
+
+// ✅ this will work
+app.post("/api", validator("header", (value, c) => {
+  // can retrieve the value of the header as expected
+  const idempotencyKey = value["idempotency-key"]
+
+  if (idempotencyKey == undefined || idempotencyKey === "") {
+    throw HTTPException(400, { message: "Idempotency-Key is required" })
+  }
+  return { idempotencyKey }
+}), (c) => {
+  const { idempotencyKey } = c.req.valid("header")
+  // ...
+})
+```
+
+:::
+
 ## Multiple validators
 
 You can also include multiple validators to validate different parts of request:
