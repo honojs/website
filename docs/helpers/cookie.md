@@ -174,6 +174,6 @@ The cookie helper will throw an `Error` when parsing cookies under the following
 - The cookie name starts with `__Secure-`, but `secure` option is not set.
 - The cookie name starts with `__Host-`, but `secure` option is not set.
 - The cookie name starts with `__Host-`, but `path` is not `/`.
-- The cookie name starts with `__Host-`, but `domain` is not set.
+- The cookie name starts with `__Host-`, but `domain` not set.
 - The `maxAge` option value is greater than 400 days.
 - The `expires` option value is 400 days later than the current time.
