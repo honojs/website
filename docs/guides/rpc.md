@@ -397,35 +397,38 @@ export type AppType = typeof routes
 You can now create a new client using the registered AppType and use it as you would normally.
 
 ## Known issues
+
 ### IDE performance
+
 When using RPC, the more routes you have, the slower your IDE will become. One of the main reasons for this is that massive amounts of type instantiations are executed to infer the type of your app.
 
 For example, suppose your app has a route like this:
 
 ```ts
 // app.ts
-export const app = new Hono()
-  .get('foo/:id', (c) => c.json({ ok: true }, 200))
+export const app = new Hono().get('foo/:id', (c) =>
+  c.json({ ok: true }, 200)
+)
 ```
 
 Hono will infer the type as follows:
 
 ```ts
-export const app = Hono<BlankEnv, BlankSchema, "/">()
-  .get<
-    "foo/:id",
-    "foo/:id",
-    JSONRespondReturn<{ ok: boolean }, 200>,
-    BlankInput,
-    BlankEnv
-  >('foo/:id', (c) => c.json({ ok: true }, 200))
+export const app = Hono<BlankEnv, BlankSchema, '/'>().get<
+  'foo/:id',
+  'foo/:id',
+  JSONRespondReturn<{ ok: boolean }, 200>,
+  BlankInput,
+  BlankEnv
+>('foo/:id', (c) => c.json({ ok: true }, 200))
 ```
 
-This is a type instantiation for a single route. While the user doesn't need to write these type arguments manually, which is a good thing, it's known that type instantiation takes much time. `tsserver` does this time consuming task every time you use the app. If you have a lot of routes, this can slow down your IDE significantly.
+This is a type instantiation for a single route. While the user doesn't need to write these type arguments manually, which is a good thing, it's known that type instantiation takes much time. `tsserver` used in your IDE does this time consuming task every time you use the app. If you have a lot of routes, this can slow down your IDE significantly.
 
 However, we have some tips to mitigate this issue.
 
-#### compile your code before using it (recommended)
+#### Compile your code before using it (recommended)
+
 `tsc` can do heavy tasks like type instantiation at compile time! Then, `tsserver` doesn't need to instantiate all the type arguments every time you use it. It will make your IDE a lot faster!
 
 Compiling your client including the server app gives you the best performance. Put the following code in your project:
@@ -438,7 +441,8 @@ import { hc } from 'hono/client'
 const client = hc<typeof app>('')
 export type Client = typeof client
 
-export const hcWithType = (...args: Parameters<typeof hc>): Client => hc<typeof app>(...args)
+export const hcWithType = (...args: Parameters<typeof hc>): Client =>
+  hc<typeof app>(...args)
 ```
 
 After compiling, you can use `hcWithType` instead of `hc` to get the client with the type already calculated.
@@ -459,17 +463,20 @@ If your client and server are in a single project, [project references](https://
 
 You can also coordinate your build process manually with tools like `concurrently` or `npm-run-all`.
 
-#### specify type arguments manually
+#### Specify type arguments manually
+
 This is a bit cumbersome, but you can specify type arguments manually to avoid type instantiation.
 
 ```ts
-const app = new Hono()
-  .get<'foo/:id'>('foo/:id', (c) => c.json({ ok: true }, 200))
+const app = new Hono().get<'foo/:id'>('foo/:id', (c) =>
+  c.json({ ok: true }, 200)
+)
 ```
 
 Specifying just single type argument make a difference in performance, while it may take you a lot of time and effort if you have a lot of routes.
 
-#### split your app and client into multiple files
+#### Split your app and client into multiple files
+
 As described in [Using RPC with larger applications](#using-rpc-with-larger-applications), you can split your app into multiple apps. You can also create a client for each app:
 
 ```ts
@@ -487,4 +494,3 @@ const booksClient = hc<typeof booksApp>('/books')
 ```
 
 This way, `tsserver` doesn't need to instantiate types for all routes at once.
-
