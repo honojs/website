@@ -53,7 +53,7 @@ Validation targets include `json`, `query`, `header`, `param` and `cookie` in ad
 ::: warning
 When you validate `header`, you need to use **lowercase** name as the key.
 
-If you want to validate the `Idempotency-Key` header, you have to use `idempotency-key` as the key.
+If you want to validate the `Idempotency-Key` header, you need to use `idempotency-key` as the key.
 
 ```ts
 // ❌ this will not work
