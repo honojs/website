@@ -1,5 +1,5 @@
 ---
-title: Hono - Ultrafast web framework for the Edges
+title: Hono - Web framework built on Web Standards
 titleTemplate: ':title'
 ---
 
