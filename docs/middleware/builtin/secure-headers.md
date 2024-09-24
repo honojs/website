@@ -50,25 +50,26 @@ app.use(
 
 Each option corresponds to the following Header Key-Value pairs.
 
-| Option                        | Header                                                                                                                           | Value                                                                      | Default    |
-| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------- |
-| -                             | X-Powered-By                                                                                                                     | (Delete Header)                                                            | True       |
-| contentSecurityPolicy         | [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)                                                 | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
-| crossOriginEmbedderPolicy     | [Cross-Origin-Embedder-Policy](https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy)                 | require-corp                                                               | **False**  |
-| crossOriginResourcePolicy     | [Cross-Origin-Resource-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy)           | same-origin                                                                | True       |
-| crossOriginOpenerPolicy       | [Cross-Origin-Opener-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy)               | same-origin                                                                | True       |
-| originAgentCluster            | [Origin-Agent-Cluster](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin-Agent-Cluster)                           | ?1                                                                         | True       |
-| referrerPolicy                | [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)                                     | no-referrer                                                                | True       |
-| reportingEndpoints            | [Reporting-Endpoints](https://www.w3.org/TR/reporting-1/#header)                                                                 | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
-| reportTo                      | [Report-To](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)                         | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
-| strictTransportSecurity       | [Strict-Transport-Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)                 | max-age=15552000; includeSubDomains                                        | True       |
-| xContentTypeOptions           | [X-Content-Type-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)                       | nosniff                                                                    | True       |
-| xDnsPrefetchControl           | [X-DNS-Prefetch-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control)                       | off                                                                        | True       |
-| xDownloadOptions              | [X-Download-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Download-Options)                               | noopen                                                                     | True       |
-| xFrameOptions                 | [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)                                     | SAMEORIGIN                                                                 | True       |
-| xPermittedCrossDomainPolicies | [X-Permitted-Cross-Domain-Policies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Permitted-Cross-Domain-Policies) | none                                                                       | True       |
-| xXssProtection                | [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)                                   | 0                                                                          | True       |
-| permissionPolicy              | [Permissions-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy)                               | Usage: [Setting Permission-Policy](#setting-permission-policy)             | No Setting |
+| Option                          | Header                                                                                                                               | Value                                                                      | Default    |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- | ---------- |
+| -                               | X-Powered-By                                                                                                                         | (Delete Header)                                                            | True       |
+| contentSecurityPolicy           | [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)                                                     | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
+| contentSecurityPolicyReportOnly | [Content-Security-Policy-Report-Only](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only) | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
+| crossOriginEmbedderPolicy       | [Cross-Origin-Embedder-Policy](https://developer.mozilla.org/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy)                     | require-corp                                                               | **False**  |
+| crossOriginResourcePolicy       | [Cross-Origin-Resource-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Resource-Policy)               | same-origin                                                                | True       |
+| crossOriginOpenerPolicy         | [Cross-Origin-Opener-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy)                   | same-origin                                                                | True       |
+| originAgentCluster              | [Origin-Agent-Cluster](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin-Agent-Cluster)                               | ?1                                                                         | True       |
+| referrerPolicy                  | [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)                                         | no-referrer                                                                | True       |
+| reportingEndpoints              | [Reporting-Endpoints](https://www.w3.org/TR/reporting-1/#header)                                                                     | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
+| reportTo                        | [Report-To](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)                             | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
+| strictTransportSecurity         | [Strict-Transport-Security](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)                     | max-age=15552000; includeSubDomains                                        | True       |
+| xContentTypeOptions             | [X-Content-Type-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)                           | nosniff                                                                    | True       |
+| xDnsPrefetchControl             | [X-DNS-Prefetch-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-DNS-Prefetch-Control)                           | off                                                                        | True       |
+| xDownloadOptions                | [X-Download-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Download-Options)                                   | noopen                                                                     | True       |
+| xFrameOptions                   | [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)                                         | SAMEORIGIN                                                                 | True       |
+| xPermittedCrossDomainPolicies   | [X-Permitted-Cross-Domain-Policies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Permitted-Cross-Domain-Policies)     | none                                                                       | True       |
+| xXssProtection                  | [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)                                       | 0                                                                          | True       |
+| permissionPolicy                | [Permissions-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy)                                   | Usage: [Setting Permission-Policy](#setting-permission-policy)             | No Setting |
 
 ## Middleware Conflict
 
@@ -229,7 +230,7 @@ app.use(
       syncXhr: [], // sync-xhr=()
       camera: false, // camera=none
       microphone: true, // microphone=*
-      geolocation: ['*'], // geolocation=* 
+      geolocation: ['*'], // geolocation=*
       usb: ['self', 'https://a.example.com', 'https://b.example.com'], // usb=(self "https://a.example.com" "https://b.example.com")
       accelerometer: ['https://*.example.com'], // accelerometer=("https://*.example.com")
       gyroscope: ['src'], // gyroscope=(src)
