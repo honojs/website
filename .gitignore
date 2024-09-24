@@ -1,8 +1,8 @@
 cache
 
 node_modules
-yarn.lock
 yarn-error.log
+pnpm-lock.yaml
 
 # Windows
 Thumbs.db

@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
-import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
-
+import {
+  groupIconMdPlugin,
+  groupIconVitePlugin,
+} from 'vitepress-plugin-group-icons'
 
 const sidebars = (): DefaultTheme.SidebarItem[] => [
   {
@@ -155,6 +157,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Cache', link: '/docs/middleware/builtin/cache' },
       { text: 'Combine', link: '/docs/middleware/builtin/combine' },
       { text: 'Compress', link: '/docs/middleware/builtin/compress' },
+      {
+        text: 'Context Storage',
+        link: '/docs/middleware/builtin/context-storage',
+      },
       { text: 'CORS', link: '/docs/middleware/builtin/cors' },
       {
         text: 'CSRF Protection',
@@ -283,7 +289,7 @@ export default defineConfig({
   lang: 'en-US',
   title: 'Hono',
   description:
-    'Ultrafast web framework for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Node.js, and others. Fast, but not only fast.',
+    'Web framework built on Web Standards for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Node.js, and others. Fast, but not only fast.',
   lastUpdated: true,
   ignoreDeadLinks: true,
   cleanUrls: true,
@@ -359,9 +365,9 @@ export default defineConfig({
     plugins: [
       groupIconVitePlugin({
         customIcon: {
-          cloudflare: 'logos:cloudflare-workers-icon'
-        }
-      })
+          cloudflare: 'logos:cloudflare-workers-icon',
+        },
+      }),
     ],
-  }
+  },
 })

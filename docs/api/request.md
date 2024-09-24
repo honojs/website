@@ -60,6 +60,23 @@ app.get('/', (c) => {
 })
 ```
 
+::: warning
+When `c.req.header()` is called with no arguments, all keys in the returned record are **lowercase**.
+
+If you want to get the value of a header with an uppercase name,
+ use `c.req.header(“X-Foo”)`.
+
+```ts
+// ❌ Will not work
+const headerRecord = c.req.header()
+const foo = headerRecord['X-Foo']
+
+// ✅ Will work
+const foo = c.req.header('X-Foo')
+```
+
+:::
+
 ## parseBody()
 
 Parse Request body of type `multipart/form-data` or `application/x-www-form-urlencoded`
