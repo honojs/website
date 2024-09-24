@@ -11,11 +11,8 @@ Below is an example of the configuration one can make
 import { defineWorkersProject } from '@cloudflare/vitest-pool-workers/config'
 
 export default defineWorkersProject(() => {
-  const migrationsPath = path.join(__dirname, 'path/to/migrations') // path to migrations directory
-  const migrations = await readD1Migrations(migrationsPath)
   return {
     test: {
-      setup: ["path/to/file/apply_migrations.ts"]
       globals: true,
       poolOptions: {
         workers: {
@@ -24,11 +21,6 @@ export default defineWorkersProject(() => {
           miniflare: {
             // This is where you add your wrangler.toml configurations
             compatibilityDate: '2024-04-01',
-            d1Databases: ['DB'],
-            bindings: {
-              SECRET: 'any-secret',
-              MIGRATIONS: migrations,
-             },
           },
         },
       },
@@ -37,19 +29,10 @@ export default defineWorkersProject(() => {
 })
 ```
 
-```ts [apply_migrations.ts]
-// Add this file in the setup array so that is runs before any of your tests
-import { applyD1Migrations, env } from 'cloudflare:test'
-
-await applyD1Migrations(env.DB, env.MIGRATIONS)
-```
-
 ```ts [env.d.ts]
 declare module 'cloudflare:test' {
   interface ProvidedEnv {
-    DB: D1Database
-    SECRET: string
-    MIGRATIONS: D1Migrations[]
+    // Your custom Cloudflare env type
   }
 }
 ```
@@ -74,4 +57,5 @@ it('test', async () => {
 
 ## See Also
 
-`@cloudflare/vitest-pool-workers` [Github Repository examples](https://github.com/cloudflare/workers-sdk/tree/main/fixtures/vitest-pool-workers-examples)
+`@cloudflare/vitest-pool-workers` [Github Repository examples](https://github.com/cloudflare/workers-sdk/tree/main/fixtures/vitest-pool-workers-examples)\
+[Migrate from old testing system](https://developers.cloudflare.com/workers/testing/vitest-integration/get-started/migrate-from-miniflare-2/)
