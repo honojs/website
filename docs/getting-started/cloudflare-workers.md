@@ -273,7 +273,7 @@ bun add --dev @cloudflare/workers-types
 
 ## Testing
 
-For testing, we recommend using `jest-environment-miniflare`.
+For testing, we recommend using `@cloudflare/vitest-pool-workers`.
 Refer to [examples](https://github.com/honojs/examples) for setting it up.
 
 If there is the application below.
