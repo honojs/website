@@ -1,10 +1,11 @@
 # Cloudflare Testing
 
-You can implement the cloudflare testing easily with `@cloudflare/vitest-pool-workers` for which some configuration has to be made priorly more on that can be found over in [cloudflare docs about testing](https://developers.cloudflare.com/workers/testing/vitest-integration/get-started/write-your-first-test/)
+You can implement the Cloudflare testing easily with `@cloudflare/vitest-pool-workers` for which some configuration has to be made priorly more on that can be found over in [Cloudflare Docs about testing](https://developers.cloudflare.com/workers/testing/vitest-integration/get-started/write-your-first-test/).
 
-Cloudflare Testing with vitest pool workers provide a `cloudflare:test` module at runtime which exposes the env passed in as the second argument during testing more on it in the [Cloudflare Test APIs section](https://developers.cloudflare.com/workers/testing/vitest-integration/test-apis/)
+Cloudflare Testing with vitest pool workers provide a `cloudflare:test` module at runtime which exposes the env passed in as the second argument during testing more on it in the [Cloudflare Test APIs section](https://developers.cloudflare.com/workers/testing/vitest-integration/test-apis/).
 
-Below is an example of the configuration one can make
+Below is an example of the configuration one can make:
+
 :::code-group
 
 ```ts [vitest.config.ts]
@@ -15,45 +16,58 @@ export default defineWorkersProject(() => {
     test: {
       globals: true,
       poolOptions: {
-        workers: {
-          singleWorker: true,
-          isolatedStorage: false,
-          miniflare: {
-            // This is where you add your wrangler.toml configurations
-            compatibilityDate: '2024-04-01',
-          },
-        },
+        workers: { wrangler: { configPath: './wrangler.toml' } },
       },
     },
   }
 })
 ```
 
-```ts [env.d.ts]
-declare module 'cloudflare:test' {
-  interface ProvidedEnv {
-    // Your custom Cloudflare env type
-  }
-}
+```toml [wrangler.toml]
+compatibility_date = "2024-09-09"
+compatibility_flags = [ "nodejs_compat" ]
+
+[vars]
+MY_VAR = "my variable"
 ```
 
 :::
 
-Once all is set up the application can be easily tested by using the testClient and passing in the `env` exposed from the module `cloudflare:test`
+Imagine the application like the following:
 
 ```ts
-import { env } from 'cloudflare:test'
+// src/index.ts
+import { Hono } from 'hono'
 
-const app = new Hono().get('/search', (c) =>
-  c.json({ hello: 'world' }, 200)
-)
+type Bindings = {
+  MY_VAR: string
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/hello', (c) => {
+  return c.json({ hello: 'world', var: c.env.MY_VAR })
+})
+
+export default app
+```
+
+You can test the application with Cloudflare Bindings by passing in the `env` exposed from the module `cloudflare:test` to `app.request()`:
+
+```ts
+// src/index.test.ts
+import { env } from 'cloudflare:test'
+import app from './index'
 
 describe('Example', () => {
-  it('should get json', async () => {
-    const res = await app.request('/search')
+  it('Should return 200 response', async () => {
+    const res = await app.request('/hello', {}, env)
 
     expect(res.status).toBe(200)
-    expect(await res.json()).toEqual({ hello: 'world' })
+    expect(await res.json()).toEqual({
+      hello: 'world',
+      var: 'my variable',
+    })
   })
 })
 ```
