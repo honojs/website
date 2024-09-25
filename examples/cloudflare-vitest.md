@@ -43,15 +43,18 @@ Once all is set up the application can be easily tested by using the testClient 
 
 ```ts
 import { env } from 'cloudflare:test'
-import { testClient } from 'hono/testing'
 
-it('test', async () => {
-  const app = new Hono().get('/search', (c) =>
-    c.json({ hello: 'world' })
-  )
-  const res = await testClient(app, env).search.$get()
+const app = new Hono().get('/search', (c) =>
+  c.json({ hello: 'world' }, 200)
+)
 
-  expect(await res.json()).toEqual({ hello: 'world' })
+describe('Example', () => {
+  it('should get json', async () => {
+    const res = await app.request('/search')
+
+    expect(res.status).toBe(200)
+    expect(await res.json()).toEqual({ hello: 'world' })
+  })
 })
 ```
 
