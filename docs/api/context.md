@@ -202,12 +202,12 @@ You can set a layout using `c.setRenderer()` within a custom middleware.
 ```tsx
 app.use(async (c, next) => {
   c.setRenderer((content) => {
-    return c.html(
+    return c.html(`
       <html>
         <body>
-          <p>{content}</p>
+          <p>${content}</p>
         </body>
-      </html>
+      </html>`
     )
   })
   await next()
@@ -251,29 +251,29 @@ Here's an example of how you can use this:
 ```ts
 app.use('/pages/*', async (c, next) => {
   c.setRenderer((content, head) => {
-    return c.html(
+    return c.html(`
       <html>
         <head>
-          <title>{head.title}</title>
+          <title>${head.title}</title>
         </head>
         <body>
-          <header>{head.title}</header>
-          <p>{content}</p>
+          <header>${head.title}</header>
+          <p>${content}</p>
         </body>
-      </html>
+      </html>`
     )
   })
   await next()
 })
 
 app.get('/pages/my-favorite', (c) => {
-  return c.render(<p>Ramen and Sushi</p>, {
+  return c.render('Ramen and Sushi', {
     title: 'My favorite',
   })
 })
 
 app.get('/pages/my-hobbies', (c) => {
-  return c.render(<p>Watching baseball</p>, {
+  return c.render('Watching baseball', {
     title: 'My hobbies',
   })
 })
