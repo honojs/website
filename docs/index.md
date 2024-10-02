@@ -10,7 +10,7 @@ It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute, Deno, Bu
 
 Fast, but not only fast.
 
-```ts
+```ts twoslash
 import { Hono } from 'hono'
 const app = new Hono()
 
