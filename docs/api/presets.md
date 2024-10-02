@@ -11,7 +11,7 @@ Therefore, you can use them interchangeably.
 
 Usage:
 
-```ts
+```ts twoslash
 import { Hono } from 'hono'
 ```
 
@@ -27,7 +27,7 @@ this.router = new SmartRouter({
 
 Usage:
 
-```ts
+```ts twoslash
 import { Hono } from 'hono/quick'
 ```
 
@@ -43,7 +43,7 @@ this.router = new SmartRouter({
 
 Usage:
 
-```ts
+```ts twoslash
 import { Hono } from 'hono/tiny'
 ```
 
