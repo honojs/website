@@ -7,7 +7,7 @@ In addition to `Requests` and `Responses`, there are `URL`, `URLSearchParam`, `H
 Cloudflare Workers, Deno, and Bun also build upon Web Standards.
 For example, a server that returns "Hello World" could be written as below. This could run on Cloudflare Workers and Bun.
 
-```ts
+```ts twoslash
 export default {
   async fetch() {
     return new Response('Hello World')
