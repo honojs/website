@@ -73,26 +73,26 @@ If your application has `/authors` and `/books` endpoints and you wish to separa
 // authors.ts
 import { Hono } from 'hono'
 
-const app = new Hono()
+const authors = new Hono()
 
-app.get('/', (c) => c.json('list authors'))
-app.post('/', (c) => c.json('create an author', 201))
-app.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+authors.get('/', (c) => c.json('list authors'))
+authors.post('/', (c) => c.json('create an author', 201))
+authors.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
 
-export default app
+export default authors
 ```
 
 ```ts
 // books.ts
 import { Hono } from 'hono'
 
-const app = new Hono()
+const books = new Hono()
 
-app.get('/', (c) => c.json('list books'))
-app.post('/', (c) => c.json('create a book', 201))
-app.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+books.get('/', (c) => c.json('list books'))
+books.post('/', (c) => c.json('create a book', 201))
+books.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
 
-export default app
+export default books
 ```
 
 Then, import them and mount on the paths `/authors` and `/books` with `app.route()`.
