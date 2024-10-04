@@ -23,7 +23,7 @@ Now let's create an API server and a client with it.
 
 First, write an endpoint that receives a GET request and returns JSON.
 
-```ts
+```ts twoslash
 import { Hono } from 'hono'
 
 const app = new Hono()

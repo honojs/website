@@ -17,7 +17,12 @@ For example, `find-my-way` is a very fast router used inside Fastify.
 First, we registered the following routing to each of our routers.
 These are similar to those used in the real world.
 
-```ts
+```ts twoslash
+interface Route {
+  method: string
+  path: string
+}
+// ---cut---
 export const routes: Route[] = [
   { method: 'GET', path: '/user' },
   { method: 'GET', path: '/user/comments' },
@@ -36,7 +41,12 @@ export const routes: Route[] = [
 
 Then we sent the Request to the endpoints like below.
 
-```ts
+```ts twoslash
+interface Route {
+  method: string
+  path: string
+}
+// ---cut---
 const routes: (Route & { name: string })[] = [
   {
     name: 'short static',
