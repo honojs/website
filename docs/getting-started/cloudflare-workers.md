@@ -157,94 +157,24 @@ export default {
 
 ## Serve static files
 
-::: warning
-This "Serve static files" feature for Cloudflare Workers has been deprecated. If you want to create an application that serves static assets files, use [Cloudflare Pages](/docs/getting-started/cloudflare-pages) instead of Cloudflare Workers.
-:::
-
-You need to set it up to serve static files.
-Static files are distributed by using Workers Sites.
-To enable this feature, edit `wrangler.toml` and specify the directory where the static files will be placed.
+If you want to serve static files, you can use [the Static Assets feature](https://developers.cloudflare.com/workers/static-assets/) of Cloudflare Workers. Specify the directory for the files in `wrangler.toml`:
 
 ```toml
-[site]
-bucket = "./assets"
+assets = { directory = "public" }
 ```
 
-Then create the `assets` directory and place the files there.
+Then create the `public` directory and place the files there. For instance, `./public/static/hello.txt` will be served as `/static/hello.txt`.
 
 ```
-./
-├── assets
-│   ├── favicon.ico
-│   └── static
-│       ├── demo
-│       │   └── index.html
-│       ├── fallback.txt
-│       └── images
-│           └── dinotocat.png
+.
 ├── package.json
+├── public
+│   ├── favicon.ico
+│   └── static
+│       └── hello.txt
 ├── src
-│   └── index.ts
+│   └── index.ts
 └── wrangler.toml
-```
-
-Then use "Adapter".
-
-```ts
-import { Hono } from 'hono'
-import { serveStatic } from 'hono/cloudflare-workers'
-import manifest from '__STATIC_CONTENT_MANIFEST'
-
-const app = new Hono()
-
-app.get('/static/*', serveStatic({ root: './', manifest }))
-app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
-```
-
-### `rewriteRequestPath`
-
-If you want to map `http://localhost:8787/static/*` to `./assets/statics`, you can use the `rewriteRequestPath` option:
-
-```ts
-app.get(
-  '/static/*',
-  serveStatic({
-    root: './',
-    rewriteRequestPath: (path) =>
-      path.replace(/^\/static/, '/statics'),
-  })
-)
-```
-
-### `mimes`
-
-You can add MIME types with `mimes`:
-
-```ts
-app.get(
-  '/static/*',
-  serveStatic({
-    mimes: {
-      m3u8: 'application/vnd.apple.mpegurl',
-      ts: 'video/mp2t',
-    },
-  })
-)
-```
-
-### `onNotFound`
-
-You can specify handling when the requested file is not found with `onNotFound`:
-
-```ts
-app.get(
-  '/static/*',
-  serveStatic({
-    onNotFound: (path, c) => {
-      console.log(`${path} is not found, you access ${c.req.path}`)
-    },
-  })
-)
 ```
 
 ## Types
