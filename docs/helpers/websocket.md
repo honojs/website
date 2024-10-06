@@ -27,10 +27,10 @@ const { upgradeWebSocket, websocket } =
 
 // ...
 
-Bun.serve({
+export default {
   fetch: app.fetch,
   websocket,
-})
+};
 ```
 
 :::
@@ -186,8 +186,8 @@ const ws = app.get(
   })
 )
 
-Bun.serve({
+export default {
   fetch: app.fetch,
   websocket,
-})
+};
 ```
