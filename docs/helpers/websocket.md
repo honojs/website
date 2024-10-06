@@ -30,7 +30,7 @@ const { upgradeWebSocket, websocket } =
 export default {
   fetch: app.fetch,
   websocket,
-};
+}
 ```
 
 :::
@@ -189,5 +189,5 @@ const ws = app.get(
 export default {
   fetch: app.fetch,
   websocket,
-};
+}
 ```

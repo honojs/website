@@ -80,7 +80,7 @@ app.get('/', (c) => {
 When `c.req.header()` is called with no arguments, all keys in the returned record are **lowercase**.
 
 If you want to get the value of a header with an uppercase name,
- use `c.req.header(“X-Foo”)`.
+use `c.req.header(“X-Foo”)`.
 
 ```ts
 // ❌ Will not work
