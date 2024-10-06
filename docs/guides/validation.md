@@ -57,33 +57,45 @@ If you want to validate the `Idempotency-Key` header, you need to use `idempoten
 
 ```ts
 // ❌ this will not work
-app.post("/api", validator("header", (value, c) => {
-  // idempotencyKey is always undefined
-  // so this middleware always return 400 as not expected
-  const idempotencyKey = value["Idempotency-Key"]
+app.post(
+  '/api',
+  validator('header', (value, c) => {
+    // idempotencyKey is always undefined
+    // so this middleware always return 400 as not expected
+    const idempotencyKey = value['Idempotency-Key']
 
-  if (idempotencyKey == undefined || idempotencyKey === "") {
-    throw HTTPException(400, { message: "Idempotency-Key is required" })
+    if (idempotencyKey == undefined || idempotencyKey === '') {
+      throw HTTPException(400, {
+        message: 'Idempotency-Key is required',
+      })
+    }
+    return { idempotencyKey }
+  }),
+  (c) => {
+    const { idempotencyKey } = c.req.valid('header')
+    // ...
   }
-  return { idempotencyKey }
-}), (c) => {
-  const { idempotencyKey } = c.req.valid("header")
-  // ...
-})
+)
 
 // ✅ this will work
-app.post("/api", validator("header", (value, c) => {
-  // can retrieve the value of the header as expected
-  const idempotencyKey = value["idempotency-key"]
+app.post(
+  '/api',
+  validator('header', (value, c) => {
+    // can retrieve the value of the header as expected
+    const idempotencyKey = value['idempotency-key']
 
-  if (idempotencyKey == undefined || idempotencyKey === "") {
-    throw HTTPException(400, { message: "Idempotency-Key is required" })
+    if (idempotencyKey == undefined || idempotencyKey === '') {
+      throw HTTPException(400, {
+        message: 'Idempotency-Key is required',
+      })
+    }
+    return { idempotencyKey }
+  }),
+  (c) => {
+    const { idempotencyKey } = c.req.valid('header')
+    // ...
   }
-  return { idempotencyKey }
-}), (c) => {
-  const { idempotencyKey } = c.req.valid("header")
-  // ...
-})
+)
 ```
 
 :::

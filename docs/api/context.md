@@ -351,9 +351,7 @@ declare const data: string
 // ---cut---
 // ExecutionContext object
 app.get('/foo', async (c) => {
-  c.executionCtx.waitUntil(
-    c.env.KV.put(key, data)
-  )
+  c.executionCtx.waitUntil(c.env.KV.put(key, data))
   // ...
 })
 ```
@@ -373,12 +371,9 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>()
 
-
 // FetchEvent object (only set when using Service Worker syntax)
 app.get('/foo', async (c) => {
-  c.event.waitUntil(
-    c.env.MY_KV.put(key, data)
-  )
+  c.event.waitUntil(c.env.MY_KV.put(key, data))
   // ...
 })
 ```
