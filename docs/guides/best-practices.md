@@ -110,3 +110,20 @@ app.route('/books', books)
 
 export default app
 ```
+## Declarative Approach for RPC Type Inference
+
+Use a declarative approach when defining routes for better type inference in RPC scenarios.
+
+```ts
+// authors.ts
+const app = new Hono()
+  .get('/', (c) => c.json('list authors'))
+  .post('/', (c) => c.json('create an author', 201))
+  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+// books.ts
+const app = new Hono()
+  .get('/', (c) => c.json('list books'))
+  .post('/', (c) => c.json('create a book', 201))
+  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+```
