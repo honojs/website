@@ -259,7 +259,8 @@ app.get('*', (c) => c.text('fallback')) // fallback
 ```
 
 ```
-GET /bar ---> `fallback`
+GET /bar ---> `bar`
+GET /foo ---> `fallback`
 ```
 
 ## Grouping ordering
