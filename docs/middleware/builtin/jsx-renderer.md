@@ -166,9 +166,11 @@ const RequestUrlBadge: FC = () => {
 
 app.get('/page/info', (c) => {
   return c.render(
-    <div>
-      You are accessing: <RequestUrlBadge />
-    </div>
+    <RequestContext value={c}>
+      <div>
+        You are accessing: <RequestUrlBadge />
+      </div>
+    </RequestContext>
   )
 })
 ```
