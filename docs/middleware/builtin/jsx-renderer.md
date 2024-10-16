@@ -159,6 +159,11 @@ app.route('/blog', blog)
 `useRequestContext()` returns an instance of Context.
 
 ```tsx
+import { useRequestContext, jsxRenderer } from 'hono/jsx-renderer'
+
+const app = new Hono()
+app.use(jsxRenderer())
+
 const RequestUrlBadge: FC = () => {
   const c = useRequestContext()
   return <b>{c.req.url}</b>
