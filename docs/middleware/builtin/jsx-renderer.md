@@ -161,7 +161,8 @@ app.route('/blog', blog)
 ```tsx
 import { useRequestContext, jsxRenderer } from 'hono/jsx-renderer'
 
-const app = new Hono().use(jsxRenderer())
+const app = new Hono()
+app.use(jsxRenderer())
 
 const RequestUrlBadge: FC = () => {
   const c = useRequestContext()
