@@ -142,6 +142,70 @@ type ResponseType200 = InferResponseType<
 >
 ```
 
+## Not Found
+
+If you want to use a client, you should not use `c.notFound()` for the Not Found response. The data that the client gets from the server cannot be inferred correctly.
+
+```ts
+// server.ts
+export const routes = new Hono().get(
+  '/posts',
+  zValidator(
+    'query',
+    z.object({
+      id: z.string(),
+    })
+  ),
+  async (c) => {
+    const { id } = c.req.valid('query')
+    const post: Post | undefined = await getPost(id)
+
+    if (post === undefined) {
+      return c.notFound() // ❌️
+    }
+
+    return c.json({ post })
+  }
+)
+
+// client.ts
+import { hc } from 'hono/client'
+
+const client = hc<typeof routes>('/')
+
+const res = await client.posts[':id'].$get({
+  param: {
+    id: '123',
+  },
+})
+
+const data = await res.json() // 🙁 data is unknown
+```
+
+Please use `c.json()` and specify the status code for the Not Found Response.
+
+```ts
+export const routes = new Hono().get(
+  '/posts',
+  zValidator(
+    'query',
+    z.object({
+      id: z.string(),
+    })
+  ),
+  async (c) => {
+    const { id } = c.req.valid('query')
+    const post: Post | undefined = await getPost(id)
+
+    if (post === undefined) {
+      return c.json({ error: 'not found' }, 404) // Specify 404
+    }
+
+    return c.json({ post }, 200) // Specify 200
+  }
+)
+```
+
 ## Path parameters
 
 You can also handle routes that include path parameters.
