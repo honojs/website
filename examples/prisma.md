@@ -123,3 +123,165 @@ app.post('/', async (c) => {
 ```
 
 :::
+
+
+# Using Prisma with D1 Database Cloudflare
+
+Prisma can used with D1 Database via `driverAdapters`  Prerequisites is install prisma and integrate `wrangler` to binding with hono project. This is an example project since all documentation for Hono, Prisma, and D1 Cloudflare separated each other and don't have exactly precise step by step.
+
+## Setup Prisma 
+
+Prisma and D1 Using binding in wrangler to secure connection with an adapter
+
+```
+npm install prisma --save-dev
+npx prisma init
+npm install @prisma/client
+npm install @prisma/adapter-d1
+```
+
+After this prisma will generate schema for your database, define a simple model in `/prisma/schema.prisma`. Don't forget to change the adapter, Cloudflare and Prisma using Binding Env in Hono
+
+
+```
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"] // change from default
+}
+
+datasource db {
+  provider = "sqlite" // d1 is sql base database
+  url      = env("DATABASE_URL")
+}
+
+// Create a simple model database
+model User {
+  id    String @id  @default(uuid())
+  email String  @unique
+  name  String?
+}
+
+
+```
+
+## D1 Database 
+
+If you already have d1 database ready skip this , but if not create a one resources can be found in here [Cloudflare](https://developers.cloudflare.com/d1/get-started/)
+
+```
+npx wrangler d1 create __DATABASE NAME_ // change it with yours 
+```
+
+make sure your DB is binding in `wrangler.toml`
+```
+// [[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "Your DB NAME"
+database_id = "DATABASE ID"
+
+```
+
+## Prisma Migrate
+
+This command make to migrate prisma and change to d1 database either local and remote
+
+```
+npx wrangler d1 migrations create __YOUR_DATABASE_NAME__ create_user_table # will generate migration folder and sql file
+
+// for generate sql statement
+
+npx prisma migrate diff \
+  --from-empty \
+  --to-schema-datamodel ./prisma/schema.prisma \
+  --script \
+  --output migrations/0001_create_user_table.sql
+
+```
+Migrate the database model to d1 
+
+```
+npx wrangler d1 migrations apply __YOUR_DATABASE_NAME__ --local
+npx wrangler d1 migrations apply __YOUR_DATABASE_NAME__ --remote
+npx prisma generate
+
+```
+
+## Config Prisma Client
+
+In order to query your database from the D1 database using Prisma ORM, you need to add type with
+```
+npx wrangler types
+```
+will generate a `worker-configuration.d.ts` file
+
+### Prisma Clients
+
+For using Prisma globally make a file `/lib/prismaClient.ts` with code like this
+
+::: code-group
+```ts [/lib/prisma.ts]
+import { PrismaClient } from '@prisma/client'
+import { PrismaD1 } from '@prisma/adapter-d1'
+
+const prismaClients = {
+  async fetch(db: D1Database) {
+    const adapter = new PrismaD1(db);
+    const prisma = new PrismaClient({ adapter });
+    return prisma; 
+  },
+};
+
+export default prismaClients;
+
+```
+
+:::
+
+Binding Hono with wrangler environment values
+
+
+::: code-group
+```ts [index.ts]
+import { Hono } from 'hono'
+import prismaClients from './lib/prisma'
+
+type Bindings = {
+  MY_KV: KVNamespace,
+  DB: D1Database
+}
+const app = new Hono< {Bindings: Bindings}>() # binding env value
+
+```
+:::
+
+
+**Example of use in Hono route**
+
+::: code-group
+
+```ts [index.ts]
+import { Hono } from 'hono'
+import prismaClients from './lib/prisma'
+
+type Bindings = {
+  MY_KV: KVNamespace,
+  DB: D1Database
+}
+const app = new Hono< {Bindings: Bindings}>()
+
+app.get('/', async (c) => {
+  const prisma = await prismaClients.fetch(c.env.DB)
+  const users = await prisma.user.findMany()
+  console.log('users',users)
+  return c.json(users)
+})
+
+export default app
+
+```
+
+:::
+
+
+This will return all users in route '/' use postman or client thunder to see result.
+
