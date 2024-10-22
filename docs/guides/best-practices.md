@@ -110,8 +110,9 @@ app.route('/books', books)
 
 export default app
 ```
-The above code would work fine, however doing this would lose the typesafe
-if you want to use `RPC` features a better solution would be chaining the methods as described below 
+
+The above code would work fine. However, doing this would lose the type-safe.
+If you want to use `RPC` features, a better solution would be chaining the methods as described below.
 
 ```ts
 // authors.ts
@@ -125,5 +126,4 @@ const app = new Hono()
 export default app;
 ```
 
-this way when you use this route, the types can be properly infered 
-
+This way, when you use this route, the types can be properly inferred.
