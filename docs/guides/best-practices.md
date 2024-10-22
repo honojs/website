@@ -110,3 +110,20 @@ app.route('/books', books)
 
 export default app
 ```
+
+The above code would work fine. However, doing this would lose the type-safe.
+If you want to use `RPC` features, a better solution would be chaining the methods as described below.
+
+```ts
+// authors.ts
+import { Hono } from "hono";
+
+const app = new Hono()
+  .get("/", (c) => c.json("list authors"))
+  .post("/", (c) => c.json("create an author", 201))
+  .get("/:id", (c) => c.json(`get ${c.req.param("id")}`));
+
+export default app;
+```
+
+This way, when you use this route, the types can be properly inferred.
