@@ -111,8 +111,7 @@ app.route('/books', books)
 export default app
 ```
 The above code would work fine, however doing this would lose the typesafe
-
-a better solution would be something like this
+if you want to use `RPC` features a better solution would be chaining the methods as described below 
 
 ```ts
 // authors.ts
