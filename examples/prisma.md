@@ -259,7 +259,7 @@ const app = new Hono<{ Bindings: Bindings }>() // binding env value
 
 :::
 
-**Example of use in Hono route**
+Example of use in Hono route:
 
 ::: code-group
 
