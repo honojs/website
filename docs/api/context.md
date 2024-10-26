@@ -47,7 +47,7 @@ app.get('/welcome', (c) => {
 })
 ```
 
-You can also write the following.
+You can also write the following or use [newResponse()](#newresponse).
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -61,16 +61,16 @@ app.get('/welcome', (c) => {
 })
 ```
 
-The Response is the same as below.
+## newResponse()
 
 ```ts twoslash
-new Response('Thank you for coming', {
-  status: 201,
+c.newResponse('Thank you for coming', {
   headers: {
     'X-Message': 'Hello!',
     'Content-Type': 'text/plain',
   },
-})
+  status: 201,
+});
 ```
 
 ## text()
