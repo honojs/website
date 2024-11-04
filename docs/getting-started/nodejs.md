@@ -145,7 +145,7 @@ You can use `serveStatic` to serve static files from the local file system.
 ```ts
 import { serveStatic } from '@hono/node-server/serve-static'
 
-app.use('/static/*', serveStatic({ root: './' }))
+app.use('*', serveStatic({ root: './static' }))
 ```
 
 ### `rewriteRequestPath`
