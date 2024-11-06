@@ -143,10 +143,40 @@ serve(app)
 You can use `serveStatic` to serve static files from the local file system.
 
 ```ts
+import { serve } from '@hono/node-server'
+import { Hono } from 'hono'
 import { serveStatic } from '@hono/node-server/serve-static'
 
+const app = new Hono()
+
 app.use('*', serveStatic({ root: './static' }))
+app.get('/', serveStatic({ path: './static/hello-world.html' }))
+app.get('*', serveStatic({ path: './static/four-oh-four.html' }))
+
+const port = 8787
+console.log(`Server is running on http://localhost:${port}`)
+
+serve({
+  fetch: app.fetch,
+  port
+})
 ```
+
+The code sample above works with the following directory structure.
+
+```sh
+./
+├── src
+    ├── index.ts
+└── static
+    ├── favicon.ico
+    ├── four-oh-four.html
+    ├── hello-world.html # http://localhost:8787 OR http://localhost:8787/hello-world.html
+    └── images
+        └── logo.png # http://localhost:8787/images/logo.png
+```
+
+Basically any file in the `static` directory will be served, but without the `static` prefix.
 
 ### `rewriteRequestPath`
 
