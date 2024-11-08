@@ -140,12 +140,35 @@ serve(app)
 
 ## Serve static files
 
-You can use `serveStatic` to serve static files from the local file system.
+You can use `serveStatic` to serve static files from the local file system. For example, suppose the directory structure is as follows:
+
+```sh
+./
+├── favicon.ico
+├── index.ts
+└── static
+    ├── hello.txt
+    └── image.png
+```
+
+If access to the path `/static/*` comes in and returns a file under `./static`, you can write the following:
 
 ```ts
 import { serveStatic } from '@hono/node-server/serve-static'
 
 app.use('/static/*', serveStatic({ root: './' }))
+```
+
+Use the `path` option to serve `favicon.ico` in the directory root:
+
+```ts
+app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
+```
+
+If access comes to the path `/hello.txt` or `/image.png` and returns a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
+
+```ts
+app.use('*', serveStatic({ root: './static' }))
 ```
 
 ### `rewriteRequestPath`
