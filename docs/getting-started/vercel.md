@@ -141,13 +141,37 @@ If you have a Vercel account, you can deploy by linking the Git repository.
 
 You can also run Hono on Next.js running on the Node.js runtime.
 
-First, install the Node.js adapter.
+### App Router
+
+For the App Router, you can simply set the runtime to `nodejs` in your route handler:
+
+```ts
+import { Hono } from 'hono'
+import { handle } from 'hono/vercel'
+
+export const runtime = 'nodejs'
+
+const app = new Hono().basePath('/api')
+
+app.get('/hello', (c) => {
+  return c.json({
+    message: 'Hello from Hono!',
+  })
+})
+
+export const GET = handle(app)
+export const POST = handle(app)
+```
+
+### Page Router
+
+For the Page Router, you'll need to install the Node.js adapter first:
 
 ```sh
 npm i @hono/node-server
 ```
 
-Next, you can utilize the `handle` function imported from `@hono/node-server/vercel`.
+Then, you can utilize the `handle` function imported from `@hono/node-server/vercel`:
 
 ```ts
 import { Hono } from 'hono'
@@ -171,6 +195,6 @@ app.get('/hello', (c) => {
 export default handle(app)
 ```
 
-In order for this to work, it's important to disable Vercel node.js helpers by setting up an enviroment variable in your project dashboard or in your `.env` file
+In order for this to work with the Page Router, it's important to disable Vercel node.js helpers by setting up an environment variable in your project dashboard or in your `.env` file:
 
 `NODEJS_HELPERS=0`
