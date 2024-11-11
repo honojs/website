@@ -167,9 +167,25 @@ export const POST = handle(app)
 
 For the Page Router, you'll need to install the Node.js adapter first:
 
-```sh
+::: code-group
+
+```sh [npm]
 npm i @hono/node-server
 ```
+
+```sh [yarn]
+yarn add @hono/node-server
+```
+
+```sh [pnpm]
+pnpm add @hono/node-server
+```
+
+```sh [bun]
+bun add @hono/node-server
+```
+
+:::
 
 Then, you can utilize the `handle` function imported from `@hono/node-server/vercel`:
 
@@ -197,4 +213,6 @@ export default handle(app)
 
 In order for this to work with the Page Router, it's important to disable Vercel node.js helpers by setting up an environment variable in your project dashboard or in your `.env` file:
 
-`NODEJS_HELPERS=0`
+```text
+NODEJS_HELPERS=0
+```
