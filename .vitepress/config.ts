@@ -5,6 +5,7 @@ import {
   groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs'
 
 const sidebars = (): DefaultTheme.SidebarItem[] => [
   {
@@ -303,8 +304,10 @@ export default defineConfig({
       md.use(groupIconMdPlugin)
     },
     codeTransformers: [
-      transformerTwoslash()
-    ]
+      transformerTwoslash({
+        typesCache: createFileSystemTypesCache(),
+      }),
+    ],
   },
   themeConfig: {
     logo: '/images/logo-small.png',

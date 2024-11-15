@@ -14,7 +14,7 @@
   "private": true,
   "license": "MIT",
   "devDependencies": {
-    "@shikijs/vitepress-twoslash": "^1.21.0",
+    "@shikijs/vitepress-twoslash": "^1.23.0",
     "hono": "^4.6.3",
     "prettier": "^3.3.2",
     "typescript": "^5.6.2",
