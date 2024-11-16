@@ -233,6 +233,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Grouping routes for RPC',
         link: '/examples/grouping-routes-rpc',
       },
+      {
+        text: 'CBOR',
+        link: '/examples/cbor',
+      },
     ],
   },
   {
