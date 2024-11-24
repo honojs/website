@@ -179,4 +179,4 @@ const Header = () => <a class={cx('h1', primaryClass)}>Hi</a>
 
 If you use VS Code, you can use [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) for Syntax highlighting and IntelliSense for css tagged literals.
 
-![VS Code](./../../public/images/css-ss.png)
+![VS Code](./../../images/css-ss.png)
