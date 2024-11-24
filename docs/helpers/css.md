@@ -175,6 +175,43 @@ It can also compose simple strings.
 const Header = () => <a class={cx('h1', primaryClass)}>Hi</a>
 ```
 
+## Usage in combination with [Secure Headers](/docs/middleware/builtin/secure-headers) middleware
+
+If you want to use the css helpers in combination with the [Secure Headers](/docs/middleware/builtin/secure-headers) middleware, you can add the [`nonce` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) to the `<Style nonce={c.get('secureHeadersNonce')} />` to avoid Content-Security-Policy caused by the css helpers.
+
+```tsx{8,23}
+import { secureHeaders, NONCE } from 'hono/secure-headers'
+
+app.get(
+  '*',
+  secureHeaders({
+    contentSecurityPolicy: {
+      // Set the pre-defined nonce value to `styleSrc`:
+      styleSrc: [NONCE],
+    },
+  })
+)
+
+app.get('/', (c) => {
+  const headerClass = css`
+    background-color: orange;
+    color: white;
+    padding: 1rem;
+  `
+  return c.html(
+    <html>
+      <head>
+        {/* Set the `nonce` attribute on the css helpers `style` and `script` elements */}
+        <Style nonce={c.get('secureHeadersNonce')} />
+      </head>
+      <body>
+        <h1 class={headerClass}>Hello!</h1>
+      </body>
+    </html>
+  )
+})
+```
+
 ## Tips
 
 If you use VS Code, you can use [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) for Syntax highlighting and IntelliSense for css tagged literals.
