@@ -44,3 +44,4 @@ Most of this middleware leverages external libraries.
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
 - [tRPC Server](https://github.com/honojs/middleware/tree/main/packages/trpc-server)
 - [Geo](https://github.com/ktkongtong/hono-geo-middleware/tree/main/packages/middleware)
+- [Hono Simple DI](https://github.com/maou-shonen/hono-simple-DI)
