@@ -16,7 +16,7 @@ A starter for Deno is available.
 Start your project with "create-hono" command.
 
 ```sh
-deno run -A npm:create-hono my-app
+deno init --npm hono my-app
 ```
 
 Select `deno` template for this example.
