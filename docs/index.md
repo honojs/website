@@ -42,7 +42,7 @@ bun create hono@latest
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono@latest
+deno init --npm hono@latest
 ```
 
 :::

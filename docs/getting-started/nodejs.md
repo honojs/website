@@ -39,7 +39,7 @@ bunx create-hono my-app
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono my-app
+deno init --npm hono my-app
 ```
 
 :::
