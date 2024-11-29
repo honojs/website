@@ -57,6 +57,23 @@ otherwise the request body will not be parsed and you will invalid JSON errors.
 It is important to set the `content-type` header when testing using
 [`app.request()`](../api/request.md).
 
+If you had an app set up like this.
+
+```ts
+const app = new Hono()
+app.get(
+  '/testing',
+  validator('json', (value, c) => {
+    // pass-through validator
+    return value
+  }),
+  (c) => {
+    const body = c.req.valid('json')
+    return c.json(body)
+  }
+)
+```
+And your tests were set up like this.
 ```ts
 // ❌ this will not work
 const res = await app.request('/testing', {
