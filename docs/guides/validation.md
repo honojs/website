@@ -51,6 +51,53 @@ Within the handler you can get the validated value with `c.req.valid('form')`.
 Validation targets include `json`, `query`, `header`, `param` and `cookie` in addition to `form`.
 
 ::: warning
+When you validate `json`, the request _must_ contain a `Content-Type: application/json` header
+otherwise the request body will not be parsed and you will invalid JSON errors.
+
+It is important to set the `content-type` header when testing using
+[`app.request()`](../api/request.md).
+
+If you had an app set up like this.
+
+```ts
+const app = new Hono()
+app.get(
+  '/testing',
+  validator('json', (value, c) => {
+    // pass-through validator
+    return value
+  }),
+  (c) => {
+    const body = c.req.valid('json')
+    return c.json(body)
+  }
+)
+```
+And your tests were set up like this.
+```ts
+// ❌ this will not work
+const res = await app.request('/testing', {
+  method: 'POST',
+  body: JSON.stringify({ key: 'value' }),
+})
+const data = await res.json()
+console.log(data) // undefined
+```
+
+```ts
+// ✅ this will work
+const res = await app.request('/testing', {
+  method: 'POST',
+  body: JSON.stringify({ key: 'value' }),
+  headers: new Headers({ 'Content-Type': 'application/json' }),
+})
+const data = await res.json()
+console.log(data) // { key: 'value' }
+```
+
+:::
+
+::: warning
 When you validate `header`, you need to use **lowercase** name as the key.
 
 If you want to validate the `Idempotency-Key` header, you need to use `idempotency-key` as the key.
