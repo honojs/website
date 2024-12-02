@@ -52,16 +52,16 @@ Validation targets include `json`, `query`, `header`, `param` and `cookie` in ad
 
 ::: warning
 When you validate `json`, the request _must_ contain a `Content-Type: application/json` header
-otherwise the request body will not be parsed and you will invalid JSON errors.
+otherwise the request body will not be parsed and you will receive a warning.
 
 It is important to set the `content-type` header when testing using
 [`app.request()`](../api/request.md).
 
-If you had an app set up like this.
+Given an application like this.
 
 ```ts
 const app = new Hono()
-app.get(
+app.post(
   '/testing',
   validator('json', (value, c) => {
     // pass-through validator
@@ -73,7 +73,9 @@ app.get(
   }
 )
 ```
-And your tests were set up like this.
+
+Your tests can be written like this.
+
 ```ts
 // ❌ this will not work
 const res = await app.request('/testing', {
@@ -82,9 +84,7 @@ const res = await app.request('/testing', {
 })
 const data = await res.json()
 console.log(data) // undefined
-```
 
-```ts
 // ✅ this will work
 const res = await app.request('/testing', {
   method: 'POST',
