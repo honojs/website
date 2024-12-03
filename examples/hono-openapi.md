@@ -32,7 +32,7 @@ Define your request and response schemas using your preferred validation library
 import * as v from 'valibot';
 
 const querySchema = v.object({
-  name: v.string(),
+  name: v.optional(v.string()),
 });
 
 const responseSchema = v.string();
