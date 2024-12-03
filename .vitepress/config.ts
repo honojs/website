@@ -250,6 +250,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Swagger UI',
         link: '/examples/swagger-ui',
       },
+      {
+        text: 'Hono OpenAPI',
+        link: '/examples/hono-openapi',
+      },
     ],
   },
   {
