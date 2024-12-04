@@ -2,37 +2,100 @@
 
 [Alibaba Cloud Function Compute](https://www.alibabacloud.com/en/product/function-compute) is a fully managed, event-driven compute service. Function Compute allows you to focus on writing and uploading code without having to manage infrastructure such as servers.
 
+This guide uses a third-party adapter [rwv/hono-alibaba-cloud-fc3-adapter](https://github.com/rwv/hono-alibaba-cloud-fc3-adapter) to run Hono on Alibaba Cloud Function Compute.
+
+
 ## 1. Setup
+
+::: code-group
+
+```sh [npm]
+mkdir my-app
+cd my-app
+npm i hono hono-alibaba-cloud-fc3-adapter
+npm i -D @serverless-devs/s esbuild
+mkdir src
+touch src/index.ts
+```
+
+```sh [yarn]
+mkdir my-app
+cd my-app
+yarn add hono hono-alibaba-cloud-fc3-adapter
+yarn add -D @serverless-devs/s esbuild
+mkdir src
+touch src/index.ts
+```
+
+```sh [pnpm]
+mkdir my-app
+cd my-app
+pnpm add hono hono-alibaba-cloud-fc3-adapter
+pnpm add -D @serverless-devs/s esbuild
+mkdir src
+touch src/index.ts
+```
+
+```sh [bun]
+mkdir my-app
+cd my-app
+bun add hono hono-alibaba-cloud-fc3-adapter
+bun add -D esbuild @serverless-devs/s
+mkdir src
+touch src/index.ts
+```
+
+:::
+
+## 2. Hello World
+
+Edit `src/index.ts`.
+
+```ts
+import { Hono } from 'hono'
+import { handle } from 'hono-alibaba-cloud-fc3-adapter'
+
+const app = new Hono()
+
+app.get('/', (c) => c.text('Hello Hono!'))
+
+export const handler = handle(app)
+```
+
+## 3. Setup serverless-devs
 
 > [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) is an open source and open serverless developer platform dedicated to providing developers with a powerful tool chain system. Through this platform, developers can not only experience multi cloud serverless products with one click and rapidly deploy serverless projects, but also manage projects in the whole life cycle of serverless applications, and combine serverless devs with other tools / platforms very simply and quickly to further improve the efficiency of R & D, operation and maintenance.
 
-Install [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) CLI
+Add the Alibaba Cloud AccessKeyID & AccessKeySecret
 
 ```sh
-npm install @serverless-devs/s -g
-```
-
-Add the AK & SK configuration
-
-```sh
-s config add
+npx s config add
 # Please select a provider: Alibaba Cloud (alibaba)
 # Input your AccessKeyID & AccessKeySecret
 ```
 
-## 2. Hello World
+Edit `s.yaml`
 
-Create a new project in a new directory:
+```yaml
+edition: 3.0.0
+name: my-app
+access: "default"
 
-```sh
-npm init
-```
+vars:
+  region: "us-west-1"
 
-Add the required dependencies:
-
-```sh
-npm add hono @hono/node-server
-npm add esbuild --save-dev
+resources:
+  my-app:
+    component: fc3
+    props:
+      region: ${vars.region}
+      functionName: "my-app"
+      description: "Hello World by Hono"
+      runtime: "nodejs20"
+      code: ./dist
+      handler: index.handler
+      memorySize: 1024
+      timeout: 300
 ```
 
 Edit `scripts` section in `package.json`:
@@ -41,120 +104,16 @@ Edit `scripts` section in `package.json`:
 {
   "scripts": {
     "build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts",
-    "dev": "node ./dist/index.js",
     "deploy": "s deploy -y"
   }
 }
 ```
 
-Edit `src/index.ts`:
-
-```ts
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
-
-const REQUEST_ID_HEADER = 'x-fc-request-id'
-
-const app = new Hono()
-
-app.post('/initialize', (c) => {
-  console.log(`RequestId: ${c.req.header(REQUEST_ID_HEADER)}`)
-  return c.text('Initialize')
-})
-
-app.post('/invoke', (c) => {
-  console.log(`RequestId: ${c.req.header(REQUEST_ID_HEADER)}`)
-  return c.text('Invoke')
-})
-
-app.get('/', (c) => {
-  return c.text('Hello from index!')
-})
-
-app.get('/hello', (c) => {
-  return c.text('Hi!')
-})
-
-const port = 9000
-console.log(`Server is running on port ${port}`)
-
-serve({
-  fetch: app.fetch,
-  port,
-})
-```
-
-Edit `tsconfig.json`
-
-```json
-{
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "strict": true,
-    "skipLibCheck": true,
-    "lib": ["ESNext"],
-    "types": [],
-    "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
-  }
-}
-```
-
-Edit `s.yaml`:
-
-```yaml
-edition: 3.0.0
-name: my-app
-access: 'default'
-
-vars:
-  region: 'us-west-1'
-
-resources:
-  my_app:
-    component: fc3
-    props:
-      region: ${vars.region}
-      functionName: 'my-app'
-      runtime: 'custom.debian10'
-      description: 'hello world by Hono'
-      timeout: 10
-      memorySize: 512
-      environmentVariables:
-        PATH: >-
-          /var/fc/lang/nodejs20/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin
-        NODE_PATH: /opt/nodejs/node_modules
-      cpu: 0.5
-      diskSize: 512
-      code: ./dist
-      customRuntimeConfig:
-        command:
-          - node
-          - index.js
-        port: 9000
-      triggers:
-        - triggerConfig:
-            methods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-            authType: anonymous
-            disableURLInternet: false
-          triggerName: default
-          description: ''
-          qualifier: LATEST
-          triggerType: http
-```
-
-## 3. Deploy
+## 4. Deploy
 
 Finally, run the command to deploy:
 
 ```sh
-npm install # install dependencies
 npm run build # Compile the TypeScript code to JavaScript
 npm run deploy # Deploy the function to Alibaba Cloud Function Compute
 ```
