@@ -197,7 +197,7 @@ app.get('/page', (c) => {
 You can also return the raw [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response).
 
 ```ts
-app.get('/', (c) => {
+app.get('/', () => {
   return new Response('Good morning!')
 })
 ```
