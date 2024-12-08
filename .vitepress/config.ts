@@ -70,6 +70,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/service-worker',
       },
       { text: 'Node.js', link: '/docs/getting-started/nodejs' },
+      {
+        text: 'Google App Engine',
+        link: '/docs/getting-started/google-app-engine',
+      },
     ],
   },
   {
