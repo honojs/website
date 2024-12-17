@@ -47,8 +47,8 @@ app.get('/', (c) => c.text('Hello Hono!'))
 Runs the first middleware that returns true. Middleware is applied in order, and if any middleware exits successfully, subsequent middleware will not run.
 
 ```ts
-import { some } from 'combine'
-import { bearerAuth } from 'bearer-auth'
+import { some } from 'hono/combine'
+import { bearerAuth } from 'hono/bearer-auth'
 import { myRateLimit } from '@/rate-limit'
 
 // If client has a valid token, skip rate limiting.
