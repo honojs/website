@@ -48,7 +48,7 @@ Runs the first middleware that returns true. Middleware is applied in order, and
 
 ```ts
 import { some } from 'hono/combine'
-import { bearerAuth } from 'bearer-auth'
+import { bearerAuth } from 'hono/bearer-auth'
 import { myRateLimit } from '@/rate-limit'
 
 // If client has a valid token, skip rate limiting.
