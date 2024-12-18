@@ -92,7 +92,7 @@ app.get('/post/:date{[0-9]+}/:title{[a-z]+}', async (c) => {
 import { Hono } from 'hono'
 const app = new Hono()
 // ---cut---
-app.get('/posts/:filename{.+\\.png$}', async (c) => {
+app.get('/posts/:filename{.+\\.png}', async (c) => {
   //...
 })
 ```
