@@ -523,7 +523,8 @@ const res = await client.posts.$post({
 
 If your project is a monorepo, this solution does fit well. Using a tool like [`turborepo`](https://turbo.build/repo/docs), you can easily separate the server project and the client project and get better integration managing dependencies between them. Here is [a working example](https://github.com/m-shaka/hono-rpc-perf-tips-example).
 
-If your client and server are in a single project, [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) of `tsc` is a good option.
+If your client and server are in a single project, [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) of `tsc` is a good option. If you still run into errors after setting up the project references, make sure your Hono versions on the client and server are the same *(source: [Hono RPC And TypeScript Project References
+](https://catalins.tech/hono-rpc-in-monorepos/))*.
 
 You can also coordinate your build process manually with tools like `concurrently` or `npm-run-all`.
 
