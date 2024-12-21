@@ -491,6 +491,16 @@ This is a type instantiation for a single route. While the user doesn't need to 
 
 However, we have some tips to mitigate this issue.
 
+#### Hono version mismatch
+
+If your backend is separate from the frontend and lives in a different directory, you need to ensure that the Hono versions match. If you use one Hono version on the backend and another on the frontend, you'll run into issues such as "_Type instantiation is excessively deep and possibly infinite_".
+
+![hono-version-mismatch](https://github.com/user-attachments/assets/e4393c80-29dd-408d-93ab-d55c11ccca05)
+
+#### TypeScript project references
+
+Like in the case of [Hono version mismatch](#hono-version-mismatch), you'll run into issues if your backend and frontend are separate. If you want to access code from the backend (`AppType`, for example) on the frontend, you need to use [project references](https://www.typescriptlang.org/docs/handbook/project-references.html). TypeScript's project references allow one TypeScript codebase to access and use code from another TypeScript codebase.  *(source: [Hono RPC And TypeScript Project References](https://catalins.tech/hono-rpc-in-monorepos/))*.
+
 #### Compile your code before using it (recommended)
 
 `tsc` can do heavy tasks like type instantiation at compile time! Then, `tsserver` doesn't need to instantiate all the type arguments every time you use it. It will make your IDE a lot faster!
@@ -522,9 +532,6 @@ const res = await client.posts.$post({
 ```
 
 If your project is a monorepo, this solution does fit well. Using a tool like [`turborepo`](https://turbo.build/repo/docs), you can easily separate the server project and the client project and get better integration managing dependencies between them. Here is [a working example](https://github.com/m-shaka/hono-rpc-perf-tips-example).
-
-If your client and server are in a single project, [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) of `tsc` is a good option. If you still run into errors after setting up the project references, make sure your Hono versions on the client and server are the same *(source: [Hono RPC And TypeScript Project References
-](https://catalins.tech/hono-rpc-in-monorepos/))*.
 
 You can also coordinate your build process manually with tools like `concurrently` or `npm-run-all`.
 
