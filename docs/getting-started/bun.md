@@ -15,7 +15,7 @@ A starter for Bun is available. Start your project with "bun create" command.
 Select `bun` template for this example.
 
 ```sh
-bun create hono my-app
+bun create hono@latest my-app
 ```
 
 Move into my-app and install the dependencies.
