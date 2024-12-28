@@ -59,6 +59,7 @@ app.get('/signed-cookie', async (c) => {
 - path: `string`
 - secure: `boolean`
 - sameSite: `'Strict'` | `'Lax'` | `'None'`
+- priority: `'Low' | 'Medium' | 'High'`
 - prefix: `secure` | `'host'`
 - partitioned: `boolean`
 
