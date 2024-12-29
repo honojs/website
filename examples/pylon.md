@@ -133,7 +133,7 @@ recommended to use the Pylon Playground, which is a web-based GraphQL IDE that a
 
 1. Start the Pylon server by running `bun run dev` in your project directory.
 2. Open the Pylon Playground in your browser by navigating to `http://localhost:3000/graphql`.
-3. Write your GraphQL query or mutation in the left pane.
+3. Write your GraphQL query or mutation in the left panel.
 
 ![Pylon Playground](/images/pylon-example.png)
 
