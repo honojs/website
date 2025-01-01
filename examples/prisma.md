@@ -166,7 +166,7 @@ model User {
 
 ### D1 Database
 
-If you already have D1 database ready skip this. But if not, create one resources, which can be found in [here](ttps://developers.cloudflare.com/d1/get-started/).
+If you already have D1 database ready skip this. But if not, create one resources, which can be found in [here](https://developers.cloudflare.com/d1/get-started/).
 
 ```bash
 npx wrangler d1 create __DATABASE_NAME__ // change it with yours
