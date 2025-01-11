@@ -80,7 +80,7 @@ const handlers = factory.createHandlers(logger(), middleware, (c) => {
 app.get('/api', ...handlers)
 ```
 
-## `factory.createApp()` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+## `factory.createApp()`
 
 `createApp()` helps to create an instance of Hono with the proper types. If you use this method with `createFactory()`, you can avoid redundancy in the definition of the `Env` type.
 
