@@ -285,4 +285,4 @@ export default app
 
 :::
 
-This will return all users in route `/` using Postman or Client Thunder to see the result.
+This will return all users in the `/` route, using Postman or Thunder Client to see the result.
