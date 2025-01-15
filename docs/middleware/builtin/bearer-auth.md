@@ -18,6 +18,9 @@ import { bearerAuth } from 'hono/bearer-auth'
 
 ## Usage
 
+> [!NOTE]
+> Your `token` must match the regex `/[A-Za-z0-9._~+/-]+=*/`, otherwise a 400 error will be returned. Notably, this regex acommodates both URL-safe Base64- and standard Base64-encoded JWTs. This middleware does not require the bearer token to be a JWT, just that it matches the above regex.
+
 ```ts
 const app = new Hono()
 
