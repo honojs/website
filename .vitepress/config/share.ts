@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress'
-import { search as zhSearch } from './zh'
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
@@ -124,9 +123,6 @@ export default defineConfig({
       { property: 'twitter:card', content: 'summary_large_image' },
     ],
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
-    ['link', { rel: 'alternate', href: '/zh/index', hreflang: 'zh' }],
-    ['link', { rel: 'alternate', href: '/ja/index', hreflang: 'ja' }],
-    ['link', { rel: 'alternate', href: '/', hreflang: 'en' }],
   ],
   titleTemplate: ':title - Hono',
   vite: {
