@@ -6,6 +6,7 @@ import {
 } from 'vitepress-plugin-group-icons'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs'
+import transformPageData from './transformPageData'
 
 export default defineConfig({
   sitemap: {
@@ -136,5 +137,6 @@ export default defineConfig({
         },
       }),
     ],
-  }
+  },
+  transformPageData: transformPageData.transformPageData,
 })
