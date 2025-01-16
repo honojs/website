@@ -8,6 +8,9 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs'
 
 export default defineConfig({
+  sitemap: {
+    hostname: 'https://honodev.pages.dev/'
+  },
   lang: 'en-US',
   title: 'Hono',
   description:
@@ -60,13 +63,31 @@ export default defineConfig({
   themeConfig: {
     logo: '/images/logo-small.png',
     siteTitle: 'Hono',
-    algolia: {
-      appId: '1GIFSU1REV',
-      apiKey: '6a9bb2036e456356e224ece74546ca14',
-      indexName: 'hono',
-      locales: {
-        ...zhSearch,
-      },
+    search: {
+      provider: 'local',
+      options: {
+        disableDetailedView: false,
+        miniSearch: {
+          options: {
+            extractField: (function() {
+              const seenIds = new Map()
+              return (document, fieldName) => {
+                if (fieldName === 'id') {
+                  const path = (document.relativePath || document.url || '').replace(/^[/#]+/, '')
+                  const section = document.section?.title || ''
+                  const baseId = `${path}${document.id ? '#' + document.id : ''}${section ? '-' + section : ''}`
+                  
+                  // Add counter for duplicate IDs
+                  const count = seenIds.get(baseId) || 0
+                  seenIds.set(baseId, count + 1)
+                  return count > 0 ? `${baseId}-${count}` : baseId
+                }
+                return document[fieldName]
+              }
+            })()
+          }
+        }
+      }
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/honojs' },
