@@ -1,9 +1,8 @@
 ---
 title: API
-description: Hono 的 API 设计简洁明了。
-它完全基于 Web 标准进行扩展，
-因此您可以快速掌握它的使用方法。
+description: Hono 的 API 设计简洁明了。它完全基于 Web 标准进行扩展，因此您可以快速掌握它的使用方法。
 ---
+
 # API
 
 Hono 的 API 设计简洁明了。
