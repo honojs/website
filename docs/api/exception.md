@@ -1,3 +1,8 @@
+---
+title: Exception
+description: Exception in Hono
+---
+
 # Exception
 
 When a fatal error occurs, such as authentication failure, an HTTPException must be thrown.

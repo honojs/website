@@ -1,3 +1,8 @@
+---
+title: Presets
+description: Presets in Hono
+---
+
 # Presets
 
 Hono has several routers, each designed for a specific purpose.

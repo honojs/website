@@ -1,3 +1,8 @@
+---
+title: Benchmarks
+description: Benchmarks of Hono
+---
+
 # Benchmarks
 
 Benchmarks are only benchmarks, but they are important to us.

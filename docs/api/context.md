@@ -1,3 +1,8 @@
+---
+title: Context
+description: Context object in Hono
+---
+
 # Context
 
 To handle Request and Response, you can use `Context` object.

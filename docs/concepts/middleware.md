@@ -1,3 +1,8 @@
+---
+title: Middleware
+description: Middleware in Hono
+---
+
 # Middleware
 
 We call the primitive that returns `Response` as "Handler".

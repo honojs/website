@@ -1,3 +1,8 @@
+---
+title: Frequently Asked Questions
+description: Common questions and answers about Hono
+---
+
 # Frequently Asked Questions
 
 This guide is a collection of frequently asked questions (FAQ) about Hono and how to resolve them.

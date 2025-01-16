@@ -1,4 +1,4 @@
-import { sidebarsExamples } from '../.vitepress/config'
+import { sidebarsExamples } from '../.vitepress/config/en'
 
 export default {
   load() {
