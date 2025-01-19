@@ -403,3 +403,16 @@ app.get('/hello', (c) => {
 
 export const onRequest = handle(app)
 ```
+
+## Change port number
+
+You can specify the port number by updating the contents of `wrangler.toml` like this::
+
+```toml
+[dev]
+ip = "192.168.1.1"
+port = 8080
+local_protocol = "http"
+```
+
+For more information: [Wrangler Configuration](https://developers.cloudflare.com/workers/wrangler/configuration/#local-development-settings)

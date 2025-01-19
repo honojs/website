@@ -126,6 +126,19 @@ bun run deploy
 
 That's all!
 
+## Change port number
+
+You can specify the port number by updating the contents of `wrangler.toml` like this::
+
+```toml
+[dev]
+ip = "192.168.1.1"
+port = 8080
+local_protocol = "http"
+```
+
+For more information: [Wrangler Configuration](https://developers.cloudflare.com/workers/wrangler/configuration/#local-development-settings)
+
 ## Service Worker mode or Module Worker mode
 
 There are two syntaxes for writing the Cloudflare Workers. _Module Worker mode_ and _Service Worker mode_. Using Hono, you can write with both syntax, but we recommend using Module Worker mode so that binding variables are localized.
