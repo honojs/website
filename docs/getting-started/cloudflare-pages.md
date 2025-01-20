@@ -406,13 +406,8 @@ export const onRequest = handle(app)
 
 ## Change port number
 
-You can specify the port number by updating the contents of `wrangler.toml` like this::
+If you need to change the port number you can follow the instructions here to update `wrangler.toml` / `wrangler.json` / `wrangler.jsonc` files:
+[Wrangler Configuration](https://developers.cloudflare.com/workers/wrangler/configuration/#local-development-settings)
 
-```toml
-[dev]
-ip = "192.168.1.1"
-port = 8080
-local_protocol = "http"
-```
-
-For more information: [Wrangler Configuration](https://developers.cloudflare.com/workers/wrangler/configuration/#local-development-settings)
+Or, you can follow the instructions here to set CLI options:
+[Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/commands/#dev)
