@@ -100,6 +100,14 @@ bun run dev
 
 :::
 
+### Change port number
+
+If you need to change the port number you can follow the instructions here to update `wrangler.toml` / `wrangler.json` / `wrangler.jsonc` files:
+[Wrangler Configuration](https://developers.cloudflare.com/workers/wrangler/configuration/#local-development-settings)
+
+Or, you can follow the instructions here to set CLI options:
+[Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/commands/#dev)
+
 ## 4. Deploy
 
 If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
