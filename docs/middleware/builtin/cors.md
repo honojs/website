@@ -15,6 +15,7 @@ import { cors } from 'hono/cors'
 ```ts
 const app = new Hono()
 
+// CORS should be called before the route
 app.use('/api/*', cors())
 app.use(
   '/api2/*',
