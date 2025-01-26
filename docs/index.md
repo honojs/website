@@ -168,6 +168,7 @@ Out of the box, Hono provides middleware and helpers for:
 - [JSX](/docs/guides/jsx)
 - [JWT Authentication](/docs/middleware/builtin/jwt)
 - [Logger](/docs/middleware/builtin/logger)
+- [Language](/docs/middleware/builtin/language)
 - [Pretty JSON](/docs/middleware/builtin/pretty-json)
 - [Secure Headers](/docs/middleware/builtin/secure-headers)
 - [SSG](/docs/helpers/ssg)
