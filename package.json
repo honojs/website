@@ -18,7 +18,7 @@
     "hono": "^4.6.3",
     "prettier": "^3.3.2",
     "typescript": "^5.6.2",
-    "vitepress": "1.5.0",
+    "vitepress": "1.6.3",
     "vitepress-plugin-group-icons": "^1.0.4",
     "vue": "^3.3.4"
   }
