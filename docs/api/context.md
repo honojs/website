@@ -4,7 +4,7 @@ To handle Request and Response, you can use `Context` object.
 
 ## req
 
-`req` is the instance of HonoRequest.
+`req` is the instance of HonoRequest. For more details, see [HonoRequest](/docs/api/request).
 
 ```ts twoslash
 import { Hono } from 'hono'
