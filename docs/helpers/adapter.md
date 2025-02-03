@@ -15,11 +15,11 @@ The `env()` function facilitates retrieving environment variables across differe
 
 ```ts
 import { env } from 'hono/adapter'
-
+const app = new Hono<{Bindings:{ NAME: string }}>()
 app.get('/env', (c) => {
   // NAME is process.env.NAME on Node.js or Bun
   // NAME is the value written in `wrangler.toml` on Cloudflare
-  const { NAME } = env<{ NAME: string }>(c)
+  const { NAME } = env(c)
   return c.text(NAME)
 })
 ```
