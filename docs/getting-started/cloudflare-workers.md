@@ -283,7 +283,7 @@ app.use('/auth/*', async (c, next) => {
 
 The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.
 
-## Deploy from Github Action
+## Deploy from Github Actions
 
 Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
 
