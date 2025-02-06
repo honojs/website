@@ -134,6 +134,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Factory', link: '/docs/helpers/factory' },
       { text: 'html', link: '/docs/helpers/html' },
       { text: 'JWT', link: '/docs/helpers/jwt' },
+      { text: 'Proxy', link: '/docs/helpers/proxy' },
       { text: 'SSG', link: '/docs/helpers/ssg' },
       { text: 'Streaming', link: '/docs/helpers/streaming' },
       { text: 'Testing', link: '/docs/helpers/testing' },
