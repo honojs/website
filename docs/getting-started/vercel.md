@@ -211,7 +211,7 @@ app.get('/hello', (c) => {
 export default handle(app)
 ```
 
-In order for this to work with the Pages Router, it's important to disable Vercel node.js helpers by setting up an environment variable in your project dashboard or in your `.env` file:
+In order for this to work with the Pages Router, it's important to disable Vercel Node.js helpers by setting up an environment variable in your project dashboard or in your `.env` file:
 
 ```text
 NODEJS_HELPERS=0
