@@ -291,7 +291,7 @@ If it's a newly created token, select the **Edit Cloudflare Workers** template, 
 
 then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
 
-then create `.github/workflows/deploy.yml` in your hono project root folder,paste the following code:
+then create `.github/workflows/deploy.yml` in your Hono project root folder,paste the following code:
 
 ```yml
 name: Deploy
