@@ -179,6 +179,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       },
       { text: 'JWT', link: '/docs/middleware/builtin/jwt' },
       { text: 'Logger', link: '/docs/middleware/builtin/logger' },
+      { text: 'Language', link: '/docs/middleware/builtin/language' },
       {
         text: 'Method Override',
         link: '/docs/middleware/builtin/method-override',
