@@ -7,7 +7,6 @@ The Language Detector middleware automatically determines a user's preferred lan
 ```ts
 import { Hono } from 'hono'
 import { languageDetector } from 'hono/language'
-import type { LanguageVariables } from 'hono/language'
 ```
 
 ## Basic Usage
@@ -15,9 +14,7 @@ import type { LanguageVariables } from 'hono/language'
 Detect language from query string, cookie, and header (default order), with fallback to English:
 
 ```ts
-type Env = { Variables: LanguageVariables }
-
-const app = new Hono<Env>()
+const app = new Hono()
 
 app.use(
   languageDetector({
@@ -76,6 +73,7 @@ export const DEFAULT_OPTIONS: DetectorOptions = {
 ### Detection Workflow
 
 1. **Order**: Checks sources in this sequence by default:
+
    - Query parameter (?lang=ar)
    - Cookie (language=ar)
    - Accept-Language header
@@ -123,21 +121,22 @@ app.use(
     lookupCookie: 'app_lang',
     caches: ['cookie'],
     cookieOptions: {
-      path: '/',               // Cookie path
-      sameSite: 'Lax',        // Cookie same-site policy
-      secure: true,           // Only send over HTTPS
-      maxAge: 86400 * 365,    // 1 year expiration
-      httpOnly: true,         // Not accessible via JavaScript
-      domain: '.example.com'  // Optional: specific domain
+      path: '/', // Cookie path
+      sameSite: 'Lax', // Cookie same-site policy
+      secure: true, // Only send over HTTPS
+      maxAge: 86400 * 365, // 1 year expiration
+      httpOnly: true, // Not accessible via JavaScript
+      domain: '.example.com', // Optional: specific domain
     },
   })
 )
 ```
 
 To disable cookie caching:
+
 ```ts
 languageDetector({
-  caches: false
+  caches: false,
 })
 ```
 
@@ -155,39 +154,39 @@ languageDetector({
 
 ### Basic Options
 
-| Option | Type | Default | Required | Description |
-|:-------|:-----|:--------|:---------|:------------|
-| `supportedLanguages` | `string[]` | `['en']` | Yes | Allowed language codes |
-| `fallbackLanguage` | `string` | `'en'` | Yes | Default language |
-| `order` | `DetectorType[]` | `['querystring', 'cookie', 'header']` | No | Detection sequence |
-| `debug` | `boolean` | `false` | No | Enable logging |
+| Option               | Type             | Default                               | Required | Description            |
+| :------------------- | :--------------- | :------------------------------------ | :------- | :--------------------- |
+| `supportedLanguages` | `string[]`       | `['en']`                              | Yes      | Allowed language codes |
+| `fallbackLanguage`   | `string`         | `'en'`                                | Yes      | Default language       |
+| `order`              | `DetectorType[]` | `['querystring', 'cookie', 'header']` | No       | Detection sequence     |
+| `debug`              | `boolean`        | `false`                               | No       | Enable logging         |
 
 ### Detection Options
 
-| Option | Type | Default | Description |
-|:-------|:-----|:--------|:------------|
-| `lookupQueryString` | `string` | `'lang'` | Query parameter name |
-| `lookupCookie` | `string` | `'language'` | Cookie name |
-| `lookupFromHeaderKey` | `string` | `'accept-language'` | Header name |
-| `lookupFromPathIndex` | `number` | `0` | Path segment index |
+| Option                | Type     | Default             | Description          |
+| :-------------------- | :------- | :------------------ | :------------------- |
+| `lookupQueryString`   | `string` | `'lang'`            | Query parameter name |
+| `lookupCookie`        | `string` | `'language'`        | Cookie name          |
+| `lookupFromHeaderKey` | `string` | `'accept-language'` | Header name          |
+| `lookupFromPathIndex` | `number` | `0`                 | Path segment index   |
 
 ### Cookie Options
 
-| Option | Type | Default | Description |
-|:-------|:-----|:--------|:------------|
-| `caches` | `CacheType[] \| false` | `['cookie']` | Cache settings |
-| `cookieOptions.path` | `string` | `'/'` | Cookie path |
-| `cookieOptions.sameSite` | `'Strict' \| 'Lax' \| 'None'` | `'Strict'` | SameSite policy |
-| `cookieOptions.secure` | `boolean` | `true` | HTTPS only |
-| `cookieOptions.maxAge` | `number` | `31536000` | Expiration (seconds) |
-| `cookieOptions.httpOnly` | `boolean` | `true` | JS accessibility |
-| `cookieOptions.domain` | `string` | `undefined` | Cookie domain |
+| Option                   | Type                          | Default      | Description          |
+| :----------------------- | :---------------------------- | :----------- | :------------------- |
+| `caches`                 | `CacheType[] \| false`        | `['cookie']` | Cache settings       |
+| `cookieOptions.path`     | `string`                      | `'/'`        | Cookie path          |
+| `cookieOptions.sameSite` | `'Strict' \| 'Lax' \| 'None'` | `'Strict'`   | SameSite policy      |
+| `cookieOptions.secure`   | `boolean`                     | `true`       | HTTPS only           |
+| `cookieOptions.maxAge`   | `number`                      | `31536000`   | Expiration (seconds) |
+| `cookieOptions.httpOnly` | `boolean`                     | `true`       | JS accessibility     |
+| `cookieOptions.domain`   | `string`                      | `undefined`  | Cookie domain        |
 
 ### Advanced Options
 
-| Option | Type | Default | Description |
-|:-------|:-----|:--------|:------------|
-| `ignoreCase` | `boolean` | `true` | Case-insensitive matching |
+| Option                    | Type                       | Default     | Description               |
+| :------------------------ | :------------------------- | :---------- | :------------------------ |
+| `ignoreCase`              | `boolean`                  | `true`      | Case-insensitive matching |
 | `convertDetectedLanguage` | `(lang: string) => string` | `undefined` | Language code transformer |
 
 ## Validation & Error Handling
