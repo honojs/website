@@ -178,6 +178,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'JSX Renderer',
         link: '/docs/middleware/builtin/jsx-renderer',
       },
+      { text: 'JWK', link: '/docs/middleware/builtin/jwk' },
       { text: 'JWT', link: '/docs/middleware/builtin/jwt' },
       { text: 'Logger', link: '/docs/middleware/builtin/logger' },
       { text: 'Language', link: '/docs/middleware/builtin/language' },
