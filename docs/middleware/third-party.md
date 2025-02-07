@@ -16,6 +16,7 @@ Most of this middleware leverages external libraries.
 
 - [ArkType validator](https://github.com/honojs/middleware/tree/main/packages/arktype-validator)
 - [Effect Schema Validator](https://github.com/honojs/middleware/tree/main/packages/effect-validator)
+- [Standard Schema Validator](https://github.com/honojs/middleware/tree/main/packages/standard-validator)
 - [TypeBox Validator](https://github.com/honojs/middleware/tree/main/packages/typebox-validator)
 - [Typia Validator](https://github.com/honojs/middleware/tree/main/packages/typia-validator)
 - [unknownutil Validator](https://github.com/ryoppippi/hono-unknownutil-validator)
