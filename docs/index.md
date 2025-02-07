@@ -152,7 +152,7 @@ See [more information about Web Standards](/docs/concepts/web-standard).
 
 ## Middleware & Helpers
 
-**Hono has many middleware and helpers**. These makes "Write Less, do more" a reality.
+**Hono has many middleware and helpers**. This makes "Write Less, do more" a reality.
 
 Out of the box, Hono provides middleware and helpers for:
 
