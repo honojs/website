@@ -31,6 +31,20 @@ type Env = {
 const factory = createFactory<Env>()
 ```
 
+### Options
+
+### <Badge type="info" text="optional" /> defaultAppOptions: `HonoOptions`
+
+The default options to pass to the Hono application created by `createApp()`.
+
+```ts
+const factory = createFactory({
+  defaultAppOptions: { strict: false },
+})
+
+const app = factory.createApp() // `strict: false` is applied
+```
+
 ## `createMiddleware()`
 
 `createMiddleware()` is shortcut of `factory.createMiddleware()`.
