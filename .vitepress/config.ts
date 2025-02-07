@@ -134,6 +134,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Factory', link: '/docs/helpers/factory' },
       { text: 'html', link: '/docs/helpers/html' },
       { text: 'JWT', link: '/docs/helpers/jwt' },
+      { text: 'Proxy', link: '/docs/helpers/proxy' },
       { text: 'SSG', link: '/docs/helpers/ssg' },
       { text: 'Streaming', link: '/docs/helpers/streaming' },
       { text: 'Testing', link: '/docs/helpers/testing' },
@@ -177,8 +178,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'JSX Renderer',
         link: '/docs/middleware/builtin/jsx-renderer',
       },
+      { text: 'JWK', link: '/docs/middleware/builtin/jwk' },
       { text: 'JWT', link: '/docs/middleware/builtin/jwt' },
       { text: 'Logger', link: '/docs/middleware/builtin/logger' },
+      { text: 'Language', link: '/docs/middleware/builtin/language' },
       {
         text: 'Method Override',
         link: '/docs/middleware/builtin/method-override',
