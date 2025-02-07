@@ -1,6 +1,6 @@
 # Hono OpenAPI
 
-[hono-openapi](https://github.com/rhinobase/hono-openapi) is a *middleware* which enables automatic OpenAPI documentation generation for your Hono API by integrating with validation libraries like Zod, Valibot, ArkType, and TypeBox.
+[hono-openapi](https://github.com/rhinobase/hono-openapi) is a _middleware_ which enables automatic OpenAPI documentation generation for your Hono API by integrating with validation libraries like Zod, Valibot, ArkType, and TypeBox.
 
 ## 🛠️ Installation
 
@@ -29,13 +29,13 @@ pnpm add hono-openapi @hono/typebox-validator @sinclair/typebox
 Define your request and response schemas using your preferred validation library. Here's an example using Valibot:
 
 ```ts
-import * as v from 'valibot';
+import * as v from 'valibot'
 
 const querySchema = v.object({
   name: v.optional(v.string()),
-});
+})
 
-const responseSchema = v.string();
+const responseSchema = v.string()
 ```
 
 ---
@@ -45,12 +45,15 @@ const responseSchema = v.string();
 Use `describeRoute` for route documentation and validation:
 
 ```ts
-import { Hono } from 'hono';
-import { describeRoute } from 'hono-openapi';
+import { Hono } from 'hono'
+import { describeRoute } from 'hono-openapi'
 // You can import these for your preferred validation library
-import { resolver, validator as vValidator } from 'hono-openapi/valibot';
+import {
+  resolver,
+  validator as vValidator,
+} from 'hono-openapi/valibot'
 
-const app = new Hono();
+const app = new Hono()
 
 app.get(
   '/',
@@ -67,10 +70,10 @@ app.get(
   }),
   vValidator('query', querySchema),
   (c) => {
-    const query = c.req.valid('query');
-    return c.text(`Hello ${query?.name ?? 'Hono'}!`);
+    const query = c.req.valid('query')
+    return c.text(`Hello ${query?.name ?? 'Hono'}!`)
   }
-);
+)
 ```
 
 ---
@@ -80,17 +83,23 @@ app.get(
 Add an endpoint for your OpenAPI document:
 
 ```ts
-import { openAPISpecs } from 'hono-openapi';
+import { openAPISpecs } from 'hono-openapi'
 
 app.get(
   '/openapi',
   openAPISpecs(app, {
     documentation: {
-      info: { title: 'Hono API', version: '1.0.0', description: 'Greeting API' },
-      servers: [{ url: 'http://localhost:3000', description: 'Local Server' }],
+      info: {
+        title: 'Hono API',
+        version: '1.0.0',
+        description: 'Greeting API',
+      },
+      servers: [
+        { url: 'http://localhost:3000', description: 'Local Server' },
+      ],
     },
   })
-);
+)
 ```
 
 ---
@@ -100,7 +109,7 @@ app.get(
 Use tools like Swagger UI or Scalar to visualize your OpenAPI specs. Here's an example using Scalar:
 
 ```ts
-import { apiReference } from "@scalar/hono-api-reference";
+import { apiReference } from '@scalar/hono-api-reference'
 
 app.get(
   '/docs',
@@ -108,7 +117,7 @@ app.get(
     theme: 'saturn',
     spec: { url: '/openapi' },
   })
-);
+)
 ```
 
 ---
@@ -124,13 +133,17 @@ app.get(
     documentation: {
       components: {
         securitySchemes: {
-          bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+          },
         },
       },
       security: [{ bearerAuth: [] }],
     },
   })
-);
+)
 ```
 
 ### Conditionally Hide Routes
@@ -138,12 +151,12 @@ app.get(
 ```ts
 app.get(
   '/',
-  describeRoute({ 
+  describeRoute({
     // ...
-    hide: process.env.NODE_ENV === 'production'
+    hide: process.env.NODE_ENV === 'production',
   }),
   (c) => c.text('Hidden Route')
-);
+)
 ```
 
 ### Validate Responses
@@ -153,10 +166,10 @@ app.get(
   '/',
   describeRoute({
     // ...
-    validateResponse: true
+    validateResponse: true,
   }),
   (c) => c.text('Validated Response')
-);
+)
 ```
 
 ---
