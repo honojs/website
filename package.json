@@ -4,10 +4,10 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build",
+    "build": "tsx ./scripts/build-llm-docs.ts && vitepress build",
     "preview": "vitepress preview",
-    "format": "yarn prettier --check ./docs ./examples index.md",
-    "format:fix": "yarn prettier --check --write ./docs ./examples index.md"
+    "format": "yarn prettier --check ./docs ./examples ./scripts index.md llm.md",
+    "format:fix": "yarn prettier --check --write ./docs ./examples ./scripts index.md llm.md"
   },
   "repository": "git@github.com:honojs/website.git",
   "author": "Yusuke Wada <yusuke@kamawada.com>",
@@ -15,8 +15,10 @@
   "license": "MIT",
   "devDependencies": {
     "@shikijs/vitepress-twoslash": "^1.23.0",
+    "@types/node": "^22.13.1",
     "hono": "^4.6.3",
     "prettier": "^3.3.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.2",
     "vitepress": "1.6.3",
     "vitepress-plugin-group-icons": "^1.0.4",

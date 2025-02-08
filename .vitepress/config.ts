@@ -210,6 +210,24 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       },
     ],
   },
+  {
+    text: 'LLM',
+    collapsed: true,
+    items: [
+      {
+        text: 'About',
+        link: '/llm'
+      },
+      {
+        text: 'Full Docs',
+        link: '/llm.txt'
+      },
+      {
+        text: 'Tiny Docs',
+        link: './llm-tiny.txt'
+      }
+    ]
+  }
 ]
 
 export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
@@ -388,5 +406,8 @@ export default defineConfig({
         },
       }),
     ],
+    server: {
+      allowedHosts: true
+    }
   },
 })

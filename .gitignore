@@ -24,3 +24,7 @@ $RECYCLE.BIN/
 
 # IDE-specific settings
 .idea
+
+# Docs for LLM
+public/llm.txt
+public/llm-tiny.txt
