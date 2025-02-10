@@ -34,7 +34,7 @@ async function generateDocsText() {
 }
 
 async function generateContent(
-  files: NodeJS.AsyncIterator<string, any, any>,
+  files: NodeJS.AsyncIterator<string>,
   docsDir: string,
   header: string
 ): Promise<string> {
