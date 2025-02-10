@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
-    "build": "tsx ./scripts/build-llm-docs.ts && vitepress build",
+    "prebuild": "tsx ./scripts/build-llm-docs.ts",
+    "build": "vitepress build",
     "preview": "vitepress preview",
     "format": "yarn prettier --check ./docs ./examples ./scripts index.md llm.md",
     "format:fix": "yarn prettier --check --write ./docs ./examples ./scripts index.md llm.md"

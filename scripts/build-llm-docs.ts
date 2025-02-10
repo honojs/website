@@ -10,45 +10,46 @@ async function generateDocsText() {
   const outputTinyFile = path.resolve('public/llm-tiny.txt')
 
   const files = await glob('**/*.md', { cwd: docsDir })
-
   const tinyExclude = ['concepts', 'helpers', 'middleware']
   const tinyFiles = await glob('**/*.md', {
     cwd: docsDir,
-    exclude: (filename: string) => {
-      return tinyExclude.includes(filename)
-    },
+    exclude: (filename: string) => tinyExclude.includes(filename),
   })
 
-  let content =
-    '<SYSTEM>This is the full developer documentation for Hono.</SYSTEM>\n'
-  content += '# Start of Hono documentation\n\n'
+  const fullContent = await generateContent(
+    files,
+    docsDir,
+    '<SYSTEM>This is the full developer documentation for Hono.</SYSTEM>\n\n'
+  )
+  const tinyContent = await generateContent(
+    tinyFiles,
+    docsDir,
+    '<SYSTEM>This is the tiny developer documentation for Hono.</SYSTEM>\n\n'
+  )
+
+  fs.writeFileSync(outputFile, fullContent, 'utf-8')
+  console.log(`< Output '${outputFile}' `)
+  fs.writeFileSync(outputTinyFile, tinyContent, 'utf-8')
+  console.log(`< Output '${outputTinyFile}' `)
+}
+
+async function generateContent(
+  files: NodeJS.AsyncIterator<string, any, any>,
+  docsDir: string,
+  header: string
+): Promise<string> {
+  let content = header + '# Start of Hono documentation\n'
 
   for await (const file of files) {
     console.log(`> Writing '${file}' `)
     const fileContent = fs.readFileSync(
-      path.resolve('docs', file),
+      path.resolve(docsDir, file),
       'utf-8'
     )
     content += fileContent.replace(frontmatterRegex, '') + '\n\n'
   }
 
-  let tinyContent =
-    '<SYSTEM>This is the tiny developer documentation for Hono.</SYSTEM>\n'
-  tinyContent += '# Start of Hono documentation\n\n'
-
-  for await (const file of tinyFiles) {
-    console.log(`> Writing '${file}' `)
-    const fileContent = fs.readFileSync(
-      path.resolve('docs', file),
-      'utf-8'
-    )
-    tinyContent += fileContent.replace(frontmatterRegex, '') + '\n\n'
-  }
-
-  fs.writeFileSync(outputFile, content, 'utf-8')
-  console.log(`< Output '${outputFile}' `)
-  fs.writeFileSync(outputTinyFile, tinyContent, 'utf-8')
-  console.log(`< Output '${outputTinyFile}' `)
+  return content
 }
 
 generateDocsText().catch(console.error)
