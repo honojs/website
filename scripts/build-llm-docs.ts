@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { glob } from 'node:fs/promises'
 
-const frontmatterRegex = /---(\n.+)*?\n---\n/
+const frontmatterRegex = /^\n*---(\n.+)*?\n---\n/
 const createTiny = (docs: string) => {
   return docs.replace(/(\n|\t)/g, ' ')
 }
