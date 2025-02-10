@@ -14,10 +14,16 @@ async function generateDocsText() {
 
   const files = await glob('**/*.md', { cwd: docsDir })
 
-  if (!files) throw new Error('No Documentation files')
+  const tinyExclude = ['concepts', 'helpers', 'middleware']
+  const tinyFiles = await glob('**/*.md', {
+    cwd: docsDir,
+    exclude: (filename: string) => {
+      return tinyExclude.includes(filename)
+    },
+  })
 
   let content =
-    '<SYSTEM>This is the full developer documentation for Hono.</SYSTEM>\n\n'
+    '<SYSTEM>This is the full developer documentation for Hono.</SYSTEM>\n'
   content += '# Start of Hono documentation\n\n'
 
   for await (const file of files) {
@@ -29,9 +35,22 @@ async function generateDocsText() {
     content += fileContent.replace(frontmatterRegex, '') + '\n\n'
   }
 
+  let tinyContent =
+    '<SYSTEM>This is the tiny developer documentation for Hono.</SYSTEM>\n'
+  tinyContent += '# Start of Hono documentation\n\n'
+
+  for await (const file of tinyFiles) {
+    console.log(`> Writing '${file}' `)
+    const fileContent = fs.readFileSync(
+      path.resolve('docs', file),
+      'utf-8'
+    )
+    tinyContent += fileContent.replace(frontmatterRegex, '') + '\n\n'
+  }
+
   fs.writeFileSync(outputFile, content, 'utf-8')
   console.log(`< Output '${outputFile}' `)
-  fs.writeFileSync(outputTinyFile, createTiny(content), 'utf-8')
+  fs.writeFileSync(outputTinyFile, createTiny(tinyContent), 'utf-8')
   console.log(`< Output '${outputTinyFile}' `)
 }
 
