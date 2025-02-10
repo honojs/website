@@ -21,14 +21,16 @@ async function generateDocsText() {
     docsDir,
     '<SYSTEM>This is the full developer documentation for Hono.</SYSTEM>\n\n'
   )
+
+  fs.writeFileSync(outputFile, fullContent, 'utf-8')
+  console.log(`< Output '${outputFile}' `)
+
   const tinyContent = await generateContent(
     tinyFiles,
     docsDir,
     '<SYSTEM>This is the tiny developer documentation for Hono.</SYSTEM>\n\n'
   )
-
-  fs.writeFileSync(outputFile, fullContent, 'utf-8')
-  console.log(`< Output '${outputFile}' `)
+  
   fs.writeFileSync(outputTinyFile, tinyContent, 'utf-8')
   console.log(`< Output '${outputTinyFile}' `)
 }
