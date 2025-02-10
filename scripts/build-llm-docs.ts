@@ -4,17 +4,12 @@ import { glob } from 'node:fs/promises'
 
 const frontmatterRegex = /^\n*---(\n.+)*?\n---\n/
 
-async function generateDocsText() {
   const docsDir = path.resolve('docs')
+
+async function generateLLMDocs() {
   const outputFile = path.resolve('public/llm.txt')
-  const outputTinyFile = path.resolve('public/llm-tiny.txt')
 
   const files = await glob('**/*.md', { cwd: docsDir })
-  const tinyExclude = ['concepts', 'helpers', 'middleware']
-  const tinyFiles = await glob('**/*.md', {
-    cwd: docsDir,
-    exclude: (filename: string) => tinyExclude.includes(filename),
-  })
 
   const fullContent = await generateContent(
     files,
@@ -24,6 +19,14 @@ async function generateDocsText() {
 
   fs.writeFileSync(outputFile, fullContent, 'utf-8')
   console.log(`< Output '${outputFile}' `)
+
+  const outputTinyFile = path.resolve('public/llm-tiny.txt')
+
+  const tinyExclude = ['concepts', 'helpers', 'middleware']
+  const tinyFiles = await glob('**/*.md', {
+    cwd: docsDir,
+    exclude: (filename: string) => tinyExclude.includes(filename),
+  })
 
   const tinyContent = await generateContent(
     tinyFiles,
@@ -54,4 +57,4 @@ async function generateContent(
   return content
 }
 
-generateDocsText().catch(console.error)
+generateLLMDocs().catch(console.error)
