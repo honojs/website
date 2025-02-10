@@ -3,9 +3,6 @@ import path from 'node:path'
 import { glob } from 'node:fs/promises'
 
 const frontmatterRegex = /^\n*---(\n.+)*?\n---\n/
-const createTiny = (docs: string) => {
-  return docs.replace(/(\n|\t)/g, ' ')
-}
 
 async function generateDocsText() {
   const docsDir = path.resolve('docs')
@@ -50,7 +47,7 @@ async function generateDocsText() {
 
   fs.writeFileSync(outputFile, content, 'utf-8')
   console.log(`< Output '${outputFile}' `)
-  fs.writeFileSync(outputTinyFile, createTiny(tinyContent), 'utf-8')
+  fs.writeFileSync(outputTinyFile, tinyContent, 'utf-8')
   console.log(`< Output '${outputTinyFile}' `)
 }
 
