@@ -48,3 +48,4 @@ Most of this middleware leverages external libraries.
 - [Geo](https://github.com/ktkongtong/hono-geo-middleware/tree/main/packages/middleware)
 - [Hono Simple DI](https://github.com/maou-shonen/hono-simple-DI)
 - [Highlight.io](https://www.highlight.io/docs/getting-started/backend-sdk/js/hono)
+- [Pino logger](https://github.com/maou-shonen/hono-pino)
