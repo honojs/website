@@ -8,7 +8,7 @@ In this guide, we’ll walk you through integrating Prisma using both [Prisma Po
 
 [Prisma Postgres](https://www.prisma.io/postgres) is a managed, serverless PostgreSQL database built on unikernels. It supports features like connection pooling, caching, real-time subscriptions, and query optimization recommendations. A generous free tier is available for initial development, testing, and hobby projects.
 
-### Install Prisma and required dependencies
+### 1. Install Prisma and required dependencies
 
 Install Prisma in your Hono project:
 
