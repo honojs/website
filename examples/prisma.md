@@ -49,7 +49,7 @@ DATABASE_URL="your_prisma_postgres_url"
 
 Keep the `.env` file so that Prisma CLI can access it later on to perform migrations, generate [Prisma Client](https://www.prisma.io/docs/orm/prisma-client) or to open [Prisma Studio](https://www.prisma.io/docs/orm/tools/prisma-studio).
 
-### Set Up Prisma in Your Project
+### 2. Set up Prisma in your project
 
 Now, open your `schema.prisma` file and define the models for your database schema. For example, you might add an `User` model:
 
