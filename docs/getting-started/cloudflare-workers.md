@@ -285,7 +285,7 @@ The same is applied to Bearer Authentication Middleware, JWT Authentication, or 
 
 ## Deploy from GitHub Actions
 
-Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
+Before deploying code to Cloudflare via CI, you need a cloudflare token. You can manage it from here: https://dash.cloudflare.com/profile/api-tokens
 
 If it's a newly created token, select the **Edit Cloudflare Workers** template, if you have already another token, make sure the token has the corresponding permissions(No, token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
 
