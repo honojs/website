@@ -10,7 +10,7 @@ In this guide, we’ll walk you through integrating Prisma using both [Prisma Po
 
 ### Install Prisma and required dependencies
 
-Install Prisma on your Hono Cloudflare Workers.
+Install Prisma in your Hono project:
 
 ```bash
 npm i prisma --save-dev
