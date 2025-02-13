@@ -68,7 +68,7 @@ datasource db {
 model User {
   id  Int @id @default(autoincrement())
   email String
-	name 	String
+  name 	String
 }
 ```
 
