@@ -1,6 +1,6 @@
 # Using Prisma on Cloudflare Workers
 
-[Prisma ORM](https://www.prisma.io/docs) provides a modern, robust toolkit for interacting with databases, and when paired with Hono and Cloudflare Workers, it enables you to deploy high-performance, serverless applications at the edge.
+[Prisma ORM](https://www.prisma.io/docs) provides a modern, robust toolkit for interacting with databases. When paired with Hono and Cloudflare Workers, it enables you to deploy high-performance, serverless applications at the edge.
 
 In this guide, we’ll walk you through integrating Prisma using both [Prisma Postgres](https://www.prisma.io/postgres)—a managed, serverless PostgreSQL database—and [Driver adapters](https://www.prisma.io/docs/orm/overview/databases/database-drivers#driver-adapters), giving you the flexibility to choose the best approach for your project.
 
