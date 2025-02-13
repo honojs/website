@@ -2,7 +2,7 @@
 
 This docs are optimized to be readable by LLM.
 
-- [Full Docs](./llm.txt)  
+- [Full Docs](./llms-full.txt)  
    Complete Documentation
-- [Tiny Docs](./llm-tiny.txt)  
+- [Tiny Docs](./llms-small.txt)  
    Minimal Documentation

@@ -4,10 +4,10 @@ import { glob } from 'node:fs/promises'
 
 const frontmatterRegex = /^\n*---(\n.+)*?\n---\n/
 
-  const docsDir = path.resolve('docs')
+const docsDir = path.resolve('docs')
 
 async function generateLLMDocs() {
-  const outputFile = path.resolve('public/llm.txt')
+  const outputFile = path.resolve('public/llms-full.txt')
 
   const files = await glob('**/*.md', { cwd: docsDir })
 
@@ -20,7 +20,7 @@ async function generateLLMDocs() {
   fs.writeFileSync(outputFile, fullContent, 'utf-8')
   console.log(`< Output '${outputFile}' `)
 
-  const outputTinyFile = path.resolve('public/llm-tiny.txt')
+  const outputTinyFile = path.resolve('public/llms-small.txt')
 
   const tinyExclude = ['concepts', 'helpers', 'middleware']
   const tinyFiles = await glob('**/*.md', {
@@ -33,7 +33,7 @@ async function generateLLMDocs() {
     docsDir,
     '<SYSTEM>This is the tiny developer documentation for Hono.</SYSTEM>\n\n'
   )
-  
+
   fs.writeFileSync(outputTinyFile, tinyContent, 'utf-8')
   console.log(`< Output '${outputTinyFile}' `)
 }

@@ -26,5 +26,5 @@ $RECYCLE.BIN/
 .idea
 
 # Docs for LLM
-public/llm.txt
-public/llm-tiny.txt
+public/llms-full.txt
+public/llms-small.txt

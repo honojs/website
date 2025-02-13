@@ -220,11 +220,11 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       },
       {
         text: 'Full Docs',
-        link: '/llm.txt'
+        link: '/llms-full.txt'
       },
       {
         text: 'Tiny Docs',
-        link: './llm-tiny.txt'
+        link: './llms-small.txt'
       }
     ]
   }
