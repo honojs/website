@@ -1,68 +1,57 @@
 # Using Prisma on Cloudflare Workers
 
-There are two ways to use Prisma with Cloudflare Workers: using Prisma Accelerate or using the Driver Adapter.
+[Prisma ORM](https://www.prisma.io/docs) provides a modern, robust toolkit for interacting with databases, and when paired with Hono and Cloudflare Workers, it enables you to deploy high-performance, serverless applications at the edge.
 
-## Using Prisma Accelerate
+In this guide, we’ll walk you through integrating Prisma using both [Prisma Postgres](https://www.prisma.io/postgres)—a managed, serverless PostgreSQL database—and [Driver adapters](https://www.prisma.io/docs/orm/overview/databases/database-drivers#driver-adapters), giving you the flexibility to choose the best approach for your project.
 
-### Install Prisma
+## Using Prisma Postgres
 
-Install Prisma on your Hono Cloudflare Workers. Here, I am using neon.tech free tier as my PostgreSQL database, but you can use whichever database suits your project.
+[Prisma Postgres](https://www.prisma.io/postgres) is a managed, serverless PostgreSQL database built on unikernels. It supports features like connection pooling, caching, real-time subscriptions, and query optimization recommendations. A free tier is available for initial development and testing.
 
-Go to [neon.tech](https://neon.tech/) and create a free PostgreSQL database.
+### Install Prisma and required dependencies
+
+Install Prisma on your Hono Cloudflare Workers.
 
 ```bash
 npm i prisma --save-dev
-npx prisma init
 ```
 
-### Setup Prisma Accelerate
+Install the [Prisma client extension](https://www.npmjs.com/package/@prisma/extension-accelerate) that's required for Prisma Postgres:
 
-To setup Accelerate, go to [Prisma Accelerate](https://www.prisma.io/data-platform/accelerate?via=start&gad_source=1&gclid=CjwKCAjwvIWzBhAlEiwAHHWgvX8l8e7xQtqurVYanQ6LmbNheNvCB-4FL0G6BFEfPrUdGyH3qSllqxoCXDoQAvD_BwE) and log in or register for free.
+```sh
+npm i @prisma/extension-accelerate
+```
 
-After logging in, you will be taken to a page where you can create a new Accelerate project.
-
-![Accelerate Page](/images/prismaAcceleratePage.png)
-
-Create a new project by clicking the `New project` button, and name your project.
-
-![Accelerate Page](/images/accelerateCreateProject.png)
-
-You will then be taken to a page like the one below:
-
-![Accelerate Edit Page](/images/accelerateProjectPage.png)
-
-Click the `Enable Accelerate` button, and you will be taken to the following page:
-
-![Enable Page](/images/EnableAccelerate.png)
-
-Paste your neon.tech database connection string into the `database connection string` field, choose your region, and click the `Enable Accelerate` button.
-
-You will see something like this:
-
-![API Key](/images/generateApiKey.png)
-
-Click `Generate API Key` and you will receive a new API key similar to the one below:
+Initialize Prisma with an instance of Prisma Postgres:
 
 ```bash
-DATABASE_URL="prisma://accelerate...."
+npx prisma@latest init --db
 ```
 
-Copy this `DATABASE_URL` and store it in `.dev.vars` and `.env` so that prisma cli can access it later on.
+If you don't have a [Prisma Data Platform](https://console.prisma.io/) account yet, or if you are not logged in, the command will prompt you to log in using one of the available authentication providers. A browser window will open so you can log in or create an account. Return to the CLI after you have completed this step.
 
-### Set Up Prisma in Your Project
+Once logged in (or if you were already logged in), the CLI will prompt you to select a project name and a database region.
 
-The neon.tech URL you received can also be used as an alternative and provide Prisma with more options, so store it for later use:
+After the command runs successfully, it will create:
 
+- A project in your [Platform Console](https://console.prisma.io/) containing a Prisma Postgres database instance.
+- A `prisma` folder containing `schema.prisma`, where you will define your database schema.
+- An `.env` file in the project root, which will contain the Prisma Postgres database url `DATABASE_URL=<your-prisma-postgres-database-url>`.
+
+Create a `.dev.vars` file and store the `DATABASE_URL` in it:
 ::: code-group
 
 ```bash [.dev.vars]
-DATABASE_URL="your_prisma_accelerate_url"
-DIRECT_URL="your_neon_tech_url
+DATABASE_URL="your_prisma_postgres_url"
 ```
 
 :::
 
-Now, go to your `schema.prisma` file and set the URLs like this:
+Keep the `.env` file so that Prisma CLI can access it later on to perform migrations, generate [Prisma Client](https://www.prisma.io/docs/orm/prisma-client) or to open [Prisma Studio](https://www.prisma.io/docs/orm/tools/prisma-studio).
+
+### Set Up Prisma in Your Project
+
+Now, open your `schema.prisma` file and define the models for your database schema. For example, you might add an `User` model:
 
 ::: code-group
 
@@ -74,11 +63,22 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id  Int @id @default(autoincrement())
+  email String
+	name 	String
 }
 ```
 
 :::
+
+Use [Prisma Migrate](https://www.prisma.io/docs/orm/prisma-migrate) to apply changes to the database:
+
+```bash
+npx prisma migrate dev
+```
 
 Create a function like this, which you can use in your project later:
 
@@ -125,6 +125,8 @@ app.post('/', async (c) => {
 ```
 
 :::
+
+If you want to **use your own database with Prisma ORM** and benefit from connection pooling and edge caching, you can enable Prisma Accelerate. Learn more about setting up [Prisma Accelerate](https://www.prisma.io/docs/accelerate/getting-started) for your project.
 
 ## Using Prisma Driver Adapter
 
