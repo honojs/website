@@ -2,7 +2,16 @@
 
 [Prisma ORM](https://www.prisma.io/docs) provides a modern, robust toolkit for interacting with databases. When paired with Hono and Cloudflare Workers, it enables you to deploy high-performance, serverless applications at the edge.
 
-In this guide, we’ll walk you through integrating Prisma using both [Prisma Postgres](https://www.prisma.io/postgres)—a managed, serverless PostgreSQL database—and [Driver adapters](https://www.prisma.io/docs/orm/overview/databases/database-drivers#driver-adapters), giving you the flexibility to choose the best approach for your project.
+In this guide, we’ll cover two distinct approaches for using Prisma ORM in Hono:
+
+- [**Prisma Postgres**](#using-prisma-postgres):
+  A managed, serverless PostgreSQL database integration with Prisma. This approach is good for a production-ready setup as Prisma Postgres has built-in connection pooling with zero-cold starts that mitigates [scaling issues in serverless and edge environments]
+  (https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections#the-serverless-challenge).
+
+- [**Driver adapters**](#using-prisma-driver-adapters):
+  An alternative that uses Prisma's flexible driver adapters, allowing you to connect to any database supported by Prisma ORM.
+
+Both approaches have their own advantages, allowing you to choose the one that best fits your project's needs.
 
 ## Using Prisma Postgres
 
@@ -128,7 +137,7 @@ app.post('/', async (c) => {
 
 If you want to **use your own database with Prisma ORM** and benefit from connection pooling and edge caching, you can enable Prisma Accelerate. Learn more about setting up [Prisma Accelerate](https://www.prisma.io/docs/accelerate/getting-started) for your project.
 
-## Using Prisma Driver Adapter
+## Using Prisma Driver Adapters
 
 Prisma can be used with the D1 Database via `driverAdapters`. The prerequisites are to install Prisma and integrate Wrangler to bind with your Hono project. This is an example project since all documentation for Hono, Prisma, and D1 Cloudflare is separated and doesn't have exact, precise step-by-step instructions.
 
@@ -288,3 +297,12 @@ export default app
 :::
 
 This will return all users in the `/` route, using Postman or Thunder Client to see the result.
+
+## Resources
+
+You can use the following resources to enhance your application further:
+
+- Add [caching](https://www.prisma.io/docs/postgres/caching) to your queries.
+- Explore the [Prisma Postgres documentation](https://www.prisma.io/docs/postgres/getting-started).
+
+You can follow the [end-to-end guide from Prisma](https://www.prisma.io/docs/guides/prisma-postgres-realtime-on-cloudflare) to learn how to build a real-time application with Hono and Prisma Postgres, and deploy it to Cloudflare Workers.
