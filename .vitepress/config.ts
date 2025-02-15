@@ -19,7 +19,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Middleware', link: '/docs/concepts/middleware' },
       {
         text: 'Developer Experience',
-        link: '/docs/concepts/developer-experience.md',
+        link: '/docs/concepts/developer-experience',
       },
       { text: 'Hono Stacks', link: '/docs/concepts/stacks' },
     ],
