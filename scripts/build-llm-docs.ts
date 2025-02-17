@@ -20,7 +20,7 @@ async function generateLLMDocs() {
   fs.writeFileSync(outputFile, fullContent, 'utf-8')
   console.log(`< Output '${outputFile}' `)
 
-  const outputTinyFile = path.resolve('public/llms-small.txt')
+  const outputTinyFile = path.resolve('public/llms.txt')
 
   const tinyExclude = ['concepts', 'helpers', 'middleware']
   const tinyFiles = await glob('**/*.md', {

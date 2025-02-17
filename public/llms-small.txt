@@ -1,0 +1,6932 @@
+<SYSTEM>This is the tiny developer documentation for Hono.</SYSTEM>
+
+# Start of Hono documentation
+
+# Hono
+
+Hono - _**means flame🔥 in Japanese**_ - is a small, simple, and ultrafast web framework built on Web Standards.
+It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js.
+
+Fast, but not only fast.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+
+app.get('/', (c) => c.text('Hono!'))
+
+export default app
+```
+
+## Quick Start
+
+Just run this:
+
+::: code-group
+
+```sh [npm]
+npm create hono@latest
+```
+
+```sh [yarn]
+yarn create hono
+```
+
+```sh [pnpm]
+pnpm create hono@latest
+```
+
+```sh [bun]
+bun create hono@latest
+```
+
+```sh [deno]
+deno init --npm hono@latest
+```
+
+:::
+
+## Features
+
+- **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
+- **Lightweight** 🪶 - The `hono/tiny` preset is under 14kB. Hono has zero dependencies and uses only the Web Standards.
+- **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute, Deno, Bun, AWS Lambda, or Node.js. The same code runs on all platforms.
+- **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
+- **Delightful DX** 😃 - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
+
+## Use-cases
+
+Hono is a simple web application framework similar to Express, without a frontend.
+But it runs on CDN Edges and allows you to construct larger applications when combined with middleware.
+Here are some examples of use-cases.
+
+- Building Web APIs
+- Proxy of backend servers
+- Front of CDN
+- Edge application
+- Base server for a library
+- Full-stack application
+
+## Who is using Hono?
+
+| Project                                                                            | Platform           | What for?                                                                                                   |
+| ---------------------------------------------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| [cdnjs](https://cdnjs.com)                                                         | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the API server_.                                      |
+| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/)                 | Cloudflare Workers | Serverless SQL databases. _Hono is used for the internal API server_.                                       |
+| [Cloudflare Workers KV](https://www.cloudflare.com/developer-platform/workers-kv/) | Cloudflare Workers | Serverless key-value database. _Hono is used for the internal API server_.                                  |
+| [BaseAI](https://baseai.dev)                                                       | Local AI Server    | Serverless AI agent pipes with memory. An open-source agentic AI framework for web. _API server with Hono_. |
+| [Unkey](https://unkey.dev)                                                         | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the API server_.                     |
+| [OpenStatus](https://openstatus.dev)                                               | Bun                | An open-source website & API monitoring platform. _Hono is used for the API server_.                        |
+| [Deno Benchmarks](https://deno.com/benchmarks)                                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                                   |
+
+And the following.
+
+- [Drivly](https://driv.ly/) - Cloudflare Workers
+- [repeat.dev](https://repeat.dev/) - Cloudflare Workers
+
+Do you want to see more? See [Who is using Hono in production?](https://github.com/orgs/honojs/discussions/1510).
+
+## Hono in 1 minute
+
+A demonstration to create an application for Cloudflare Workers with Hono.
+
+![Demo](/images/sc.gif)
+
+## Ultrafast
+
+**Hono is the fastest**, compared to other routers for Cloudflare Workers.
+
+```
+Hono x 402,820 ops/sec ±4.78% (80 runs sampled)
+itty-router x 212,598 ops/sec ±3.11% (87 runs sampled)
+sunder x 297,036 ops/sec ±4.76% (77 runs sampled)
+worktop x 197,345 ops/sec ±2.40% (88 runs sampled)
+Fastest is Hono
+✨  Done in 28.06s.
+```
+
+See [more benchmarks](/docs/concepts/benchmarks).
+
+## Lightweight
+
+**Hono is so small**. With the `hono/tiny` preset, its size is **under 14KB** when minified. There are many middleware and adapters, but they are bundled only when used. For context, the size of Express is 572KB.
+
+```
+$ npx wrangler dev --minify ./src/index.ts
+ ⛅️ wrangler 2.20.0
+--------------------
+⬣ Listening at http://0.0.0.0:8787
+- http://127.0.0.1:8787
+- http://192.168.128.165:8787
+Total Upload: 11.47 KiB / gzip: 4.34 KiB
+```
+
+## Multiple routers
+
+**Hono has multiple routers**.
+
+**RegExpRouter** is the fastest router in the JavaScript world. It matches the route using a single large Regex created before dispatch. With **SmartRouter**, it supports all route patterns.
+
+**LinearRouter** registers the routes very quickly, so it's suitable for an environment that initializes applications every time. **PatternRouter** simply adds and matches the pattern, making it small.
+
+See [more information about routes](/docs/concepts/routers).
+
+## Web Standards
+
+Thanks to the use of the **Web Standards**, Hono works on a lot of platforms.
+
+- Cloudflare Workers
+- Cloudflare Pages
+- Fastly Compute
+- Deno
+- Bun
+- Vercel
+- AWS Lambda
+- Lambda@Edge
+- Others
+
+And by using [a Node.js adapter](https://github.com/honojs/node-server), Hono works on Node.js.
+
+See [more information about Web Standards](/docs/concepts/web-standard).
+
+## Middleware & Helpers
+
+**Hono has many middleware and helpers**. This makes "Write Less, do more" a reality.
+
+Out of the box, Hono provides middleware and helpers for:
+
+- [Basic Authentication](/docs/middleware/builtin/basic-auth)
+- [Bearer Authentication](/docs/middleware/builtin/bearer-auth)
+- [Body Limit](/docs/middleware/builtin/body-limit)
+- [Cache](/docs/middleware/builtin/cache)
+- [Compress](/docs/middleware/builtin/compress)
+- [Context Storage](/docs/middleware/builtin/context-storage)
+- [Cookie](/docs/helpers/cookie)
+- [CORS](/docs/middleware/builtin/cors)
+- [ETag](/docs/middleware/builtin/etag)
+- [html](/docs/helpers/html)
+- [JSX](/docs/guides/jsx)
+- [JWT Authentication](/docs/middleware/builtin/jwt)
+- [Logger](/docs/middleware/builtin/logger)
+- [Language](/docs/middleware/builtin/language)
+- [Pretty JSON](/docs/middleware/builtin/pretty-json)
+- [Secure Headers](/docs/middleware/builtin/secure-headers)
+- [SSG](/docs/helpers/ssg)
+- [Streaming](/docs/helpers/streaming)
+- [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
+- [Firebase Authentication](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
+- [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
+- Others!
+
+For example, adding ETag and request logging only takes a few lines of code with Hono:
+
+```ts
+import { Hono } from 'hono'
+import { etag } from 'hono/etag'
+import { logger } from 'hono/logger'
+
+const app = new Hono()
+app.use(etag(), logger())
+```
+
+See [more information about Middleware](/docs/concepts/middleware).
+
+## Developer Experience
+
+Hono provides a delightful "**Developer Experience**".
+
+Easy access to Request/Response thanks to the `Context` object.
+Moreover, Hono is written in TypeScript. Hono has "**Types**".
+
+For example, the path parameters will be literal types.
+
+![SS](/images/ss.png)
+
+And, the Validator and Hono Client `hc` enable the RPC mode. In RPC mode,
+you can use your favorite validator such as Zod and easily share server-side API specs with the client and build type-safe applications.
+
+See [Hono Stacks](/docs/concepts/stacks).
+
+
+# Best Practices
+
+Hono is very flexible. You can write your app as you like.
+However, there are best practices that are better to follow.
+
+## Don't make "Controllers" when possible
+
+When possible, you should not create "Ruby on Rails-like Controllers".
+
+```ts
+// 🙁
+// A RoR-like Controller
+const booksList = (c: Context) => {
+  return c.json('list books')
+}
+
+app.get('/books', booksList)
+```
+
+The issue is related to types. For example, the path parameter cannot be inferred in the Controller without writing complex generics.
+
+```ts
+// 🙁
+// A RoR-like Controller
+const bookPermalink = (c: Context) => {
+  const id = c.req.param('id') // Can't infer the path param
+  return c.json(`get ${id}`)
+}
+```
+
+Therefore, you don't need to create RoR-like controllers and should write handlers directly after path definitions.
+
+```ts
+// 😃
+app.get('/books/:id', (c) => {
+  const id = c.req.param('id') // Can infer the path param
+  return c.json(`get ${id}`)
+})
+```
+
+## `factory.createHandlers()` in `hono/factory`
+
+If you still want to create a RoR-like Controller, use `factory.createHandlers()` in [`hono/factory`](/docs/helpers/factory). If you use this, type inference will work correctly.
+
+```ts
+import { createFactory } from 'hono/factory'
+import { logger } from 'hono/logger'
+
+// ...
+
+// 😃
+const factory = createFactory()
+
+const middleware = factory.createMiddleware(async (c, next) => {
+  c.set('foo', 'bar')
+  await next()
+})
+
+const handlers = factory.createHandlers(logger(), middleware, (c) => {
+  return c.json(c.var.foo)
+})
+
+app.get('/api', ...handlers)
+```
+
+## Building a larger application
+
+Use `app.route()` to build a larger application without creating "Ruby on Rails-like Controllers".
+
+If your application has `/authors` and `/books` endpoints and you wish to separate files from `index.ts`, create `authors.ts` and `books.ts`.
+
+```ts
+// authors.ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.get('/', (c) => c.json('list authors'))
+app.post('/', (c) => c.json('create an author', 201))
+app.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+export default app
+```
+
+```ts
+// books.ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.get('/', (c) => c.json('list books'))
+app.post('/', (c) => c.json('create a book', 201))
+app.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+export default app
+```
+
+Then, import them and mount on the paths `/authors` and `/books` with `app.route()`.
+
+```ts
+// index.ts
+import { Hono } from 'hono'
+import authors from './authors'
+import books from './books'
+
+const app = new Hono()
+
+// 😃
+app.route('/authors', authors)
+app.route('/books', books)
+
+export default app
+```
+
+### If you want to use RPC features
+
+The code above works well for normal use cases.
+However, if you want to use the `RPC` feature, you can get the correct type by chaining as follows.
+
+```ts
+// authors.ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+  .get('/', (c) => c.json('list authors'))
+  .post('/', (c) => c.json('create an author', 201))
+  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+export default app
+```
+
+If you pass the type of the `app` to `hc`, it will get the correct type.
+
+```ts
+import app from './authors'
+import { hc } from 'hono/client'
+
+// 😃
+const client = hc<typeof app>('http://localhost') // Typed correctly
+```
+
+For more detailed information, please see [the RPC page](/docs/guides/rpc#using-rpc-with-larger-applications).
+
+
+# Examples
+
+See the [Examples section](/examples/).
+
+
+# Frequently Asked Questions
+
+This guide is a collection of frequently asked questions (FAQ) about Hono and how to resolve them.
+
+## Is there an official Renovate config for Hono?
+
+The Hono teams does not currently maintain [Renovate](https://github.com/renovatebot/renovate) Configuration.
+Therefore, please use third-party renovate-config as follows.
+
+In your `renovate.json` :
+
+```json
+// renovate.json
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>shinGangan/renovate-config-hono" // [!code ++]
+  ]
+}
+```
+
+see [renovate-config-hono](https://github.com/shinGangan/renovate-config-hono) repository for more details.
+
+
+# Helpers
+
+Helpers are available to assist in developing your application. Unlike middleware, they don't act as handlers, but rather provide useful functions.
+
+For instance, here's how to use the [Cookie helper](/docs/helpers/cookie):
+
+```ts
+import { getCookie, setCookie } from 'hono/cookie'
+
+const app = new Hono()
+
+app.get('/cookie', (c) => {
+  const yummyCookie = getCookie(c, 'yummy_cookie')
+  // ...
+  setCookie(c, 'delicious_cookie', 'macha')
+  //
+})
+```
+
+## Available Helpers
+
+- [Accepts](/docs/helpers/accepts)
+- [Adapter](/docs/helpers/adapter)
+- [Cookie](/docs/helpers/cookie)
+- [css](/docs/helpers/css)
+- [Dev](/docs/helpers/dev)
+- [Factory](/docs/helpers/factory)
+- [html](/docs/helpers/html)
+- [JWT](/docs/helpers/jwt)
+- [SSG](/docs/helpers/ssg)
+- [Streaming](/docs/helpers/streaming)
+- [Testing](/docs/helpers/testing)
+- [WebSocket](/docs/helpers/websocket)
+
+
+# Client Components
+
+`hono/jsx` supports not only server side but also client side. This means that it is possible to create an interactive UI that runs in the browser. We call it Client Components or `hono/jsx/dom`.
+
+It is fast and very small. The counter program in `hono/jsx/dom` is only 2.8KB with Brotli compression. But, 47.8KB for React.
+
+This section introduces Client Components-specific features.
+
+## Counter example
+
+Here is an example of a simple counter, the same code works as in React.
+
+```tsx
+import { useState } from 'hono/jsx'
+import { render } from 'hono/jsx/dom'
+
+function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <html>
+      <body>
+        <Counter />
+      </body>
+    </html>
+  )
+}
+
+const root = document.getElementById('root')
+render(<App />, root)
+```
+
+## `render()`
+
+You can use `render()` to insert JSX components within a specified HTML element.
+
+```tsx
+render(<Component />, container)
+```
+
+## Hooks compatible with React
+
+hono/jsx/dom has Hooks that are compatible or partially compatible with React. You can learn about these APIs by looking at [the React documentation](https://react.dev/reference/react/hooks).
+
+- `useState()`
+- `useEffect()`
+- `useRef()`
+- `useCallback()`
+- `use()`
+- `startTransition()`
+- `useTransition()`
+- `useDeferredValue()`
+- `useMemo()`
+- `useLayoutEffect()`
+- `useReducer()`
+- `useDebugValue()`
+- `createElement()`
+- `memo()`
+- `isValidElement()`
+- `useId()`
+- `createRef()`
+- `forwardRef()`
+- `useImperativeHandle()`
+- `useSyncExternalStore()`
+- `useInsertionEffect()`
+- `useFormStatus()`
+- `useActionState()`
+- `useOptimistic()`
+
+## `startViewTransition()` family
+
+The `startViewTransition()` family contains original hooks and functions to handle [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) easily. The followings are examples of how to use them.
+
+### 1. An easiest example
+
+You can write a transition using the `document.startViewTransition` shortly with the `startViewTransition()`.
+
+```tsx
+import { useState, startViewTransition } from 'hono/jsx'
+import { css, Style } from 'hono/css'
+
+export default function App() {
+  const [showLargeImage, setShowLargeImage] = useState(false)
+  return (
+    <>
+      <Style />
+      <button
+        onClick={() =>
+          startViewTransition(() =>
+            setShowLargeImage((state) => !state)
+          )
+        }
+      >
+        Click!
+      </button>
+      <div>
+        {!showLargeImage ? (
+          <img src='https://hono.dev/images/logo.png' />
+        ) : (
+          <div
+            class={css`
+              background: url('https://hono.dev/images/logo-large.png');
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              width: 600px;
+              height: 600px;
+            `}
+          ></div>
+        )}
+      </div>
+    </>
+  )
+}
+```
+
+### 2. Using `viewTransition()` with `keyframes()`
+
+The `viewTransition()` function allows you to get the unique `view-transition-name`.
+
+You can use it with the `keyframes()`, The `::view-transition-old()` is converted to `::view-transition-old(${uniqueName))`.
+
+```tsx
+import { useState, startViewTransition } from 'hono/jsx'
+import { viewTransition } from 'hono/jsx/dom/css'
+import { css, keyframes, Style } from 'hono/css'
+
+const rotate = keyframes`
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+`
+
+export default function App() {
+  const [showLargeImage, setShowLargeImage] = useState(false)
+  const [transitionNameClass] = useState(() =>
+    viewTransition(css`
+      ::view-transition-old() {
+        animation-name: ${rotate};
+      }
+      ::view-transition-new() {
+        animation-name: ${rotate};
+      }
+    `)
+  )
+  return (
+    <>
+      <Style />
+      <button
+        onClick={() =>
+          startViewTransition(() =>
+            setShowLargeImage((state) => !state)
+          )
+        }
+      >
+        Click!
+      </button>
+      <div>
+        {!showLargeImage ? (
+          <img src='https://hono.dev/images/logo.png' />
+        ) : (
+          <div
+            class={css`
+              ${transitionNameClass}
+              background: url('https://hono.dev/images/logo-large.png');
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              width: 600px;
+              height: 600px;
+            `}
+          ></div>
+        )}
+      </div>
+    </>
+  )
+}
+```
+
+### 3. Using `useViewTransition`
+
+If you want to change the style only during the animation. You can use `useViewTransition()`. This hook returns the `[boolean, (callback: () => void) => void]`, and they are the `isUpdating` flag and the `startViewTransition()` function.
+
+When this hook is used, the Component is evaluated at the following two times.
+
+- Inside the callback of a call to `startViewTransition()`.
+- When [the `finish` promise becomes fulfilled](https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition/finished)
+
+```tsx
+import { useState, useViewTransition } from 'hono/jsx'
+import { viewTransition } from 'hono/jsx/dom/css'
+import { css, keyframes, Style } from 'hono/css'
+
+const rotate = keyframes`
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+`
+
+export default function App() {
+  const [isUpdating, startViewTransition] = useViewTransition()
+  const [showLargeImage, setShowLargeImage] = useState(false)
+  const [transitionNameClass] = useState(() =>
+    viewTransition(css`
+      ::view-transition-old() {
+        animation-name: ${rotate};
+      }
+      ::view-transition-new() {
+        animation-name: ${rotate};
+      }
+    `)
+  )
+  return (
+    <>
+      <Style />
+      <button
+        onClick={() =>
+          startViewTransition(() =>
+            setShowLargeImage((state) => !state)
+          )
+        }
+      >
+        Click!
+      </button>
+      <div>
+        {!showLargeImage ? (
+          <img src='https://hono.dev/images/logo.png' />
+        ) : (
+          <div
+            class={css`
+              ${transitionNameClass}
+              background: url('https://hono.dev/images/logo-large.png');
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              width: 600px;
+              height: 600px;
+              position: relative;
+              ${isUpdating &&
+              css`
+                &:before {
+                  content: 'Loading...';
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                }
+              `}
+            `}
+          ></div>
+        )}
+      </div>
+    </>
+  )
+}
+```
+
+## The `hono/jsx/dom` runtime
+
+There is a small JSX Runtime for Client Components. Using this will result in smaller bundled results than using `hono/jsx`. Specify `hono/jsx/dom` in `tsconfig.json`. For Deno, modify the deno.json.
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx/dom"
+  }
+}
+```
+
+
+# JSX
+
+You can write HTML with JSX syntax with `hono/jsx`.
+
+Although `hono/jsx` works on the client, you will probably use it most often when rendering content on the server side. Here are some things related to JSX that are common to both server and client.
+
+## Settings
+
+To use JSX, modify the `tsconfig.json`:
+
+`tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx"
+  }
+}
+```
+
+Alternatively, use the pragma directives:
+
+```ts
+/** @jsx jsx */
+/** @jsxImportSource hono/jsx */
+```
+
+For Deno, you have to modify the `deno.json` instead of the `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx"
+  }
+}
+```
+
+## Usage
+
+`index.tsx`:
+
+```tsx
+import { Hono } from 'hono'
+import type { FC } from 'hono/jsx'
+
+const app = new Hono()
+
+const Layout: FC = (props) => {
+  return (
+    <html>
+      <body>{props.children}</body>
+    </html>
+  )
+}
+
+const Top: FC<{ messages: string[] }> = (props: {
+  messages: string[]
+}) => {
+  return (
+    <Layout>
+      <h1>Hello Hono!</h1>
+      <ul>
+        {props.messages.map((message) => {
+          return <li>{message}!!</li>
+        })}
+      </ul>
+    </Layout>
+  )
+}
+
+app.get('/', (c) => {
+  const messages = ['Good Morning', 'Good Evening', 'Good Night']
+  return c.html(<Top messages={messages} />)
+})
+
+export default app
+```
+
+## Fragment
+
+Use Fragment to group multiple elements without adding extra nodes:
+
+```tsx
+import { Fragment } from 'hono/jsx'
+
+const List = () => (
+  <Fragment>
+    <p>first child</p>
+    <p>second child</p>
+    <p>third child</p>
+  </Fragment>
+)
+```
+
+Or you can write it with `<></>` if it set up properly.
+
+```tsx
+const List = () => (
+  <>
+    <p>first child</p>
+    <p>second child</p>
+    <p>third child</p>
+  </>
+)
+```
+
+## `PropsWithChildren`
+
+You can use `PropsWithChildren` to correctly infer a child element in a function component.
+
+```tsx
+import { PropsWithChildren } from 'hono/jsx'
+
+type Post = {
+  id: number
+  title: string
+}
+
+function Component({ title, children }: PropsWithChildren<Post>) {
+  return (
+    <div>
+      <h1>{title}</h1>
+      {children}
+    </div>
+  )
+}
+```
+
+## Inserting Raw HTML
+
+To directly insert HTML, use `dangerouslySetInnerHTML`:
+
+```tsx
+app.get('/foo', (c) => {
+  const inner = { __html: 'JSX &middot; SSR' }
+  const Div = <div dangerouslySetInnerHTML={inner} />
+})
+```
+
+## Memoization
+
+Optimize your components by memoizing computed strings using `memo`:
+
+```tsx
+import { memo } from 'hono/jsx'
+
+const Header = memo(() => <header>Welcome to Hono</header>)
+const Footer = memo(() => <footer>Powered by Hono</footer>)
+const Layout = (
+  <div>
+    <Header />
+    <p>Hono is cool!</p>
+    <Footer />
+  </div>
+)
+```
+
+## Context
+
+By using `useContext`, you can share data globally across any level of the Component tree without passing values through props.
+
+```tsx
+import type { FC } from 'hono/jsx'
+import { createContext, useContext } from 'hono/jsx'
+
+const themes = {
+  light: {
+    color: '#000000',
+    background: '#eeeeee',
+  },
+  dark: {
+    color: '#ffffff',
+    background: '#222222',
+  },
+}
+
+const ThemeContext = createContext(themes.light)
+
+const Button: FC = () => {
+  const theme = useContext(ThemeContext)
+  return <button style={theme}>Push!</button>
+}
+
+const Toolbar: FC = () => {
+  return (
+    <div>
+      <Button />
+    </div>
+  )
+}
+
+// ...
+
+app.get('/', (c) => {
+  return c.html(
+    <div>
+      <ThemeContext.Provider value={themes.dark}>
+        <Toolbar />
+      </ThemeContext.Provider>
+    </div>
+  )
+})
+```
+
+## Async Component
+
+`hono/jsx` supports an Async Component, so you can use `async`/`await` in your component.
+If you render it with `c.html()`, it will await automatically.
+
+```tsx
+const AsyncComponent = async () => {
+  await new Promise((r) => setTimeout(r, 1000)) // sleep 1s
+  return <div>Done!</div>
+}
+
+app.get('/', (c) => {
+  return c.html(
+    <html>
+      <body>
+        <AsyncComponent />
+      </body>
+    </html>
+  )
+})
+```
+
+## Suspense <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+
+The React-like `Suspense` feature is available.
+If you wrap the async component with `Suspense`, the content in the fallback will be rendered first, and once the Promise is resolved, the awaited content will be displayed.
+You can use it with `renderToReadableStream()`.
+
+```tsx
+import { renderToReadableStream, Suspense } from 'hono/jsx/streaming'
+
+//...
+
+app.get('/', (c) => {
+  const stream = renderToReadableStream(
+    <html>
+      <body>
+        <Suspense fallback={<div>loading...</div>}>
+          <Component />
+        </Suspense>
+      </body>
+    </html>
+  )
+  return c.body(stream, {
+    headers: {
+      'Content-Type': 'text/html; charset=UTF-8',
+      'Transfer-Encoding': 'chunked',
+    },
+  })
+})
+```
+
+## ErrorBoundary <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+
+You can catch errors in child components using `ErrorBoundary`.
+
+In the example below, it will show the content specified in `fallback` if an error occurs.
+
+```tsx
+function SyncComponent() {
+  throw new Error('Error')
+  return <div>Hello</div>
+}
+
+app.get('/sync', async (c) => {
+  return c.html(
+    <html>
+      <body>
+        <ErrorBoundary fallback={<div>Out of Service</div>}>
+          <SyncComponent />
+        </ErrorBoundary>
+      </body>
+    </html>
+  )
+})
+```
+
+`ErrorBoundary` can also be used with async components and `Suspense`.
+
+```tsx
+async function AsyncComponent() {
+  await new Promise((resolve) => setTimeout(resolve, 2000))
+  throw new Error('Error')
+  return <div>Hello</div>
+}
+
+app.get('/with-suspense', async (c) => {
+  return c.html(
+    <html>
+      <body>
+        <ErrorBoundary fallback={<div>Out of Service</div>}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <AsyncComponent />
+          </Suspense>
+        </ErrorBoundary>
+      </body>
+    </html>
+  )
+})
+```
+
+## Integration with html Middleware
+
+Combine the JSX and html middlewares for powerful templating.
+For in-depth details, consult the [html middleware documentation](/docs/helpers/html).
+
+```tsx
+import { Hono } from 'hono'
+import { html } from 'hono/html'
+
+const app = new Hono()
+
+interface SiteData {
+  title: string
+  children?: any
+}
+
+const Layout = (props: SiteData) =>
+  html`<!doctype html>
+    <html>
+      <head>
+        <title>${props.title}</title>
+      </head>
+      <body>
+        ${props.children}
+      </body>
+    </html>`
+
+const Content = (props: { siteData: SiteData; name: string }) => (
+  <Layout {...props.siteData}>
+    <h1>Hello {props.name}</h1>
+  </Layout>
+)
+
+app.get('/:name', (c) => {
+  const { name } = c.req.param()
+  const props = {
+    name: name,
+    siteData: {
+      title: 'JSX with html sample',
+    },
+  }
+  return c.html(<Content {...props} />)
+})
+
+export default app
+```
+
+## With JSX Renderer Middleware
+
+The [JSX Renderer Middleware](/docs/middleware/builtin/jsx-renderer) allows you to create HTML pages more easily with the JSX.
+
+## Override type definitions
+
+You can override the type definition to add your custom elements and attributes.
+
+```ts
+declare module 'hono/jsx' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'my-custom-element': HTMLAttributes & {
+        'x-event'?: 'click' | 'scroll'
+      }
+    }
+  }
+}
+```
+
+
+# Middleware
+
+Middleware works after/before Handler. We can get `Request` before dispatching or manipulate `Response` after dispatching.
+
+## Definition of Middleware
+
+- Handler - should return `Response` object. Only one handler will be called.
+- Middleware - should return nothing, will be proceeded to next middleware with `await next()`
+
+The user can register middleware using `app.use` or using `app.HTTP_METHOD` as well as the handlers. For this feature, it's easy to specify the path and the method.
+
+```ts
+// match any method, all routes
+app.use(logger())
+
+// specify path
+app.use('/posts/*', cors())
+
+// specify method and path
+app.post('/posts/*', basicAuth())
+```
+
+If the handler returns `Response`, it will be used for the end-user, and stopping the processing.
+
+```ts
+app.post('/posts', (c) => c.text('Created!', 201))
+```
+
+In this case, four middleware are processed before dispatching like this:
+
+```ts
+logger() -> cors() -> basicAuth() -> *handler*
+```
+
+## Execution order
+
+The order in which Middleware is executed is determined by the order in which it is registered.
+The process before the `next` of the first registered Middleware is executed first,
+and the process after the `next` is executed last.
+See below.
+
+```ts
+app.use(async (_, next) => {
+  console.log('middleware 1 start')
+  await next()
+  console.log('middleware 1 end')
+})
+app.use(async (_, next) => {
+  console.log('middleware 2 start')
+  await next()
+  console.log('middleware 2 end')
+})
+app.use(async (_, next) => {
+  console.log('middleware 3 start')
+  await next()
+  console.log('middleware 3 end')
+})
+
+app.get('/', (c) => {
+  console.log('handler')
+  return c.text('Hello!')
+})
+```
+
+Result is the following.
+
+```
+middleware 1 start
+  middleware 2 start
+    middleware 3 start
+      handler
+    middleware 3 end
+  middleware 2 end
+middleware 1 end
+```
+
+## Built-in Middleware
+
+Hono has built-in middleware.
+
+```ts
+import { Hono } from 'hono'
+import { poweredBy } from 'hono/powered-by'
+import { logger } from 'hono/logger'
+import { basicAuth } from 'hono/basic-auth'
+
+const app = new Hono()
+
+app.use(poweredBy())
+app.use(logger())
+
+app.use(
+  '/auth/*',
+  basicAuth({
+    username: 'hono',
+    password: 'acoolproject',
+  })
+)
+```
+
+::: warning
+In Deno, it is possible to use a different version of middleware than the Hono version, but this can lead to bugs.
+For example, this code is not working because the version is different.
+
+```ts
+import { Hono } from 'jsr:@hono/hono@4.4.0'
+import { upgradeWebSocket } from 'jsr:@hono/hono@4.4.5/deno'
+
+const app = new Hono()
+
+app.get(
+  '/ws',
+  upgradeWebSocket(() => ({
+    // ...
+  }))
+)
+```
+
+:::
+
+## Custom Middleware
+
+You can write your own middleware directly inside `app.use()`:
+
+```ts
+// Custom logger
+app.use(async (c, next) => {
+  console.log(`[${c.req.method}] ${c.req.url}`)
+  await next()
+})
+
+// Add a custom header
+app.use('/message/*', async (c, next) => {
+  await next()
+  c.header('x-message', 'This is middleware!')
+})
+
+app.get('/message/hello', (c) => c.text('Hello Middleware!'))
+```
+
+However, embedding middleware directly within `app.use()` can limit its reusability. Therefore, we can separate our
+middleware into different files.
+
+To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use
+[`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory.
+
+```ts
+import { createMiddleware } from 'hono/factory'
+
+const logger = createMiddleware(async (c, next) => {
+  console.log(`[${c.req.method}] ${c.req.url}`)
+  await next()
+})
+```
+
+:::info
+Type generics can be used with `createMiddleware`:
+
+```ts
+createMiddleware<{Bindings: Bindings}>(async (c, next) =>
+```
+
+:::
+
+### Modify the Response After Next
+
+Additionally, middleware can be designed to modify responses if necessary:
+
+```ts
+const stripRes = createMiddleware(async (c, next) => {
+  await next()
+  c.res = undefined
+  c.res = new Response('New Response')
+})
+```
+
+## Context access inside Middleware arguments
+
+To access the context inside middleware arguments, directly use the context parameter provided by `app.use`. See the example below for clarification.
+
+```ts
+import { cors } from 'hono/cors'
+
+app.use('*', async (c, next) => {
+  const middleware = cors({
+    origin: c.env.CORS_ORIGIN,
+  })
+  return middleware(c, next)
+})
+```
+
+### Extending the Context in Middleware
+
+To extend the context inside middleware, use `c.set`. You can make this type-safe by passing a `{ Variables: { yourVariable: YourVariableType } }` generic argument to the `createMiddleware` function.
+
+```ts
+import { createMiddleware } from 'hono/factory'
+
+const echoMiddleware = createMiddleware<{
+  Variables: {
+    echo: (str: string) => string
+  }
+}>(async (c, next) => {
+  c.set('echo', (str) => str)
+  await next()
+})
+
+app.get('/echo', echoMiddleware, (c) => {
+  return c.text(c.var.echo('Hello!'))
+})
+```
+
+## Third-party Middleware
+
+Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries.
+So with them, we may make a more complex application.
+
+For example, we have GraphQL Server Middleware, Sentry Middleware, Firebase Auth Middleware, and others.
+
+
+# Miscellaneous
+
+## Contributing
+
+Contributions Welcome! You can contribute in the following ways.
+
+- Create an Issue - Propose a new feature. Report a bug.
+- Pull Request - Fix a bug and typo. Refactor the code.
+- Create third-party middleware - Instruct below.
+- Share - Share your thoughts on the Blog, X(Twitter), and others.
+- Make your application - Please try to use Hono.
+
+For more details, see [Contribution Guide](https://github.com/honojs/hono/blob/main/docs/CONTRIBUTING.md).
+
+## Sponsoring
+
+You can sponsor Hono authors via the GitHub sponsor program.
+
+- [Sponsor @yusukebe on GitHub Sponsors](https://github.com/sponsors/yusukebe)
+- [Sponsor @usualoma on GitHub Sponsors](https://github.com/sponsors/usualoma)
+
+## Other Resources
+
+- GitHub repository: <a href="https://github.com/honojs">https://github.com/honojs</a>
+- npm registry: <a href="https://www.npmjs.com/package/hono">https://www.npmjs.com/package/hono</a>
+- JSR: <a href="https://jsr.io/@hono/hono">https://jsr.io/@hono/hono</a>
+
+
+# RPC
+
+The RPC feature allows sharing of the API specifications between the server and the client.
+
+You can export the types of input type specified by the Validator and the output type emitted by `json()`. And Hono Client will be able to import it.
+
+> [!NOTE]  
+> For the RPC types to work properly in a monorepo, in both the Client's and Server's tsconfig.json files, set `"strict": true` in `compilerOptions`. [Read more.](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)
+
+## Server
+
+All you need to do on the server side is to write a validator and create a variable `route`. The following example uses [Zod Validator](https://github.com/honojs/middleware/tree/main/packages/zod-validator).
+
+```ts{1}
+const route = app.post(
+  '/posts',
+  zValidator(
+    'form',
+    z.object({
+      title: z.string(),
+      body: z.string(),
+    })
+  ),
+  (c) => {
+    // ...
+    return c.json(
+      {
+        ok: true,
+        message: 'Created!',
+      },
+      201
+    )
+  }
+)
+```
+
+Then, export the type to share the API spec with the Client.
+
+```ts
+export type AppType = typeof route
+```
+
+## Client
+
+On the Client side, import `hc` and `AppType` first.
+
+```ts
+import { AppType } from '.'
+import { hc } from 'hono/client'
+```
+
+`hc` is a function to create a client. Pass `AppType` as Generics and specify the server URL as an argument.
+
+```ts
+const client = hc<AppType>('http://localhost:8787/')
+```
+
+Call `client.{path}.{method}` and pass the data you wish to send to the server as an argument.
+
+```ts
+const res = await client.posts.$post({
+  form: {
+    title: 'Hello',
+    body: 'Hono is a cool project',
+  },
+})
+```
+
+The `res` is compatible with the "fetch" Response. You can retrieve data from the server with `res.json()`.
+
+```ts
+if (res.ok) {
+  const data = await res.json()
+  console.log(data.message)
+}
+```
+
+::: warning File Upload
+
+Currently, the client does not support file uploading.
+
+:::
+
+## Status code
+
+If you explicitly specify the status code, such as `200` or `404`, in `c.json()`. It will be added as a type for passing to the client.
+
+```ts
+// server.ts
+const app = new Hono().get(
+  '/posts',
+  zValidator(
+    'query',
+    z.object({
+      id: z.string(),
+    })
+  ),
+  async (c) => {
+    const { id } = c.req.valid('query')
+    const post: Post | undefined = await getPost(id)
+
+    if (post === undefined) {
+      return c.json({ error: 'not found' }, 404) // Specify 404
+    }
+
+    return c.json({ post }, 200) // Specify 200
+  }
+)
+
+export type AppType = typeof app
+```
+
+You can get the data by the status code.
+
+```ts
+// client.ts
+const client = hc<AppType>('http://localhost:8787/')
+
+const res = await client.posts.$get({
+  query: {
+    id: '123',
+  },
+})
+
+if (res.status === 404) {
+  const data: { error: string } = await res.json()
+  console.log(data.error)
+}
+
+if (res.ok) {
+  const data: { post: Post } = await res.json()
+  console.log(data.post)
+}
+
+// { post: Post } | { error: string }
+type ResponseType = InferResponseType<typeof client.posts.$get>
+
+// { post: Post }
+type ResponseType200 = InferResponseType<
+  typeof client.posts.$get,
+  200
+>
+```
+
+## Not Found
+
+If you want to use a client, you should not use `c.notFound()` for the Not Found response. The data that the client gets from the server cannot be inferred correctly.
+
+```ts
+// server.ts
+export const routes = new Hono().get(
+  '/posts',
+  zValidator(
+    'query',
+    z.object({
+      id: z.string(),
+    })
+  ),
+  async (c) => {
+    const { id } = c.req.valid('query')
+    const post: Post | undefined = await getPost(id)
+
+    if (post === undefined) {
+      return c.notFound() // ❌️
+    }
+
+    return c.json({ post })
+  }
+)
+
+// client.ts
+import { hc } from 'hono/client'
+
+const client = hc<typeof routes>('/')
+
+const res = await client.posts[':id'].$get({
+  param: {
+    id: '123',
+  },
+})
+
+const data = await res.json() // 🙁 data is unknown
+```
+
+Please use `c.json()` and specify the status code for the Not Found Response.
+
+```ts
+export const routes = new Hono().get(
+  '/posts',
+  zValidator(
+    'query',
+    z.object({
+      id: z.string(),
+    })
+  ),
+  async (c) => {
+    const { id } = c.req.valid('query')
+    const post: Post | undefined = await getPost(id)
+
+    if (post === undefined) {
+      return c.json({ error: 'not found' }, 404) // Specify 404
+    }
+
+    return c.json({ post }, 200) // Specify 200
+  }
+)
+```
+
+## Path parameters
+
+You can also handle routes that include path parameters.
+
+```ts
+const route = app.get(
+  '/posts/:id',
+  zValidator(
+    'query',
+    z.object({
+      page: z.string().optional(),
+    })
+  ),
+  (c) => {
+    // ...
+    return c.json({
+      title: 'Night',
+      body: 'Time to sleep',
+    })
+  }
+)
+```
+
+Specify the string you want to include in the path with `param`.
+
+```ts
+const res = await client.posts[':id'].$get({
+  param: {
+    id: '123',
+  },
+  query: {},
+})
+```
+
+## Headers
+
+You can append the headers to the request.
+
+```ts
+const res = await client.search.$get(
+  {
+    //...
+  },
+  {
+    headers: {
+      'X-Custom-Header': 'Here is Hono Client',
+      'X-User-Agent': 'hc',
+    },
+  }
+)
+```
+
+To add a common header to all requests, specify it as an argument to the `hc` function.
+
+```ts
+const client = hc<AppType>('/api', {
+  headers: {
+    Authorization: 'Bearer TOKEN',
+  },
+})
+```
+
+## `init` option
+
+You can pass the fetch's `RequestInit` object to the request as the `init` option. Below is an example of aborting a Request.
+
+```ts
+import { hc } from 'hono/client'
+
+const client = hc<AppType>('http://localhost:8787/')
+
+const abortController = new AbortController()
+const res = await client.api.posts.$post(
+  {
+    json: {
+      // Request body
+    },
+  },
+  {
+    // RequestInit object
+    init: {
+      signal: abortController.signal,
+    },
+  }
+)
+
+// ...
+
+abortController.abort()
+```
+
+::: info
+A `RequestInit` object defined by `init` takes the highest priority. It could be used to overwrite things set by other options like `body | method | headers`.
+:::
+
+## `$url()`
+
+You can get a `URL` object for accessing the endpoint by using `$url()`.
+
+::: warning
+You have to pass in an absolute URL for this to work. Passing in a relative URL `/` will result in the following error.
+
+`Uncaught TypeError: Failed to construct 'URL': Invalid URL`
+
+```ts
+// ❌ Will throw error
+const client = hc<AppType>('/')
+client.api.post.$url()
+
+// ✅ Will work as expected
+const client = hc<AppType>('http://localhost:8787/')
+client.api.post.$url()
+```
+
+:::
+
+```ts
+const route = app
+  .get('/api/posts', (c) => c.json({ posts }))
+  .get('/api/posts/:id', (c) => c.json({ post }))
+
+const client = hc<typeof route>('http://localhost:8787/')
+
+let url = client.api.posts.$url()
+console.log(url.pathname) // `/api/posts`
+
+url = client.api.posts[':id'].$url({
+  param: {
+    id: '123',
+  },
+})
+console.log(url.pathname) // `/api/posts/123`
+```
+
+## Custom `fetch` method
+
+You can set the custom `fetch` method.
+
+In the following example script for Cloudflare Worker, the Service Bindings' `fetch` method is used instead of the default `fetch`.
+
+```toml
+# wrangler.toml
+services = [
+  { binding = "AUTH", service = "auth-service" },
+]
+```
+
+```ts
+// src/client.ts
+const client = hc<CreateProfileType>('/', {
+  fetch: c.env.AUTH.fetch.bind(c.env.AUTH),
+})
+```
+
+## Infer
+
+Use `InferRequestType` and `InferResponseType` to know the type of object to be requested and the type of object to be returned.
+
+```ts
+import type { InferRequestType, InferResponseType } from 'hono/client'
+
+// InferRequestType
+const $post = client.todo.$post
+type ReqType = InferRequestType<typeof $post>['form']
+
+// InferResponseType
+type ResType = InferResponseType<typeof $post>
+```
+
+## Using SWR
+
+You can also use a React Hook library such as [SWR](https://swr.vercel.app).
+
+```tsx
+import useSWR from 'swr'
+import { hc } from 'hono/client'
+import type { InferRequestType } from 'hono/client'
+import { AppType } from '../functions/api/[[route]]'
+
+const App = () => {
+  const client = hc<AppType>('/api')
+  const $get = client.hello.$get
+
+  const fetcher =
+    (arg: InferRequestType<typeof $get>) => async () => {
+      const res = await $get(arg)
+      return await res.json()
+    }
+
+  const { data, error, isLoading } = useSWR(
+    'api-hello',
+    fetcher({
+      query: {
+        name: 'SWR',
+      },
+    })
+  )
+
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <div>loading...</div>
+
+  return <h1>{data?.message}</h1>
+}
+
+export default App
+```
+
+## Using RPC with larger applications
+
+In the case of a larger application, such as the example mentioned in [Building a larger application](/docs/guides/best-practices#building-a-larger-application), you need to be careful about the type of inference.
+A simple way to do this is to chain the handlers so that the types are always inferred.
+
+```ts
+// authors.ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+  .get('/', (c) => c.json('list authors'))
+  .post('/', (c) => c.json('create an author', 201))
+  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+export default app
+```
+
+```ts
+// books.ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+  .get('/', (c) => c.json('list books'))
+  .post('/', (c) => c.json('create a book', 201))
+  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+export default app
+```
+
+You can then import the sub-routers as you usually would, and make sure you chain their handlers as well, since this is the top level of the app in this case, this is the type we'll want to export.
+
+```ts
+// index.ts
+import { Hono } from 'hono'
+import authors from './authors'
+import books from './books'
+
+const app = new Hono()
+
+const routes = app.route('/authors', authors).route('/books', books)
+
+export default app
+export type AppType = typeof routes
+```
+
+You can now create a new client using the registered AppType and use it as you would normally.
+
+## Known issues
+
+### IDE performance
+
+When using RPC, the more routes you have, the slower your IDE will become. One of the main reasons for this is that massive amounts of type instantiations are executed to infer the type of your app.
+
+For example, suppose your app has a route like this:
+
+```ts
+// app.ts
+export const app = new Hono().get('foo/:id', (c) =>
+  c.json({ ok: true }, 200)
+)
+```
+
+Hono will infer the type as follows:
+
+```ts
+export const app = Hono<BlankEnv, BlankSchema, '/'>().get<
+  'foo/:id',
+  'foo/:id',
+  JSONRespondReturn<{ ok: boolean }, 200>,
+  BlankInput,
+  BlankEnv
+>('foo/:id', (c) => c.json({ ok: true }, 200))
+```
+
+This is a type instantiation for a single route. While the user doesn't need to write these type arguments manually, which is a good thing, it's known that type instantiation takes much time. `tsserver` used in your IDE does this time consuming task every time you use the app. If you have a lot of routes, this can slow down your IDE significantly.
+
+However, we have some tips to mitigate this issue.
+
+#### Hono version mismatch
+
+If your backend is separate from the frontend and lives in a different directory, you need to ensure that the Hono versions match. If you use one Hono version on the backend and another on the frontend, you'll run into issues such as "_Type instantiation is excessively deep and possibly infinite_".
+
+![hono-version-mismatch](https://github.com/user-attachments/assets/e4393c80-29dd-408d-93ab-d55c11ccca05)
+
+#### TypeScript project references
+
+Like in the case of [Hono version mismatch](#hono-version-mismatch), you'll run into issues if your backend and frontend are separate. If you want to access code from the backend (`AppType`, for example) on the frontend, you need to use [project references](https://www.typescriptlang.org/docs/handbook/project-references.html). TypeScript's project references allow one TypeScript codebase to access and use code from another TypeScript codebase. _(source: [Hono RPC And TypeScript Project References](https://catalins.tech/hono-rpc-in-monorepos/))_.
+
+#### Compile your code before using it (recommended)
+
+`tsc` can do heavy tasks like type instantiation at compile time! Then, `tsserver` doesn't need to instantiate all the type arguments every time you use it. It will make your IDE a lot faster!
+
+Compiling your client including the server app gives you the best performance. Put the following code in your project:
+
+```ts
+import { app } from './app'
+import { hc } from 'hono/client'
+
+// this is a trick to calculate the type when compiling
+const client = hc<typeof app>('')
+export type Client = typeof client
+
+export const hcWithType = (...args: Parameters<typeof hc>): Client =>
+  hc<typeof app>(...args)
+```
+
+After compiling, you can use `hcWithType` instead of `hc` to get the client with the type already calculated.
+
+```ts
+const client = hcWithType('http://localhost:8787/')
+const res = await client.posts.$post({
+  form: {
+    title: 'Hello',
+    body: 'Hono is a cool project',
+  },
+})
+```
+
+If your project is a monorepo, this solution does fit well. Using a tool like [`turborepo`](https://turbo.build/repo/docs), you can easily separate the server project and the client project and get better integration managing dependencies between them. Here is [a working example](https://github.com/m-shaka/hono-rpc-perf-tips-example).
+
+You can also coordinate your build process manually with tools like `concurrently` or `npm-run-all`.
+
+#### Specify type arguments manually
+
+This is a bit cumbersome, but you can specify type arguments manually to avoid type instantiation.
+
+```ts
+const app = new Hono().get<'foo/:id'>('foo/:id', (c) =>
+  c.json({ ok: true }, 200)
+)
+```
+
+Specifying just single type argument make a difference in performance, while it may take you a lot of time and effort if you have a lot of routes.
+
+#### Split your app and client into multiple files
+
+As described in [Using RPC with larger applications](#using-rpc-with-larger-applications), you can split your app into multiple apps. You can also create a client for each app:
+
+```ts
+// authors-cli.ts
+import { app as authorsApp } from './authors'
+import { hc } from 'hono/client'
+
+const authorsClient = hc<typeof authorsApp>('/authors')
+
+// books-cli.ts
+import { app as booksApp } from './books'
+import { hc } from 'hono/client'
+
+const booksClient = hc<typeof booksApp>('/books')
+```
+
+This way, `tsserver` doesn't need to instantiate types for all routes at once.
+
+
+# Testing
+
+Testing is important.
+In actuality, it is easy to test Hono's applications.
+The way to create a test environment differs from each runtime, but the basic steps are the same.
+In this section, let's test with Cloudflare Workers and Jest.
+
+## Request and Response
+
+All you do is create a Request and pass it to the Hono application to validate the Response.
+And, you can use `app.request` the useful method.
+
+::: tip
+For a typed test client see the [testing helper](/docs/helpers/testing).
+:::
+
+For example, consider an application that provides the following REST API.
+
+```ts
+app.get('/posts', (c) => {
+  return c.text('Many posts')
+})
+
+app.post('/posts', (c) => {
+  return c.json(
+    {
+      message: 'Created',
+    },
+    201,
+    {
+      'X-Custom': 'Thank you',
+    }
+  )
+})
+```
+
+Make a request to `GET /posts` and test the response.
+
+```ts
+describe('Example', () => {
+  test('GET /posts', async () => {
+    const res = await app.request('/posts')
+    expect(res.status).toBe(200)
+    expect(await res.text()).toBe('Many posts')
+  })
+})
+```
+
+To make a request to `POST /posts`, do the following.
+
+```ts
+test('POST /posts', async () => {
+  const res = await app.request('/posts', {
+    method: 'POST',
+  })
+  expect(res.status).toBe(201)
+  expect(res.headers.get('X-Custom')).toBe('Thank you')
+  expect(await res.json()).toEqual({
+    message: 'Created',
+  })
+})
+```
+
+To make a request to `POST /posts` with `JSON` data, do the following.
+
+```ts
+test('POST /posts', async () => {
+  const res = await app.request('/posts', {
+    method: 'POST',
+    body: JSON.stringify({ message: 'hello hono' }),
+    headers: new Headers({ 'Content-Type': 'application/json' }),
+  })
+  expect(res.status).toBe(201)
+  expect(res.headers.get('X-Custom')).toBe('Thank you')
+  expect(await res.json()).toEqual({
+    message: 'Created',
+  })
+})
+```
+
+To make a request to `POST /posts` with `multipart/form-data` data, do the following.
+
+```ts
+test('POST /posts', async () => {
+  const formData = new FormData()
+  formData.append('message', 'hello')
+  const res = await app.request('/posts', {
+    method: 'POST',
+    body: formData,
+  })
+  expect(res.status).toBe(201)
+  expect(res.headers.get('X-Custom')).toBe('Thank you')
+  expect(await res.json()).toEqual({
+    message: 'Created',
+  })
+})
+```
+
+You can also pass an instance of the Request class.
+
+```ts
+test('POST /posts', async () => {
+  const req = new Request('http://localhost/posts', {
+    method: 'POST',
+  })
+  const res = await app.request(req)
+  expect(res.status).toBe(201)
+  expect(res.headers.get('X-Custom')).toBe('Thank you')
+  expect(await res.json()).toEqual({
+    message: 'Created',
+  })
+})
+```
+
+In this way, you can test it as like an End-to-End.
+
+## Env
+
+To set `c.env` for testing, you can pass it as the 3rd parameter to `app.request`. This is useful for mocking values like [Cloudflare Workers Bindings](https://hono.dev/getting-started/cloudflare-workers#bindings):
+
+```ts
+const MOCK_ENV = {
+  API_HOST: 'example.com',
+  DB: {
+    prepare: () => {
+      /* mocked D1 */
+    },
+  },
+}
+
+test('GET /posts', async () => {
+  const res = await app.request('/posts', {}, MOCK_ENV)
+})
+```
+
+
+# Validation
+
+Hono provides only a very thin Validator.
+But, it can be powerful when combined with a third-party Validator.
+In addition, the RPC feature allows you to share API specifications with your clients through types.
+
+## Manual validator
+
+First, introduce a way to validate incoming values without using the third-party Validator.
+
+Import `validator` from `hono/validator`.
+
+```ts
+import { validator } from 'hono/validator'
+```
+
+To validate form data, specify `form` as the first argument and a callback as the second argument.
+In the callback, validates the value and return the validated values at the end.
+The `validator` can be used as middleware.
+
+```ts
+app.post(
+  '/posts',
+  validator('form', (value, c) => {
+    const body = value['body']
+    if (!body || typeof body !== 'string') {
+      return c.text('Invalid!', 400)
+    }
+    return {
+      body: body,
+    }
+  }),
+  //...
+```
+
+Within the handler you can get the validated value with `c.req.valid('form')`.
+
+```ts
+, (c) => {
+  const { body } = c.req.valid('form')
+  // ... do something
+  return c.json(
+    {
+      message: 'Created!',
+    },
+    201
+  )
+}
+```
+
+Validation targets include `json`, `query`, `header`, `param` and `cookie` in addition to `form`.
+
+::: warning
+When you validate `json`, the request _must_ contain a `Content-Type: application/json` header
+otherwise the request body will not be parsed and you will receive a warning.
+
+It is important to set the `content-type` header when testing using
+[`app.request()`](../api/request.md).
+
+Given an application like this.
+
+```ts
+const app = new Hono()
+app.post(
+  '/testing',
+  validator('json', (value, c) => {
+    // pass-through validator
+    return value
+  }),
+  (c) => {
+    const body = c.req.valid('json')
+    return c.json(body)
+  }
+)
+```
+
+Your tests can be written like this.
+
+```ts
+// ❌ this will not work
+const res = await app.request('/testing', {
+  method: 'POST',
+  body: JSON.stringify({ key: 'value' }),
+})
+const data = await res.json()
+console.log(data) // undefined
+
+// ✅ this will work
+const res = await app.request('/testing', {
+  method: 'POST',
+  body: JSON.stringify({ key: 'value' }),
+  headers: new Headers({ 'Content-Type': 'application/json' }),
+})
+const data = await res.json()
+console.log(data) // { key: 'value' }
+```
+
+:::
+
+::: warning
+When you validate `header`, you need to use **lowercase** name as the key.
+
+If you want to validate the `Idempotency-Key` header, you need to use `idempotency-key` as the key.
+
+```ts
+// ❌ this will not work
+app.post(
+  '/api',
+  validator('header', (value, c) => {
+    // idempotencyKey is always undefined
+    // so this middleware always return 400 as not expected
+    const idempotencyKey = value['Idempotency-Key']
+
+    if (idempotencyKey == undefined || idempotencyKey === '') {
+      throw HTTPException(400, {
+        message: 'Idempotency-Key is required',
+      })
+    }
+    return { idempotencyKey }
+  }),
+  (c) => {
+    const { idempotencyKey } = c.req.valid('header')
+    // ...
+  }
+)
+
+// ✅ this will work
+app.post(
+  '/api',
+  validator('header', (value, c) => {
+    // can retrieve the value of the header as expected
+    const idempotencyKey = value['idempotency-key']
+
+    if (idempotencyKey == undefined || idempotencyKey === '') {
+      throw HTTPException(400, {
+        message: 'Idempotency-Key is required',
+      })
+    }
+    return { idempotencyKey }
+  }),
+  (c) => {
+    const { idempotencyKey } = c.req.valid('header')
+    // ...
+  }
+)
+```
+
+:::
+
+## Multiple validators
+
+You can also include multiple validators to validate different parts of request:
+
+```ts
+app.post(
+  '/posts/:id',
+  validator('param', ...),
+  validator('query', ...),
+  validator('json', ...),
+  (c) => {
+    //...
+  }
+```
+
+## With Zod
+
+You can use [Zod](https://zod.dev), one of third-party validators.
+We recommend using a third-party validator.
+
+Install from the Npm registry.
+
+::: code-group
+
+```sh [npm]
+npm i zod
+```
+
+```sh [yarn]
+yarn add zod
+```
+
+```sh [pnpm]
+pnpm add zod
+```
+
+```sh [bun]
+bun add zod
+```
+
+:::
+
+Import `z` from `zod`.
+
+```ts
+import { z } from 'zod'
+```
+
+Write your schema.
+
+```ts
+const schema = z.object({
+  body: z.string(),
+})
+```
+
+You can use the schema in the callback function for validation and return the validated value.
+
+```ts
+const route = app.post(
+  '/posts',
+  validator('form', (value, c) => {
+    const parsed = schema.safeParse(value)
+    if (!parsed.success) {
+      return c.text('Invalid!', 401)
+    }
+    return parsed.data
+  }),
+  (c) => {
+    const { body } = c.req.valid('form')
+    // ... do something
+    return c.json(
+      {
+        message: 'Created!',
+      },
+      201
+    )
+  }
+)
+```
+
+## Zod Validator Middleware
+
+You can use the [Zod Validator Middleware](https://github.com/honojs/middleware/tree/main/packages/zod-validator) to make it even easier.
+
+::: code-group
+
+```sh [npm]
+npm i @hono/zod-validator
+```
+
+```sh [yarn]
+yarn add @hono/zod-validator
+```
+
+```sh [pnpm]
+pnpm add @hono/zod-validator
+```
+
+```sh [bun]
+bun add @hono/zod-validator
+```
+
+:::
+
+And import `zValidator`.
+
+```ts
+import { zValidator } from '@hono/zod-validator'
+```
+
+And write as follows.
+
+```ts
+const route = app.post(
+  '/posts',
+  zValidator(
+    'form',
+    z.object({
+      body: z.string(),
+    })
+  ),
+  (c) => {
+    const validated = c.req.valid('form')
+    // ... use your validated data
+  }
+)
+```
+
+
+# Alibaba Cloud Function Compute
+
+[Alibaba Cloud Function Compute](https://www.alibabacloud.com/en/product/function-compute) is a fully managed, event-driven compute service. Function Compute allows you to focus on writing and uploading code without having to manage infrastructure such as servers.
+
+This guide uses a third-party adapter [rwv/hono-alibaba-cloud-fc3-adapter](https://github.com/rwv/hono-alibaba-cloud-fc3-adapter) to run Hono on Alibaba Cloud Function Compute.
+
+## 1. Setup
+
+::: code-group
+
+```sh [npm]
+mkdir my-app
+cd my-app
+npm i hono hono-alibaba-cloud-fc3-adapter
+npm i -D @serverless-devs/s esbuild
+mkdir src
+touch src/index.ts
+```
+
+```sh [yarn]
+mkdir my-app
+cd my-app
+yarn add hono hono-alibaba-cloud-fc3-adapter
+yarn add -D @serverless-devs/s esbuild
+mkdir src
+touch src/index.ts
+```
+
+```sh [pnpm]
+mkdir my-app
+cd my-app
+pnpm add hono hono-alibaba-cloud-fc3-adapter
+pnpm add -D @serverless-devs/s esbuild
+mkdir src
+touch src/index.ts
+```
+
+```sh [bun]
+mkdir my-app
+cd my-app
+bun add hono hono-alibaba-cloud-fc3-adapter
+bun add -D esbuild @serverless-devs/s
+mkdir src
+touch src/index.ts
+```
+
+:::
+
+## 2. Hello World
+
+Edit `src/index.ts`.
+
+```ts
+import { Hono } from 'hono'
+import { handle } from 'hono-alibaba-cloud-fc3-adapter'
+
+const app = new Hono()
+
+app.get('/', (c) => c.text('Hello Hono!'))
+
+export const handler = handle(app)
+```
+
+## 3. Setup serverless-devs
+
+> [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) is an open source and open serverless developer platform dedicated to providing developers with a powerful tool chain system. Through this platform, developers can not only experience multi cloud serverless products with one click and rapidly deploy serverless projects, but also manage projects in the whole life cycle of serverless applications, and combine serverless devs with other tools / platforms very simply and quickly to further improve the efficiency of R & D, operation and maintenance.
+
+Add the Alibaba Cloud AccessKeyID & AccessKeySecret
+
+```sh
+npx s config add
+# Please select a provider: Alibaba Cloud (alibaba)
+# Input your AccessKeyID & AccessKeySecret
+```
+
+Edit `s.yaml`
+
+```yaml
+edition: 3.0.0
+name: my-app
+access: 'default'
+
+vars:
+  region: 'us-west-1'
+
+resources:
+  my-app:
+    component: fc3
+    props:
+      region: ${vars.region}
+      functionName: 'my-app'
+      description: 'Hello World by Hono'
+      runtime: 'nodejs20'
+      code: ./dist
+      handler: index.handler
+      memorySize: 1024
+      timeout: 300
+```
+
+Edit `scripts` section in `package.json`:
+
+```json
+{
+  "scripts": {
+    "build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts",
+    "deploy": "s deploy -y"
+  }
+}
+```
+
+## 4. Deploy
+
+Finally, run the command to deploy:
+
+```sh
+npm run build # Compile the TypeScript code to JavaScript
+npm run deploy # Deploy the function to Alibaba Cloud Function Compute
+```
+
+
+# AWS Lambda
+
+AWS Lambda is a serverless platform by Amazon Web Services.
+You can run your code in response to events and automatically manages the underlying compute resources for you.
+
+Hono works on AWS Lambda with the Node.js 18+ environment.
+
+## 1. Setup
+
+When creating the application on AWS Lambda,
+[CDK](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html)
+is useful to setup the functions such as IAM Role, API Gateway, and others.
+
+Initialize your project with the `cdk` CLI.
+
+::: code-group
+
+```sh [npm]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+npm i hono
+mkdir lambda
+touch lambda/index.ts
+```
+
+```sh [yarn]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+yarn add hono
+mkdir lambda
+touch lambda/index.ts
+```
+
+```sh [pnpm]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+pnpm add hono
+mkdir lambda
+touch lambda/index.ts
+```
+
+```sh [bun]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+bun add hono
+mkdir lambda
+touch lambda/index.ts
+```
+
+:::
+
+## 2. Hello World
+
+Edit `lambda/index.ts`.
+
+```ts
+import { Hono } from 'hono'
+import { handle } from 'hono/aws-lambda'
+
+const app = new Hono()
+
+app.get('/', (c) => c.text('Hello Hono!'))
+
+export const handler = handle(app)
+```
+
+## 3. Deploy
+
+Edit `lib/cdk-stack.ts`.
+
+```ts
+import * as cdk from 'aws-cdk-lib'
+import { Construct } from 'constructs'
+import * as lambda from 'aws-cdk-lib/aws-lambda'
+import * as apigw from 'aws-cdk-lib/aws-apigateway'
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
+
+export class MyAppStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props)
+
+    const fn = new NodejsFunction(this, 'lambda', {
+      entry: 'lambda/index.ts',
+      handler: 'handler',
+      runtime: lambda.Runtime.NODEJS_20_X,
+    })
+    fn.addFunctionUrl({
+      authType: lambda.FunctionUrlAuthType.NONE,
+    })
+    new apigw.LambdaRestApi(this, 'myapi', {
+      handler: fn,
+    })
+  }
+}
+```
+
+Finally, run the command to deploy:
+
+```sh
+cdk deploy
+```
+
+## Serve Binary data
+
+Hono supports binary data as a response.
+In Lambda, base64 encoding is required to return binary data.
+Once binary type is set to `Content-Type` header, Hono automatically encodes data to base64.
+
+```ts
+app.get('/binary', async (c) => {
+  // ...
+  c.status(200)
+  c.header('Content-Type', 'image/png') // means binary data
+  return c.body(buffer) // supports `ArrayBufferLike` type, encoded to base64.
+})
+```
+
+## Access AWS Lambda Object
+
+In Hono, you can access the AWS Lambda Events and Context by binding the `LambdaEvent`, `LambdaContext` type and using `c.env`
+
+```ts
+import { Hono } from 'hono'
+import type { LambdaEvent, LambdaContext } from 'hono/aws-lambda'
+import { handle } from 'hono/aws-lambda'
+
+type Bindings = {
+  event: LambdaEvent
+  lambdaContext: LambdaContext
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/aws-lambda-info/', (c) => {
+  return c.json({
+    isBase64Encoded: c.env.event.isBase64Encoded,
+    awsRequestId: c.env.lambdaContext.awsRequestId,
+  })
+})
+
+export const handler = handle(app)
+```
+
+## Access RequestContext
+
+In Hono, you can access the AWS Lambda request context by binding the `LambdaEvent` type and using `c.env.event.requestContext`.
+
+```ts
+import { Hono } from 'hono'
+import type { LambdaEvent } from 'hono/aws-lambda'
+import { handle } from 'hono/aws-lambda'
+
+type Bindings = {
+  event: LambdaEvent
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/custom-context/', (c) => {
+  const lambdaContext = c.env.event.requestContext
+  return c.json(lambdaContext)
+})
+
+export const handler = handle(app)
+```
+
+### Before v3.10.0 (deprecated)
+
+you can access the AWS Lambda request context by binding the `ApiGatewayRequestContext` type and using `c.env.`
+
+```ts
+import { Hono } from 'hono'
+import type { ApiGatewayRequestContext } from 'hono/aws-lambda'
+import { handle } from 'hono/aws-lambda'
+
+type Bindings = {
+  requestContext: ApiGatewayRequestContext
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/custom-context/', (c) => {
+  const lambdaContext = c.env.requestContext
+  return c.json(lambdaContext)
+})
+
+export const handler = handle(app)
+```
+
+## Lambda response streaming
+
+By changing the invocation mode of AWS Lambda, you can achieve [Streaming Response](https://aws.amazon.com/blogs/compute/introducing-aws-lambda-response-streaming/).
+
+```diff
+fn.addFunctionUrl({
+  authType: lambda.FunctionUrlAuthType.NONE,
++  invokeMode: lambda.InvokeMode.RESPONSE_STREAM,
+})
+```
+
+Typically, the implementation requires writing chunks to NodeJS.WritableStream using awslambda.streamifyResponse, but with the AWS Lambda Adaptor, you can achieve the traditional streaming response of Hono by using streamHandle instead of handle.
+
+```ts
+import { Hono } from 'hono'
+import { streamHandle } from 'hono/aws-lambda'
+
+const app = new Hono()
+
+app.get('/stream', async (c) => {
+  return streamText(c, async (stream) => {
+    for (let i = 0; i < 3; i++) {
+      await stream.writeln(`${i}`)
+      await stream.sleep(1)
+    }
+  })
+})
+
+const handler = streamHandle(app)
+```
+
+
+# Azure Functions
+
+[Azure Functions](https://azure.microsoft.com/en-us/products/functions) is a serverless platform from Microsoft Azure. You can run your code in response to events, and it automatically manages the underlying compute resources for you.
+
+Hono was not designed for Azure Functions at first. But with [Azure Functions Adapter](https://github.com/Marplex/hono-azurefunc-adapter) it can run on it as well.
+
+It works with Azure Functions **V4** running on Node.js 18 or above.
+
+## 1. Install CLI
+
+To create an Azure Function, you must first install [Azure Functions Core Tools](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?pivots=nodejs-model-v4#install-the-azure-functions-core-tools).
+
+On macOS
+
+```sh
+brew tap azure/functions
+brew install azure-functions-core-tools@4
+```
+
+Follow this link for other OS:
+
+- [Install the Azure Functions Core Tools | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?pivots=nodejs-model-v4#install-the-azure-functions-core-tools)
+
+## 2. Setup
+
+Create a TypeScript Node.js V4 project in the current folder.
+
+```sh
+func init --typescript
+```
+
+Change the default route prefix of the host. Add this property to the root json object of `host.json`:
+
+```json
+"extensions": {
+    "http": {
+        "routePrefix": ""
+    }
+}
+```
+
+::: info
+The default Azure Functions route prefix is `/api`. If you don't change it as shown above, be sure to start all your Hono routes with `/api`
+:::
+
+Now you are ready to install Hono and the Azure Functions Adapter with:
+
+::: code-group
+
+```sh [npm]
+npm i @marplex/hono-azurefunc-adapter hono
+```
+
+```sh [yarn]
+yarn add @marplex/hono-azurefunc-adapter hono
+```
+
+```sh [pnpm]
+pnpm add @marplex/hono-azurefunc-adapter hono
+```
+
+```sh [bun]
+bun add @marplex/hono-azurefunc-adapter hono
+```
+
+:::
+
+## 3. Hello World
+
+Create `src/app.ts`:
+
+```ts
+// src/app.ts
+import { Hono } from 'hono'
+const app = new Hono()
+
+app.get('/', (c) => c.text('Hello Azure Functions!'))
+
+export default app
+```
+
+Create `src/functions/httpTrigger.ts`:
+
+```ts
+// src/functions/httpTrigger.ts
+import { app } from '@azure/functions'
+import { azureHonoHandler } from '@marplex/hono-azurefunc-adapter'
+import honoApp from '../app'
+
+app.http('httpTrigger', {
+  methods: [
+    //Add all your supported HTTP methods here
+    'GET',
+    'POST',
+    'DELETE',
+    'PUT',
+  ],
+  authLevel: 'anonymous',
+  route: '{*proxy}',
+  handler: azureHonoHandler(honoApp.fetch),
+})
+```
+
+## 4. Run
+
+Run the development server locally. Then, access `http://localhost:7071` in your Web browser.
+
+::: code-group
+
+```sh [npm]
+npm run start
+```
+
+```sh [yarn]
+yarn start
+```
+
+```sh [pnpm]
+pnpm start
+```
+
+```sh [bun]
+bun run start
+```
+
+:::
+
+## 5. Deploy
+
+::: info
+Before you can deploy to Azure, you need to create some resources in your cloud infrastructure. Please visit the Microsoft documentation on [Create supporting Azure resources for your function](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?pivots=nodejs-model-v4&tabs=windows%2Cazure-cli%2Cbrowser#create-supporting-azure-resources-for-your-function)
+:::
+
+Build the project for deployment:
+
+::: code-group
+
+```sh [npm]
+npm run build
+```
+
+```sh [yarn]
+yarn build
+```
+
+```sh [pnpm]
+pnpm build
+```
+
+```sh [bun]
+bun run build
+```
+
+:::
+
+Deploy your project to the function app in Azure Cloud. Replace `<YourFunctionAppName>` with the name of your app.
+
+```sh
+func azure functionapp publish <YourFunctionAppName>
+```
+
+
+# Getting Started
+
+Using Hono is super easy. We can set up the project, write code, develop with a local server, and deploy quickly. The same code will work on any runtime, just with different entry points. Let's look at the basic usage of Hono.
+
+## Starter
+
+Starter templates are available for each platform. Use the following "create-hono" command.
+
+::: code-group
+
+```sh [npm]
+npm create hono@latest my-app
+```
+
+```sh [yarn]
+yarn create hono my-app
+```
+
+```sh [pnpm]
+pnpm create hono@latest my-app
+```
+
+```sh [bun]
+bun create hono@latest my-app
+```
+
+```sh [deno]
+deno init --npm hono@latest my-app
+```
+
+:::
+
+Then you will be asked which template you would like to use.
+Let's select Cloudflare Workers for this example.
+
+```
+? Which template do you want to use?
+    aws-lambda
+    bun
+    cloudflare-pages
+❯   cloudflare-workers
+    deno
+    fastly
+    nextjs
+    nodejs
+    vercel
+```
+
+The template will be pulled into `my-app`, so go to it and install the dependencies.
+
+::: code-group
+
+```sh [npm]
+cd my-app
+npm i
+```
+
+```sh [yarn]
+cd my-app
+yarn
+```
+
+```sh [pnpm]
+cd my-app
+pnpm i
+```
+
+```sh [bun]
+cd my-app
+bun i
+```
+
+:::
+
+Once the package installation is complete, run the following command to start up a local server.
+
+::: code-group
+
+```sh [npm]
+npm run dev
+```
+
+```sh [yarn]
+yarn dev
+```
+
+```sh [pnpm]
+pnpm dev
+```
+
+```sh [bun]
+bun run dev
+```
+
+:::
+
+## Hello World
+
+You can write code in TypeScript with the Cloudflare Workers development tool "Wrangler", Deno, Bun, or others without being aware of transpiling.
+
+Write your first application with Hono in `src/index.ts`. The example below is a starter Hono application.
+
+The `import` and the final `export default` parts may vary from runtime to runtime,
+but all of the application code will run the same code everywhere.
+
+```ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.get('/', (c) => {
+  return c.text('Hello Hono!')
+})
+
+export default app
+```
+
+Start the development server and access `http://localhost:8787` with your browser.
+
+::: code-group
+
+```sh [npm]
+npm run dev
+```
+
+```sh [yarn]
+yarn dev
+```
+
+```sh [pnpm]
+pnpm dev
+```
+
+```sh [bun]
+bun run dev
+```
+
+:::
+
+## Return JSON
+
+Returning JSON is also easy. The following is an example of handling a GET Request to `/api/hello` and returning an `application/json` Response.
+
+```ts
+app.get('/api/hello', (c) => {
+  return c.json({
+    ok: true,
+    message: 'Hello Hono!',
+  })
+})
+```
+
+## Request and Response
+
+Getting a path parameter, URL query value, and appending a Response header is written as follows.
+
+```ts
+app.get('/posts/:id', (c) => {
+  const page = c.req.query('page')
+  const id = c.req.param('id')
+  c.header('X-Message', 'Hi!')
+  return c.text(`You want to see ${page} of ${id}`)
+})
+```
+
+We can easily handle POST, PUT, and DELETE not only GET.
+
+```ts
+app.post('/posts', (c) => c.text('Created!', 201))
+app.delete('/posts/:id', (c) =>
+  c.text(`${c.req.param('id')} is deleted!`)
+)
+```
+
+## Return HTML
+
+You can write HTML with [the html Helper](/docs/helpers/html) or using [JSX](/docs/guides/jsx) syntax. If you want to use JSX, rename the file to `src/index.tsx` and configure it (check with each runtime as it is different). Below is an example using JSX.
+
+```tsx
+const View = () => {
+  return (
+    <html>
+      <body>
+        <h1>Hello Hono!</h1>
+      </body>
+    </html>
+  )
+}
+
+app.get('/page', (c) => {
+  return c.html(<View />)
+})
+```
+
+## Return raw Response
+
+You can also return the raw [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response).
+
+```ts
+app.get('/', () => {
+  return new Response('Good morning!')
+})
+```
+
+## Using Middleware
+
+Middleware can do the hard work for you.
+For example, add in Basic Authentication.
+
+```ts
+import { basicAuth } from 'hono/basic-auth'
+
+// ...
+
+app.use(
+  '/admin/*',
+  basicAuth({
+    username: 'admin',
+    password: 'secret',
+  })
+)
+
+app.get('/admin', (c) => {
+  return c.text('You are authorized!')
+})
+```
+
+There are useful built-in middleware including Bearer and authentication using JWT, CORS and ETag.
+Hono also provides third-party middleware using external libraries such as GraphQL Server and Firebase Auth.
+And, you can make your own middleware.
+
+## Adapter
+
+There are Adapters for platform-dependent functions, e.g., handling static files or WebSocket.
+For example, to handle WebSocket in Cloudflare Workers, import `hono/cloudflare-workers`.
+
+```ts
+import { upgradeWebSocket } from 'hono/cloudflare-workers'
+
+app.get(
+  '/ws',
+  upgradeWebSocket((c) => {
+    // ...
+  })
+)
+```
+
+## Next step
+
+Most code will work on any platform, but there are guides for each.
+For instance, how to set up projects or how to deploy.
+Please see the page for the exact platform you want to use to create your application!
+
+
+# Bun
+
+[Bun](https://bun.sh) is another JavaScript runtime. It's not Node.js or Deno. Bun includes a trans compiler, we can write the code with TypeScript.
+Hono also works on Bun.
+
+## 1. Install Bun
+
+To install `bun` command, follow the instruction in [the official web site](https://bun.sh).
+
+## 2. Setup
+
+### 2.1. Setup a new project
+
+A starter for Bun is available. Start your project with "bun create" command.
+Select `bun` template for this example.
+
+```sh
+bun create hono@latest my-app
+```
+
+Move into my-app and install the dependencies.
+
+```sh
+cd my-app
+bun install
+```
+
+### 2.2. Setup an existing project
+
+On an existing Bun project, we only need to install `hono` dependencies on the project root directory via
+
+```sh
+bun add hono
+```
+
+## 3. Hello World
+
+"Hello World" script is below. Almost the same as writing on other platforms.
+
+```ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+app.get('/', (c) => c.text('Hello Bun!'))
+
+export default app
+```
+
+## 4. Run
+
+Run the command.
+
+```sh
+bun run dev
+```
+
+Then, access `http://localhost:3000` in your browser.
+
+## Change port number
+
+You can specify the port number with exporting the `port`.
+
+<!-- prettier-ignore -->
+```ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+app.get('/', (c) => c.text('Hello Bun!'))
+
+export default app // [!code --]
+export default { // [!code ++]
+  port: 3000, // [!code ++]
+  fetch: app.fetch, // [!code ++]
+} // [!code ++]
+```
+
+## Serve static files
+
+To serve static files, use `serveStatic` imported from `hono/bun`.
+
+```ts
+import { serveStatic } from 'hono/bun'
+
+const app = new Hono()
+
+app.use('/static/*', serveStatic({ root: './' }))
+app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
+app.get('/', (c) => c.text('You can access: /static/hello.txt'))
+app.get('*', serveStatic({ path: './static/fallback.txt' }))
+```
+
+For the above code, it will work well with the following directory structure.
+
+```
+./
+├── favicon.ico
+├── src
+└── static
+    ├── demo
+    │   └── index.html
+    ├── fallback.txt
+    ├── hello.txt
+    └── images
+        └── dinotocat.png
+```
+
+### `rewriteRequestPath`
+
+If you want to map `http://localhost:3000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    root: './',
+    rewriteRequestPath: (path) =>
+      path.replace(/^\/static/, '/statics'),
+  })
+)
+```
+
+### `mimes`
+
+You can add MIME types with `mimes`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    mimes: {
+      m3u8: 'application/vnd.apple.mpegurl',
+      ts: 'video/mp2t',
+    },
+  })
+)
+```
+
+### `onFound`
+
+You can specify handling when the requested file is found with `onFound`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    // ...
+    onFound: (_path, c) => {
+      c.header('Cache-Control', `public, immutable, max-age=31536000`)
+    },
+  })
+)
+```
+
+### `onNotFound`
+
+You can specify handling when the requested file is not found with `onNotFound`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    onNotFound: (path, c) => {
+      console.log(`${path} is not found, you access ${c.req.path}`)
+    },
+  })
+)
+```
+
+### `precompressed`
+
+The `precompressed` option checks if files with extensions like `.br` or `.gz` are available and serves them based on the `Accept-Encoding` header. It prioritizes Brotli, then Zstd, and Gzip. If none are available, it serves the original file.
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    precompressed: true,
+  })
+)
+```
+
+## Testing
+
+You can use `bun:test` for testing on Bun.
+
+```ts
+import { describe, expect, it } from 'bun:test'
+import app from '.'
+
+describe('My first test', () => {
+  it('Should return 200 Response', async () => {
+    const req = new Request('http://localhost/')
+    const res = await app.fetch(req)
+    expect(res.status).toBe(200)
+  })
+})
+```
+
+Then, run the command.
+
+```sh
+bun test index.test.ts
+```
+
+
+# Cloudflare Pages
+
+[Cloudflare Pages](https://pages.cloudflare.com) is an edge platform for full-stack web applications.
+It serves static files and dynamic content provided by Cloudflare Workers.
+
+Hono fully supports Cloudflare Pages.
+It introduces a delightful developer experience. Vite's dev server is fast, and deploying with Wrangler is super quick.
+
+## 1. Setup
+
+A starter for Cloudflare Pages is available.
+Start your project with "create-hono" command.
+Select `cloudflare-pages` template for this example.
+
+::: code-group
+
+```sh [npm]
+npm create hono@latest my-app
+```
+
+```sh [yarn]
+yarn create hono my-app
+```
+
+```sh [pnpm]
+pnpm create hono my-app
+```
+
+```sh [bun]
+bun create hono@latest my-app
+```
+
+```sh [deno]
+deno init --npm hono my-app
+```
+
+:::
+
+Move into `my-app` and install the dependencies.
+
+::: code-group
+
+```sh [npm]
+cd my-app
+npm i
+```
+
+```sh [yarn]
+cd my-app
+yarn
+```
+
+```sh [pnpm]
+cd my-app
+pnpm i
+```
+
+```sh [bun]
+cd my-app
+bun i
+```
+
+:::
+
+Below is a basic directory structure.
+
+```text
+./
+├── package.json
+├── public
+│   └── static // Put your static files.
+│       └── style.css // You can refer to it as `/static/style.css`.
+├── src
+│   ├── index.tsx // The entry point for server-side.
+│   └── renderer.tsx
+├── tsconfig.json
+└── vite.config.ts
+```
+
+## 2. Hello World
+
+Edit `src/index.tsx` like the following:
+
+```tsx
+import { Hono } from 'hono'
+import { renderer } from './renderer'
+
+const app = new Hono()
+
+app.get('*', renderer)
+
+app.get('/', (c) => {
+  return c.render(<h1>Hello, Cloudflare Pages!</h1>)
+})
+
+export default app
+```
+
+## 3. Run
+
+Run the development server locally. Then, access `http://localhost:5173` in your Web browser.
+
+::: code-group
+
+```sh [npm]
+npm run dev
+```
+
+```sh [yarn]
+yarn dev
+```
+
+```sh [pnpm]
+pnpm dev
+```
+
+```sh [bun]
+bun run dev
+```
+
+:::
+
+## 4. Deploy
+
+If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
+
+::: code-group
+
+```sh [npm]
+npm run deploy
+```
+
+```sh [yarn]
+yarn deploy
+```
+
+```sh [pnpm]
+pnpm run deploy
+```
+
+```sh [bun]
+bun run deploy
+```
+
+:::
+
+### Deploy via the Cloudflare dashboard with GitHub
+
+1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
+2. In Account Home, select Workers & Pages > Create application > Pages > Connect to Git.
+3. Authorize your GitHub account, and select the repository. In Set up builds and deployments, provide the following information:
+
+| Configuration option | Value           |
+| -------------------- | --------------- |
+| Production branch    | `main`          |
+| Build command        | `npm run build` |
+| Build directory      | `dist`          |
+
+## Bindings
+
+You can use Cloudflare Bindings like Variables, KV, D1, and others.
+In this section, let's use Variables and KV.
+
+### Create `wrangler.toml`
+
+First, create `wrangler.toml` for local Bindings:
+
+```sh
+touch wrangler.toml
+```
+
+Edit `wrangler.toml`. Specify Variable with the name `MY_NAME`.
+
+```toml
+[vars]
+MY_NAME = "Hono"
+```
+
+### Create KV
+
+Next, make the KV. Run the following `wrangler` command:
+
+```sh
+wrangler kv namespace create MY_KV --preview
+```
+
+Note down the `preview_id` as the following output:
+
+```
+{ binding = "MY_KV", preview_id = "abcdef" }
+```
+
+Specify `preview_id` with the name of Bindings, `MY_KV`:
+
+```toml
+[[kv_namespaces]]
+binding = "MY_KV"
+id = "abcdef"
+```
+
+### Edit `vite.config.ts`
+
+Edit the `vite.config.ts`:
+
+```ts
+import devServer from '@hono/vite-dev-server'
+import adapter from '@hono/vite-dev-server/cloudflare'
+import build from '@hono/vite-cloudflare-pages'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    devServer({
+      entry: 'src/index.tsx',
+      adapter, // Cloudflare Adapter
+    }),
+    build(),
+  ],
+})
+```
+
+### Use Bindings in your application
+
+Use Variable and KV in your application. Set the types.
+
+```ts
+type Bindings = {
+  MY_NAME: string
+  MY_KV: KVNamespace
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+```
+
+Use them:
+
+```tsx
+app.get('/', async (c) => {
+  await c.env.MY_KV.put('name', c.env.MY_NAME)
+  const name = await c.env.MY_KV.get('name')
+  return c.render(<h1>Hello! {name}</h1>)
+})
+```
+
+### In production
+
+For Cloudflare Pages, you will use `wrangler.toml` for local development, but for production, you will set up Bindings in the dashboard.
+
+## Client-side
+
+You can write client-side scripts and import them into your application using Vite's features.
+If `/src/client.ts` is the entry point for the client, simply write it in the script tag.
+Additionally, `import.meta.env.PROD` is useful for detecting whether it's running on a dev server or in the build phase.
+
+```tsx
+app.get('/', (c) => {
+  return c.html(
+    <html>
+      <head>
+        {import.meta.env.PROD ? (
+          <script type='module' src='/static/client.js'></script>
+        ) : (
+          <script type='module' src='/src/client.ts'></script>
+        )}
+      </head>
+      <body>
+        <h1>Hello</h1>
+      </body>
+    </html>
+  )
+})
+```
+
+In order to build the script properly, you can use the example config file `vite.config.ts` as shown below.
+
+```ts
+import pages from '@hono/vite-cloudflare-pages'
+import devServer from '@hono/vite-dev-server'
+import { defineConfig } from 'vite'
+
+export default defineConfig(({ mode }) => {
+  if (mode === 'client') {
+    return {
+      build: {
+        rollupOptions: {
+          input: './src/client.ts',
+          output: {
+            entryFileNames: 'static/client.js',
+          },
+        },
+      },
+    }
+  } else {
+    return {
+      plugins: [
+        pages(),
+        devServer({
+          entry: 'src/index.tsx',
+        }),
+      ],
+    }
+  }
+})
+```
+
+You can run the following command to build the server and client script.
+
+```sh
+vite build --mode client && vite build
+```
+
+## Cloudflare Pages Middleware
+
+Cloudflare Pages uses its own [middleware](https://developers.cloudflare.com/pages/functions/middleware/) system that is different from Hono's middleware. You can enable it by exporting `onRequest` in a file named `_middleware.ts` like this:
+
+```ts
+// functions/_middleware.ts
+export async function onRequest(pagesContext) {
+  console.log(`You are accessing ${pagesContext.request.url}`)
+  return await pagesContext.next()
+}
+```
+
+Using `handleMiddleware`, you can use Hono's middleware as Cloudflare Pages middleware.
+
+```ts
+// functions/_middleware.ts
+import { handleMiddleware } from 'hono/cloudflare-pages'
+
+export const onRequest = handleMiddleware(async (c, next) => {
+  console.log(`You are accessing ${c.req.url}`)
+  await next()
+})
+```
+
+You can also use built-in and 3rd party middleware for Hono. For example, to add Basic Authentication, you can use [Hono's Basic Authentication Middleware](/docs/middleware/builtin/basic-auth).
+
+```ts
+// functions/_middleware.ts
+import { handleMiddleware } from 'hono/cloudflare-pages'
+import { basicAuth } from 'hono/basic-auth'
+
+export const onRequest = handleMiddleware(
+  basicAuth({
+    username: 'hono',
+    password: 'acoolproject',
+  })
+)
+```
+
+If you want to apply multiple middleware, you can write it like this:
+
+```ts
+import { handleMiddleware } from 'hono/cloudflare-pages'
+
+// ...
+
+export const onRequest = [
+  handleMiddleware(middleware1),
+  handleMiddleware(middleware2),
+  handleMiddleware(middleware3),
+]
+```
+
+### Accessing `EventContext`
+
+You can access [`EventContext`](https://developers.cloudflare.com/pages/functions/api-reference/#eventcontext) object via `c.env` in `handleMiddleware`.
+
+```ts
+// functions/_middleware.ts
+import { handleMiddleware } from 'hono/cloudflare-pages'
+
+export const onRequest = [
+  handleMiddleware(async (c, next) => {
+    c.env.eventContext.data.user = 'Joe'
+    await next()
+  }),
+]
+```
+
+Then, you can access the data value in via `c.env.eventContext` in the handler:
+
+```ts
+// functions/api/[[route]].ts
+import type { EventContext } from 'hono/cloudflare-pages'
+import { handle } from 'hono/cloudflare-pages'
+
+// ...
+
+type Env = {
+  Bindings: {
+    eventContext: EventContext
+  }
+}
+
+const app = new Hono<Env>()
+
+app.get('/hello', (c) => {
+  return c.json({
+    message: `Hello, ${c.env.eventContext.data.user}!`, // 'Joe'
+  })
+})
+
+export const onRequest = handle(app)
+```
+
+
+# Cloudflare Workers
+
+[Cloudflare Workers](https://workers.cloudflare.com) is a JavaScript edge runtime on Cloudflare CDN.
+
+You can develop the application locally and publish it with a few commands using [Wrangler](https://developers.cloudflare.com/workers/wrangler/).
+Wrangler includes trans compiler, so we can write the code with TypeScript.
+
+Let’s make your first application for Cloudflare Workers with Hono.
+
+## 1. Setup
+
+A starter for Cloudflare Workers is available.
+Start your project with "create-hono" command.
+Select `cloudflare-workers` template for this example.
+
+::: code-group
+
+```sh [npm]
+npm create hono@latest my-app
+```
+
+```sh [yarn]
+yarn create hono my-app
+```
+
+```sh [pnpm]
+pnpm create hono my-app
+```
+
+```sh [bun]
+bun create hono@latest my-app
+```
+
+```sh [deno]
+deno init --npm hono my-app
+```
+
+:::
+
+Move to `my-app` and install the dependencies.
+
+::: code-group
+
+```sh [npm]
+cd my-app
+npm i
+```
+
+```sh [yarn]
+cd my-app
+yarn
+```
+
+```sh [pnpm]
+cd my-app
+pnpm i
+```
+
+```sh [bun]
+cd my-app
+bun i
+```
+
+:::
+
+## 2. Hello World
+
+Edit `src/index.ts` like below.
+
+```ts
+import { Hono } from 'hono'
+const app = new Hono()
+
+app.get('/', (c) => c.text('Hello Cloudflare Workers!'))
+
+export default app
+```
+
+## 3. Run
+
+Run the development server locally. Then, access `http://localhost:8787` in your web browser.
+
+::: code-group
+
+```sh [npm]
+npm run dev
+```
+
+```sh [yarn]
+yarn dev
+```
+
+```sh [pnpm]
+pnpm dev
+```
+
+```sh [bun]
+bun run dev
+```
+
+:::
+
+### Change port number
+
+If you need to change the port number you can follow the instructions here to update `wrangler.toml` / `wrangler.json` / `wrangler.jsonc` files:
+[Wrangler Configuration](https://developers.cloudflare.com/workers/wrangler/configuration/#local-development-settings)
+
+Or, you can follow the instructions here to set CLI options:
+[Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/commands/#dev)
+
+## 4. Deploy
+
+If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
+
+::: code-group
+
+```sh [npm]
+npm run deploy
+```
+
+```sh [yarn]
+yarn deploy
+```
+
+```sh [pnpm]
+pnpm run deploy
+```
+
+```sh [bun]
+bun run deploy
+```
+
+:::
+
+That's all!
+
+## Service Worker mode or Module Worker mode
+
+There are two syntaxes for writing the Cloudflare Workers. _Module Worker mode_ and _Service Worker mode_. Using Hono, you can write with both syntax, but we recommend using Module Worker mode so that binding variables are localized.
+
+```ts
+// Module Worker
+export default app
+```
+
+```ts
+// Service Worker
+app.fire()
+```
+
+## Using Hono with other event handlers
+
+You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_.
+
+To do this, export `app.fetch` as the module's `fetch` handler, and then implement other handlers as needed:
+
+```ts
+const app = new Hono()
+
+export default {
+  fetch: app.fetch,
+  scheduled: async (batch, env) => {},
+}
+```
+
+## Serve static files
+
+If you want to serve static files, you can use [the Static Assets feature](https://developers.cloudflare.com/workers/static-assets/) of Cloudflare Workers. Specify the directory for the files in `wrangler.toml`:
+
+```toml
+assets = { directory = "public" }
+```
+
+Then create the `public` directory and place the files there. For instance, `./public/static/hello.txt` will be served as `/static/hello.txt`.
+
+```
+.
+├── package.json
+├── public
+│   ├── favicon.ico
+│   └── static
+│       └── hello.txt
+├── src
+│   └── index.ts
+└── wrangler.toml
+```
+
+## Types
+
+You have to install `@cloudflare/workers-types` if you want to have workers types.
+
+::: code-group
+
+```sh [npm]
+npm i --save-dev @cloudflare/workers-types
+```
+
+```sh [yarn]
+yarn add -D @cloudflare/workers-types
+```
+
+```sh [pnpm]
+pnpm add -D @cloudflare/workers-types
+```
+
+```sh [bun]
+bun add --dev @cloudflare/workers-types
+```
+
+:::
+
+## Testing
+
+For testing, we recommend using `@cloudflare/vitest-pool-workers`.
+Refer to [examples](https://github.com/honojs/examples) for setting it up.
+
+If there is the application below.
+
+```ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+app.get('/', (c) => c.text('Please test me!'))
+```
+
+We can test if it returns "_200 OK_" Response with this code.
+
+```ts
+describe('Test the application', () => {
+  it('Should return 200 response', async () => {
+    const res = await app.request('http://localhost/')
+    expect(res.status).toBe(200)
+  })
+})
+```
+
+## Bindings
+
+In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "_type struct_" for the bindings to the `Hono` as generics.
+
+```ts
+type Bindings = {
+  MY_BUCKET: R2Bucket
+  USERNAME: string
+  PASSWORD: string
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+// Access to environment values
+app.put('/upload/:key', async (c, next) => {
+  const key = c.req.param('key')
+  await c.env.MY_BUCKET.put(key, c.req.body)
+  return c.text(`Put ${key} successfully!`)
+})
+```
+
+## Using Variables in Middleware
+
+This is the only case for Module Worker mode.
+If you want to use Variables or Secret Variables in Middleware, for example, "username" or "password" in Basic Authentication Middleware, you need to write like the following.
+
+```ts
+import { basicAuth } from 'hono/basic-auth'
+
+type Bindings = {
+  USERNAME: string
+  PASSWORD: string
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+//...
+
+app.use('/auth/*', async (c, next) => {
+  const auth = basicAuth({
+    username: c.env.USERNAME,
+    password: c.env.PASSWORD,
+  })
+  return auth(c, next)
+})
+```
+
+The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.
+
+## Deploy from GitHub Actions
+
+Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
+
+If it's a newly created token, select the **Edit Cloudflare Workers** template, if you have already another token, make sure the token has the corresponding permissions(No, token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
+
+then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
+
+then create `.github/workflows/deploy.yml` in your Hono project root folder,paste the following code:
+
+```yml
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+```
+
+then edit `wrangler.toml`, and add this code after `compatibility_date` line.
+
+```toml
+main = "src/index.ts"
+minify = true
+```
+
+Everything is ready! Now push the code and enjoy it.
+
+## Load env when local development
+
+To configure the environment variables for local development, create the `.dev.vars` file in the root directory of the project.
+Then configure your environment variables as you would with a normal env file.
+
+```
+SECRET_KEY=value
+API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+```
+
+> For more about this section you can find in the Cloudflare documentation:
+> https://developers.cloudflare.com/workers/wrangler/configuration/#secrets
+
+Then we use the `c.env.*` to get the environment variables in our code.  
+**For Cloudflare Workers, environment variables must be obtained via `c`, not via `process.env`.**
+
+```ts
+type Bindings = {
+  SECRET_KEY: string
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/env', (c) => {
+  const SECRET_KEY = c.env.SECRET_KEY
+  return c.text(SECRET_KEY)
+})
+```
+
+Before you deploy your project to cloudflare, remember to set the environment variable/secrets in the Cloudflare Workers project's configuration.
+
+> For more about this section you can find in the Cloudflare documentation:
+> https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard
+
+
+# Deno
+
+[Deno](https://deno.com/) is a JavaScript runtime built on V8. It's not Node.js.
+Hono also works on Deno.
+
+You can use Hono, write the code with TypeScript, run the application with the `deno` command, and deploy it to "Deno Deploy".
+
+## 1. Install Deno
+
+First, install `deno` command.
+Please refer to [the official document](https://docs.deno.com/runtime/manual/getting_started/installation).
+
+## 2. Setup
+
+A starter for Deno is available.
+Start your project with "create-hono" command.
+
+```sh
+deno init --npm hono my-app
+```
+
+Select `deno` template for this example.
+
+Move into `my-app`. For Deno, you don't have to install Hono explicitly.
+
+```sh
+cd my-app
+```
+
+## 3. Hello World
+
+Write your first application.
+
+```ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.get('/', (c) => c.text('Hello Deno!'))
+
+Deno.serve(app.fetch)
+```
+
+## 4. Run
+
+Just this command:
+
+```sh
+deno task start
+```
+
+## Change port number
+
+You can specify the port number by updating the arguments of `Deno.serve` in `main.ts`:
+
+```ts
+Deno.serve(app.fetch) // [!code --]
+Deno.serve({ port: 8787 }, app.fetch) // [!code ++]
+```
+
+## Serve static files
+
+To serve static files, use `serveStatic` imported from `hono/middleware.ts`.
+
+```ts
+import { Hono } from 'hono'
+import { serveStatic } from 'hono/deno'
+
+const app = new Hono()
+
+app.use('/static/*', serveStatic({ root: './' }))
+app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
+app.get('/', (c) => c.text('You can access: /static/hello.txt'))
+app.get('*', serveStatic({ path: './static/fallback.txt' }))
+
+Deno.serve(app.fetch)
+```
+
+For the above code, it will work well with the following directory structure.
+
+```
+./
+├── favicon.ico
+├── index.ts
+└── static
+    ├── demo
+    │   └── index.html
+    ├── fallback.txt
+    ├── hello.txt
+    └── images
+        └── dinotocat.png
+```
+
+### `rewriteRequestPath`
+
+If you want to map `http://localhost:8000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    root: './',
+    rewriteRequestPath: (path) =>
+      path.replace(/^\/static/, '/statics'),
+  })
+)
+```
+
+### `mimes`
+
+You can add MIME types with `mimes`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    mimes: {
+      m3u8: 'application/vnd.apple.mpegurl',
+      ts: 'video/mp2t',
+    },
+  })
+)
+```
+
+### `onFound`
+
+You can specify handling when the requested file is found with `onFound`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    // ...
+    onFound: (_path, c) => {
+      c.header('Cache-Control', `public, immutable, max-age=31536000`)
+    },
+  })
+)
+```
+
+### `onNotFound`
+
+You can specify handling when the requested file is not found with `onNotFound`:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    onNotFound: (path, c) => {
+      console.log(`${path} is not found, you access ${c.req.path}`)
+    },
+  })
+)
+```
+
+### `precompressed`
+
+The `precompressed` option checks if files with extensions like `.br` or `.gz` are available and serves them based on the `Accept-Encoding` header. It prioritizes Brotli, then Zstd, and Gzip. If none are available, it serves the original file.
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    precompressed: true,
+  })
+)
+```
+
+## Deno Deploy
+
+Deno Deploy is an edge runtime platform for Deno.
+We can publish the application world widely on Deno Deploy.
+
+Hono also supports Deno Deploy. Please refer to [the official document](https://docs.deno.com/deploy/manual/).
+
+## Testing
+
+Testing the application on Deno is easy.
+You can write with `Deno.test` and use `assert` or `assertEquals` from [@std/assert](https://jsr.io/@std/assert).
+
+```sh
+deno add jsr:@std/assert
+```
+
+```ts
+import { Hono } from 'hono'
+import { assertEquals } from '@std/assert'
+
+Deno.test('Hello World', async () => {
+  const app = new Hono()
+  app.get('/', (c) => c.text('Please test me'))
+
+  const res = await app.request('http://localhost/')
+  assertEquals(res.status, 200)
+})
+```
+
+Then run the command:
+
+```sh
+deno test hello.ts
+```
+
+## `npm:` specifier
+
+`npm:hono` is also available. You can use it by fixing the `deno.json`:
+
+```json
+{
+  "imports": {
+    "hono": "jsr:@hono/hono" // [!code --]
+    "hono": "npm:hono" // [!code ++]
+  }
+}
+```
+
+You can use either `npm:hono` or `jsr:@hono/hono`.
+
+If you want to use Third-party Middleware such as `npm:@hono/zod-validator` with the TypeScript Type inferences, you need to use the `npm:` specifier.
+
+```json
+{
+  "imports": {
+    "hono": "npm:hono",
+    "zod": "npm:zod",
+    "@hono/zod-validator": "npm:@hono/zod-validator"
+  }
+}
+```
+
+
+# Fastly Compute
+
+[Fastly's Compute](https://www.fastly.com/products/edge-compute) offering allows us to build high scale, globally distributed applications and execute code at the edge of Fastly CDN.
+
+Hono also works on Fastly Compute.
+
+## 1. Install CLI
+
+To use Fastly Compute, you must [create a Fastly account](https://www.fastly.com/signup/) if you don't already have one.
+Then, install [Fastly CLI](https://github.com/fastly/cli).
+
+macOS
+
+```sh
+brew install fastly/tap/fastly
+```
+
+Follow this link for other OS:
+
+- [Compute services | Fastly Developer Hub](https://developer.fastly.com/learning/compute/#download-and-install-the-fastly-cli)
+
+## 2. Setup
+
+A starter for Fastly Compute is available.
+Start your project with "create-hono" command.
+Select `fastly` template for this example.
+
+::: code-group
+
+```sh [npm]
+npm create hono@latest my-app
+```
+
+```sh [yarn]
+yarn create hono my-app
+```
+
+```sh [pnpm]
+pnpm create hono my-app
+```
+
+```sh [bun]
+bun create hono@latest my-app
+```
+
+```sh [deno]
+deno init --npm hono my-app
+```
+
+:::
+
+Move to `my-app` and install the dependencies.
+
+::: code-group
+
+```sh [npm]
+cd my-app
+npm i
+```
+
+```sh [yarn]
+cd my-app
+yarn
+```
+
+```sh [pnpm]
+cd my-app
+pnpm i
+```
+
+```sh [bun]
+cd my-app
+bun i
+```
+
+:::
+
+## 3. Hello World
+
+Edit `src/index.ts`:
+
+```ts
+// src/index.ts
+import { Hono } from 'hono'
+const app = new Hono()
+
+app.get('/', (c) => c.text('Hello Fastly!'))
+
+app.fire()
+```
+
+## 4. Run
+
+Run the development server locally. Then, access `http://localhost:7676` in your Web browser.
+
+::: code-group
+
+```sh [npm]
+npm run dev
+```
+
+```sh [yarn]
+yarn dev
+```
+
+```sh [pnpm]
+pnpm dev
+```
+
+```sh [bun]
+bun run dev
+```
+
+:::
+
+## 4. Deploy
+
+::: code-group
+
+```sh [npm]
+npm run deploy
+```
+
+```sh [yarn]
+yarn deploy
+```
+
+```sh [pnpm]
+pnpm deploy
+```
+
+```sh [bun]
+bun run deploy
+```
+
+:::
+
+That's all!!
+
+
+# Lambda@Edge
+
+[Lambda@Edge](https://aws.amazon.com/lambda/edge/) is a serverless platform by Amazon Web Services. It allows you to run Lambda functions at Amazon CloudFront's edge locations, enabling you to customize behaviors for HTTP requests/responses.
+
+Hono supports Lambda@Edge with the Node.js 18+ environment.
+
+## 1. Setup
+
+When creating the application on Lambda@Edge,
+[CDK](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html)
+is useful to setup the functions such as CloudFront, IAM Role, API Gateway, and others.
+
+Initialize your project with the `cdk` CLI.
+
+::: code-group
+
+```sh [npm]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+npm i hono
+mkdir lambda
+```
+
+```sh [yarn]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+yarn add hono
+mkdir lambda
+```
+
+```sh [pnpm]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+pnpm add hono
+mkdir lambda
+```
+
+```sh [bun]
+mkdir my-app
+cd my-app
+cdk init app -l typescript
+bun add hono
+mkdir lambda
+```
+
+:::
+
+## 2. Hello World
+
+Edit `lambda/index_edge.ts`.
+
+```ts
+import { Hono } from 'hono'
+import { handle } from 'hono/lambda-edge'
+
+const app = new Hono()
+
+app.get('/', (c) => c.text('Hello Hono on Lambda@Edge!'))
+
+export const handler = handle(app)
+```
+
+## 3. Deploy
+
+Edit `bin/my-app.ts`.
+
+```ts
+#!/usr/bin/env node
+import 'source-map-support/register'
+import * as cdk from 'aws-cdk-lib'
+import { MyAppStack } from '../lib/my-app-stack'
+
+const app = new cdk.App()
+new MyAppStack(app, 'MyAppStack', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: 'us-east-1',
+  },
+})
+```
+
+Edit `lambda/cdk-stack.ts`.
+
+```ts
+import { Construct } from 'constructs'
+import * as cdk from 'aws-cdk-lib'
+import * as cloudfront from 'aws-cdk-lib/aws-cloudfront'
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins'
+import * as lambda from 'aws-cdk-lib/aws-lambda'
+import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
+import * as s3 from 'aws-cdk-lib/aws-s3'
+
+export class MyAppStack extends cdk.Stack {
+  public readonly edgeFn: lambda.Function
+
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props)
+    const edgeFn = new NodejsFunction(this, 'edgeViewer', {
+      entry: 'lambda/index_edge.ts',
+      handler: 'handler',
+      runtime: lambda.Runtime.NODEJS_20_X,
+    })
+
+    // Upload any html
+    const originBucket = new s3.Bucket(this, 'originBucket')
+
+    new cloudfront.Distribution(this, 'Cdn', {
+      defaultBehavior: {
+        origin: new origins.S3Origin(originBucket),
+        edgeLambdas: [
+          {
+            functionVersion: edgeFn.currentVersion,
+            eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
+          },
+        ],
+      },
+    })
+  }
+}
+```
+
+Finally, run the command to deploy:
+
+```sh
+cdk deploy
+```
+
+## Callback
+
+If you want to add Basic Auth and continue with request processing after verification, you can use `c.env.callback()`
+
+```ts
+import { Hono } from 'hono'
+import { basicAuth } from 'hono/basic-auth'
+import type { Callback, CloudFrontRequest } from 'hono/lambda-edge'
+import { handle } from 'hono/lambda-edge'
+
+type Bindings = {
+  callback: Callback
+  request: CloudFrontRequest
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get(
+  '*',
+  basicAuth({
+    username: 'hono',
+    password: 'acoolproject',
+  })
+)
+
+app.get('/', async (c, next) => {
+  await next()
+  c.env.callback(null, c.env.request)
+})
+
+export const handler = handle(app)
+```
+
+
+# Netlify
+
+Netlify provides static site hosting and serverless backend services. [Edge Functions](https://docs.netlify.com/edge-functions/overview/) enables us make the web pages dynamic.
+
+Edge Functions support writing in Deno and TypeScript, and deployment is made easy through the [Netlify CLI](https://docs.netlify.com/cli/get-started/). With Hono, you can create the application for Netlify Edge Functions.
+
+## 1. Setup
+
+A starter for Netlify is available.
+Start your project with "create-hono" command.
+Select `netlify` template for this example.
+
+::: code-group
+
+```sh [npm]
+npm create hono@latest my-app
+```
+
+```sh [yarn]
+yarn create hono my-app
+```
+
+```sh [pnpm]
+pnpm create hono my-app
+```
+
+```sh [bun]
+bun create hono@latest my-app
+```
+
+```sh [deno]
+deno init --npm hono my-app
+```
+
+:::
+
+Move into `my-app`.
+
+## 2. Hello World
+
+Edit `netlify/edge-functions/index.ts`:
+
+```ts
+import { Hono } from 'jsr:@hono/hono'
+import { handle } from 'jsr:@hono/hono/netlify'
+
+const app = new Hono()
+
+app.get('/', (c) => {
+  return c.text('Hello Hono!')
+})
+
+export default handle(app)
+```
+
+## 3. Run
+
+Run the development server with Netlify CLI. Then, access `http://localhost:8888` in your Web browser.
+
+```sh
+netlify dev
+```
+
+## 4. Deploy
+
+You can deploy with a `netlify deploy` command.
+
+```sh
+netlify deploy --prod
+```
+
+## `Context`
+
+You can access the Netlify's `Context` through `c.env`:
+
+```ts
+import { Hono } from 'jsr:@hono/hono'
+import { handle } from 'jsr:@hono/hono/netlify'
+
+// Import the type definition
+import type { Context } from 'https://edge.netlify.com/'
+
+export type Env = {
+  Bindings: {
+    context: Context
+  }
+}
+
+const app = new Hono<Env>()
+
+app.get('/country', (c) =>
+  c.json({
+    'You are in': c.env.context.geo.country?.name,
+  })
+)
+
+export default handle(app)
+```
+
+
+# Node.js
+
+[Node.js](https://nodejs.org/) is an open-source, cross-platform JavaScript runtime environment.
+
+Hono was not designed for Node.js at first. But with a [Node.js Adapter](https://github.com/honojs/node-server) it can run on Node.js as well.
+
+::: info
+It works on Node.js versions greater than 18.x. The specific required Node.js versions are as follows:
+
+- 18.x => 18.14.1+
+- 19.x => 19.7.0+
+- 20.x => 20.0.0+
+
+Essentially, you can simply use the latest version of each major release.
+:::
+
+## 1. Setup
+
+A starter for Node.js is available.
+Start your project with "create-hono" command.
+Select `nodejs` template for this example.
+
+::: code-group
+
+```sh [npm]
+npm create hono@latest my-app
+```
+
+```sh [yarn]
+yarn create hono my-app
+```
+
+```sh [pnpm]
+pnpm create hono my-app
+```
+
+```sh [bun]
+bun create hono@latest my-app
+```
+
+```sh [deno]
+deno init --npm hono my-app
+```
+
+:::
+Move to `my-app` and install the dependencies.
+
+::: code-group
+
+```sh [npm]
+cd my-app
+npm i
+```
+
+```sh [yarn]
+cd my-app
+yarn
+```
+
+```sh [pnpm]
+cd my-app
+pnpm i
+```
+
+```sh [bun]
+cd my-app
+bun i
+```
+
+:::
+
+## 2. Hello World
+
+Edit `src/index.ts`:
+
+```ts
+import { serve } from '@hono/node-server'
+import { Hono } from 'hono'
+
+const app = new Hono()
+app.get('/', (c) => c.text('Hello Node.js!'))
+
+serve(app)
+```
+
+## 3. Run
+
+Run the development server locally. Then, access `http://localhost:3000` in your Web browser.
+
+::: code-group
+
+```sh [npm]
+npm run dev
+```
+
+```sh [yarn]
+yarn dev
+```
+
+```sh [pnpm]
+pnpm dev
+```
+
+:::
+
+## Change port number
+
+You can specify the port number with the `port` option.
+
+```ts
+serve({
+  fetch: app.fetch,
+  port: 8787,
+})
+```
+
+## Access the raw Node.js APIs
+
+You can access the Node.js APIs from `c.env.incoming` and `c.env.outgoing`.
+
+```ts
+import { Hono } from 'hono'
+import { serve, type HttpBindings } from '@hono/node-server'
+// or `Http2Bindings` if you use HTTP2
+
+type Bindings = HttpBindings & {
+  /* ... */
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+app.get('/', (c) => {
+  return c.json({
+    remoteAddress: c.env.incoming.socket.remoteAddress,
+  })
+})
+
+serve(app)
+```
+
+## Serve static files
+
+You can use `serveStatic` to serve static files from the local file system. For example, suppose the directory structure is as follows:
+
+```sh
+./
+├── favicon.ico
+├── index.ts
+└── static
+    ├── hello.txt
+    └── image.png
+```
+
+If access to the path `/static/*` comes in and returns a file under `./static`, you can write the following:
+
+```ts
+import { serveStatic } from '@hono/node-server/serve-static'
+
+app.use('/static/*', serveStatic({ root: './' }))
+```
+
+Use the `path` option to serve `favicon.ico` in the directory root:
+
+```ts
+app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
+```
+
+If access comes to the path `/hello.txt` or `/image.png` and returns a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
+
+```ts
+app.use('*', serveStatic({ root: './static' }))
+```
+
+### `rewriteRequestPath`
+
+If you want to map `http://localhost:3000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+
+```ts
+app.get(
+  '/static/*',
+  serveStatic({
+    root: './',
+    rewriteRequestPath: (path) =>
+      path.replace(/^\/static/, '/statics'),
+  })
+)
+```
+
+## http2
+
+You can run hono on a [Node.js http2 Server](https://nodejs.org/api/http2.html).
+
+### unencrypted http2
+
+```ts
+import { createServer } from 'node:http2'
+
+const server = serve({
+  fetch: app.fetch,
+  createServer,
+})
+```
+
+### encrypted http2
+
+```ts
+import { createSecureServer } from 'node:http2'
+import { readFileSync } from 'node:fs'
+
+const server = serve({
+  fetch: app.fetch,
+  createServer: createSecureServer,
+  serverOptions: {
+    key: readFileSync('localhost-privkey.pem'),
+    cert: readFileSync('localhost-cert.pem'),
+  },
+})
+```
+
+## Dockerfile
+
+Here is an example of a Dockerfile.
+
+```Dockerfile
+FROM node:20-alpine AS base
+
+FROM base AS builder
+
+RUN apk add --no-cache gcompat
+WORKDIR /app
+
+COPY package*json tsconfig.json src ./
+
+RUN npm ci && \
+    npm run build && \
+    npm prune --production
+
+FROM base AS runner
+WORKDIR /app
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 hono
+
+COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
+COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
+COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
+
+USER hono
+EXPOSE 3000
+
+CMD ["node", "/app/dist/index.js"]
+```
+
+The following steps shall be taken in advance.
+
+1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
+2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
+3. Add `"build": "tsc"` to `script` section of `package.json`.
+4. Run `npm install typescript --save-dev`.
+5. Add `"type": "module"` to `package.json`.
+
+
+# Service Worker
+
+[Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) is a script that runs in the background of the browser to handle tasks like caching and push notifications. Using a Service Worker adapter, you can run applications made with Hono as [FetchEvent](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent) handler within the browser.
+
+This page shows an example of creating a project using [Vite](https://vitejs.dev/).
+
+## 1. Setup
+
+First, create and move to your project directory:
+
+```sh
+mkdir my-app
+cd my-app
+```
+
+Create the necessary files for the project. Make a `package.json` file with the following:
+
+```json
+{
+  "name": "my-app",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev"
+  },
+  "type": "module"
+}
+```
+
+Similarly, create a `tsconfig.json` file with the following:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020", "DOM", "WebWorker"],
+    "moduleResolution": "bundler"
+  },
+  "include": ["./"],
+  "exclude": ["node_modules"]
+}
+```
+
+Next, install the necessary modules.
+
+::: code-group
+
+```sh [npm]
+npm i hono
+npm i -D vite
+```
+
+```sh [yarn]
+yarn add hono
+yarn add -D vite
+```
+
+```sh [pnpm]
+pnpm add hono
+pnpm add -D vite
+```
+
+```sh [bun]
+bun add hono
+bun add -D vite
+```
+
+:::
+
+## 2. Hello World
+
+Edit `index.html`:
+
+```html
+<!doctype html>
+<html>
+  <body>
+    <a href="/sw">Hello World by Service Worker</a>
+    <script type="module" src="/main.ts"></script>
+  </body>
+</html>
+```
+
+`main.ts` is a script to register the Service Worker:
+
+```ts
+function register() {
+  navigator.serviceWorker
+    .register('/sw.ts', { scope: '/sw', type: 'module' })
+    .then(
+      function (_registration) {
+        console.log('Register Service Worker: Success')
+      },
+      function (_error) {
+        console.log('Register Service Worker: Error')
+      }
+    )
+}
+function start() {
+  navigator.serviceWorker
+    .getRegistrations()
+    .then(function (registrations) {
+      for (const registration of registrations) {
+        console.log('Unregister Service Worker')
+        registration.unregister()
+      }
+      register()
+    })
+}
+start()
+```
+
+In `sw.ts`, create an application using Hono and register it to the `fetch` event with the Service Worker adapter’s `handle` function. This allows the Hono application to intercept access to `/sw`.
+
+```ts
+// To support types
+// https://github.com/microsoft/TypeScript/issues/14877
+declare const self: ServiceWorkerGlobalScope
+
+import { Hono } from 'hono'
+import { handle } from 'hono/service-worker'
+
+const app = new Hono().basePath('/sw')
+app.get('/', (c) => c.text('Hello World'))
+
+self.addEventListener('fetch', handle(app))
+```
+
+## 3. Run
+
+Start the development server.
+
+::: code-group
+
+```sh [npm]
+npm run dev
+```
+
+```sh [yarn]
+yarn dev
+```
+
+```sh [pnpm]
+pnpm run dev
+```
+
+```sh [bun]
+bun run dev
+```
+
+:::
+
+By default, the development server will run on port `5173`. Access `http://localhost:5173/` in your browser to complete the Service Worker registration. Then, access `/sw` to see the response from the Hono application.
+
+
+# Supabase Edge Functions
+
+[Supabase](https://supabase.com/) is an open-source alternative to Firebase, offering a suite of tools similar to Firebase's capabilities, including database, authentication, storage, and now, serverless functions.
+
+Supabase Edge Functions are server-side TypeScript functions that are distributed globally, running closer to your users for improved performance. These functions are developed using [Deno](https://deno.com/), which brings several benefits, including improved security and a modern JavaScript/TypeScript runtime.
+
+Here's how you can get started with Supabase Edge Functions:
+
+## 1. Setup
+
+### Prerequisites
+
+Before you begin, make sure you have the Supabase CLI installed. If you haven't installed it yet, follow the instructions in the [official documentation](https://supabase.com/docs/guides/cli/getting-started).
+
+### Creating a New Project
+
+1. Open your terminal or command prompt.
+
+2. Create a new Supabase project in a directory on your local machine by running:
+
+```bash
+supabase init
+
+```
+
+This command initializes a new Supabase project in the current directory.
+
+### Adding an Edge Function
+
+3. Inside your Supabase project, create a new Edge Function named `hello-world`:
+
+```bash
+supabase functions new hello-world
+
+```
+
+This command creates a new Edge Function with the specified name in your project.
+
+## 2. Hello World
+
+Edit the `hello-world` function by modifying the file `supabase/functions/hello-world/index.ts`:
+
+```ts
+import { Hono } from 'jsr:@hono/hono'
+
+// change this to your function name
+const functionName = 'hello-world'
+const app = new Hono().basePath(`/${functionName}`)
+
+app.get('/hello', (c) => c.text('Hello from hono-server!'))
+
+Deno.serve(app.fetch)
+```
+
+## 3. Run
+
+To run the function locally, use the following command:
+
+1. Use the following command to serve the function:
+
+```bash
+supabase start # start the supabase stack
+supabase functions serve --no-verify-jwt # start the Functions watcher
+```
+
+The `--no-verify-jwt` flag allows you to bypass JWT verification during local development.
+
+2. Make a GET request using cURL or Postman to `http://127.0.0.1:54321/functions/v1/hello-world/hello`:
+
+```bash
+curl  --location  'http://127.0.0.1:54321/functions/v1/hello-world/hello'
+```
+
+This request should return the text "Hello from hono-server!".
+
+## 4. Deploy
+
+You can deploy all of your Edge Functions in Supabase with a single command:
+
+```bash
+supabase functions deploy
+```
+
+Alternatively, you can deploy individual Edge Functions by specifying the name of the function in the deploy command:
+
+```bash
+supabase functions deploy hello-world
+
+```
+
+For more deployment methods, visit the Supabase documentation on [Deploying to Production](https://supabase.com/docs/guides/functions/deploy).
+
+
+# Vercel
+
+Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration. This section introduces Next.js running on Vercel.
+
+Next.js is a flexible React framework that gives you building blocks to create fast web applications.
+
+In Next.js, [Edge Functions](https://vercel.com/docs/concepts/functions/edge-functions) allows you to create dynamic APIs on Edge Runtime such as Vercel.
+With Hono, you can write APIs with the same syntax as other runtimes and use many middleware.
+
+## 1. Setup
+
+A starter for Next.js is available.
+Start your project with "create-hono" command.
+Select `nextjs` template for this example.
+
+::: code-group
+
+```sh [npm]
+npm create hono@latest my-app
+```
+
+```sh [yarn]
+yarn create hono my-app
+```
+
+```sh [pnpm]
+pnpm create hono my-app
+```
+
+```sh [bun]
+bun create hono@latest my-app
+```
+
+```sh [deno]
+deno init --npm hono my-app
+```
+
+:::
+
+Move into `my-app` and install the dependencies.
+
+::: code-group
+
+```sh [npm]
+cd my-app
+npm i
+```
+
+```sh [yarn]
+cd my-app
+yarn
+```
+
+```sh [pnpm]
+cd my-app
+pnpm i
+```
+
+```sh [bun]
+cd my-app
+bun i
+```
+
+:::
+
+## 2. Hello World
+
+If you use the App Router, Edit `app/api/[[...route]]/route.ts`. Refer to the [Supported HTTP Methods](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#supported-http-methods) section for more options.
+
+```ts
+import { Hono } from 'hono'
+import { handle } from 'hono/vercel'
+
+export const runtime = 'edge'
+
+const app = new Hono().basePath('/api')
+
+app.get('/hello', (c) => {
+  return c.json({
+    message: 'Hello Next.js!',
+  })
+})
+
+export const GET = handle(app)
+export const POST = handle(app)
+```
+
+If you use the Pages Router, Edit `pages/api/[[...route]].ts`.
+
+```ts
+import { Hono } from 'hono'
+import { handle } from 'hono/vercel'
+import type { PageConfig } from 'next'
+
+export const config: PageConfig = {
+  runtime: 'edge',
+}
+
+const app = new Hono().basePath('/api')
+
+app.get('/hello', (c) => {
+  return c.json({
+    message: 'Hello Next.js!',
+  })
+})
+
+export default handle(app)
+```
+
+## 3. Run
+
+Run the development server locally. Then, access `http://localhost:3000` in your Web browser.
+
+::: code-group
+
+```sh [npm]
+npm run dev
+```
+
+```sh [yarn]
+yarn dev
+```
+
+```sh [pnpm]
+pnpm dev
+```
+
+```sh [bun]
+bun run dev
+```
+
+:::
+
+Now, `/api/hello` just returns JSON, but if you build React UIs, you can create a full-stack application with Hono.
+
+## 4. Deploy
+
+If you have a Vercel account, you can deploy by linking the Git repository.
+
+## Node.js
+
+You can also run Hono on Next.js running on the Node.js runtime.
+
+### App Router
+
+For the App Router, you can simply set the runtime to `nodejs` in your route handler:
+
+```ts
+import { Hono } from 'hono'
+import { handle } from 'hono/vercel'
+
+export const runtime = 'nodejs'
+
+const app = new Hono().basePath('/api')
+
+app.get('/hello', (c) => {
+  return c.json({
+    message: 'Hello from Hono!',
+  })
+})
+
+export const GET = handle(app)
+export const POST = handle(app)
+```
+
+### Pages Router
+
+For the Pages Router, you'll need to install the Node.js adapter first:
+
+::: code-group
+
+```sh [npm]
+npm i @hono/node-server
+```
+
+```sh [yarn]
+yarn add @hono/node-server
+```
+
+```sh [pnpm]
+pnpm add @hono/node-server
+```
+
+```sh [bun]
+bun add @hono/node-server
+```
+
+:::
+
+Then, you can utilize the `handle` function imported from `@hono/node-server/vercel`:
+
+```ts
+import { Hono } from 'hono'
+import { handle } from '@hono/node-server/vercel'
+import type { PageConfig } from 'next'
+
+export const config: PageConfig = {
+  api: {
+    bodyParser: false,
+  },
+}
+
+const app = new Hono().basePath('/api')
+
+app.get('/hello', (c) => {
+  return c.json({
+    message: 'Hello from Hono!',
+  })
+})
+
+export default handle(app)
+```
+
+In order for this to work with the Pages Router, it's important to disable Vercel Node.js helpers by setting up an environment variable in your project dashboard or in your `.env` file:
+
+```text
+NODEJS_HELPERS=0
+```
+
+
+# Context
+
+To handle Request and Response, you can use `Context` object.
+
+## req
+
+`req` is the instance of HonoRequest. For more details, see [HonoRequest](/docs/api/request).
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/hello', (c) => {
+  const userAgent = c.req.header('User-Agent')
+  // ...
+  // ---cut-start---
+  return c.text(`Hello, ${userAgent}`)
+  // ---cut-end---
+})
+```
+
+## body()
+
+Return the HTTP response.
+
+You can set headers with `c.header()` and set HTTP status code with `c.status`.
+This can also be set in `c.text()`, `c.json()` and so on.
+
+::: info
+**Note**: When returning Text or HTML, it is recommended to use `c.text()` or `c.html()`.
+:::
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/welcome', (c) => {
+  // Set headers
+  c.header('X-Message', 'Hello!')
+  c.header('Content-Type', 'text/plain')
+
+  // Set HTTP status code
+  c.status(201)
+
+  // Return the response body
+  return c.body('Thank you for coming')
+})
+```
+
+You can also write the following.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/welcome', (c) => {
+  return c.body('Thank you for coming', 201, {
+    'X-Message': 'Hello!',
+    'Content-Type': 'text/plain',
+  })
+})
+```
+
+The Response is the same as below.
+
+```ts twoslash
+new Response('Thank you for coming', {
+  status: 201,
+  headers: {
+    'X-Message': 'Hello!',
+    'Content-Type': 'text/plain',
+  },
+})
+```
+
+## text()
+
+Render text as `Content-Type:text/plain`.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/say', (c) => {
+  return c.text('Hello!')
+})
+```
+
+## json()
+
+Render JSON as `Content-Type:application/json`.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/api', (c) => {
+  return c.json({ message: 'Hello!' })
+})
+```
+
+## html()
+
+Render HTML as `Content-Type:text/html`.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/', (c) => {
+  return c.html('<h1>Hello! Hono!</h1>')
+})
+```
+
+## notFound()
+
+Return the `Not Found` Response.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/notfound', (c) => {
+  return c.notFound()
+})
+```
+
+## redirect()
+
+Redirect, default status code is `302`.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/redirect', (c) => {
+  return c.redirect('/')
+})
+app.get('/redirect-permanently', (c) => {
+  return c.redirect('/', 301)
+})
+```
+
+## res
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+// Response object
+app.use('/', async (c, next) => {
+  await next()
+  c.res.headers.append('X-Debug', 'Debug message')
+})
+```
+
+## set() / get()
+
+Get and set arbitrary key-value pairs, with a lifetime of the current request. This allows passing specific values between middleware or from middleware to route handlers.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono<{ Variables: { message: string } }>()
+// ---cut---
+app.use(async (c, next) => {
+  c.set('message', 'Hono is cool!!')
+  await next()
+})
+
+app.get('/', (c) => {
+  const message = c.get('message')
+  return c.text(`The message is "${message}"`)
+})
+```
+
+Pass the `Variables` as Generics to the constructor of `Hono` to make it type-safe.
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+type Variables = {
+  message: string
+}
+
+const app = new Hono<{ Variables: Variables }>()
+```
+
+The value of `c.set` / `c.get` are retained only within the same request. They cannot be shared or persisted across different requests.
+
+## var
+
+You can also access the value of a variable with `c.var`.
+
+```ts twoslash
+import type { Context } from 'hono'
+declare const c: Context
+// ---cut---
+const result = c.var.client.oneMethod()
+```
+
+If you want to create the middleware which provides a custom method,
+write like the following:
+
+```ts twoslash
+import { Hono } from 'hono'
+import { createMiddleware } from 'hono/factory'
+// ---cut---
+type Env = {
+  Variables: {
+    echo: (str: string) => string
+  }
+}
+
+const app = new Hono()
+
+const echoMiddleware = createMiddleware<Env>(async (c, next) => {
+  c.set('echo', (str) => str)
+  await next()
+})
+
+app.get('/echo', echoMiddleware, (c) => {
+  return c.text(c.var.echo('Hello!'))
+})
+```
+
+If you want to use the middleware in multiple handlers, you can use `app.use()`.
+Then, you have to pass the `Env` as Generics to the constructor of `Hono` to make it type-safe.
+
+```ts twoslash
+import { Hono } from 'hono'
+import type { MiddlewareHandler } from 'hono/types'
+declare const echoMiddleware: MiddlewareHandler
+type Env = {
+  Variables: {
+    echo: (str: string) => string
+  }
+}
+// ---cut---
+const app = new Hono<Env>()
+
+app.use(echoMiddleware)
+
+app.get('/echo', (c) => {
+  return c.text(c.var.echo('Hello!'))
+})
+```
+
+## render() / setRenderer()
+
+You can set a layout using `c.setRenderer()` within a custom middleware.
+
+```tsx twoslash
+/** @jsx jsx */
+/** @jsxImportSource hono/jsx */
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.use(async (c, next) => {
+  c.setRenderer((content) => {
+    return c.html(
+      <html>
+        <body>
+          <p>{content}</p>
+        </body>
+      </html>
+    )
+  })
+  await next()
+})
+```
+
+Then, you can utilize `c.render()` to create responses within this layout.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/', (c) => {
+  return c.render('Hello!')
+})
+```
+
+The output of which will be:
+
+```html
+<html>
+  <body>
+    <p>Hello!</p>
+  </body>
+</html>
+```
+
+Additionally, this feature offers the flexibility to customize arguments.
+To ensure type safety, types can be defined as:
+
+```ts
+declare module 'hono' {
+  interface ContextRenderer {
+    (
+      content: string | Promise<string>,
+      head: { title: string }
+    ): Response | Promise<Response>
+  }
+}
+```
+
+Here's an example of how you can use this:
+
+```ts
+app.use('/pages/*', async (c, next) => {
+  c.setRenderer((content, head) => {
+    return c.html(
+      <html>
+        <head>
+          <title>{head.title}</title>
+        </head>
+        <body>
+          <header>{head.title}</header>
+          <p>{content}</p>
+        </body>
+      </html>
+    )
+  })
+  await next()
+})
+
+app.get('/pages/my-favorite', (c) => {
+  return c.render(<p>Ramen and Sushi</p>, {
+    title: 'My favorite',
+  })
+})
+
+app.get('/pages/my-hobbies', (c) => {
+  return c.render(<p>Watching baseball</p>, {
+    title: 'My hobbies',
+  })
+})
+```
+
+## executionCtx
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono<{
+  Bindings: {
+    KV: any
+  }
+}>()
+declare const key: string
+declare const data: string
+// ---cut---
+// ExecutionContext object
+app.get('/foo', async (c) => {
+  c.executionCtx.waitUntil(c.env.KV.put(key, data))
+  // ...
+})
+```
+
+## event
+
+```ts twoslash
+import { Hono } from 'hono'
+declare const key: string
+declare const data: string
+type KVNamespace = any
+// ---cut---
+// Type definition to make type inference
+type Bindings = {
+  MY_KV: KVNamespace
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+// FetchEvent object (only set when using Service Worker syntax)
+app.get('/foo', async (c) => {
+  c.event.waitUntil(c.env.MY_KV.put(key, data))
+  // ...
+})
+```
+
+## env
+
+In Cloudflare Workers Environment variables, secrets, KV namespaces, D1 database, R2 bucket etc. that are bound to a worker are known as bindings.
+Regardless of type, bindings are always available as global variables and can be accessed via the context `c.env.BINDING_KEY`.
+
+```ts twoslash
+import { Hono } from 'hono'
+type KVNamespace = any
+// ---cut---
+// Type definition to make type inference
+type Bindings = {
+  MY_KV: KVNamespace
+}
+
+const app = new Hono<{ Bindings: Bindings }>()
+
+// Environment object for Cloudflare Workers
+app.get('/', async (c) => {
+  c.env.MY_KV.get('my-key')
+  // ...
+})
+```
+
+## error
+
+If the Handler throws an error, the error object is placed in `c.error`.
+You can access it in your middleware.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.use(async (c, next) => {
+  await next()
+  if (c.error) {
+    // do something...
+  }
+})
+```
+
+## ContextVariableMap
+
+For instance, if you wish to add type definitions to variables when a specific middleware is used, you can extend `ContextVariableMap`. For example:
+
+```ts
+declare module 'hono' {
+  interface ContextVariableMap {
+    result: string
+  }
+}
+```
+
+You can then utilize this in your middleware:
+
+```ts twoslash
+import { createMiddleware } from 'hono/factory'
+// ---cut---
+const mw = createMiddleware(async (c, next) => {
+  c.set('result', 'some values') // result is a string
+  await next()
+})
+```
+
+In a handler, the variable is inferred as the proper type:
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono<{ Variables: { result: string } }>()
+// ---cut---
+app.get('/', (c) => {
+  const val = c.get('result') // val is a string
+  // ...
+  return c.json({ result: val })
+})
+```
+
+
+# Exception
+
+When a fatal error occurs, such as authentication failure, an HTTPException must be thrown.
+
+## throw HTTPException
+
+This example throws an HTTPException from the middleware.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+declare const authorized: boolean
+// ---cut---
+import { HTTPException } from 'hono/http-exception'
+
+// ...
+
+app.post('/auth', async (c, next) => {
+  // authentication
+  if (authorized === false) {
+    throw new HTTPException(401, { message: 'Custom error message' })
+  }
+  await next()
+})
+```
+
+You can specify the response to be returned back to the user.
+
+```ts twoslash
+import { HTTPException } from 'hono/http-exception'
+
+const errorResponse = new Response('Unauthorized', {
+  status: 401,
+  headers: {
+    Authenticate: 'error="invalid_token"',
+  },
+})
+
+throw new HTTPException(401, { res: errorResponse })
+```
+
+## Handling HTTPException
+
+You can handle the thrown HTTPException with `app.onError`.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+import { HTTPException } from 'hono/http-exception'
+
+// ...
+
+app.onError((err, c) => {
+  if (err instanceof HTTPException) {
+    // Get the custom response
+    return err.getResponse()
+  }
+  // ...
+  // ---cut-start---
+  return c.text('Error')
+  // ---cut-end---
+})
+```
+
+## `cause`
+
+The `cause` option is available to add a [`cause`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause) data.
+
+```ts twoslash
+import { Hono, Context } from 'hono'
+import { HTTPException } from 'hono/http-exception'
+const app = new Hono()
+declare const message: string
+declare const authorize: (c: Context) => void
+// ---cut---
+app.post('/auth', async (c, next) => {
+  try {
+    authorize(c)
+  } catch (e) {
+    throw new HTTPException(401, { message, cause: e })
+  }
+  await next()
+})
+```
+
+
+# App - Hono
+
+`Hono` is the primary object.
+It will be imported first and used until the end.
+
+```ts twoslash
+import { Hono } from 'hono'
+
+const app = new Hono()
+//...
+
+export default app // for Cloudflare Workers or Bun
+```
+
+## Methods
+
+An instance of `Hono` has the following methods.
+
+- app.**HTTP_METHOD**(\[path,\]handler|middleware...)
+- app.**all**(\[path,\]handler|middleware...)
+- app.**on**(method|method[], path|path[], handler|middleware...)
+- app.**use**(\[path,\]middleware)
+- app.**route**(path, \[app\])
+- app.**basePath**(path)
+- app.**notFound**(handler)
+- app.**onError**(err, handler)
+- app.**mount**(path, anotherApp)
+- app.**fire**()
+- app.**fetch**(request, env, event)
+- app.**request**(path, options)
+
+The first part of them is used for routing, please refer to the [routing section](/docs/api/routing).
+
+## Not Found
+
+`app.notFound` allows you to customize a Not Found Response.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.notFound((c) => {
+  return c.text('Custom 404 Message', 404)
+})
+```
+
+## Error Handling
+
+`app.onError` handles an error and returns a customized Response.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.onError((err, c) => {
+  console.error(`${err}`)
+  return c.text('Custom Error Message', 500)
+})
+```
+
+## fire()
+
+`app.fire()` automatically adds a global `fetch` event listener.
+
+This can be useful for environments that adhere to the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), such as [non-ES module Cloudflare Workers](https://developers.cloudflare.com/workers/reference/migrate-to-module-workers/).
+
+`app.fire()` executes the following for you:
+
+```ts
+addEventListener('fetch', (event: FetchEventLike): void => {
+  event.respondWith(this.dispatch(...))
+})
+```
+
+## fetch()
+
+`app.fetch` will be entry point of your application.
+
+For Cloudflare Workers, you can use the following:
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+type Env = any
+type ExecutionContext = any
+// ---cut---
+export default {
+  fetch(request: Request, env: Env, ctx: ExecutionContext) {
+    return app.fetch(request, env, ctx)
+  },
+}
+```
+
+or just do:
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+export default app
+```
+
+Bun:
+
+<!-- prettier-ignore -->
+```ts
+export default app // [!code --]
+export default {  // [!code ++]
+  port: 3000, // [!code ++]
+  fetch: app.fetch, // [!code ++]
+} // [!code ++]
+```
+
+## request()
+
+`request` is a useful method for testing.
+
+You can pass a URL or pathname to send a GET request.
+`app` will return a `Response` object.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+declare const test: (name: string, fn: () => void) => void
+declare const expect: (value: any) => any
+// ---cut---
+test('GET /hello is ok', async () => {
+  const res = await app.request('/hello')
+  expect(res.status).toBe(200)
+})
+```
+
+You can also pass a `Request` object:
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+declare const test: (name: string, fn: () => void) => void
+declare const expect: (value: any) => any
+// ---cut---
+test('POST /message is ok', async () => {
+  const req = new Request('Hello!', {
+    method: 'POST',
+  })
+  const res = await app.request(req)
+  expect(res.status).toBe(201)
+})
+```
+
+## mount()
+
+The `mount()` allows you to mount applications built with other frameworks into your Hono application.
+
+```ts
+import { Router as IttyRouter } from 'itty-router'
+import { Hono } from 'hono'
+
+// Create itty-router application
+const ittyRouter = IttyRouter()
+
+// Handle `GET /itty-router/hello`
+ittyRouter.get('/hello', () => new Response('Hello from itty-router'))
+
+// Hono application
+const app = new Hono()
+
+// Mount!
+app.mount('/itty-router', ittyRouter.handle)
+```
+
+## strict mode
+
+Strict mode defaults to `true` and distinguishes the following routes.
+
+- `/hello`
+- `/hello/`
+
+`app.get('/hello')` will not match `GET /hello/`.
+
+By setting strict mode to `false`, both paths will be treated equally.
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+const app = new Hono({ strict: false })
+```
+
+## router option
+
+The `router` option specifices which router to use. The default router is `SmartRouter`. If you want to use `RegExpRouter`, pass it to a new `Hono` instance:
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+import { RegExpRouter } from 'hono/router/reg-exp-router'
+
+const app = new Hono({ router: new RegExpRouter() })
+```
+
+## Generics
+
+You can pass Generics to specify the types of Cloudflare Workers Bindings and variables used in `c.set`/`c.get`.
+
+```ts twoslash
+import { Hono } from 'hono'
+type User = any
+declare const user: User
+// ---cut---
+type Bindings = {
+  TOKEN: string
+}
+
+type Variables = {
+  user: User
+}
+
+const app = new Hono<{
+  Bindings: Bindings
+  Variables: Variables
+}>()
+
+app.use('/auth/*', async (c, next) => {
+  const token = c.env.TOKEN // token is `string`
+  // ...
+  c.set('user', user) // user should be `User`
+  await next()
+})
+```
+
+
+# API
+
+Hono's API is simple.
+Just composed by extended objects from Web Standards.
+So, you can understand it well quickly.
+
+In this section, we introduce API of Hono like below.
+
+- Hono object
+- About routing
+- Context object
+- About middleware
+
+
+# Presets
+
+Hono has several routers, each designed for a specific purpose.
+You can specify the router you want to use in the constructor of Hono.
+
+**Presets** are provided for common use cases, so you don't have to specify the router each time.
+The `Hono` class imported from all presets is the same, the only difference being the router.
+Therefore, you can use them interchangeably.
+
+## `hono`
+
+Usage:
+
+```ts twoslash
+import { Hono } from 'hono'
+```
+
+Routers:
+
+```ts
+this.router = new SmartRouter({
+  routers: [new RegExpRouter(), new TrieRouter()],
+})
+```
+
+## `hono/quick`
+
+Usage:
+
+```ts twoslash
+import { Hono } from 'hono/quick'
+```
+
+Router:
+
+```ts
+this.router = new SmartRouter({
+  routers: [new LinearRouter(), new TrieRouter()],
+})
+```
+
+## `hono/tiny`
+
+Usage:
+
+```ts twoslash
+import { Hono } from 'hono/tiny'
+```
+
+Router:
+
+```ts
+this.router = new PatternRouter()
+```
+
+## Which preset should I use?
+
+| Preset       | Suitable platforms                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `hono`       | This is highly recommended for most use cases. Although the registration phase may be slower than `hono/quick`, it exhibits high performance once booted. It's ideal for long-life servers built with **Deno**, **Bun**, or **Node.js**. For environments such as **Cloudflare Workers**, **Deno Deploy**, where v8 isolates are utilized, this preset is suitable as well. Because the isolations persist for a certain amount of time after booting. |
+| `hono/quick` | This preset is designed for environments where the application is initialized for every request. **Fastly Compute** operates in this manner, thus this preset is recommended for such use.                                                                                                                                                                                                                                                             |
+| `hono/tiny`  | This is the smallest router package and it's suitable for environments where resources are limited.                                                                                                                                                                                                                                                                                                                                                    |
+
+
+# HonoRequest
+
+The `HonoRequest` is an object that can be taken from `c.req` which wraps a [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
+
+## param()
+
+Get the values of path parameters.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+// Captured params
+app.get('/entry/:id', async (c) => {
+  const id = c.req.param('id')
+  //    ^?
+  // ...
+})
+
+// Get all params at once
+app.get('/entry/:id/comment/:commentId', async (c) => {
+  const { id, commentId } = c.req.param()
+  //      ^?
+})
+```
+
+## query()
+
+Get querystring parameters.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+// Query params
+app.get('/search', async (c) => {
+  const query = c.req.query('q')
+  //     ^?
+})
+
+// Get all params at once
+app.get('/search', async (c) => {
+  const { q, limit, offset } = c.req.query()
+  //      ^?
+})
+```
+
+## queries()
+
+Get multiple querystring parameter values, e.g. `/search?tags=A&tags=B`
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/search', async (c) => {
+  // tags will be string[]
+  const tags = c.req.queries('tags')
+  //     ^?
+  // ...
+})
+```
+
+## header()
+
+Get the request header value.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/', (c) => {
+  const userAgent = c.req.header('User-Agent')
+  //      ^?
+  return c.text(`Your user agent is ${userAgent}`)
+})
+```
+
+::: warning
+When `c.req.header()` is called with no arguments, all keys in the returned record are **lowercase**.
+
+If you want to get the value of a header with an uppercase name,
+use `c.req.header(“X-Foo”)`.
+
+```ts
+// ❌ Will not work
+const headerRecord = c.req.header()
+const foo = headerRecord['X-Foo']
+
+// ✅ Will work
+const foo = c.req.header('X-Foo')
+```
+
+:::
+
+## parseBody()
+
+Parse Request body of type `multipart/form-data` or `application/x-www-form-urlencoded`
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.post('/entry', async (c) => {
+  const body = await c.req.parseBody()
+  // ...
+})
+```
+
+`parseBody()` supports the following behaviors.
+
+**Single file**
+
+```ts twoslash
+import { Context } from 'hono'
+declare const c: Context
+// ---cut---
+const body = await c.req.parseBody()
+const data = body['foo']
+//    ^?
+```
+
+`body['foo']` is `(string | File)`.
+
+If multiple files are uploaded, the last one will be used.
+
+### Multiple files
+
+```ts twoslash
+import { Context } from 'hono'
+declare const c: Context
+// ---cut---
+const body = await c.req.parseBody()
+body['foo[]']
+```
+
+`body['foo[]']` is always `(string | File)[]`.
+
+`[]` postfix is required.
+
+### Multiple files with same name
+
+```ts twoslash
+import { Context } from 'hono'
+declare const c: Context
+// ---cut---
+const body = await c.req.parseBody({ all: true })
+body['foo']
+```
+
+`all` option is disabled by default.
+
+- If `body['foo']` is multiple files, it will be parsed to `(string | File)[]`.
+- If `body['foo']` is single file, it will be parsed to `(string | File)`.
+
+### Dot notation
+
+If you set the `dot` option `true`, the return value is structured based on the dot notation.
+
+Imagine receiving the following data:
+
+```ts twoslash
+const data = new FormData()
+data.append('obj.key1', 'value1')
+data.append('obj.key2', 'value2')
+```
+
+You can get the structured value by setting the `dot` option `true`:
+
+```ts twoslash
+import { Context } from 'hono'
+declare const c: Context
+// ---cut---
+const body = await c.req.parseBody({ dot: true })
+// body is `{ obj: { key1: 'value1', key2: 'value2' } }`
+```
+
+## json()
+
+Parses the request body of type `application/json`
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.post('/entry', async (c) => {
+  const body = await c.req.json()
+  // ...
+})
+```
+
+## text()
+
+Parses the request body of type `text/plain`
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.post('/entry', async (c) => {
+  const body = await c.req.text()
+  // ...
+})
+```
+
+## arrayBuffer()
+
+Parses the request body as an `ArrayBuffer`
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.post('/entry', async (c) => {
+  const body = await c.req.arrayBuffer()
+  // ...
+})
+```
+
+## blob()
+
+Parses the request body as a `Blob`.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.post('/entry', async (c) => {
+  const body = await c.req.blob()
+  // ...
+})
+```
+
+## formData()
+
+Parses the request body as a `FormData`.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.post('/entry', async (c) => {
+  const body = await c.req.formData()
+  // ...
+})
+```
+
+## valid()
+
+Get the validated data.
+
+```ts
+app.post('/posts', async (c) => {
+  const { title, body } = c.req.valid('form')
+  // ...
+})
+```
+
+Available targets are below.
+
+- `form`
+- `json`
+- `query`
+- `header`
+- `cookie`
+- `param`
+
+See the [Validation section](/docs/guides/validation) for usage examples.
+
+## routePath()
+
+You can retrieve the registered path within the handler like this:
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/posts/:id', (c) => {
+  return c.json({ path: c.req.routePath })
+})
+```
+
+If you access `/posts/123`, it will return `/posts/:id`:
+
+```json
+{ "path": "/posts/:id" }
+```
+
+## matchedRoutes()
+
+It returns matched routes within the handler, which is useful for debugging.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.use(async function logger(c, next) {
+  await next()
+  c.req.matchedRoutes.forEach(({ handler, method, path }, i) => {
+    const name =
+      handler.name ||
+      (handler.length < 2 ? '[handler]' : '[middleware]')
+    console.log(
+      method,
+      ' ',
+      path,
+      ' '.repeat(Math.max(10 - path.length, 0)),
+      name,
+      i === c.req.routeIndex ? '<- respond from here' : ''
+    )
+  })
+})
+```
+
+## path
+
+The request pathname.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/about/me', async (c) => {
+  const pathname = c.req.path // `/about/me`
+  // ...
+})
+```
+
+## url
+
+The request url strings.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/about/me', async (c) => {
+  const url = c.req.url // `http://localhost:8787/about/me`
+  // ...
+})
+```
+
+## method
+
+The method name of the request.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/about/me', async (c) => {
+  const method = c.req.method // `GET`
+  // ...
+})
+```
+
+## raw
+
+The raw [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
+
+```ts
+// For Cloudflare Workers
+app.post('/', async (c) => {
+  const metadata = c.req.raw.cf?.hostMetadata?
+  // ...
+})
+```
+
+
+# Routing
+
+Routing of Hono is flexible and intuitive.
+Let's take a look.
+
+## Basic
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+// HTTP Methods
+app.get('/', (c) => c.text('GET /'))
+app.post('/', (c) => c.text('POST /'))
+app.put('/', (c) => c.text('PUT /'))
+app.delete('/', (c) => c.text('DELETE /'))
+
+// Wildcard
+app.get('/wild/*/card', (c) => {
+  return c.text('GET /wild/*/card')
+})
+
+// Any HTTP methods
+app.all('/hello', (c) => c.text('Any Method /hello'))
+
+// Custom HTTP method
+app.on('PURGE', '/cache', (c) => c.text('PURGE Method /cache'))
+
+// Multiple Method
+app.on(['PUT', 'DELETE'], '/post', (c) =>
+  c.text('PUT or DELETE /post')
+)
+
+// Multiple Paths
+app.on('GET', ['/hello', '/ja/hello', '/en/hello'], (c) =>
+  c.text('Hello')
+)
+```
+
+## Path Parameter
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/user/:name', async (c) => {
+  const name = c.req.param('name')
+  //       ^?
+  // ...
+})
+```
+
+or all parameters at once:
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/posts/:id/comment/:comment_id', async (c) => {
+  const { id, comment_id } = c.req.param()
+  //       ^?
+  // ...
+})
+```
+
+## Optional Parameter
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+// Will match `/api/animal` and `/api/animal/:type`
+app.get('/api/animal/:type?', (c) => c.text('Animal!'))
+```
+
+## Regexp
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/post/:date{[0-9]+}/:title{[a-z]+}', async (c) => {
+  const { date, title } = c.req.param()
+  //       ^?
+  // ...
+})
+```
+
+## Including slashes
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/posts/:filename{.+\\.png}', async (c) => {
+  //...
+})
+```
+
+## Chained route
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app
+  .get('/endpoint', (c) => {
+    return c.text('GET /endpoint')
+  })
+  .post((c) => {
+    return c.text('POST /endpoint')
+  })
+  .delete((c) => {
+    return c.text('DELETE /endpoint')
+  })
+```
+
+## Grouping
+
+You can group the routes with the Hono instance and add them to the main app with the route method.
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+const book = new Hono()
+
+book.get('/', (c) => c.text('List Books')) // GET /book
+book.get('/:id', (c) => {
+  // GET /book/:id
+  const id = c.req.param('id')
+  return c.text('Get Book: ' + id)
+})
+book.post('/', (c) => c.text('Create Book')) // POST /book
+
+const app = new Hono()
+app.route('/book', book)
+```
+
+## Grouping without changing base
+
+You can also group multiple instances while keeping base.
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+const book = new Hono()
+book.get('/book', (c) => c.text('List Books')) // GET /book
+book.post('/book', (c) => c.text('Create Book')) // POST /book
+
+const user = new Hono().basePath('/user')
+user.get('/', (c) => c.text('List Users')) // GET /user
+user.post('/', (c) => c.text('Create User')) // POST /user
+
+const app = new Hono()
+app.route('/', book) // Handle /book
+app.route('/', user) // Handle /user
+```
+
+## Base path
+
+You can specify the base path.
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+const api = new Hono().basePath('/api')
+api.get('/book', (c) => c.text('List Books')) // GET /api/book
+```
+
+## Routing with hostname
+
+It works fine if it includes a hostname.
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+const app = new Hono({
+  getPath: (req) => req.url.replace(/^https?:\/([^?]+).*$/, '$1'),
+})
+
+app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
+app.get('/www2.example.com/hello', (c) => c.text('hello www2'))
+```
+
+## Routing with `host` Header value
+
+Hono can handle the `host` header value if you set the `getPath()` function in the Hono constructor.
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+const app = new Hono({
+  getPath: (req) =>
+    '/' +
+    req.headers.get('host') +
+    req.url.replace(/^https?:\/\/[^/]+(\/[^?]*)/, '$1'),
+})
+
+app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
+
+// A following request will match the route:
+// new Request('http://www1.example.com/hello', {
+//  headers: { host: 'www1.example.com' },
+// })
+```
+
+By applying this, for example, you can change the routing by `User-Agent` header.
+
+## Routing priority
+
+Handlers or middleware will be executed in registration order.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/book/a', (c) => c.text('a')) // a
+app.get('/book/:slug', (c) => c.text('common')) // common
+```
+
+```
+GET /book/a ---> `a`
+GET /book/b ---> `common`
+```
+
+When a handler is executed, the process will be stopped.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('*', (c) => c.text('common')) // common
+app.get('/foo', (c) => c.text('foo')) // foo
+```
+
+```
+GET /foo ---> `common` // foo will not be dispatched
+```
+
+If you have the middleware that you want to execute, write the code above the handler.
+
+```ts twoslash
+import { Hono } from 'hono'
+import { logger } from 'hono/logger'
+const app = new Hono()
+// ---cut---
+app.use(logger())
+app.get('/foo', (c) => c.text('foo'))
+```
+
+If you want to have a "_fallback_" handler, write the code below the other handler.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/bar', (c) => c.text('bar')) // bar
+app.get('*', (c) => c.text('fallback')) // fallback
+```
+
+```
+GET /bar ---> `bar`
+GET /foo ---> `fallback`
+```
+
+## Grouping ordering
+
+Note that the mistake of grouping routings is hard to notice.
+The `route()` function takes the stored routing from the second argument (such as `three` or `two`) and adds it to its own (`two` or `app`) routing.
+
+```ts
+three.get('/hi', (c) => c.text('hi'))
+two.route('/three', three)
+app.route('/two', two)
+
+export default app
+```
+
+It will return 200 response.
+
+```
+GET /two/three/hi ---> `hi`
+```
+
+However, if they are in the wrong order, it will return a 404.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+const two = new Hono()
+const three = new Hono()
+// ---cut---
+three.get('/hi', (c) => c.text('hi'))
+app.route('/two', two) // `two` does not have routes
+two.route('/three', three)
+
+export default app
+```
+
+```
+GET /two/three/hi ---> 404 Not Found
+```
+
+

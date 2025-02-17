@@ -224,7 +224,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       },
       {
         text: 'Tiny Docs',
-        link: './llms-small.txt'
+        link: './llms.txt'
       }
     ]
   }
