@@ -24,3 +24,6 @@ $RECYCLE.BIN/
 
 # IDE-specific settings
 .idea
+
+# summary
+public/hono-docs.md

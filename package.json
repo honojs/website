@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev",
-    "build": "vitepress build",
+    "combine-docs": "node scripts/combineDocs.js",
+    "build": "vitepress build && npm run combine-docs",
     "preview": "vitepress preview",
     "format": "yarn prettier --check ./docs ./examples index.md",
     "format:fix": "yarn prettier --check --write ./docs ./examples index.md"
