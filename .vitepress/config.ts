@@ -219,12 +219,16 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/llm'
       },
       {
+        text: 'Docs List',
+        link: '/llms.txt'
+      },
+      {
         text: 'Full Docs',
         link: '/llms-full.txt'
       },
       {
         text: 'Tiny Docs',
-        link: './llms.txt'
+        link: './llms-small.txt'
       }
     ]
   }
