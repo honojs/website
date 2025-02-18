@@ -14,8 +14,11 @@ const extractLabel = (file: string) => {
   return sliceExt(file.split('/').pop() || '')
 }
 
-function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
+function capitalizeDelimiter(str) {
+  return str
+    .split('-')
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+    .join('-')
 }
 
 async function generateLLMDocs() {
@@ -27,7 +30,7 @@ async function generateLLMDocs() {
 
   for await (const file of optionalFiles) {
     optionals.push(
-      `- [${capitalizeFirstLetter(extractLabel(file))}](https://hono.dev/docs/${sliceExt(file)})`
+      `- [${capitalizeDelimiter(extractLabel(file)).replace(/-/, ' ')}](https://hono.dev/docs/${sliceExt(file)})`
     )
   }
 
@@ -58,6 +61,7 @@ async function generateLLMDocs() {
     ].join('\n'),
     'utf-8'
   )
+  console.log(`< Output '${outputListFile}' `)
 
   const outputFullFile = path.resolve('public/llms-full.txt')
   const files = await glob('**/*.md', { cwd: docsDir })
