@@ -6,8 +6,30 @@ const frontmatterRegex = /^\n*---(\n.+)*?\n---\n/
 
 const docsDir = path.resolve('docs')
 
+const sliceExt = (file: string) => {
+  return file.split('.').slice(0, -1).join('.')
+}
+
+const extractLabel = (file: string) => {
+  return sliceExt(file.split('/').pop() || '')
+}
+
+function capitalizeFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
 async function generateLLMDocs() {
   const outputListFile = path.resolve('public/llms.txt')
+
+  const optionalFiles = await glob('**/*.md', { cwd: docsDir })
+
+  const optionals: string[] = []
+
+  for await (const file of optionalFiles) {
+    optionals.push(
+      `- [${capitalizeFirstLetter(extractLabel(file))}](https://hono.dev/docs/${sliceExt(file)})`
+    )
+  }
 
   fs.writeFileSync(
     outputListFile,
@@ -29,12 +51,15 @@ async function generateLLMDocs() {
       '## Examples',
       '',
       '- [Examples](https://github.com/honojs/website/tree/main/examples): List of example files.',
+      '',
+      '## Optional',
+      '',
+      ...optionals,
     ].join('\n'),
     'utf-8'
   )
 
   const outputFullFile = path.resolve('public/llms-full.txt')
-
   const files = await glob('**/*.md', { cwd: docsDir })
 
   const fullContent = await generateContent(
