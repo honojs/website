@@ -7,8 +7,8 @@
     "prebuild": "tsx ./scripts/build-llm-docs.ts",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "format": "yarn prettier --check ./docs ./examples ./scripts index.md llm.md",
-    "format:fix": "yarn prettier --check --write ./docs ./examples ./scripts index.md llm.md"
+    "format": "yarn prettier --check ./docs ./examples ./scripts index.md",
+    "format:fix": "yarn prettier --check --write ./docs ./examples ./scripts index.md"
   },
   "repository": "git@github.com:honojs/website.git",
   "author": "Yusuke Wada <yusuke@kamawada.com>",

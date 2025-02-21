@@ -215,10 +215,6 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     collapsed: true,
     items: [
       {
-        text: 'About',
-        link: '/llm'
-      },
-      {
         text: 'Docs List',
         link: '/llms.txt'
       },
@@ -228,7 +224,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       },
       {
         text: 'Tiny Docs',
-        link: './llms-small.txt'
+        link: '/llms-small.txt'
       }
     ]
   }
@@ -410,5 +406,8 @@ export default defineConfig({
         },
       }),
     ],
+    server: {
+      allowedHosts: true
+    }
   },
 })
