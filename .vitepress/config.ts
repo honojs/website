@@ -389,4 +389,7 @@ export default defineConfig({
       }),
     ],
   },
+  sitemap: {
+    hostname: 'https://hono.dev',
+  },
 })
