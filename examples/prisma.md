@@ -5,8 +5,7 @@
 In this guide, we’ll cover two distinct approaches for using Prisma ORM in Hono:
 
 - [**Prisma Postgres**](#using-prisma-postgres):
-  A managed, serverless PostgreSQL database integration with Prisma. This approach is good for a production-ready setup as Prisma Postgres has built-in connection pooling with zero-cold starts that mitigates [scaling issues in serverless and edge environments]
-  (https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections#the-serverless-challenge).
+  A managed, serverless PostgreSQL database integration with Prisma. This approach is good for a production-ready setup as Prisma Postgres has built-in connection pooling with zero-cold starts that mitigates [scaling issues in serverless and edge environments](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections#the-serverless-challenge).
 
 - [**Driver adapters**](#using-prisma-driver-adapters):
   An alternative that uses Prisma's flexible driver adapters, allowing you to connect to any database supported by Prisma ORM.
@@ -305,4 +304,4 @@ You can use the following resources to enhance your application further:
 - Add [caching](https://www.prisma.io/docs/postgres/caching) to your queries.
 - Explore the [Prisma Postgres documentation](https://www.prisma.io/docs/postgres/getting-started).
 
-You can follow the [end-to-end guide from Prisma](https://www.prisma.io/docs/guides/prisma-postgres-realtime-on-cloudflare) to learn how to build a real-time application with Hono and Prisma Postgres, and deploy it to Cloudflare Workers.
+You can follow the [end-to-end guide from Prisma](https://www.prisma.io/docs/guides/realtime-apps) to learn how to build a real-time application with Hono and Prisma Postgres, and deploy it to Cloudflare Workers.
