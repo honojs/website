@@ -58,6 +58,34 @@ const parse = (markdownContent: string) => {
 }
 ```
 
+## 💡 Example usage
+```tsx
+const markdownContent = `---
+title: Hello World
+description: Hello World example page for hono documentation
+nested:
+  foo: bar
+---
+
+## Section A
+Hello
+`;
+
+const parsedContent = parse(markdownContent);
+
+console.log(parsedContent);
+/* {
+  data: {
+    title: "Hello World",
+    description: "Hello World example page for hono documentation",
+    nested: {
+      foo: "bar",
+    },
+  },
+  value: "<h2>Section A</h2>\n<p>Hello</p>",
+} */
+```
+
 ## 🔗 See Also
 - https://github.com/remarkjs/remark
 - https://github.com/rehypejs/rehype
