@@ -25,7 +25,7 @@ bun create hono@latest my-app
 ```
 
 ```sh [deno]
-deno init --npm hono@latest my-app
+deno run npm:create-hono@latest my-app
 ```
 
 :::
