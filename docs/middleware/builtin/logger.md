@@ -31,6 +31,11 @@ By using the Logger Middleware, you can easily monitor the flow of requests and 
 
 You can also extend the middleware further by providing your own `PrintFunc` function for tailored logging behavior.
 
+::: tip
+
+To disable _status code coloring_, you can set a `NO_COLOR` environment variable. This is a common way to disable ANSI color escape codes in logging libraries, and is described at <https://no-color.org/>. Note that CloudFlare Workers do not have a `process.env` object, so will default to plaintext log output.
+:::
+
 ## PrintFunc
 
 The Logger Middleware accepts an optional `PrintFunc` function as a parameter. This function allows you to customize the logger and add additional logs.
