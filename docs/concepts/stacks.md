@@ -201,22 +201,20 @@ const Todos = () => {
     InferResponseType<typeof $post>,
     Error,
     InferRequestType<typeof $post>['form']
-  >(
-    async (todo) => {
+  >({
+    mutationFn: async (todo) => {
       const res = await $post({
         form: todo,
       })
       return await res.json()
     },
-    {
-      onSuccess: async () => {
-        queryClient.invalidateQueries({ queryKey: ['todos'] })
-      },
-      onError: (error) => {
-        console.log(error)
-      },
-    }
-  )
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+  })
 
   return (
     <div>
