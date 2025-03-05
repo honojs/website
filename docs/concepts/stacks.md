@@ -66,6 +66,12 @@ app.get(
 
 To emit an endpoint specification, export its type.
 
+::: warning
+
+For the RPC to infer routes correctly, all inlcuded methods must be chained, and the endpoint or app type must be inferred from a declared variable. For more, see [Best Practices for RPC](https://hono.dev/docs/guides/best-practices#if-you-want-to-use-rpc-features).
+
+:::
+
 ```ts{1,17}
 const route = app.get(
   '/hello',
