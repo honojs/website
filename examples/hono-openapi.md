@@ -42,7 +42,10 @@ const responseSchema = v.string()
 
 ### 2. Create Routes
 
-Use `describeRoute` for route documentation and validation:
+Use `describeRoute` for route documentation and response validation:
+
+> [!NOTE]
+> Do not use `describeRoute` to define request requirements (e.g., `query` or `json` body). Hono OpenAPI will document those automatically when you use third-party validator middleware. See the example below.
 
 ```ts
 import { Hono } from 'hono'
