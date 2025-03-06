@@ -293,7 +293,7 @@ While `c.req.addValidatedData` is a public method, it **must** be used in proper
 
 ```typescript
 app.get(
-  "/",
+  '/',
   async (c, next) => {
     c.req.addValidatedData('form', {
       timestamp: new Date(),
