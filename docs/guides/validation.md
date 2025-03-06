@@ -297,17 +297,17 @@ app.get(
   async (c, next) => {
     c.req.addValidatedData('form', {
       timestamp: new Date(),
-    });
+    })
 
-    await next();
+    await next()
   },
   async (c) => {
     // Type Error: Argument of type 'string' is not 
     // assignable to parameter of type 'never'
-    const body = c.req.valid('form');
+    const body = c.req.valid('form')
     // ...
   },
-);
+)
 ```
 
 Also note that the method **overwrites** the target data, if any. If you are validating data with `validator` or third-party validation middleware, you must spread in any of the original data you want to keep.
