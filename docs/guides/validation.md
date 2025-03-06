@@ -294,12 +294,9 @@ While `c.req.addValidatedData` is a public method, it **must** be used in proper
 ```typescript
 app.get(
   "/",
-  validator('form', /** Your validation hook */),
   async (c, next) => {
     c.req.addValidatedData('form', {
       timestamp: new Date(),
-      // `addValidatedData` will overwrite target data
-      ...c.req.valid('form'),
     });
 
     await next();
@@ -312,4 +309,6 @@ app.get(
   },
 );
 ```
+
+Also note that the method **overwrites** the target data, if any. If you are validating data with `validator` or third-party validation middleware, you must spread in any of the original data you want to keep.
 :::
