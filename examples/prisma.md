@@ -1,11 +1,11 @@
 # Using Prisma on Cloudflare Workers
 
-[Prisma ORM](https://www.prisma.io/docs) provides a modern, robust toolkit for interacting with databases. When paired with Hono and Cloudflare Workers, it enables you to deploy high-performance, serverless applications at the edge.
+[Prisma ORM](https://www.prisma.io/docs?utm_source=hono&utm_medium=website&utm_campaign=example) provides a modern, robust toolkit for interacting with databases. When paired with Hono and Cloudflare Workers, it enables you to deploy high-performance, serverless applications at the edge.
 
 In this guide, we’ll cover two distinct approaches for using Prisma ORM in Hono:
 
 - [**Prisma Postgres**](#using-prisma-postgres):
-  A managed, serverless PostgreSQL database integration with Prisma. This approach is good for a production-ready setup as Prisma Postgres has built-in connection pooling with zero-cold starts that mitigates [scaling issues in serverless and edge environments](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections#the-serverless-challenge).
+  A managed, serverless PostgreSQL database integration with Prisma. This approach is good for a production-ready setup as Prisma Postgres has built-in connection pooling with zero-cold starts that mitigates [scaling issues in serverless and edge environments](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/databases-connections?utm_source=hono&utm_medium=website&utm_campaign=example#the-serverless-challenge).
 
 - [**Driver adapters**](#using-prisma-driver-adapters):
   An alternative that uses Prisma's flexible driver adapters, allowing you to connect to any database supported by Prisma ORM.
@@ -14,7 +14,7 @@ Both approaches have their own advantages, allowing you to choose the one that b
 
 ## Using Prisma Postgres
 
-[Prisma Postgres](https://www.prisma.io/postgres) is a managed, serverless PostgreSQL database built on unikernels. It supports features like connection pooling, caching, real-time subscriptions, and query optimization recommendations. A generous free tier is available for initial development, testing, and hobby projects.
+[Prisma Postgres](https://www.prisma.io/postgres?utm_source=hono&utm_medium=website&utm_campaign=example) is a managed, serverless PostgreSQL database built on unikernels. It supports features like connection pooling, caching, and query optimization recommendations. A generous free tier is available for initial development, testing, and hobby projects.
 
 ### 1. Install Prisma and required dependencies
 
@@ -36,13 +36,13 @@ Initialize Prisma with an instance of Prisma Postgres:
 npx prisma@latest init --db
 ```
 
-If you don't have a [Prisma Data Platform](https://console.prisma.io/) account yet, or if you are not logged in, the command will prompt you to log in using one of the available authentication providers. A browser window will open so you can log in or create an account. Return to the CLI after you have completed this step.
+If you don't have a [Prisma Data Platform](https://console.prisma.io/?utm_source=hono&utm_medium=website&utm_campaign=example) account yet, or if you are not logged in, the command will prompt you to log in using one of the available authentication providers. A browser window will open so you can log in or create an account. Return to the CLI after you have completed this step.
 
 Once logged in (or if you were already logged in), the CLI will prompt you to select a project name and a database region.
 
 Once the command has terminated, it has created:
 
-- A project in your [Platform Console](https://console.prisma.io/) containing a Prisma Postgres database instance.
+- A project in your [Platform Console](https://console.prisma.io/?utm_source=hono&utm_medium=website&utm_campaign=example) containing a Prisma Postgres database instance.
 - A `prisma` folder containing `schema.prisma`, where you will define your database schema.
 - An `.env` file in the project root, which will contain the Prisma Postgres database url `DATABASE_URL=<your-prisma-postgres-database-url>`.
 
@@ -55,7 +55,7 @@ DATABASE_URL="your_prisma_postgres_url"
 
 :::
 
-Keep the `.env` file so that Prisma CLI can access it later on to perform migrations, generate [Prisma Client](https://www.prisma.io/docs/orm/prisma-client) or to open [Prisma Studio](https://www.prisma.io/docs/orm/tools/prisma-studio).
+Keep the `.env` file so that Prisma CLI can access it later on to perform migrations, generate [Prisma Client](https://www.prisma.io/docs/orm/prisma-client?utm_source=hono&utm_medium=website&utm_campaign=example) or to open [Prisma Studio](https://www.prisma.io/docs/orm/tools/prisma-studio?utm_source=hono&utm_medium=website&utm_campaign=example).
 
 ### 2. Set up Prisma in your project
 
@@ -134,7 +134,7 @@ app.post('/', async (c) => {
 
 :::
 
-If you want to **use your own database with Prisma ORM** and benefit from connection pooling and edge caching, you can enable Prisma Accelerate. Learn more about setting up [Prisma Accelerate](https://www.prisma.io/docs/accelerate/getting-started) for your project.
+If you want to **use your own database with Prisma ORM** and benefit from connection pooling and edge caching, you can enable Prisma Accelerate. Learn more about setting up [Prisma Accelerate](https://www.prisma.io/docs/accelerate/getting-started?utm_source=hono&utm_medium=website&utm_campaign=example) for your project.
 
 ## Using Prisma Driver Adapters
 
@@ -301,7 +301,5 @@ This will return all users in the `/` route, using Postman or Thunder Client to 
 
 You can use the following resources to enhance your application further:
 
-- Add [caching](https://www.prisma.io/docs/postgres/caching) to your queries.
-- Explore the [Prisma Postgres documentation](https://www.prisma.io/docs/postgres/getting-started).
-
-You can follow the [end-to-end guide from Prisma](https://www.prisma.io/docs/guides/realtime-apps) to learn how to build a real-time application with Hono and Prisma Postgres, and deploy it to Cloudflare Workers.
+- Add [caching](https://www.prisma.io/docs/postgres/caching?utm_source=hono&utm_medium=website&utm_campaign=example) to your queries.
+- Explore the [Prisma Postgres documentation](https://www.prisma.io/docs/postgres/getting-started?utm_source=hono&utm_medium=website&utm_campaign=example).
