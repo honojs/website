@@ -142,7 +142,7 @@ However, embedding middleware directly within `app.use()` can limit its reusabil
 middleware into different files.
 
 To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use
-[`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory.
+[`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory. This also allows us to type-safely [access data we've `set` in `Context`](https://hono.dev/docs/api/context#set-get) from downstream handlers.
 
 ```ts
 import { createMiddleware } from 'hono/factory'
