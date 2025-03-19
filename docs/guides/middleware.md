@@ -26,7 +26,7 @@ If the handler returns `Response`, it will be used for the end-user, and stoppin
 app.post('/posts', (c) => c.text('Created!', 201))
 ```
 
-In this case, four middleware are processed before dispatching like this:
+In this case, three middlewares are processed before dispatching like this:
 
 ```ts
 logger() -> cors() -> basicAuth() -> *handler*
