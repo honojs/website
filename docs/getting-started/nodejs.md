@@ -151,7 +151,7 @@ You can use `serveStatic` to serve static files from the local file system. For 
     └── image.png
 ```
 
-If access to the path `/static/*` comes in and returns a file under `./static`, you can write the following:
+If a request to the path `/static/*` comes in and you want to return a file under `./static`, you can write the following:
 
 ```ts
 import { serveStatic } from '@hono/node-server/serve-static'
@@ -165,7 +165,7 @@ Use the `path` option to serve `favicon.ico` in the directory root:
 app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
-If access comes to the path `/hello.txt` or `/image.png` and returns a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
+If a request to the path `/hello.txt` or `/image.png` comes in and you want to return a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
 
 ```ts
 app.use('*', serveStatic({ root: './static' }))
