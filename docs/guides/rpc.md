@@ -355,14 +355,14 @@ const res = await client.user.picture.$put({
 ```ts
 // server
 const route = app.put(
-	"/user/picture",
-	zValidator(
-		"form",
-		z.object({
-			file: z.instanceof(File),
-		}),
-	),
-	// ...
+  "/user/picture",
+  zValidator(
+    "form",
+    z.object({
+      file: z.instanceof(File),
+    }),
+  ),
+  // ...
 );
 ```
 
