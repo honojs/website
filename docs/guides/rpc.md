@@ -80,12 +80,6 @@ if (res.ok) {
 }
 ```
 
-::: warning File Upload
-
-Currently, the client does not support file uploading.
-
-:::
-
 ## Status code
 
 If you explicitly specify the status code, such as `200` or `404`, in `c.json()`. It will be added as a type for passing to the client.
@@ -343,6 +337,33 @@ url = client.api.posts[':id'].$url({
   },
 })
 console.log(url.pathname) // `/api/posts/123`
+```
+
+## File Uploads
+
+You can upload files using a form body:
+
+```ts
+// client
+const res = await client.user.picture.$put({
+  form: {
+    file: new File([fileToUpload], filename, { type: fileToUpload.type })
+  },
+});
+```
+
+```ts
+// server
+const route = app.put(
+	"/user/picture",
+	zValidator(
+		"form",
+		z.object({
+			file: z.instanceof(File),
+		}),
+	),
+	// ...
+);
 ```
 
 ## Custom `fetch` method
