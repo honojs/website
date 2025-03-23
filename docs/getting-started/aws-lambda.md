@@ -8,7 +8,7 @@ Hono works on AWS Lambda with the Node.js 18+ environment.
 ## 1. Setup
 
 When creating the application on AWS Lambda,
-[CDK](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html)
+[CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
 is useful to setup the functions such as IAM Role, API Gateway, and others.
 
 Initialize your project with the `cdk` CLI.
