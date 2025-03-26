@@ -50,7 +50,7 @@ export type AppType = typeof route
 On the Client side, import `hc` and `AppType` first.
 
 ```ts
-import { AppType } from '.'
+import type { AppType } from '.'
 import { hc } from 'hono/client'
 ```
 
@@ -409,7 +409,7 @@ You can also use a React Hook library such as [SWR](https://swr.vercel.app).
 import useSWR from 'swr'
 import { hc } from 'hono/client'
 import type { InferRequestType } from 'hono/client'
-import { AppType } from '../functions/api/[[route]]'
+import type { AppType } from '../functions/api/[[route]]'
 
 const App = () => {
   const client = hc<AppType>('/api')
