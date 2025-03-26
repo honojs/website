@@ -219,5 +219,5 @@ app.get('/stream', async (c) => {
   })
 })
 
-const handler = streamHandle(app)
+export const handler = streamHandle(app)
 ```
