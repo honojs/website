@@ -21,7 +21,7 @@ macOS:
 brew install fastly/tap/fastly
 ```
 
-For other Fastly/CLI installation methods, see the following link:
+For other Fastly CLI installation methods, see the following link:
 
 - [Create and manage Fastly resources with the Fastly CLI | Fastly Documentation](https://www.fastly.com/documentation/reference/tools/cli/#installing)
 
