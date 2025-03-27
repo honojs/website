@@ -1,6 +1,6 @@
 # Fastly Compute
 
-[Fastly's Compute](https://www.fastly.com/products/edge-compute) offering allows us to build high scale, globally distributed applications and execute code at the edge of Fastly CDN.
+[Fastly Compute](https://www.fastly.com/products/edge-compute) is an advanced edge computing system that runs your code, in your favorite language, on our global edge network.
 
 Hono also works on Fastly Compute.
 
@@ -9,15 +9,21 @@ Hono also works on Fastly Compute.
 To use Fastly Compute, you must [create a Fastly account](https://www.fastly.com/signup/) if you don't already have one.
 Then, install [Fastly CLI](https://github.com/fastly/cli).
 
-macOS
+npm:
+
+```sh
+npm install -g @fastly/cli@latest
+```
+
+macOS:
 
 ```sh
 brew install fastly/tap/fastly
 ```
 
-Follow this link for other OS:
+For other Fastly/CLI installation methods, see the following link:
 
-- [Compute services | Fastly Developer Hub](https://developer.fastly.com/learning/compute/#download-and-install-the-fastly-cli)
+- [Create and manage Fastly resources with the Fastly CLI | Fastly Documentation](https://www.fastly.com/documentation/reference/tools/cli/#installing)
 
 ## 2. Setup
 
@@ -104,7 +110,7 @@ yarn dev
 ```
 
 ```sh [pnpm]
-pnpm dev
+pnpm run dev
 ```
 
 ```sh [bun]
@@ -126,7 +132,7 @@ yarn deploy
 ```
 
 ```sh [pnpm]
-pnpm deploy
+pnpm run deploy
 ```
 
 ```sh [bun]
