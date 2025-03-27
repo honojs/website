@@ -1,31 +1,10 @@
 # Fastly Compute
 
-[Fastly Compute](https://www.fastly.com/products/edge-compute) is an advanced edge computing system that runs your code, in your favorite language, on our global edge network.
+[Fastly Compute](https://www.fastly.com/products/edge-compute) is an advanced edge computing system that runs your code, in your favorite language, on our global edge network. Hono also works on Fastly Compute.
 
-Hono also works on Fastly Compute.
+You can develop the application locally and publish it with a few commands using [Fastly CLI](https://www.fastly.com/documentation/reference/tools/cli/).
 
-## 1. Install CLI
-
-To use Fastly Compute, you must [create a Fastly account](https://www.fastly.com/signup/) if you don't already have one.
-Then, install [Fastly CLI](https://github.com/fastly/cli).
-
-npm:
-
-```sh
-npm install -g @fastly/cli@latest
-```
-
-macOS:
-
-```sh
-brew install fastly/tap/fastly
-```
-
-For other Fastly CLI installation methods, see the following link:
-
-- [Create and manage Fastly resources with the Fastly CLI | Fastly Documentation](https://www.fastly.com/documentation/reference/tools/cli/#installing)
-
-## 2. Setup
+## 1. Setup
 
 A starter for Fastly Compute is available.
 Start your project with "create-hono" command.
@@ -81,7 +60,7 @@ bun i
 
 :::
 
-## 3. Hello World
+## 2. Hello World
 
 Edit `src/index.ts`:
 
@@ -95,31 +74,35 @@ app.get('/', (c) => c.text('Hello Fastly!'))
 app.fire()
 ```
 
-## 4. Run
+## 3. Run
 
 Run the development server locally. Then, access `http://localhost:7676` in your Web browser.
 
 ::: code-group
 
 ```sh [npm]
-npm run dev
+npm run start
 ```
 
 ```sh [yarn]
-yarn dev
+yarn start
 ```
 
 ```sh [pnpm]
-pnpm run dev
+pnpm run start
 ```
 
 ```sh [bun]
-bun run dev
+bun run start
 ```
 
 :::
 
 ## 4. Deploy
+
+To build and deploy your application to your Fastly account, type the following command. The first time you deploy the application, you will be prompted to create a new service in your account.
+
+If you don't have an account yet, you must [create your Fastly account](https://www.fastly.com/signup/).
 
 ::: code-group
 
@@ -140,5 +123,3 @@ bun run deploy
 ```
 
 :::
-
-That's all!!
