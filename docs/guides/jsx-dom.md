@@ -280,3 +280,15 @@ There is a small JSX Runtime for Client Components. Using this will result in sm
   }
 }
 ```
+
+Alternatively, you can specify `hono/jsx/dom` in the esbuild transform options in `vite.config.ts`.
+
+```ts
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  esbuild: {
+    jsxImportSource: 'hono/jsx/dom',
+  },
+})
+```
