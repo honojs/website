@@ -215,4 +215,6 @@ app.get('/echo', echoMiddleware, (c) => {
 Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries.
 So with them, we may make a more complex application.
 
+We can explore a variety of third-party middleware at: [https://github.com/honojs/middleware](https://github.com/honojs/middleware)
+
 For example, we have GraphQL Server Middleware, Sentry Middleware, Firebase Auth Middleware, and others.
