@@ -2,6 +2,8 @@
 
 By using Hono, you can write [Durable Objects](https://developers.cloudflare.com/durable-objects/) application easily.
 
+> **Note:** As of Cloudflare Workers compatibility date `2024-04-03`, it's recommended to use RPC methods instead of the `fetch` handler for Durable Objects. While the example below using Hono's `fetch` handler pattern continues to work, consider using the RPC pattern for new projects. See [Cloudflare's documentation](https://developers.cloudflare.com/durable-objects/best-practices/create-durable-object-stubs-and-send-requests/) for more details.
+
 Hono can handle a `fetch` event of Durable Objects and you can use it with the powerful router.
 
 ```ts
