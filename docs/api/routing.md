@@ -2,7 +2,6 @@
 title: Routing
 description: Routing in Hono
 ---
-
 # Routing
 
 Routing of Hono is flexible and intuitive.
@@ -198,7 +197,7 @@ const app = new Hono({
   getPath: (req) =>
     '/' +
     req.headers.get('host') +
-    req.url.replace(/^https?:\/\/[^/]+(\/[^?]*)/, '$1'),
+    req.url.replace(/^https?:\/\/[^/]+(\/[^?]*).*/, '$1'),
 })
 
 app.get('/www1.example.com/hello', (c) => c.text('hello www1'))

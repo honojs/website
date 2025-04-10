@@ -1,3 +1,7 @@
+---
+title: Vercel
+description: This guide shows how to run Hono on Vercel, including setup and example code.
+---
 # Vercel
 
 Vercel is the platform for frontend developers, providing the speed and reliability innovators need to create at the moment of inspiration. This section introduces Next.js running on Vercel.
@@ -163,9 +167,9 @@ export const GET = handle(app)
 export const POST = handle(app)
 ```
 
-### Page Router
+### Pages Router
 
-For the Page Router, you'll need to install the Node.js adapter first:
+For the Pages Router, you'll need to install the Node.js adapter first:
 
 ::: code-group
 
@@ -211,7 +215,7 @@ app.get('/hello', (c) => {
 export default handle(app)
 ```
 
-In order for this to work with the Page Router, it's important to disable Vercel node.js helpers by setting up an environment variable in your project dashboard or in your `.env` file:
+In order for this to work with the Pages Router, it's important to disable Vercel Node.js helpers by setting up an environment variable in your project dashboard or in your `.env` file:
 
 ```text
 NODEJS_HELPERS=0

@@ -6,16 +6,16 @@ description: 使用 Node.js 运行 Hono，包括环境搭建、适配器配置�
 
 [Node.js](https://nodejs.org/) 是一个开源的、跨平台的 JavaScript 运行时环境。
 
-Hono 最初并非为 Node.js 设计，但通过 [Node.js 适配器](https://github.com/honojs/node-server)，它也能在 Node.js 上运行。
+Hono 最初并不是为 Node.js 设计的。但是通过 [Node.js 适配器](https://github.com/honojs/node-server)，它也可以在 Node.js 上运行。
 
 ::: info
-支持 Node.js 18.x 及以上版本。具体版本要求如下：
+它可以在 18.x 以上版本的 Node.js 上运行。具体所需的 Node.js 版本如下：
 
 - 18.x => 18.14.1+
 - 19.x => 19.7.0+
 - 20.x => 20.0.0+
 
-简而言之，你可以直接使用各主要版本的最新版本即可。
+基本上，你可以直接使用每个主要版本的最新版本即可。
 :::
 
 ## 1. 环境搭建
@@ -47,7 +47,6 @@ deno init --npm hono my-app
 ```
 
 :::
-
 进入 `my-app` 目录并安装依赖。
 
 ::: code-group
@@ -143,9 +142,9 @@ app.get('/', (c) => {
 serve(app)
 ```
 
-## 提供静态文件服务
+## 提供静态文件
 
-你可以使用 `serveStatic` 从本地文件系统提供静态文件服务。例如，假设目录结构如下：
+你可以使用 `serveStatic` 从本地文件系统提供静态文件。例如，假设目录结构如下：
 
 ```sh
 ./
@@ -156,7 +155,7 @@ serve(app)
     └── image.png
 ```
 
-如果要处理访问路径 `/static/*` 并返回 `./static` 目录下的文件，可以这样写：
+如果收到对路径 `/static/*` 的请求，想要返回 `./static` 下的文件，可以这样写：
 
 ```ts
 import { serveStatic } from '@hono/node-server/serve-static'
@@ -164,13 +163,13 @@ import { serveStatic } from '@hono/node-server/serve-static'
 app.use('/static/*', serveStatic({ root: './' }))
 ```
 
-使用 `path` 选项来提供根目录下的 `favicon.ico`：
+使用 `path` 选项来提供目录根目录下的 `favicon.ico`：
 
 ```ts
 app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
-如果要将访问路径 `/hello.txt` 或 `/image.png` 映射到 `./static/hello.txt` 或 `./static/image.png`，可以使用：
+如果收到对路径 `/hello.txt` 或 `/image.png` 的请求，想要返回名为 `./static/hello.txt` 或 `./static/image.png` 的文件，可以使用以下方式：
 
 ```ts
 app.use('*', serveStatic({ root: './static' }))
@@ -193,9 +192,9 @@ app.get(
 
 ## http2
 
-你可以在 [Node.js http2 服务器](https://nodejs.org/api/http2.html) 上运行 Hono。
+你可以在 [Node.js http2 服务器](https://nodejs.org/api/http2.html) 上运行 hono。
 
-### 非加密 http2
+### 未加密的 http2
 
 ```ts
 import { createServer } from 'node:http2'
@@ -206,7 +205,7 @@ const server = serve({
 })
 ```
 
-### 加密 http2
+### 加密的 http2
 
 ```ts
 import { createSecureServer } from 'node:http2'
@@ -222,9 +221,20 @@ const server = serve({
 })
 ```
 
-## Dockerfile
+## 构建和部署
 
-以下是 Dockerfile 的示例。
+完成以下步骤来构建一个简单的 Hono 应用。带有前端框架的应用可能需要使用 [Hono 的 Vite 插件](https://github.com/honojs/vite-plugins)。
+
+1. 在 `tsconfig.json` 的 `compilerOptions` 部分添加 `"outDir": "./dist"`。
+2. 在 `tsconfig.json` 中添加 `"exclude": ["node_modules"]`。
+3. 在 `package.json` 的 `script` 部分添加 `"build": "tsc"`。
+4. 运行 `npm install typescript --save-dev`。
+5. 在 `package.json` 中添加 `"type": "module"`。
+6. 运行 `npm run build`！
+
+### Dockerfile
+
+这是一个 Dockerfile 示例。在此构建和部署过程能够正常工作之前，你必须完成上述步骤 1-5。
 
 ```Dockerfile
 FROM node:20-alpine AS base
@@ -255,11 +265,3 @@ EXPOSE 3000
 
 CMD ["node", "/app/dist/index.js"]
 ```
-
-使用前需要进行以下准备工作：
-
-1. 在 `tsconfig.json` 的 `compilerOptions` 部分添加 `"outDir": "./dist"`。
-2. 在 `tsconfig.json` 中添加 `"exclude": ["node_modules"]`。
-3. 在 `package.json` 的 `script` 部分添加 `"build": "tsc"`。
-4. 运行 `npm install typescript --save-dev`。
-5. 在 `package.json` 中添加 `"type": "module"`。

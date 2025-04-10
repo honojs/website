@@ -1,3 +1,7 @@
+---
+title: Factory Helper
+description: The Factory Helper provides useful functions for creating Hono's components such as Middleware. Sometimes it's difficult to set the proper TypeScript types, but this helper facilitates that.
+---
 # Factory Helper
 
 The Factory Helper provides useful functions for creating Hono's components such as Middleware. Sometimes it's difficult to set the proper TypeScript types, but this helper facilitates that.
@@ -29,6 +33,20 @@ type Env = {
 }
 
 const factory = createFactory<Env>()
+```
+
+### Options
+
+### <Badge type="info" text="optional" /> defaultAppOptions: `HonoOptions`
+
+The default options to pass to the Hono application created by `createApp()`.
+
+```ts
+const factory = createFactory({
+  defaultAppOptions: { strict: false },
+})
+
+const app = factory.createApp() // `strict: false` is applied
 ```
 
 ## `createMiddleware()`

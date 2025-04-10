@@ -2,19 +2,23 @@
 title: RPC
 description: 使用Hono的RPC功能，可以在服务器和客户端之间共享API规范。
 ---
-
 # RPC
 
 RPC 功能允许在服务器和客户端之间共享 API 规范。
 
-你可以导出由 Validator 指定的输入类型和由 `json()` 输出的类型。Hono Client 可以导入这些类型。
+首先，从你的服务器代码中导出 Hono 应用的 `typeof`（通常称为 `AppType`）—或者仅导出你想要客户端可用的路由。
+
+通过接受 `AppType` 作为泛型参数，Hono 客户端可以推断出验证器指定的输入类型和处理程序通过 `c.json()` 返回的输出类型。
+
+> [!NOTE]
+> 目前，中间件返回的响应[不会被客户端推断](https://github.com/honojs/hono/issues/2719)。
 
 > [!NOTE]  
-> 为了让 RPC 类型在 monorepo 中正常工作，需要在客户端和服务器端的 tsconfig.json 文件中设置 `"strict": true` 在 `compilerOptions` 中。[了解更多](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)
+> 为了让 RPC 类型在 monorepo 中正常工作，在客户端和服务器端的 tsconfig.json 文件中，都需要在 `compilerOptions` 中设置 `"strict": true`。[了解更多](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)。
 
 ## 服务器端
 
-在服务器端，你只需要编写验证器并创建一个 `route` 变量。以下示例使用了 [Zod Validator](https://github.com/honojs/middleware/tree/main/packages/zod-validator)。
+在服务器端，你只需要编写一个验证器并创建一个 `route` 变量。以下示例使用了 [Zod 验证器](https://github.com/honojs/middleware/tree/main/packages/zod-validator)。
 
 ```ts{1}
 const route = app.post(
@@ -50,7 +54,7 @@ export type AppType = typeof route
 在客户端，首先导入 `hc` 和 `AppType`。
 
 ```ts
-import { AppType } from '.'
+import type { AppType } from '.'
 import { hc } from 'hono/client'
 ```
 
@@ -80,15 +84,9 @@ if (res.ok) {
 }
 ```
 
-::: warning 文件上传
-
-目前，客户端不支持文件上传。
-
-:::
-
 ## 状态码
 
-如果你在 `c.json()` 中明确指定状态码，如 `200` 或 `404`，它将作为类型添加到客户端。
+如果你在 `c.json()` 中明确指定状态码，如 `200` 或 `404`，它将被添加为传递给客户端的类型。
 
 ```ts
 // server.ts
@@ -245,9 +243,9 @@ const res = await client.posts[':id'].$get({
 })
 ```
 
-## Headers
+## 请求头
 
-你可以向请求添加头部信息。
+你可以在请求中添加请求头。
 
 ```ts
 const res = await client.search.$get(
@@ -263,7 +261,7 @@ const res = await client.search.$get(
 )
 ```
 
-要为所有请求添加通用头部，可以将其作为参数传递给 `hc` 函数。
+要为所有请求添加通用请求头，在 `hc` 函数中指定它作为参数。
 
 ```ts
 const client = hc<AppType>('/api', {
@@ -303,7 +301,7 @@ abortController.abort()
 ```
 
 ::: info
-通过 `init` 定义的 `RequestInit` 对象具有最高优先级。它可以用来覆盖其他选项（如 `body | method | headers`）设置的内容。
+由 `init` 定义的 `RequestInit` 对象具有最高优先级。它可以用来覆盖其他选项（如 `body | method | headers`）设置的内容。
 :::
 
 ## `$url()`
@@ -311,7 +309,7 @@ abortController.abort()
 你可以使用 `$url()` 获取访问端点的 `URL` 对象。
 
 ::: warning
-你必须传入一个绝对 URL 才能使其正常工作。传入相对 URL `/` 将导致以下错误。
+你必须传入一个绝对 URL 才能使其工作。传入相对 URL `/` 将导致以下错误。
 
 `Uncaught TypeError: Failed to construct 'URL': Invalid URL`
 
@@ -345,11 +343,38 @@ url = client.api.posts[':id'].$url({
 console.log(url.pathname) // `/api/posts/123`
 ```
 
+## 文件上传
+
+你可以使用表单主体上传文件：
+
+```ts
+// client
+const res = await client.user.picture.$put({
+  form: {
+    file: new File([fileToUpload], filename, { type: fileToUpload.type })
+  },
+});
+```
+
+```ts
+// server
+const route = app.put(
+  "/user/picture",
+  zValidator(
+    "form",
+    z.object({
+      file: z.instanceof(File),
+    }),
+  ),
+  // ...
+);
+```
+
 ## 自定义 `fetch` 方法
 
 你可以设置自定义的 `fetch` 方法。
 
-在以下 Cloudflare Worker 示例脚本中，使用了 Service Bindings 的 `fetch` 方法而不是默认的 `fetch`。
+在以下 Cloudflare Worker 示例脚本中，使用了 Service Bindings 的 `fetch` 方法代替默认的 `fetch`。
 
 ```toml
 # wrangler.toml
@@ -367,7 +392,7 @@ const client = hc<CreateProfileType>('/', {
 
 ## 类型推断
 
-使用 `InferRequestType` 和 `InferResponseType` 来获知要请求的对象类型和要返回的对象类型。
+使用 `InferRequestType` 和 `InferResponseType` 来了解要请求的对象类型和要返回的对象类型。
 
 ```ts
 import type { InferRequestType, InferResponseType } from 'hono/client'
@@ -388,7 +413,7 @@ type ResType = InferResponseType<typeof $post>
 import useSWR from 'swr'
 import { hc } from 'hono/client'
 import type { InferRequestType } from 'hono/client'
-import { AppType } from '../functions/api/[[route]]'
+import type { AppType } from '../functions/api/[[route]]'
 
 const App = () => {
   const client = hc<AppType>('/api')
@@ -421,16 +446,16 @@ export default App
 ## 在大型应用中使用 RPC
 
 在大型应用中，比如在[构建大型应用](/docs/guides/best-practices#building-a-larger-application)中提到的示例，你需要注意类型推断。
-一个简单的方法是将处理程序链接起来，这样类型就始终能被推断出来。
+一个简单的方法是链式调用处理程序，这样类型总是能被推断出来。
 
 ```ts
 // authors.ts
 import { Hono } from 'hono'
 
 const app = new Hono()
-  .get('/', (c) => c.json('list authors'))
-  .post('/', (c) => c.json('create an author', 201))
-  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+  .get('/', (c) => c.json('列出作者'))
+  .post('/', (c) => c.json('创建作者', 201))
+  .get('/:id', (c) => c.json(`获取 ${c.req.param('id')}`))
 
 export default app
 ```
@@ -440,14 +465,14 @@ export default app
 import { Hono } from 'hono'
 
 const app = new Hono()
-  .get('/', (c) => c.json('list books'))
-  .post('/', (c) => c.json('create a book', 201))
-  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+  .get('/', (c) => c.json('列出图书'))
+  .post('/', (c) => c.json('创建图书', 201))
+  .get('/:id', (c) => c.json(`获取 ${c.req.param('id')}`))
 
 export default app
 ```
 
-然后你可以像往常一样导入子路由，并确保也链接它们的处理程序。由于这是应用的顶层，这就是我们要导出的类型。
+然后你可以像往常一样导入子路由器，并确保也链式调用它们的处理程序，因为这是应用的顶层，这是我们要导出的类型。
 
 ```ts
 // index.ts
@@ -463,13 +488,13 @@ export default app
 export type AppType = typeof routes
 ```
 
-现在你可以使用注册的 AppType 创建一个新的客户端，并像往常一样使用它。
+现在你可以使用注册的 AppType 创建新的客户端，并像往常一样使用它。
 
 ## 已知问题
 
 ### IDE 性能
 
-使用 RPC 时，路由越多，IDE 就会变得越慢。这主要是因为为了推断应用的类型，需要执行大量的类型实例化。
+使用 RPC 时，路由越多，你的 IDE 就会变得越慢。主要原因之一是为了推断应用的类型，需要执行大量的类型实例化。
 
 例如，假设你的应用有这样一个路由：
 
@@ -480,7 +505,7 @@ export const app = new Hono().get('foo/:id', (c) =>
 )
 ```
 
-Hono 会这样推断类型：
+Hono 将推断类型如下：
 
 ```ts
 export const app = Hono<BlankEnv, BlankSchema, '/'>().get<
@@ -492,23 +517,23 @@ export const app = Hono<BlankEnv, BlankSchema, '/'>().get<
 >('foo/:id', (c) => c.json({ ok: true }, 200))
 ```
 
-这是单个路由的类型实例化。虽然用户不需要手动编写这些类型参数（这是好事），但众所周知类型实例化需要很长时间。你的 IDE 中使用的 `tsserver` 每次使用应用时都会执行这个耗时的任务。如果你有很多路由，这可能会显著降低 IDE 的速度。
+这是单个路由的类型实例化。虽然用户不需要手动编写这些类型参数（这是好事），但已知类型实例化需要很长时间。你的 IDE 中使用的 `tsserver` 每次使用应用时都会执行这个耗时的任务。如果你有很多路由，这可能会显著降低你的 IDE 速度。
 
-不过，我们有一些技巧可以缓解这个问题。
+不过，我们有一些缓解这个问题的建议。
 
 #### Hono 版本不匹配
 
-如果你的后端与前端是分开的，并且位于不同的目录中，你需要确保 Hono 版本匹配。如果后端使用一个版本的 Hono，前端使用另一个版本，你会遇到诸如 "_Type instantiation is excessively deep and possibly infinite_" 之类的问题。
+如果你的后端与前端分离并位于不同的目录中，你需要确保 Hono 版本匹配。如果你在后端使用一个版本的 Hono，在前端使用另一个版本，你会遇到诸如"_类型实例化过深且可能无限_"之类的问题。
 
 ![hono-version-mismatch](https://github.com/user-attachments/assets/e4393c80-29dd-408d-93ab-d55c11ccca05)
 
 #### TypeScript 项目引用
 
-与 [Hono 版本不匹配](#hono-version-mismatch) 的情况类似，如果你的后端和前端是分开的，你会遇到问题。如果你想在前端访问后端的代码（例如 `AppType`），你需要使用[项目引用](https://www.typescriptlang.org/docs/handbook/project-references.html)。TypeScript 的项目引用允许一个 TypeScript 代码库访问和使用另一个 TypeScript 代码库的代码。*(来源：[Hono RPC And TypeScript Project References](https://catalins.tech/hono-rpc-in-monorepos/))*。
+与[Hono 版本不匹配](#hono-version-mismatch)的情况类似，如果你的后端和前端是分离的，你会遇到问题。如果你想在前端访问后端的代码（例如 `AppType`），你需要使用[项目引用](https://www.typescriptlang.org/docs/handbook/project-references.html)。TypeScript 的项目引用允许一个 TypeScript 代码库访问和使用另一个 TypeScript 代码库的代码。_（来源：[Hono RPC And TypeScript Project References](https://catalins.tech/hono-rpc-in-monorepos/)）_。
 
 #### 在使用前编译代码（推荐）
 
-`tsc` 可以在编译时完成类型实例化等重任！这样，`tsserver` 就不需要每次使用时都实例化所有类型参数。这将大大提高你的 IDE 速度！
+`tsc` 可以在编译时完成类型实例化等重任！这样，`tsserver` 就不需要每次使用时都实例化所有类型参数。这将使你的 IDE 运行得更快！
 
 编译包含服务器应用的客户端可以获得最佳性能。在你的项目中放入以下代码：
 
@@ -524,7 +549,7 @@ export const hcWithType = (...args: Parameters<typeof hc>): Client =>
   hc<typeof app>(...args)
 ```
 
-编译后，你可以使用 `hcWithType` 而不是 `hc` 来获取已经计算好类型的客户端。
+编译后，你可以使用 `hcWithType` 代替 `hc` 来获取已计算类型的客户端。
 
 ```ts
 const client = hcWithType('http://localhost:8787/')
@@ -536,9 +561,9 @@ const res = await client.posts.$post({
 })
 ```
 
-如果你的项目是 monorepo，这个解决方案很适合。使用像 [`turborepo`](https://turbo.build/repo/docs) 这样的工具，你可以轻松地分离服务器项目和客户端项目，并更好地管理它们之间的依赖关系。这里有[一个可用的示例](https://github.com/m-shaka/hono-rpc-perf-tips-example)。
+如果你的项目是 monorepo，这个解决方案很适合。使用像 [`turborepo`](https://turbo.build/repo/docs) 这样的工具，你可以轻松分离服务器项目和客户端项目，并更好地管理它们之间的依赖关系。这里有[一个可用的示例](https://github.com/m-shaka/hono-rpc-perf-tips-example)。
 
-你也可以使用像 `concurrently` 或 `npm-run-all` 这样的工具手动协调你的构建过程。
+你也可以使用 `concurrently` 或 `npm-run-all` 等工具手动协调你的构建过程。
 
 #### 手动指定类型参数
 
@@ -552,9 +577,9 @@ const app = new Hono().get<'foo/:id'>('foo/:id', (c) =>
 
 仅指定单个类型参数就能在性能上产生差异，但如果你有很多路由，这可能会花费你大量时间和精力。
 
-#### 将应用和客户端拆分成多个文件
+#### 将应用和客户端拆分为多个文件
 
-如[在大型应用中使用 RPC](#在大型应用中使用-rpc)中所述，你可以将应用拆分成多个应用。你也可以为每个应用创建一个客户端：
+如[在大型应用中使用 RPC](#在大型应用中使用-rpc)中所述，你可以将应用拆分为多个应用。你也可以为每个应用创建一个客户端：
 
 ```ts
 // authors-cli.ts

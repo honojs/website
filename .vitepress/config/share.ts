@@ -75,8 +75,7 @@ export default defineConfig({
                 if (fieldName === 'id') {
                   const path = (document.relativePath || document.url || '').replace(/^[/#]+/, '')
                   const section = document.section?.title || ''
-                  const baseId = `${path}${document.id ? '#' + document.id : ''}${section ? '-' + section : ''}`
-                  
+                  const baseId = `${path}${document.id ? '' + document.id : ''}${section ? '-' + section : ''}`
                   // Add counter for duplicate IDs
                   const count = seenIds.get(baseId) || 0
                   seenIds.set(baseId, count + 1)

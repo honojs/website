@@ -1,3 +1,7 @@
+---
+title: Cloudflare Workers
+description: This guide shows how to run Hono on Cloudflare Workers, including setup and example code.
+---
 # Cloudflare Workers
 
 [Cloudflare Workers](https://workers.cloudflare.com) is a JavaScript edge runtime on Cloudflare CDN.
@@ -99,6 +103,14 @@ bun run dev
 ```
 
 :::
+
+### Change port number
+
+If you need to change the port number you can follow the instructions here to update `wrangler.toml` / `wrangler.json` / `wrangler.jsonc` files:
+[Wrangler Configuration](https://developers.cloudflare.com/workers/wrangler/configuration/#local-development-settings)
+
+Or, you can follow the instructions here to set CLI options:
+[Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/commands/#dev)
 
 ## 4. Deploy
 
@@ -275,15 +287,15 @@ app.use('/auth/*', async (c, next) => {
 
 The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.
 
-## Deploy from Github Action
+## Deploy from GitHub Actions
 
-Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
+Before deploying code to Cloudflare via CI, you need a Cloudflare token. You can manage it from [User API Tokens](https://dash.cloudflare.com/profile/api-tokens).
 
-If it's a newly created token, select the **Edit Cloudflare Workers** template, if you have already another token, make sure the token has the corresponding permissions(No, token permissions are not shared between cloudflare page and cloudflare worker).
+If it's a newly created token, select the **Edit Cloudflare Workers** template, if you already have another token, make sure the token has the corresponding permissions(No, token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
 
-then go to your Github repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
+then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
 
-then create `.github/workflows/deploy.yml` in your hono project root folder,paste the following code:
+then create `.github/workflows/deploy.yml` in your Hono project root folder, paste the following code:
 
 ```yml
 name: Deploy
@@ -343,7 +355,7 @@ app.get('/env', (c) => {
 })
 ```
 
-Before you deploy your project to cloudflare, remember to set the environment variable/secrets in the Cloudflare Worker project's configuration.
+Before you deploy your project to Cloudflare, remember to set the environment variable/secrets in the Cloudflare Workers project's configuration.
 
 > For more about this section you can find in the Cloudflare documentation:
 > https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard

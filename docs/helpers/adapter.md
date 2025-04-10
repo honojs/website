@@ -1,3 +1,7 @@
+---
+title: Adapter
+description: The Adapter Helper provides a seamless way to interact with various platforms through a unified interface.
+---
 # Adapter Helper
 
 The Adapter Helper provides a seamless way to interact with various platforms through a unified interface.
@@ -28,6 +32,7 @@ Supported Runtimes, Serverless Platforms and Cloud Services:
 
 - Cloudflare Workers
   - `wrangler.toml`
+  - `wrangler.jsonc`
 - Deno
   - [`Deno.env`](https://docs.deno.com/runtime/manual/basics/env_variables)
   - `.env` file

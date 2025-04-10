@@ -1,3 +1,7 @@
+---
+title: Middleware
+description: Middleware in Hono
+---
 # Middleware
 
 Middleware works after/before Handler. We can get `Request` before dispatching or manipulate `Response` after dispatching.
@@ -142,7 +146,7 @@ However, embedding middleware directly within `app.use()` can limit its reusabil
 middleware into different files.
 
 To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use
-[`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory.
+[`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory. This also allows us to type-safely [access data we've `set` in `Context`](https://hono.dev/docs/api/context#set-get) from downstream handlers.
 
 ```ts
 import { createMiddleware } from 'hono/factory'
@@ -215,4 +219,5 @@ app.get('/echo', echoMiddleware, (c) => {
 Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries.
 So with them, we may make a more complex application.
 
+We can explore a variety of [third-party middleware](https://hono.dev/docs/middleware/third-party).
 For example, we have GraphQL Server Middleware, Sentry Middleware, Firebase Auth Middleware, and others.

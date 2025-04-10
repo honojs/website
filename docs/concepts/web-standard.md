@@ -1,3 +1,7 @@
+---
+title: Web Standard
+description: Hono is built on Web Standard APIs and supports multiple runtimes, including Cloudflare Workers, Deno, Bun, etc., with the goal of enabling web interoperability.
+---
 # Web Standards
 
 Hono uses only **Web Standards** like Fetch.

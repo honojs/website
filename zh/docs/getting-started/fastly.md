@@ -4,30 +4,15 @@ description: 在 Fastly Compute 边缘计算平台上运行 Hono，通过 Fastly
 ---
 # Fastly Compute
 
-[Fastly的Compute](https://www.fastly.com/products/edge-compute)服务允许我们构建高扩展性的全球分布式应用程序，并在Fastly CDN边缘执行代码。
+[Fastly Compute](https://www.fastly.com/products/edge-compute) 是一个先进的边缘计算系统，可以让你使用你喜欢的编程语言在其全球边缘网络上运行代码。Hono 同样可以在 Fastly Compute 上运行。
 
-Hono同样可以在Fastly Compute上运行。
+你可以在本地开发应用程序，并使用 [Fastly CLI](https://www.fastly.com/documentation/reference/tools/cli/) 通过几个简单的命令进行发布。
 
-## 1. 安装CLI
+## 1. 环境搭建
 
-要使用Fastly Compute，如果您还没有账号，必须先[创建一个Fastly账号](https://www.fastly.com/signup/)。
-然后，安装[Fastly CLI](https://github.com/fastly/cli)。
-
-macOS系统
-
-```sh
-brew install fastly/tap/fastly
-```
-
-其他操作系统请参考以下链接：
-
-- [Compute services | Fastly Developer Hub](https://developer.fastly.com/learning/compute/#download-and-install-the-fastly-cli)
-
-## 2. 设置
-
-我们提供了一个Fastly Compute的启动模板。
-使用"create-hono"命令启动您的项目。
-在本例中选择`fastly`模板。
+我们提供了 Fastly Compute 的启动模板。
+使用 "create-hono" 命令启动你的项目。
+在本例中选择 `fastly` 模板。
 
 ::: code-group
 
@@ -53,7 +38,7 @@ deno init --npm hono my-app
 
 :::
 
-进入`my-app`目录并安装依赖。
+进入 `my-app` 目录并安装依赖。
 
 ::: code-group
 
@@ -79,9 +64,9 @@ bun i
 
 :::
 
-## 3. Hello World
+## 2. Hello World
 
-编辑`src/index.ts`：
+编辑 `src/index.ts`：
 
 ```ts
 // src/index.ts
@@ -93,31 +78,35 @@ app.get('/', (c) => c.text('Hello Fastly!'))
 app.fire()
 ```
 
-## 4. 运行
+## 3. 运行
 
-在本地运行开发服务器。然后在Web浏览器中访问`http://localhost:7676`。
+在本地运行开发服务器。然后在浏览器中访问 `http://localhost:7676`。
 
 ::: code-group
 
 ```sh [npm]
-npm run dev
+npm run start
 ```
 
 ```sh [yarn]
-yarn dev
+yarn start
 ```
 
 ```sh [pnpm]
-pnpm dev
+pnpm run start
 ```
 
 ```sh [bun]
-bun run dev
+bun run start
 ```
 
 :::
 
 ## 4. 部署
+
+要将应用程序构建并部署到你的 Fastly 账户，请运行以下命令。首次部署应用程序时，系统会提示你在账户中创建一个新服务。
+
+如果你还没有账户，你需要先[创建一个 Fastly 账户](https://www.fastly.com/signup/)。
 
 ::: code-group
 
@@ -130,7 +119,7 @@ yarn deploy
 ```
 
 ```sh [pnpm]
-pnpm deploy
+pnpm run deploy
 ```
 
 ```sh [bun]
@@ -138,5 +127,3 @@ bun run deploy
 ```
 
 :::
-
-就是这样！

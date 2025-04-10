@@ -1,3 +1,8 @@
+---
+title: CORS Middleware
+description: hono built-in CORS middleware.
+---
+
 # CORS Middleware
 
 There are many use cases of Cloudflare Workers as Web APIs and calling them from external front-end application.
@@ -15,6 +20,7 @@ import { cors } from 'hono/cors'
 ```ts
 const app = new Hono()
 
+// CORS should be called before the route
 app.use('/api/*', cors())
 app.use(
   '/api2/*',

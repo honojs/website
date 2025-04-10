@@ -4,7 +4,7 @@ description: 本指南介绍如何使用第三方适配器在阿里云函数计�
 ---
 # 阿里云函数计算
 
-[阿里云函数计算](https://www.alibabacloud.com/en/product/function-compute) 是一个全托管的事件驱动计算服务。使用函数计算，您可以专注于编写和上传代码，而无需管理服务器等基础设施。
+[阿里云函数计算](https://www.alibabacloud.com/en/product/function-compute) 是一个全托管的事件驱动计算服务。函数计算让你可以专注于编写和上传代码，而无需管理服务器等基础设施。
 
 本指南使用第三方适配器 [rwv/hono-alibaba-cloud-fc3-adapter](https://github.com/rwv/hono-alibaba-cloud-fc3-adapter) 在阿里云函数计算上运行 Hono。
 
@@ -50,9 +50,9 @@ touch src/index.ts
 
 :::
 
-## 2. Hello World 示例
+## 2. Hello World
 
-编辑 `src/index.ts` 文件：
+编辑 `src/index.ts`。
 
 ```ts
 import { Hono } from 'hono'
@@ -67,41 +67,41 @@ export const handler = handle(app)
 
 ## 3. 配置 serverless-devs
 
-> [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) 是一个开源的 Serverless 开发者平台，致力于为开发者提供强大的工具链系统。通过该平台，开发者不仅可以一键体验多云 Serverless 产品、快速部署 Serverless 项目，还能够对 Serverless 应用进行全生命周期管理，并能够非常简单快速地将 Serverless Devs 与其他工具/平台进行结合，进一步提升研发运维效能。
+> [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) 是一个开源的 Serverless 开发者平台，致力于为开发者提供强大的工具链系统。通过这个平台，开发者不仅可以一键体验多云 Serverless 产品，快速部署 Serverless 项目，还可以对 Serverless 应用进行全生命周期管理，并且非常简单快速地将 Serverless Devs 与其他工具/平台进行结合，进一步提升研发运维效率。
 
-添加阿里云 AccessKeyID 和 AccessKeySecret：
+添加阿里云 AccessKeyID 和 AccessKeySecret
 
 ```sh
 npx s config add
-# 请选择云厂商：阿里云 (alibaba)
-# 输入您的 AccessKeyID 和 AccessKeySecret
+# 请选择云厂商: 阿里云 (alibaba)
+# 输入你的 AccessKeyID 和 AccessKeySecret
 ```
 
-编辑 `s.yaml` 文件：
+编辑 `s.yaml`
 
 ```yaml
 edition: 3.0.0
 name: my-app
-access: "default"
+access: 'default'
 
 vars:
-  region: "us-west-1"
+  region: 'us-west-1'
 
 resources:
   my-app:
     component: fc3
     props:
       region: ${vars.region}
-      functionName: "my-app"
-      description: "Hello World by Hono"
-      runtime: "nodejs20"
+      functionName: 'my-app'
+      description: 'Hello World by Hono'
+      runtime: 'nodejs20'
       code: ./dist
       handler: index.handler
       memorySize: 1024
       timeout: 300
 ```
 
-编辑 `package.json` 文件中的 `scripts` 部分：
+编辑 `package.json` 中的 `scripts` 部分：
 
 ```json
 {
@@ -117,6 +117,6 @@ resources:
 最后，运行以下命令进行部署：
 
 ```sh
-npm run build # 将 TypeScript 代码编译为 JavaScript
-npm run deploy # 将函数部署到阿里云函数计算
+npm run build # 编译 TypeScript 代码为 JavaScript
+npm run deploy # 部署函数到阿里云函数计算
 ```

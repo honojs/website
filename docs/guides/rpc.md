@@ -1,8 +1,17 @@
+---
+title: RPC
+description: Use Hono's RPC feature to share API specifications between the server and the client.
+---
 # RPC
 
-The RPC feature allows sharing of the API specifications between the server and the client.
+The RPC feature allows sharing of the API specifications between the server and the client. 
 
-You can export the types of input type specified by the Validator and the output type emitted by `json()`. And Hono Client will be able to import it.
+First, export the `typeof` your Hono app (commonly called `AppType`)—or just the routes you want available to the client—from your server code.
+
+By accepting `AppType` as a generic parameter, the Hono Client can infer both the input type(s) specified by the Validator, and the output type(s) emitted by handlers returning `c.json()`. 
+
+> [!NOTE]
+> At this time, responses returned from middleware are [not inferred by the client.](https://github.com/honojs/hono/issues/2719)
 
 > [!NOTE]  
 > For the RPC types to work properly in a monorepo, in both the Client's and Server's tsconfig.json files, set `"strict": true` in `compilerOptions`. [Read more.](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)
@@ -45,7 +54,7 @@ export type AppType = typeof route
 On the Client side, import `hc` and `AppType` first.
 
 ```ts
-import { AppType } from '.'
+import type { AppType } from '.'
 import { hc } from 'hono/client'
 ```
 
@@ -74,12 +83,6 @@ if (res.ok) {
   console.log(data.message)
 }
 ```
-
-::: warning File Upload
-
-Currently, the client does not support file uploading.
-
-:::
 
 ## Status code
 
@@ -340,6 +343,33 @@ url = client.api.posts[':id'].$url({
 console.log(url.pathname) // `/api/posts/123`
 ```
 
+## File Uploads
+
+You can upload files using a form body:
+
+```ts
+// client
+const res = await client.user.picture.$put({
+  form: {
+    file: new File([fileToUpload], filename, { type: fileToUpload.type })
+  },
+});
+```
+
+```ts
+// server
+const route = app.put(
+  "/user/picture",
+  zValidator(
+    "form",
+    z.object({
+      file: z.instanceof(File),
+    }),
+  ),
+  // ...
+);
+```
+
 ## Custom `fetch` method
 
 You can set the custom `fetch` method.
@@ -383,7 +413,7 @@ You can also use a React Hook library such as [SWR](https://swr.vercel.app).
 import useSWR from 'swr'
 import { hc } from 'hono/client'
 import type { InferRequestType } from 'hono/client'
-import { AppType } from '../functions/api/[[route]]'
+import type { AppType } from '../functions/api/[[route]]'
 
 const App = () => {
   const client = hc<AppType>('/api')
@@ -499,7 +529,7 @@ If your backend is separate from the frontend and lives in a different directory
 
 #### TypeScript project references
 
-Like in the case of [Hono version mismatch](#hono-version-mismatch), you'll run into issues if your backend and frontend are separate. If you want to access code from the backend (`AppType`, for example) on the frontend, you need to use [project references](https://www.typescriptlang.org/docs/handbook/project-references.html). TypeScript's project references allow one TypeScript codebase to access and use code from another TypeScript codebase.  *(source: [Hono RPC And TypeScript Project References](https://catalins.tech/hono-rpc-in-monorepos/))*.
+Like in the case of [Hono version mismatch](#hono-version-mismatch), you'll run into issues if your backend and frontend are separate. If you want to access code from the backend (`AppType`, for example) on the frontend, you need to use [project references](https://www.typescriptlang.org/docs/handbook/project-references.html). TypeScript's project references allow one TypeScript codebase to access and use code from another TypeScript codebase. _(source: [Hono RPC And TypeScript Project References](https://catalins.tech/hono-rpc-in-monorepos/))_.
 
 #### Compile your code before using it (recommended)
 

@@ -1,3 +1,7 @@
+---
+title: Node.js
+description: This guide shows how to run Hono on Node.js, including setup and example code.
+---
 # Node.js
 
 [Node.js](https://nodejs.org/) is an open-source, cross-platform JavaScript runtime environment.
@@ -151,7 +155,7 @@ You can use `serveStatic` to serve static files from the local file system. For 
     └── image.png
 ```
 
-If access to the path `/static/*` comes in and returns a file under `./static`, you can write the following:
+If a request to the path `/static/*` comes in and you want to return a file under `./static`, you can write the following:
 
 ```ts
 import { serveStatic } from '@hono/node-server/serve-static'
@@ -165,7 +169,7 @@ Use the `path` option to serve `favicon.ico` in the directory root:
 app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
-If access comes to the path `/hello.txt` or `/image.png` and returns a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
+If a request to the path `/hello.txt` or `/image.png` comes in and you want to return a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
 
 ```ts
 app.use('*', serveStatic({ root: './static' }))
@@ -217,9 +221,20 @@ const server = serve({
 })
 ```
 
-## Dockerfile
+## Building & Deployment
 
-Here is an example of a Dockerfile.
+Complete the following steps to build a simple Hono app. Apps with a front-end framework may need to use [Hono's Vite plugins](https://github.com/honojs/vite-plugins).
+
+1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
+2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
+3. Add `"build": "tsc"` to `script` section of `package.json`.
+4. Run `npm install typescript --save-dev`.
+5. Add `"type": "module"` to `package.json`.
+6. Run `npm run build`!
+
+### Dockerfile
+
+Here is an example of a Dockerfile. You must complete steps 1-5 above before this build and deployment process will work.
 
 ```Dockerfile
 FROM node:20-alpine AS base
@@ -250,11 +265,3 @@ EXPOSE 3000
 
 CMD ["node", "/app/dist/index.js"]
 ```
-
-The following steps shall be taken in advance.
-
-1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
-2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
-3. Add `"build": "tsc"` to `script` section of `package.json`.
-4. Run `npm install typescript --save-dev`.
-5. Add `"type": "module"` to `package.json`.

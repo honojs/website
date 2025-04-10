@@ -1,3 +1,7 @@
+---
+title: Client Components
+description: hono/jsx not only supports server side but also client side. This means that it is possible to create an interactive UI that runs in the browser. We call it Client Components or hono/jsx/dom.
+---
 # Client Components
 
 `hono/jsx` supports not only server side but also client side. This means that it is possible to create an interactive UI that runs in the browser. We call it Client Components or `hono/jsx/dom`.
@@ -270,7 +274,7 @@ export default function App() {
 
 ## The `hono/jsx/dom` runtime
 
-There is a small JSX Runtime for Client Components. Using this will result in smaller bundled results than using `hono/jsx`. Specify `hono/jsx/dom` in `tsconfig.json`.
+There is a small JSX Runtime for Client Components. Using this will result in smaller bundled results than using `hono/jsx`. Specify `hono/jsx/dom` in `tsconfig.json`. For Deno, modify the deno.json.
 
 ```json
 {
@@ -279,4 +283,16 @@ There is a small JSX Runtime for Client Components. Using this will result in sm
     "jsxImportSource": "hono/jsx/dom"
   }
 }
+```
+
+Alternatively, you can specify `hono/jsx/dom` in the esbuild transform options in `vite.config.ts`.
+
+```ts
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  esbuild: {
+    jsxImportSource: 'hono/jsx/dom',
+  },
+})
 ```

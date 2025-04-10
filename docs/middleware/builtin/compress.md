@@ -1,3 +1,8 @@
+---
+title: Compress Middleware
+description: This middleware compresses the response body, according to `Accept-Encoding` request header.
+---
+
 # Compress Middleware
 
 This middleware compresses the response body, according to `Accept-Encoding` request header.

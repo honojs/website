@@ -70,14 +70,16 @@ Here are some examples of use-cases.
 
 ## Who is using Hono?
 
-| Project                                                            | Platform           | What for?                                                                               |
-| ------------------------------------------------------------------ | ------------------ | --------------------------------------------------------------------------------------- |
-| [cdnjs](https://cdnjs.com)                                         | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the api server_.                  |
-| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/) | Cloudflare Workers | Serverless SQL databases. _Hono is used for the internal api server_.                   |
-| [BaseAI](https://baseai.dev)                                       | Local AI Server    | Serverless AI agent pipes with memory. An open-source agentic AI framework for web. _API server with Hono_. |
-| [Unkey](https://unkey.dev)                                         | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the api server_. |
-| [OpenStatus](https://openstatus.dev)                               | Bun                | An open-source website & API monitoring platform. _Hono is used for the api server_.    |
-| [Deno Benchmarks](https://deno.com/benchmarks)                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.               |
+| Project                                                                            | Platform           | What for?                                                                                                   |
+| ---------------------------------------------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| [cdnjs](https://cdnjs.com)                                                         | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the API server_.                                      |
+| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/)                 | Cloudflare Workers | Serverless SQL databases. _Hono is used for the internal API server_.                                       |
+| [Cloudflare Workers KV](https://www.cloudflare.com/developer-platform/workers-kv/) | Cloudflare Workers | Serverless key-value database. _Hono is used for the internal API server_.                                  |
+| [BaseAI](https://baseai.dev)                                                       | Local AI Server    | Serverless AI agent pipes with memory. An open-source agentic AI framework for web. _API server with Hono_. |
+| [Unkey](https://unkey.dev)                                                         | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the API server_.                     |
+| [OpenStatus](https://openstatus.dev)                                               | Bun                | An open-source website & API monitoring platform. _Hono is used for the API server_.                        |
+| [Deno Benchmarks](https://deno.com/benchmarks)                                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                                   |
+| [Clerk](https://clerk.com)                                                         | Cloudflare Workers | An open-source User Management Platform. _Hono is used for the API server_.                                   |
 
 And the following.
 
@@ -151,7 +153,7 @@ See [more information about Web Standards](/docs/concepts/web-standard).
 
 ## Middleware & Helpers
 
-**Hono has many middleware and helpers**. These makes "Write Less, do more" a reality.
+**Hono has many middleware and helpers**. This makes "Write Less, do more" a reality.
 
 Out of the box, Hono provides middleware and helpers for:
 
@@ -168,6 +170,7 @@ Out of the box, Hono provides middleware and helpers for:
 - [JSX](/docs/guides/jsx)
 - [JWT Authentication](/docs/middleware/builtin/jwt)
 - [Logger](/docs/middleware/builtin/logger)
+- [Language](/docs/middleware/builtin/language)
 - [Pretty JSON](/docs/middleware/builtin/pretty-json)
 - [Secure Headers](/docs/middleware/builtin/secure-headers)
 - [SSG](/docs/helpers/ssg)

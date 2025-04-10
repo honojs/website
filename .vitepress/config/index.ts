@@ -5,6 +5,8 @@ import { zh } from './zh'
 
 export default defineConfig({
   ...share,
+  base: '/', // 确保基础路径正确
+  cleanUrls: true, // 启用干净的 URL
   locales: {
     root: {
       label: 'English',

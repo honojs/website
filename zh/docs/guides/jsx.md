@@ -2,18 +2,17 @@
 title: JSX
 description: 使用 `hono/jsx` 可以方便地编写 JSX 语法的 HTML，适用于客户端和服务器端渲染。
 ---
-
 # JSX
 
-你可以通过 `hono/jsx` 使用 JSX 语法编写 HTML。
+使用 `hono/jsx` 可以让你用 JSX 语法编写 HTML。
 
-虽然 `hono/jsx` 可以在客户端使用，但你可能最常用它来进行服务器端渲染。以下是一些在服务器端和客户端通用的 JSX 相关内容。
+虽然 `hono/jsx` 在客户端也可以使用，但你可能会更多地在服务器端渲染内容时使用它。以下是一些在服务器端和客户端都通用的 JSX 相关内容。
 
 ## 配置
 
 要使用 JSX，需要修改 `tsconfig.json`：
 
-`tsconfig.json`:
+`tsconfig.json`：
 
 ```json
 {
@@ -44,7 +43,11 @@ description: 使用 `hono/jsx` 可以方便地编写 JSX 语法的 HTML，适用
 
 ## 使用方法
 
-`index.tsx`:
+:::info
+如果你是直接从[快速开始](/docs/#quick-start)过来的，主文件可能是 `.ts` 扩展名 - 你需要将其改为 `.tsx` - 否则应用将无法运行。你还需要相应地修改 `package.json`（如果使用 Deno 则是 `deno.json`）来反映这个改动（例如，将开发脚本中的 `bun run --hot src/index.ts` 改为 `bun run --hot src/index.tsx`）。
+:::
+
+`index.tsx`：
 
 ```tsx
 import { Hono } from 'hono'
@@ -99,7 +102,7 @@ const List = () => (
 )
 ```
 
-如果配置正确，你也可以使用 `<></>` 简写语法。
+如果配置正确，你也可以使用 `<></>` 简写语法：
 
 ```tsx
 const List = () => (
@@ -113,7 +116,7 @@ const List = () => (
 
 ## `PropsWithChildren`
 
-你可以使用 `PropsWithChildren` 来正确推断函数组件中的子元素类型。
+你可以使用 `PropsWithChildren` 来正确推断函数组件中的子元素类型：
 
 ```tsx
 import { PropsWithChildren } from 'hono/jsx'
@@ -146,7 +149,7 @@ app.get('/foo', (c) => {
 
 ## 记忆化
 
-使用 `memo` 记忆化计算字符串来优化你的组件：
+使用 `memo` 通过记忆化计算字符串来优化你的组件：
 
 ```tsx
 import { memo } from 'hono/jsx'
@@ -162,9 +165,9 @@ const Layout = (
 )
 ```
 
-## Context（上下文）
+## Context
 
-通过使用 `useContext`，你可以在组件树的任何层级共享数据，而无需通过 props 传递值。
+通过使用 `useContext`，你可以在不通过 props 传递值的情况下，在组件树的任何层级共享数据：
 
 ```tsx
 import type { FC } from 'hono/jsx'
@@ -212,11 +215,11 @@ app.get('/', (c) => {
 ## 异步组件
 
 `hono/jsx` 支持异步组件，因此你可以在组件中使用 `async`/`await`。
-如果你使用 `c.html()` 渲染它，它会自动等待。
+如果你使用 `c.html()` 渲染它，它会自动等待完成。
 
 ```tsx
 const AsyncComponent = async () => {
-  await new Promise((r) => setTimeout(r, 1000)) // sleep 1s
+  await new Promise((r) => setTimeout(r, 1000)) // 暂停 1 秒
   return <div>Done!</div>
 }
 
@@ -233,9 +236,9 @@ app.get('/', (c) => {
 
 ## Suspense <Badge style="vertical-align: middle;" type="warning" text="实验性功能" />
 
-现已提供类似 React 的 `Suspense` 功能。
-如果你用 `Suspense` 包装异步组件，fallback 中的内容会首先渲染，一旦 Promise 解决，就会显示等待的内容。
-你可以将其与 `renderToReadableStream()` 一起使用。
+React 风格的 `Suspense` 功能已经可用。
+如果你用 `Suspense` 包装异步组件，fallback 中的内容会先渲染，一旦 Promise 解决，就会显示等待的内容。
+你可以配合 `renderToReadableStream()` 使用它。
 
 ```tsx
 import { renderToReadableStream, Suspense } from 'hono/jsx/streaming'
@@ -265,7 +268,7 @@ app.get('/', (c) => {
 
 你可以使用 `ErrorBoundary` 捕获子组件中的错误。
 
-在下面的示例中，如果发生错误，将显示在 `fallback` 中指定的内容。
+在下面的示例中，如果发生错误，将显示 `fallback` 中指定的内容。
 
 ```tsx
 function SyncComponent() {
@@ -313,7 +316,7 @@ app.get('/with-suspense', async (c) => {
 ## 与 html 中间件集成
 
 结合 JSX 和 html 中间件可以实现强大的模板功能。
-详细信息请参考 [html 中间件文档](/zh/docs/helpers/html)。
+详细信息请参考 [html 中间件文档](/docs/helpers/html)。
 
 ```tsx
 import { Hono } from 'hono'
@@ -357,9 +360,9 @@ app.get('/:name', (c) => {
 export default app
 ```
 
-## 配合 JSX 渲染器中间件
+## 与 JSX 渲染器中间件配合使用
 
-[JSX 渲染器中间件](/docs/middleware/builtin/jsx-renderer) 可以让你更轻松地使用 JSX 创建 HTML 页面。
+[JSX 渲染器中间件](/docs/middleware/builtin/jsx-renderer)可以让你更轻松地使用 JSX 创建 HTML 页面。
 
 ## 覆盖类型定义
 

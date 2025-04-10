@@ -2,12 +2,11 @@
 title: CBOR
 description: hono 内置的 CBOR 中间件，提供处理 CBOR 数据的功能。
 ---
-
 # CBOR
 
-[CBOR](https://cbor.io/) 是一种用于序列化对象的二进制格式，定义在 [RFC 8949](https://www.rfc-editor.org/rfc/rfc8949.html) 中。它与 JSON 兼容，适用于需要高效数据交换的网络通信，以及物联网设备等资源受限的环境。
+[CBOR](https://cbor.io/) 是一种二进制格式，用于序列化对象，在 [RFC 8949](https://www.rfc-editor.org/rfc/rfc8949.html) 中定义。它与 JSON 格式兼容，特别适合需要高效数据交换的网络通信，以及在物联网设备等资源受限的环境中使用。
 
-以下是使用 [cbor2](https://www.npmjs.com/package/cbor2) 包响应 CBOR 的示例：
+下面是一个使用 [cbor2](https://www.npmjs.com/package/cbor2) 包来返回 CBOR 格式响应的例子：
 
 ```ts
 import { Hono } from 'hono'
@@ -39,7 +38,7 @@ app.get('/', (c) => {
 export default app
 ```
 
-你可以使用以下命令检查响应。
+你可以用下面的命令来查看响应内容：
 
 ```plaintext
 $ curl -s http://localhost:3000/ | hexdump -C
@@ -48,7 +47,7 @@ $ curl -s http://localhost:3000/ | hexdump -C
 00000015
 ```
 
-此外，你可以在 [CBOR playground](https://cbor.me/) 中验证其解码为 JSON 对象。
+另外，你可以在 [CBOR 在线工具](https://cbor.me/) 中验证它是否能正确解码为 JSON 对象。
 
 ```plaintext
 A1                           # map(1)
@@ -59,10 +58,10 @@ A1                           # map(1)
 ```
 
 ```json
-{"message": "hello CBOR!"}
+{ "message": "hello CBOR!" }
 ```
 
-## 参见
+## 相关链接
 
 - [CBOR — 简明二进制对象表示 | 概述](https://cbor.io/)
-- [CBOR playground](https://cbor.me/)
+- [CBOR 在线工具](https://cbor.me/)

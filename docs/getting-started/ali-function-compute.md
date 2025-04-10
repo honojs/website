@@ -1,9 +1,12 @@
+---
+title: Alibaba Cloud Function Compute
+description: This guide shows how to run Hono on Alibaba Cloud Function Compute using a third-party adapter, including setup and example code.
+---
 # Alibaba Cloud Function Compute
 
 [Alibaba Cloud Function Compute](https://www.alibabacloud.com/en/product/function-compute) is a fully managed, event-driven compute service. Function Compute allows you to focus on writing and uploading code without having to manage infrastructure such as servers.
 
 This guide uses a third-party adapter [rwv/hono-alibaba-cloud-fc3-adapter](https://github.com/rwv/hono-alibaba-cloud-fc3-adapter) to run Hono on Alibaba Cloud Function Compute.
-
 
 ## 1. Setup
 
@@ -79,19 +82,19 @@ Edit `s.yaml`
 ```yaml
 edition: 3.0.0
 name: my-app
-access: "default"
+access: 'default'
 
 vars:
-  region: "us-west-1"
+  region: 'us-west-1'
 
 resources:
   my-app:
     component: fc3
     props:
       region: ${vars.region}
-      functionName: "my-app"
-      description: "Hello World by Hono"
-      runtime: "nodejs20"
+      functionName: 'my-app'
+      description: 'Hello World by Hono'
+      runtime: 'nodejs20'
       code: ./dist
       handler: index.handler
       memorySize: 1024

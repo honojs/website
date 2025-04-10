@@ -1,3 +1,7 @@
+---
+title: JSX
+description: Use `hono/jsx` to write HTML with JSX syntax, suitable for both client and server-side rendering.
+---
 # JSX
 
 You can write HTML with JSX syntax with `hono/jsx`.
@@ -38,6 +42,10 @@ For Deno, you have to modify the `deno.json` instead of the `tsconfig.json`:
 ```
 
 ## Usage
+
+:::info
+If you are comming straight from the [Quick Start](/docs/#quick-start), the main file has a `.ts` extension - you need to change it to `.tsx` - otherwise you will not be able to run the application at all. You should additionally modify the `package.json` (or `deno.json` if you are using Deno) to reflect that change (e.g. instead of having `bun run --hot src/index.ts` in dev script, you should have `bun run --hot src/index.tsx`).
+:::
 
 `index.tsx`:
 

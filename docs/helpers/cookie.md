@@ -1,3 +1,7 @@
+---
+title: Cookie Helper
+description: The Cookie Helper provides an easy interface to manage cookies, enabling developers to set, parse, and delete cookies seamlessly.
+---
 # Cookie Helper
 
 The Cookie Helper provides an easy interface to manage cookies, enabling developers to set, parse, and delete cookies seamlessly.
@@ -17,34 +21,31 @@ import {
 
 ## Usage
 
+### Regular cookies
+
+```ts
+app.get('/cookie', (c) => {
+  setCookie(c, 'cookie_name', 'cookie_value')
+  const yummyCookie = getCookie(c, 'cookie_name')
+  deleteCookie(c, 'cookie_name')
+  const allCookies = getCookie(c)
+  // ...
+})
+```
+### Signed cookies
+
 **NOTE**: Setting and retrieving signed cookies returns a Promise due to the async nature of the WebCrypto API, which is used to create HMAC SHA-256 signatures.
 
 ```ts
-const app = new Hono()
+app.get('/signed-cookie', (c) => {
+  const secret = 'secret' // make sure it's a large enough string to be secure
 
-app.get('/cookie', (c) => {
-  const allCookies = getCookie(c)
-  const yummyCookie = getCookie(c, 'yummy_cookie')
-  // ...
-  setCookie(c, 'delicious_cookie', 'macha')
-  deleteCookie(c, 'delicious_cookie')
-  //
-})
-
-app.get('/signed-cookie', async (c) => {
-  const secret = 'secret ingredient'
+  await setSignedCookie(c, 'cookie_name0', 'cookie_value', secret)
+  const fortuneCookie = await getSignedCookie(c, secret, 'cookie_name0')
+  deleteCookie(c, 'cookie_name0')
   // `getSignedCookie` will return `false` for a specified cookie if the signature was tampered with or is invalid
   const allSignedCookies = await getSignedCookie(c, secret)
-  const fortuneCookie = await getSignedCookie(
-    c,
-    secret,
-    'fortune_cookie'
-  )
   // ...
-  const anotherSecret = 'secret chocolate chips'
-  await setSignedCookie(c, 'great_cookie', 'blueberry', anotherSecret)
-  deleteCookie(c, 'great_cookie')
-  //
 })
 ```
 

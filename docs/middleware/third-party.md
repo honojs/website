@@ -1,3 +1,8 @@
+---
+title: Third-party Middleware
+description: Third-party middleware refers to middleware not bundled within the Hono package. Most of this middleware leverages external libraries.
+---
+
 # Third-party Middleware
 
 Third-party middleware refers to middleware not bundled within the Hono package.
@@ -16,6 +21,7 @@ Most of this middleware leverages external libraries.
 
 - [ArkType validator](https://github.com/honojs/middleware/tree/main/packages/arktype-validator)
 - [Effect Schema Validator](https://github.com/honojs/middleware/tree/main/packages/effect-validator)
+- [Standard Schema Validator](https://github.com/honojs/middleware/tree/main/packages/standard-validator)
 - [TypeBox Validator](https://github.com/honojs/middleware/tree/main/packages/typebox-validator)
 - [Typia Validator](https://github.com/honojs/middleware/tree/main/packages/typia-validator)
 - [unknownutil Validator](https://github.com/ryoppippi/hono-unknownutil-validator)
@@ -25,7 +31,7 @@ Most of this middleware leverages external libraries.
 ### OpenAPI
 
 - [Zod OpenAPI](https://github.com/honojs/middleware/tree/main/packages/zod-openapi)
-- [Scalar API Reference](https://github.com/scalar/scalar/tree/main/packages/hono-api-reference)
+- [Scalar API Reference](https://github.com/scalar/scalar/tree/main/integrations/hono)
 - [Swagger UI](https://github.com/honojs/middleware/tree/main/packages/swagger-ui)
 - [Hono OpenAPI](https://github.com/rhinobase/hono-openapi)
 
@@ -47,3 +53,4 @@ Most of this middleware leverages external libraries.
 - [Geo](https://github.com/ktkongtong/hono-geo-middleware/tree/main/packages/middleware)
 - [Hono Simple DI](https://github.com/maou-shonen/hono-simple-DI)
 - [Highlight.io](https://www.highlight.io/docs/getting-started/backend-sdk/js/hono)
+- [Apitally (API monitoring & analytics)](https://docs.apitally.io/frameworks/hono)

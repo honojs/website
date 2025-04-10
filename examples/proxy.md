@@ -1,4 +1,12 @@
+---
+title: Proxy
+description: Using Hono as a proxy.
+---
 # Proxy
+
+::: tip
+**Update:** We've introduced the new Proxy Helper for easier proxy functionality. Check out the [Proxy Helper documentation](https://hono.dev/docs/helpers/proxy) for more details.
+:::
 
 ```ts
 import { Hono } from 'hono'

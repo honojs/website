@@ -5,15 +5,15 @@ description: 使用 AWS Lambda 运行 Hono，包括环境搭建和示例代码�
 # AWS Lambda
 
 AWS Lambda 是亚马逊云服务（Amazon Web Services）提供的一个无服务器平台。
-它能让你的代码响应事件并自动管理底层计算资源。
+它可以让你的代码响应事件并自动管理底层计算资源。
 
-Hono 可以在 Node.js 18+ 环境下的 AWS Lambda 上运行。
+Hono 可以在 Node.js 18+ 环境的 AWS Lambda 上运行。
 
 ## 1. 环境搭建
 
-在 AWS Lambda 上创建应用程序时，
-使用 [CDK](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk.html)
-可以方便地配置 IAM 角色、API Gateway 等功能。
+在 AWS Lambda 上创建应用时，
+使用 [CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html) 
+可以帮助你设置 IAM 角色、API Gateway 等功能。
 
 使用 `cdk` CLI 初始化你的项目。
 
@@ -110,22 +110,22 @@ cdk deploy
 
 ## 处理二进制数据
 
-Hono 支持二进制数据响应。
+Hono 支持二进制数据作为响应。
 在 Lambda 中，返回二进制数据需要进行 base64 编码。
-当在 `Content-Type` 头部设置二进制类型时，Hono 会自动将数据编码为 base64。
+当在 `Content-Type` 头部设置了二进制类型时，Hono 会自动将数据编码为 base64。
 
 ```ts
 app.get('/binary', async (c) => {
   // ...
   c.status(200)
   c.header('Content-Type', 'image/png') // 表示二进制数据
-  return c.body(buffer) // 支持 `ArrayBufferLike` 类型，会自动编码为 base64
+  return c.body(buffer) // 支持 `ArrayBufferLike` 类型，会被编码为 base64
 })
 ```
 
 ## 访问 AWS Lambda 对象
 
-在 Hono 中，你可以通过绑定 `LambdaEvent`、`LambdaContext` 类型并使用 `c.env` 来访问 AWS Lambda 的事件和上下文
+在 Hono 中，你可以通过绑定 `LambdaEvent`、`LambdaContext` 类型并使用 `c.env` 来访问 AWS Lambda 的 Events 和 Context
 
 ```ts
 import { Hono } from 'hono'
@@ -172,7 +172,7 @@ app.get('/custom-context/', (c) => {
 export const handler = handle(app)
 ```
 
-### v3.10.0 之前的版本（已弃用）
+### v3.10.0 之前的版本（已废弃）
 
 你可以通过绑定 `ApiGatewayRequestContext` 类型并使用 `c.env` 来访问 AWS Lambda 的请求上下文
 
@@ -206,7 +206,7 @@ fn.addFunctionUrl({
 })
 ```
 
-通常情况下，实现这一功能需要使用 awslambda.streamifyResponse 向 NodeJS.WritableStream 写入数据块，但使用 AWS Lambda 适配器时，你可以使用 streamHandle 代替 handle 来实现 Hono 传统的流式响应。
+通常情况下，实现需要使用 awslambda.streamifyResponse 向 NodeJS.WritableStream 写入数据块，但使用 AWS Lambda 适配器时，你可以通过使用 streamHandle 而不是 handle 来实现 Hono 传统的流式响应。
 
 ```ts
 import { Hono } from 'hono'
@@ -223,5 +223,5 @@ app.get('/stream', async (c) => {
   })
 })
 
-const handler = streamHandle(app)
+export const handler = streamHandle(app)
 ```

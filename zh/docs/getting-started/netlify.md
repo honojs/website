@@ -4,15 +4,15 @@ description: 使用 Hono 在 Netlify 边缘计算平台上进行开发和部署�
 ---
 # Netlify
 
-Netlify 提供静态网站托管和无服务器后端服务。通过 [Edge Functions](https://docs.netlify.com/edge-functions/overview/)，我们可以让网页变得动态。
+Netlify 提供静态网站托管和无服务器后端服务。[Edge Functions](https://docs.netlify.com/edge-functions/overview/)（边缘函数）使我们能够让网页变得动态。
 
-Edge Functions 支持使用 Deno 和 TypeScript 进行开发，并可通过 [Netlify CLI](https://docs.netlify.com/cli/get-started/) 轻松部署。使用 Hono，你可以为 Netlify Edge Functions 创建应用程序。
+Edge Functions 支持使用 Deno 和 TypeScript 进行开发，并通过 [Netlify CLI](https://docs.netlify.com/cli/get-started/) 实现简单的部署。使用 Hono，你可以为 Netlify Edge Functions 创建应用程序。
 
 ## 1. 环境搭建
 
-我们提供了一个 Netlify 启动模板。
+我们提供了 Netlify 的启动模板。
 使用 "create-hono" 命令启动你的项目。
-在本示例中选择 `netlify` 模板。
+在本例中选择 `netlify` 模板。
 
 ::: code-group
 
@@ -94,7 +94,7 @@ const app = new Hono<Env>()
 
 app.get('/country', (c) =>
   c.json({
-    '你所在的国家': c.env.context.geo.country?.name,
+    '你在': c.env.context.geo.country?.name,
   })
 )
 

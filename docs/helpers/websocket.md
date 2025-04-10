@@ -1,3 +1,7 @@
+--- 
+title: WebSocket Helper
+description: WebSocket Helper is a helper for server-side WebSockets in Hono applications.
+---
 # WebSocket Helper
 
 WebSocket Helper is a helper for server-side WebSockets in Hono applications.
@@ -140,6 +144,7 @@ ws.addEventListener('open', () => {
 ```tsx
 import { Hono } from 'hono'
 import { createBunWebSocket } from 'hono/bun'
+import { html } from 'hono/html'
 
 const { upgradeWebSocket, websocket } = createBunWebSocket()
 
@@ -153,17 +158,15 @@ app.get('/', (c) => {
       </head>
       <body>
         <div id='now-time'></div>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-        const ws = new WebSocket('ws://localhost:3000/ws')
-        const $nowTime = document.getElementById('now-time')
-        ws.onmessage = (event) => {
-          $nowTime.textContent = event.data
-        }
-        `,
-          }}
-        ></script>
+        {html`
+          <script>
+            const ws = new WebSocket('ws://localhost:3000/ws')
+            const $nowTime = document.getElementById('now-time')
+            ws.onmessage = (event) => {
+              $nowTime.textContent = event.data
+            }
+          </script>
+        `}
       </body>
     </html>
   )

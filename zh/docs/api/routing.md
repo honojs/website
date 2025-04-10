@@ -5,7 +5,7 @@ description: Hono的路由系统灵活直观，支持多种路由方式。
 # 路由
 
 Hono 的路由系统灵活直观。
-让我们来看看具体用法。
+让我们来看看。
 
 ## 基础用法
 
@@ -24,7 +24,7 @@ app.get('/wild/*/card', (c) => {
   return c.text('GET /wild/*/card')
 })
 
-// 匹配任意 HTTP 方法
+// 任意 HTTP 方法
 app.all('/hello', (c) => c.text('Any Method /hello'))
 
 // 自定义 HTTP 方法
@@ -54,7 +54,7 @@ app.get('/user/:name', async (c) => {
 })
 ```
 
-或者一次性获取所有参数：
+或者一次获取所有参数：
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -121,7 +121,7 @@ app
 
 ## 路由分组
 
-你可以使用 Hono 实例对路由进行分组，然后通过 route 方法将它们添加到主应用中。
+你可以使用 Hono 实例对路由进行分组，并通过 route 方法将它们添加到主应用中。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -186,9 +186,9 @@ app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
 app.get('/www2.example.com/hello', (c) => c.text('hello www2'))
 ```
 
-## 使用 `host` 头部值的路由
+## 基于 `host` 头的路由
 
-如果在 Hono 构造函数中设置了 `getPath()` 函数，Hono 可以处理 `host` 头部值。
+如果在 Hono 构造函数中设置了 `getPath()` 函数，Hono 可以处理 `host` 头的值。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -197,7 +197,7 @@ const app = new Hono({
   getPath: (req) =>
     '/' +
     req.headers.get('host') +
-    req.url.replace(/^https?:\/\/[^/]+(\/[^?]*)/, '$1'),
+    req.url.replace(/^https?:\/\/[^/]+(\/[^?]*).*/, '$1'),
 })
 
 app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
@@ -208,7 +208,7 @@ app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
 // })
 ```
 
-通过这种方式，你可以根据 `User-Agent` 头部来改变路由。
+通过这种方式，例如，你可以根据 `User-Agent` 头来改变路由。
 
 ## 路由优先级
 
@@ -227,7 +227,7 @@ GET /book/a ---> `a`
 GET /book/b ---> `common`
 ```
 
-当处理程序执行后，进程将停止。
+当处理程序执行时，进程将停止。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -238,10 +238,10 @@ app.get('/foo', (c) => c.text('foo')) // foo
 ```
 
 ```
-GET /foo ---> `common` // foo 将不会被执行
+GET /foo ---> `common` // foo 将不会被调用
 ```
 
-如果你想执行中间件，请将代码写在处理程序之前。
+如果你有想要执行的中间件，请将代码写在处理程序之上。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -252,7 +252,7 @@ app.use(logger())
 app.get('/foo', (c) => c.text('foo'))
 ```
 
-如果你想要一个"后备"处理程序，请将代码写在其他处理程序之后。
+如果你想要一个"_后备_"处理程序，请将代码写在其他处理程序之下。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -269,8 +269,8 @@ GET /foo ---> `fallback`
 
 ## 分组顺序
 
-注意，路由分组的错误很难被发现。
-`route()` 函数会从第二个参数（如 `three` 或 `two`）获取存储的路由，并将其添加到自己（`two` 或 `app`）的路由中。
+注意，路由分组的错误很难发现。
+`route()` 函数从第二个参数（如 `three` 或 `two`）获取存储的路由，并将其添加到自己（`two` 或 `app`）的路由中。
 
 ```ts
 three.get('/hi', (c) => c.text('hi'))
@@ -286,7 +286,7 @@ export default app
 GET /two/three/hi ---> `hi`
 ```
 
-但是，如果顺序错误，将返回 404。
+但是，如果顺序错误，它将返回 404。
 
 ```ts twoslash
 import { Hono } from 'hono'

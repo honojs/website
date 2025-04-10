@@ -7,13 +7,13 @@ description: hono/jsx 不仅支持服务器端，还支持客户端。这意味�
 
 `hono/jsx` 不仅支持服务器端，还支持客户端。这意味着可以创建在浏览器中运行的交互式 UI。我们称之为客户端组件或 `hono/jsx/dom`。
 
-它既快速又轻量。使用 `hono/jsx/dom` 的计数器程序经过 Brotli 压缩后仅有 2.8KB，而 React 则需要 47.8KB。
+它既快速又非常小巧。使用 Brotli 压缩后，`hono/jsx/dom` 中的计数器程序仅有 2.8KB。相比之下，React 则需要 47.8KB。
 
-本节将介绍客户端组件特有的功能特性。
+本节介绍客户端组件特有的功能。
 
 ## 计数器示例
 
-这是一个简单计数器的示例，代码与 React 中的使用方式相同。
+这是一个简单计数器的示例，与 React 中的代码用法相同。
 
 ```tsx
 import { useState } from 'hono/jsx'
@@ -23,8 +23,8 @@ function Counter() {
   const [count, setCount] = useState(0)
   return (
     <div>
-      <p>计数：{count}</p>
-      <button onClick={() => setCount(count + 1)}>增加</button>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
   )
 }
@@ -82,11 +82,11 @@ hono/jsx/dom 提供了与 React 完全兼容或部分兼容的 Hooks。你可以
 
 ## `startViewTransition()` 系列
 
-`startViewTransition()` 系列包含了一些原创的 hooks 和函数，用于简化 [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) 的使用。以下是使用示例。
+`startViewTransition()` 系列包含了一些原创的 hooks 和函数，用于轻松处理 [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)。以下是使用示例。
 
 ### 1. 最简单的示例
 
-你可以使用 `startViewTransition()` 来简化 `document.startViewTransition` 的写法。
+你可以使用 `startViewTransition()` 简单地编写使用 `document.startViewTransition` 的过渡效果。
 
 ```tsx
 import { useState, startViewTransition } from 'hono/jsx'
@@ -104,7 +104,7 @@ export default function App() {
           )
         }
       >
-        点击！
+        Click!
       </button>
       <div>
         {!showLargeImage ? (
@@ -127,11 +127,11 @@ export default function App() {
 }
 ```
 
-### 2. 结合 `keyframes()` 使用 `viewTransition()`
+### 2. 使用 `viewTransition()` 和 `keyframes()`
 
 `viewTransition()` 函数允许你获取唯一的 `view-transition-name`。
 
-你可以将其与 `keyframes()` 一起使用，`::view-transition-old()` 会被转换为 `::view-transition-old(${uniqueName})`。
+你可以将它与 `keyframes()` 一起使用，`::view-transition-old()` 会被转换为 `::view-transition-old(${uniqueName})`。
 
 ```tsx
 import { useState, startViewTransition } from 'hono/jsx'
@@ -169,7 +169,7 @@ export default function App() {
           )
         }
       >
-        点击！
+        Click!
       </button>
       <div>
         {!showLargeImage ? (
@@ -197,7 +197,7 @@ export default function App() {
 
 如果你只想在动画期间改变样式，可以使用 `useViewTransition()`。这个 hook 返回 `[boolean, (callback: () => void) => void]`，分别是 `isUpdating` 标志和 `startViewTransition()` 函数。
 
-使用此 hook 时，组件会在以下两个时间点进行评估：
+当使用这个 hook 时，组件会在以下两个时间点进行评估：
 
 - 在调用 `startViewTransition()` 的回调函数内部
 - 当 [finish promise 完成](https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition/finished) 时
@@ -239,7 +239,7 @@ export default function App() {
           )
         }
       >
-        点击！
+        Click!
       </button>
       <div>
         {!showLargeImage ? (
@@ -258,7 +258,7 @@ export default function App() {
               ${isUpdating &&
               css`
                 &:before {
-                  content: '加载中...';
+                  content: 'Loading...';
                   position: absolute;
                   top: 50%;
                   left: 50%;
@@ -275,7 +275,7 @@ export default function App() {
 
 ## `hono/jsx/dom` 运行时
 
-这是一个专为客户端组件设计的轻量级 JSX 运行时。使用它会比使用 `hono/jsx` 产生更小的打包结果。在 `tsconfig.json` 中指定 `hono/jsx/dom`。
+客户端组件有一个小型的 JSX 运行时。使用这个运行时会比使用 `hono/jsx` 产生更小的打包结果。在 `tsconfig.json` 中指定 `hono/jsx/dom`。对于 Deno，修改 deno.json。
 
 ```json
 {
@@ -284,4 +284,16 @@ export default function App() {
     "jsxImportSource": "hono/jsx/dom"
   }
 }
+```
+
+或者，你可以在 `vite.config.ts` 的 esbuild 转换选项中指定 `hono/jsx/dom`。
+
+```ts
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  esbuild: {
+    jsxImportSource: 'hono/jsx/dom',
+  },
+})
 ```
