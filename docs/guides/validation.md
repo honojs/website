@@ -112,7 +112,7 @@ app.post(
     const idempotencyKey = value['Idempotency-Key']
 
     if (idempotencyKey == undefined || idempotencyKey === '') {
-      throw HTTPException(400, {
+      throw new HTTPException(400, {
         message: 'Idempotency-Key is required',
       })
     }
@@ -132,7 +132,7 @@ app.post(
     const idempotencyKey = value['idempotency-key']
 
     if (idempotencyKey == undefined || idempotencyKey === '') {
-      throw HTTPException(400, {
+      throw new HTTPException(400, {
         message: 'Idempotency-Key is required',
       })
     }
