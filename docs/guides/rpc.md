@@ -241,7 +241,7 @@ const res = await client.posts[':id'].$get({
 
 ### Include slashes
 
-`hc` function does not URL-encode the values of `param`. To include slashes in parameters, use regular expressions.
+`hc` function does not URL-encode the values of `param`. To include slashes in parameters, use [regular expressions](/docs/api/routing#regexp).
 
 ```ts
 // client.ts
