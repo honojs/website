@@ -239,6 +239,41 @@ const res = await client.posts[':id'].$get({
 })
 ```
 
+### Include slashes
+
+`hc` function does not URL-encode the values of `param`. To include slashes in parameters, use [regular expressions](/docs/api/routing#regexp).
+
+```ts
+// client.ts
+
+// Requests /posts/123/456
+const res = await client.posts[':id'].$get({
+  param: {
+    id: '123/456',
+  }
+})
+
+
+// server.ts
+const route = app.get(
+  '/posts/:id{.+}',
+  zValidator(
+    'param',
+    z.object({
+      id: z.string(),
+    })
+  ),
+  (c) => {
+    // id: 123/456
+    const { id } = c.req.valid('param')
+    // ...
+  }
+)
+```
+
+> [!NOTE]
+> Basic path parameters without regular expressions do not match slashes. If you pass a `param` containing slashes using the hc function, the server might not route as intended. Encoding the parameters using `encodeURIComponent` is the recommended approach to ensure correct routing.
+
 ## Headers
 
 You can append the headers to the request.
