@@ -61,3 +61,38 @@ describe('Search Endpoint', () => {
   })
 })
 ```
+To include headers in your test, pass them as the second parameter in the call.
+
+```ts
+// index.test.ts
+import { Hono } from 'hono'
+import { testClient } from 'hono/testing'
+import { describe, test, expect } from 'vitest' // Or your preferred test runner
+import app from './app'
+
+describe('Search Endpoint', () => {
+  // Create the test client from the app instance
+  const client = testClient(app)
+
+  it('should return search results', async () => {
+    // Include the token in the headers and set the content type
+    const token = 'this-is-a-very-clean-token';
+    const res = await client.search.$get({
+      query: { q: 'hono' },
+    }, 
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": `application/json`
+      }
+    })
+
+    // Assertions
+    expect(res.status).toBe(200)
+    expect(await res.json()).toEqual({
+      query: 'hono',
+      results: ['result1', 'result2'],
+    })
+  })
+})
+```
