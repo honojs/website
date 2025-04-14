@@ -309,6 +309,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/prisma',
       },
       {
+        text: 'Better Auth',
+        link: '/examples/better-auth',
+      },
+      {
         text: 'Pylon (GraphQL)',
         link: '/examples/pylon',
       },
