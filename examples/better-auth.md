@@ -79,9 +79,11 @@ This route uses the handler provided by Better Auth to serve all `POST` and `GET
 
 ```sh
 import { auth } from "@/lib/auth";
-import { createRouter } from "@/lib/create-app";
+import type { auth } from "../lib/auth";
 
-const router = createRouter();
+const router = new Hono<{ Bindings: AuthType }>({
+    strict: false,
+});
 
 router.on(["POST", "GET"], "/auth/**", (c) => {
   return auth.handler(c.req.raw);
@@ -96,13 +98,15 @@ The code below mounts the route.
 
 ```ts
 ....
-import createApp from "@/lib/create-app";
+import type { auth } from "../lib/auth";
 import auth from "@/routes/auth";
 ....
 
-const app = createApp();
+const app = new Hono<{ Bindings: AuthType }>({
+    strict: false,
+});
 
-const routes = [userSettings, creator, student, courses, auth] as const;
+const routes = [auth, ...other routes] as const;
 
 routes.forEach((route) => {
   app.basePath("/api").route("/", route);
