@@ -1,11 +1,11 @@
 ---
-title: WebSocket Helper
-description: WebSocket Helper 是一个用于 Hono 应用程序中服务端 WebSocket 的工具。
+title: WebSocket 工具类
+description: WebSocket 工具类是一个用于 Hono 应用程序中服务端 WebSocket 的工具。
 ---
 
-# WebSocket Helper
+# WebSocket 工具类
 
-WebSocket Helper 是一个用于 Hono 应用程序中服务端 WebSocket 的工具。
+WebSocket 工具类是一个用于 Hono 应用程序中服务端 WebSocket 的工具。
 目前支持 Cloudflare Workers / Pages、Deno 和 Bun 适配器。
 
 ## 导入
@@ -54,8 +54,8 @@ app.get(
   upgradeWebSocket((c) => {
     return {
       onMessage(event, ws) {
-        console.log(`来自客户端的消息：${event.data}`)
-        ws.send('服务器回应：你好！')
+        console.log(`来自客户端的消息: ${event.data}`)
+        ws.send('来自服务器的问候！')
       },
       onClose: () => {
         console.log('连接已关闭')
@@ -67,22 +67,22 @@ app.get(
 
 可用的事件：
 
-- `onOpen` - 目前 Cloudflare Workers 不支持此事件
+- `onOpen` - 目前，Cloudflare Workers 不支持此事件
 - `onMessage`
 - `onClose`
 - `onError`
 
 ::: warning
 
-如果你在使用 WebSocket 助手的路由上同时使用修改头部的中间件（例如应用 CORS），可能会遇到无法修改不可变头部的错误。这是因为 `upgradeWebSocket()` 在内部也会修改头部。
+如果你在使用 WebSocket 工具类的路由上同时使用修改头部的中间件（例如应用 CORS），你可能会遇到无法修改不可变头部的错误。这是因为 `upgradeWebSocket()` 在内部也会修改头部。
 
-因此，在同时使用 WebSocket 助手和中间件时请务必小心。
+因此，请注意在同时使用 WebSocket 工具类和中间件时要格外小心。
 
 :::
 
 ## RPC 模式
 
-使用 WebSocket 助手定义的处理器支持 RPC 模式。
+使用 WebSocket 工具类定义的处理器支持 RPC 模式。
 
 ```ts
 // server.ts
@@ -97,12 +97,12 @@ export type WebSocketApp = typeof wsApp
 
 // client.ts
 const client = hc<WebSocketApp>('http://localhost:8787')
-const socket = client.ws.$ws() // 用于客户端的 WebSocket 对象
+const socket = client.ws.$ws() // 客户端的 WebSocket 对象
 ```
 
 ## 示例
 
-以下是使用 WebSocket 助手的示例。
+以下是使用 WebSocket 工具类的示例。
 
 ### 服务端和客户端
 
@@ -140,11 +140,12 @@ ws.addEventListener('open', () => {
 })
 ```
 
-### 在 Bun 中使用 JSX
+### 使用 JSX 的 Bun 示例
 
 ```tsx
 import { Hono } from 'hono'
 import { createBunWebSocket } from 'hono/bun'
+import { html } from 'hono/html'
 
 const { upgradeWebSocket, websocket } = createBunWebSocket()
 
@@ -158,17 +159,15 @@ app.get('/', (c) => {
       </head>
       <body>
         <div id='now-time'></div>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-        const ws = new WebSocket('ws://localhost:3000/ws')
-        const $nowTime = document.getElementById('now-time')
-        ws.onmessage = (event) => {
-          $nowTime.textContent = event.data
-        }
-        `,
-          }}
-        ></script>
+        {html`
+          <script>
+            const ws = new WebSocket('ws://localhost:3000/ws')
+            const $nowTime = document.getElementById('now-time')
+            ws.onmessage = (event) => {
+              $nowTime.textContent = event.data
+            }
+          </script>
+        `}
       </body>
     </html>
   )

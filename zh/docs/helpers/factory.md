@@ -1,11 +1,11 @@
 ---
-title: Factory工具类
-description: 使用hono的Factory工具类，可以方便地创建中间件和处理器。
+title: Factory 工具类
+description: 使用 Factory 工具类，可以方便地创建 Hono 的各种组件，如中间件等。
 ---
 
-# Factory工具类
+# Factory 工具类
 
-Factory工具类提供了一些实用函数，用于创建 Hono 的组件，比如中间件。有时候设置正确的 TypeScript 类型可能会比较困难，但这个辅助工具可以让这个过程变得更简单。
+Factory 工具类提供了一些实用的函数，用于创建 Hono 的各种组件，比如中间件。有时候设置正确的 TypeScript 类型可能比较困难，但这个工具类可以帮助你简化这个过程。
 
 ## 导入
 
@@ -36,19 +36,33 @@ type Env = {
 const factory = createFactory<Env>()
 ```
 
+### 选项
+
+### <Badge type="info" text="可选" /> defaultAppOptions: `HonoOptions`
+
+用于传递给 `createApp()` 创建的 Hono 应用程序的默认选项。
+
+```ts
+const factory = createFactory({
+  defaultAppOptions: { strict: false },
+})
+
+const app = factory.createApp() // 应用 `strict: false` 选项
+```
+
 ## `createMiddleware()`
 
 `createMiddleware()` 是 `factory.createMiddleware()` 的快捷方式。
-这个函数用于创建自定义中间件。
+这个函数用于创建你的自定义中间件。
 
 ```ts
 const messageMiddleware = createMiddleware(async (c, next) => {
   await next()
-  c.res.headers.set('X-Message', 'Good morning!')
+  c.res.headers.set('X-Message', '早上好！')
 })
 ```
 
-提示：如果你想要获取参数（比如 `message`），你可以按照下面的方式将其创建为一个函数：
+提示：如果你想要获取参数（比如 `message`），你可以像下面这样创建一个函数：
 
 ```ts
 const messageMiddleware = (message: string) => {
@@ -58,12 +72,12 @@ const messageMiddleware = (message: string) => {
   })
 }
 
-app.use(messageMiddleware('Good evening!'))
+app.use(messageMiddleware('晚上好！'))
 ```
 
 ## `factory.createHandlers()`
 
-`createHandlers()` 帮助你在不同于 `app.get('/')` 的地方定义处理器。
+`createHandlers()` 帮助你在不同于 `app.get('/')` 的地方定义处理程序。
 
 ```ts
 import { createFactory } from 'hono/factory'
@@ -89,7 +103,7 @@ app.get('/api', ...handlers)
 
 `createApp()` 帮助你创建具有正确类型的 Hono 实例。如果你将此方法与 `createFactory()` 一起使用，可以避免在定义 `Env` 类型时的重复。
 
-如果你的应用程序是这样的，你必须在两个地方设置 `Env`：
+如果你的应用程序像这样，你必须在两个地方设置 `Env`：
 
 ```ts
 import { createMiddleware } from 'hono/factory'
@@ -123,7 +137,7 @@ const factory = createFactory<Env>()
 
 const app = factory.createApp()
 
-// factory 也具有 `createMiddleware()`
+// factory 也有 `createMiddleware()`
 const mw = factory.createMiddleware(async (c, next) => {
   await next()
 })

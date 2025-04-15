@@ -1,11 +1,11 @@
 ---
-title: Cookie工具类
-description: 使用hono的Cookie工具类，可以方便地设置、解析和删除cookies。
+title: Cookie 工具类
+description: 使用 Cookie 工具类，可以方便地设置、解析和删除 cookies。
 ---
 
-# Cookie工具类
+# Cookie 工具类
 
-Cookie工具类提供了一个便捷的接口来管理 cookies，使开发者能够轻松地设置、解析和删除 cookies。
+Cookie 工具类提供了一个简单的接口来管理 cookies，使开发者能够无缝地设置、解析和删除 cookies。
 
 ## 导入
 
@@ -22,34 +22,31 @@ import {
 
 ## 使用方法
 
-**注意**：由于使用 WebCrypto API 创建 HMAC SHA-256 签名的异步特性，设置和获取签名 cookie 会返回 Promise。
+### 普通 cookies
 
 ```ts
-const app = new Hono()
-
 app.get('/cookie', (c) => {
+  setCookie(c, 'cookie_name', 'cookie_value')
+  const yummyCookie = getCookie(c, 'cookie_name')
+  deleteCookie(c, 'cookie_name')
   const allCookies = getCookie(c)
-  const yummyCookie = getCookie(c, 'yummy_cookie')
   // ...
-  setCookie(c, 'delicious_cookie', 'macha')
-  deleteCookie(c, 'delicious_cookie')
-  //
 })
+```
+### 签名 cookies
 
-app.get('/signed-cookie', async (c) => {
-  const secret = 'secret ingredient'
+**注意**：由于使用 WebCrypto API 创建 HMAC SHA-256 签名的异步特性，设置和获取签名 cookies 会返回 Promise。
+
+```ts
+app.get('/signed-cookie', (c) => {
+  const secret = 'secret' // 确保使用足够长的字符串来保证安全性
+
+  await setSignedCookie(c, 'cookie_name0', 'cookie_value', secret)
+  const fortuneCookie = await getSignedCookie(c, secret, 'cookie_name0')
+  deleteCookie(c, 'cookie_name0')
   // 如果签名被篡改或无效，`getSignedCookie` 将对指定的 cookie 返回 `false`
   const allSignedCookies = await getSignedCookie(c, secret)
-  const fortuneCookie = await getSignedCookie(
-    c,
-    secret,
-    'fortune_cookie'
-  )
   // ...
-  const anotherSecret = 'secret chocolate chips'
-  await setSignedCookie(c, 'great_cookie', 'blueberry', anotherSecret)
-  deleteCookie(c, 'great_cookie')
-  //
 })
 ```
 
@@ -124,9 +121,9 @@ const deletedCookie = deleteCookie(c, 'delicious_cookie')
 
 ## `__Secure-` 和 `__Host-` 前缀
 
-Cookie 助手支持 cookie 名称使用 `__Secure-` 和 `__Host-` 前缀。
+Cookie 工具类支持 cookie 名称使用 `__Secure-` 和 `__Host-` 前缀。
 
-如果要验证 cookie 名称是否具有前缀，请指定前缀选项：
+如果你想验证 cookie 名称是否有前缀，请指定前缀选项：
 
 ```ts
 const securePrefixCookie = getCookie(c, 'yummy_cookie', 'secure')
@@ -146,7 +143,7 @@ const hostPrefixSignedCookie = await getSignedCookie(
 )
 ```
 
-同样，如果要在设置 cookie 时指定前缀，请为 prefix 选项指定值：
+同样，如果你想在设置 cookie 时指定前缀，请为前缀选项指定一个值：
 
 ```ts
 setCookie(c, 'delicious_cookie', 'macha', {
@@ -175,11 +172,11 @@ await setSignedCookie(
   - `Partitioned` 限制
 
 Hono 遵循这些最佳实践。
-在以下情况下，cookie 助手在解析 cookies 时会抛出 `Error`：
+在以下情况下，cookie 工具类在解析 cookies 时会抛出 `Error`：
 
 - cookie 名称以 `__Secure-` 开头，但未设置 `secure` 选项
 - cookie 名称以 `__Host-` 开头，但未设置 `secure` 选项
 - cookie 名称以 `__Host-` 开头，但 `path` 不是 `/`
 - cookie 名称以 `__Host-` 开头，但设置了 `domain`
 - `maxAge` 选项值大于 400 天
-- `expires` 选项值超过当前时间 400 天以上
+- `expires` 选项值超过当前时间 400 天
