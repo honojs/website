@@ -58,6 +58,13 @@ export const auth = betterAuth({
     },
   },
 });
+
+export type AuthType = {
+  Variables: {
+    user: typeof auth.$Infer.Session.user | null;
+    session: typeof auth.$Infer.Session.session | null;
+  };
+};
 ```
 
 The above code:
@@ -78,14 +85,15 @@ bunx @better-auth/cli generate
 This route uses the handler provided by Better Auth to serve all `POST` and `GET` requests to the `/api/auth` endpoint.
 
 ```sh
-import { auth } from "@/lib/auth";
-import type { auth } from "../lib/auth";
+import { Hono } from "hono";
+import { auth } from "../lib/auth";
+import type { AuthType } from "../lib/auth"
 
 const router = new Hono<{ Bindings: AuthType }>({
     strict: false,
 });
 
-router.on(["POST", "GET"], "/auth/**", (c) => {
+router.on(["POST", "GET"], "/auth/*", (c) => {
   return auth.handler(c.req.raw);
 });
 
@@ -98,7 +106,8 @@ The code below mounts the route.
 
 ```ts
 ....
-import type { auth } from "../lib/auth";
+import { Hono } from "hono";
+import type { AuthType } from "../lib/auth"
 import auth from "@/routes/auth";
 ....
 
