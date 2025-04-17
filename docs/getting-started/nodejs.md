@@ -223,7 +223,7 @@ Complete the following steps to build a simple Hono app. Apps with a front-end f
 
 1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
 2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
-3. Add `"build": "npx tsc"` to `script` section of `package.json`.
+3. Add `"build": "tsc"` to `script` section of `package.json`.
 4. Run `npm install typescript --save-dev`.
 5. Add `"type": "module"` to `package.json`.
 6. Run `npm run build`!
@@ -240,9 +240,9 @@ FROM base AS builder
 RUN apk add --no-cache gcompat
 WORKDIR /app
 
-COPY package.json tsconfig.json src ./
+COPY package.json package-lock.json tsconfig.json src ./
 
-RUN npm install && \
+RUN npm ci && \
     npm run build && \
     npm prune --production
 
