@@ -311,7 +311,7 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: deploy --name my-app
+          wranglerVersion: "^3.91.0"
 ```
 
 then edit `wrangler.toml`, and add this code after `compatibility_date` line.
