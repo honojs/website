@@ -80,6 +80,25 @@ if (res.ok) {
 }
 ```
 
+### Cookies
+
+To make the client send cookies with every request, add `{ 'init': { 'credentials": 'include' } }` to the options when you're creating the client.
+```ts
+// client.ts
+const client = hc<AppType>('http://localhost:8787/', {
+  'init': {
+    'credentials": 'include',
+  }
+})
+
+// This request will now include any cookies you might have set
+const res = await client.posts.$get({
+  query: {
+    id: '123',
+  },
+})
+```
+
 ## Status code
 
 If you explicitly specify the status code, such as `200` or `404`, in `c.json()`. It will be added as a type for passing to the client.
