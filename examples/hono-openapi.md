@@ -104,24 +104,6 @@ app.get(
 
 ---
 
-### 🌐 Serve API Docs
-
-Use tools like Swagger UI or Scalar to visualize your OpenAPI specs. Here's an example using Scalar:
-
-```ts
-import { apiReference } from '@scalar/hono-api-reference'
-
-app.get(
-  '/docs',
-  apiReference({
-    theme: 'saturn',
-    spec: { url: '/openapi' },
-  })
-)
-```
-
----
-
 ## 🔍 Advanced Features
 
 ### Add Security Definitions
