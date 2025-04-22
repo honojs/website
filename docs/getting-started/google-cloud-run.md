@@ -2,7 +2,7 @@
 
 [Google Cloud Run](https://cloud.google.com/run) is a serverless platform built by Google Cloud. You can run your code in response to events and Google automatically manages the underlying compute resources for you.
 
-You can deploy using your preferred runtime by providing a Dockerfile. Hono has starters for Google Cloud Run using nodejs, Deno, and Bun runtimes.
+Google Cloud Run uses containers to run your service. This means you can use any runtime you like (E.g., Deno or Bun) by providing a Dockerfile. If no Dockerfile is provided Google Cloud Run will use the default Nodejs buildpack.
 
 This guide assumes you already have a Google Cloud account and a billing account.
 
@@ -30,7 +30,7 @@ Create a project. Accept the auto-generated project ID at the prompt.
 gcloud projects create --set-as-default --name="my app"
 ```
 
-Create environment variables for your project ID and project number for easy reuse.
+Create environment variables for your project ID and project number for easy reuse. It may take ~30 seconds before the project successfully returns with the `gcloud projects list` command.
 
 ```sh
 PROJECT_ID=$(gcloud projects list \
@@ -74,7 +74,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 ## 3. Hello World
 
-Start your project with "create-hono" command. Select `google-cloud-run-nodejs` template for this example.
+Start your project with "create-hono" command. Select `google-cloud-run`.
 
 ```sh
 npm create hono@latest my-app
@@ -101,6 +101,11 @@ Start the deployment and follow the interactive prompts (E.g., select a region).
 gcloud run deploy my-app --source . --allow-unauthenticated
 ```
 
-:::warning
-The `google-cloud-run-nodejs` starter Dockerfile is written for `npm`. Remember to update the Dockerfile if using an alternate package manager.
-:::
+## Changing runtimes
+
+If you want to deploy using Deno or Bun runtimes (or a customised Nodejs container), add a `Dockerfile` (and optionally `.dockerignore`) with your desired environment.
+
+For information on containerizing please refer to:
+- [Nodejs](/docs/getting-started/nodejs#building-deployment)
+- [Bun](https://bun.sh/guides/ecosystem/docker)
+- [Deno](https://docs.deno.com/examples/google_cloud_run_tutorial)
