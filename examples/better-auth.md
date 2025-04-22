@@ -2,7 +2,7 @@
 
 Using Hono with [Better Auth](http://better-auth.com/) for authentication.
 
-Better Auth is a framework-agnostic authentication and authorization framework for TypeScript. It provides a comprehensive set of features out of the box and includes a plugin ecosystem that simplifies adding advanced functionalities. 
+Better Auth is a framework-agnostic authentication and authorization framework for TypeScript. It provides a comprehensive set of features out of the box and includes a plugin ecosystem that simplifies adding advanced functionalities.
 
 ## Configuration
 
@@ -32,18 +32,18 @@ BETTER_AUTH_URL=<url-of-your-server> (e.g. http://localhost:1234)
 3. Create the Better Auth instance
 
 ```ts
-import { betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
+import { betterAuth } from 'better-auth'
+import { prismaAdapter } from 'better-auth/adapters/prisma'
 
-import prisma from "@/db/index";
-import env from "@/env";
+import prisma from '@/db/index'
+import env from '@/env'
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
-    provider: "postgresql",
+    provider: 'postgresql',
   }),
   // Allow requests from the frontend development server
-  trustedOrigins: ["http://localhost:5173"],
+  trustedOrigins: ['http://localhost:5173'],
   emailAndPassword: {
     enabled: true,
   },
@@ -57,17 +57,18 @@ export const auth = betterAuth({
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     },
   },
-});
+})
 
 export type AuthType = {
   Variables: {
-    user: typeof auth.$Infer.Session.user | null;
-    session: typeof auth.$Infer.Session.session | null;
-  };
-};
+    user: typeof auth.$Infer.Session.user | null
+    session: typeof auth.$Infer.Session.session | null
+  }
+}
 ```
 
 The above code:
+
 - Sets up the database to use Prisma ORM and PostgreSQL
 - Specifies the trusted origins
   - A trusted origin is the app that's allowed to make requests to the auth API. Normally, that's your client (frontend)
@@ -80,7 +81,7 @@ The above code:
 bunx @better-auth/cli generate
 ```
 
-5. Create the API Handler for the auth API requests in `routes/auth.ts` 
+5. Create the API Handler for the auth API requests in `routes/auth.ts`
 
 This route uses the handler provided by Better Auth to serve all `POST` and `GET` requests to the `/api/auth` endpoint.
 

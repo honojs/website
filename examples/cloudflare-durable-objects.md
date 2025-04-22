@@ -12,37 +12,37 @@ You can use Hono as the router in your Cloudflare Worker, calling RPCs (Remote P
 ## Example: Counter Durable Object
 
 ```ts
-import { DurableObject } from "cloudflare:workers";
-import { Hono } from 'hono';
+import { DurableObject } from 'cloudflare:workers'
+import { Hono } from 'hono'
 
 export class Counter extends DurableObject {
   // In-memory state
-  value = 0;
+  value = 0
 
   constructor(ctx: DurableObjectState, env: Env) {
-    super(ctx, env);
+    super(ctx, env)
 
     // `blockConcurrencyWhile()` ensures no requests are delivered until initialization completes.
     ctx.blockConcurrencyWhile(async () => {
       // After initialization, future reads do not need to access storage.
-      this.value = (await ctx.storage.get("value")) || 0;
-    });
+      this.value = (await ctx.storage.get('value')) || 0
+    })
   }
 
   async getCounterValue() {
-    return this.value;
+    return this.value
   }
 
   async increment(amount = 1): Promise<number> {
-    this.value += amount;
-    await this.ctx.storage.put("value", this.value);
-    return this.value;
+    this.value += amount
+    await this.ctx.storage.put('value', this.value)
+    return this.value
   }
 
   async decrement(amount = 1): Promise<number> {
-    this.value -= amount;
-    await this.ctx.storage.put("value", this.value);
-    return this.value;
+    this.value -= amount
+    await this.ctx.storage.put('value', this.value)
+    return this.value
   }
 }
 
@@ -55,34 +55,35 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 // Add routes to interact with the Durable Object
 app.get('/counter', async (c) => {
-  const env = c.env;
-  const id = env.COUNTER.idFromName("counter");
-  const stub = env.COUNTER.get(id);
-  const counterValue = await stub.getCounterValue();
-  return c.text(counterValue.toString());
-});
+  const env = c.env
+  const id = env.COUNTER.idFromName('counter')
+  const stub = env.COUNTER.get(id)
+  const counterValue = await stub.getCounterValue()
+  return c.text(counterValue.toString())
+})
 
 app.post('/counter/increment', async (c) => {
-  const env = c.env;
-  const id = env.COUNTER.idFromName("counter");
-  const stub = env.COUNTER.get(id);
-  const value = await stub.increment();
-  return c.text(value.toString());
-});
+  const env = c.env
+  const id = env.COUNTER.idFromName('counter')
+  const stub = env.COUNTER.get(id)
+  const value = await stub.increment()
+  return c.text(value.toString())
+})
 
 app.post('/counter/decrement', async (c) => {
-  const env = c.env;
-  const id = env.COUNTER.idFromName("counter");
-  const stub = env.COUNTER.get(id);
-  const value = await stub.decrement();
-  return c.text(value.toString());
-});
+  const env = c.env
+  const id = env.COUNTER.idFromName('counter')
+  const stub = env.COUNTER.get(id)
+  const value = await stub.decrement()
+  return c.text(value.toString())
+})
 
 // Export the Hono app as the Worker's fetch handler
-export default app;
+export default app
 ```
 
 `wrangler.jsonc`:
+
 ```jsonc
 {
   "$schema": "node_modules/wrangler/config-schema.json",
@@ -92,20 +93,20 @@ export default app;
   "migrations": [
     {
       "new_sqlite_classes": ["Counter"],
-      "tag": "v1"
-    }
+      "tag": "v1",
+    },
   ],
   "durable_objects": {
     "bindings": [
       {
         "class_name": "Counter",
-        "name": "COUNTER"
-      }
-    ]
+        "name": "COUNTER",
+      },
+    ],
   },
   "observability": {
-    "enabled": true
-  }
+    "enabled": true,
+  },
 }
 ```
 

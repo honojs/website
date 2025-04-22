@@ -1,10 +1,10 @@
 # RPC
 
-The RPC feature allows sharing of the API specifications between the server and the client. 
+The RPC feature allows sharing of the API specifications between the server and the client.
 
 First, export the `typeof` your Hono app (commonly called `AppType`)—or just the routes you want available to the client—from your server code.
 
-By accepting `AppType` as a generic parameter, the Hono Client can infer both the input type(s) specified by the Validator, and the output type(s) emitted by handlers returning `c.json()`. 
+By accepting `AppType` as a generic parameter, the Hono Client can infer both the input type(s) specified by the Validator, and the output type(s) emitted by handlers returning `c.json()`.
 
 > [!NOTE]
 > At this time, responses returned from middleware are [not inferred by the client.](https://github.com/honojs/hono/issues/2719)
@@ -83,6 +83,7 @@ if (res.ok) {
 ### Cookies
 
 To make the client send cookies with every request, add `{ 'init': { 'credentials": 'include' } }` to the options when you're creating the client.
+
 ```ts
 // client.ts
 const client = hc<AppType>('http://localhost:8787/', {
@@ -269,9 +270,8 @@ const res = await client.posts[':id'].$get({
 const res = await client.posts[':id'].$get({
   param: {
     id: '123/456',
-  }
+  },
 })
-
 
 // server.ts
 const route = app.get(
@@ -401,23 +401,25 @@ You can upload files using a form body:
 // client
 const res = await client.user.picture.$put({
   form: {
-    file: new File([fileToUpload], filename, { type: fileToUpload.type })
+    file: new File([fileToUpload], filename, {
+      type: fileToUpload.type,
+    }),
   },
-});
+})
 ```
 
 ```ts
 // server
 const route = app.put(
-  "/user/picture",
+  '/user/picture',
   zValidator(
-    "form",
+    'form',
     z.object({
       file: z.instanceof(File),
-    }),
-  ),
+    })
+  )
   // ...
-);
+)
 ```
 
 ## Custom `fetch` method

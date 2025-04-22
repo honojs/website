@@ -79,7 +79,7 @@ Here are some examples of use-cases.
 | [Unkey](https://unkey.dev)                                                         | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the API server_.                     |
 | [OpenStatus](https://openstatus.dev)                                               | Bun                | An open-source website & API monitoring platform. _Hono is used for the API server_.                        |
 | [Deno Benchmarks](https://deno.com/benchmarks)                                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                                   |
-| [Clerk](https://clerk.com)                                                         | Cloudflare Workers | An open-source User Management Platform. _Hono is used for the API server_.                                   |
+| [Clerk](https://clerk.com)                                                         | Cloudflare Workers | An open-source User Management Platform. _Hono is used for the API server_.                                 |
 
 And the following.
 
