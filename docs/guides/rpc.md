@@ -88,7 +88,7 @@ To make the client send cookies with every request, add `{ 'init': { 'credential
 // client.ts
 const client = hc<AppType>('http://localhost:8787/', {
   'init': {
-    'credentials": 'include',
+    'credentials': 'include',
   }
 })
 
