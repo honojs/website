@@ -87,6 +87,28 @@ cd my-app
 npm i
 ```
 
+Update the port in `src/index.ts` to be `8080`.
+
+<!-- prettier-ignore -->
+```ts
+import { serve } from '@hono/node-server'
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.get('/', (c) => {
+  return c.text('Hello Hono!')
+})
+
+serve({
+  fetch: app.fetch,
+  port: 3000 // [!code --]
+  port: 8080 // [!code ++]
+}, (info) => {
+  console.log(`Server is running on http://localhost:${info.port}`)
+})
+```
+
 Run the development server locally. Then, access http://localhost:8080 in your Web browser.
 
 ```sh
