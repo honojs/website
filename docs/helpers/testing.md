@@ -61,6 +61,7 @@ describe('Search Endpoint', () => {
   })
 })
 ```
+
 To include headers in your test, pass them as the second parameter in the call.
 
 ```ts
@@ -76,16 +77,18 @@ describe('Search Endpoint', () => {
 
   it('should return search results', async () => {
     // Include the token in the headers and set the content type
-    const token = 'this-is-a-very-clean-token';
-    const res = await client.search.$get({
-      query: { q: 'hono' },
-    }, 
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": `application/json`
+    const token = 'this-is-a-very-clean-token'
+    const res = await client.search.$get(
+      {
+        query: { q: 'hono' },
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': `application/json`,
+        },
       }
-    })
+    )
 
     // Assertions
     expect(res.status).toBe(200)

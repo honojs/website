@@ -28,6 +28,7 @@ app.get('/cookie', (c) => {
   // ...
 })
 ```
+
 ### Signed cookies
 
 **NOTE**: Setting and retrieving signed cookies returns a Promise due to the async nature of the WebCrypto API, which is used to create HMAC SHA-256 signatures.
@@ -37,7 +38,11 @@ app.get('/signed-cookie', (c) => {
   const secret = 'secret' // make sure it's a large enough string to be secure
 
   await setSignedCookie(c, 'cookie_name0', 'cookie_value', secret)
-  const fortuneCookie = await getSignedCookie(c, secret, 'cookie_name0')
+  const fortuneCookie = await getSignedCookie(
+    c,
+    secret,
+    'cookie_name0'
+  )
   deleteCookie(c, 'cookie_name0')
   // `getSignedCookie` will return `false` for a specified cookie if the signature was tampered with or is invalid
   const allSignedCookies = await getSignedCookie(c, secret)
