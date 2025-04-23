@@ -74,7 +74,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 ## 3. Hello World
 
-Start your project with "create-hono" command. Select `google-cloud-run`.
+Start your project with "create-hono" command. Select `nodejs`.
 
 ```sh
 npm create hono@latest my-app
