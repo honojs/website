@@ -58,6 +58,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/azure-functions',
       },
       {
+        text: 'Google Cloud Run',
+        link: '/docs/getting-started/google-cloud-run',
+      },
+      {
         text: 'Supabase Functions',
         link: '/docs/getting-started/supabase-functions',
       },
