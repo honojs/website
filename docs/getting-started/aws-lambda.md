@@ -70,7 +70,7 @@ export const handler = handle(app)
 
 ## 3. Deploy
 
-Edit `lib/cdk-stack.ts`.
+Edit `lib/hono-lambda-stack.ts`.
 
 ```ts
 import * as cdk from 'aws-cdk-lib'
@@ -79,7 +79,7 @@ import * as lambda from 'aws-cdk-lib/aws-lambda'
 import * as apigw from 'aws-cdk-lib/aws-apigateway'
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs'
 
-export class MyAppStack extends cdk.Stack {
+export class HonoLambdaStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
