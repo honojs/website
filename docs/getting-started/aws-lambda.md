@@ -70,7 +70,7 @@ export const handler = handle(app)
 
 ## 3. Deploy
 
-Edit `lib/cdk-stack.ts`.
+Edit `lib/my-app-stack.ts`.
 
 ```ts
 import * as cdk from 'aws-cdk-lib'
