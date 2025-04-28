@@ -44,7 +44,7 @@ describe('Search Endpoint', () => {
   // Create the test client from the app instance
   const client = testClient(app)
 
-  it('should return search results', async () => {
+  test('should return search results', async () => {
     // Call the endpoint using the typed client
     // Notice the type safety for query parameters (if defined in the route)
     // and the direct access via .$get()
@@ -75,7 +75,7 @@ describe('Search Endpoint', () => {
   // Create the test client from the app instance
   const client = testClient(app)
 
-  it('should return search results', async () => {
+  test('should return search results', async () => {
     // Include the token in the headers and set the content type
     const token = 'this-is-a-very-clean-token'
     const res = await client.search.$get(
