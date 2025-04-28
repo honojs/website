@@ -37,14 +37,14 @@ export default app
 // index.test.ts
 import { Hono } from 'hono'
 import { testClient } from 'hono/testing'
-import { describe, test, expect } from 'vitest' // Or your preferred test runner
+import { describe, it, expect } from 'vitest' // Or your preferred test runner
 import app from './app'
 
 describe('Search Endpoint', () => {
   // Create the test client from the app instance
   const client = testClient(app)
 
-  test('should return search results', async () => {
+  it('should return search results', async () => {
     // Call the endpoint using the typed client
     // Notice the type safety for query parameters (if defined in the route)
     // and the direct access via .$get()
@@ -68,14 +68,14 @@ To include headers in your test, pass them as the second parameter in the call.
 // index.test.ts
 import { Hono } from 'hono'
 import { testClient } from 'hono/testing'
-import { describe, test, expect } from 'vitest' // Or your preferred test runner
+import { describe, it, expect } from 'vitest' // Or your preferred test runner
 import app from './app'
 
 describe('Search Endpoint', () => {
   // Create the test client from the app instance
   const client = testClient(app)
 
-  test('should return search results', async () => {
+  it('should return search results', async () => {
     // Include the token in the headers and set the content type
     const token = 'this-is-a-very-clean-token'
     const res = await client.search.$get(
