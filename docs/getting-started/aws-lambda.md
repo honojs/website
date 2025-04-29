@@ -30,7 +30,7 @@ mkdir my-app
 cd my-app
 cdk init app -l typescript
 yarn add hono
-yarn add -D hono
+yarn add -D esbuild
 mkdir lambda
 touch lambda/index.ts
 ```
@@ -97,7 +97,6 @@ export class MyAppStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'lambdaUrl', {
       value: fnUrl.url!
     })
-    
   }
 }
 ```
