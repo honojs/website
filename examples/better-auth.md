@@ -86,19 +86,19 @@ bunx @better-auth/cli generate
 This route uses the handler provided by Better Auth to serve all `POST` and `GET` requests to the `/api/auth` endpoint.
 
 ```ts
-import { Hono } from "hono";
-import { auth } from "../lib/auth";
-import type { AuthType } from "../lib/auth"
+import { Hono } from 'hono'
+import { auth } from '../lib/auth'
+import type { AuthType } from '../lib/auth'
 
 const router = new Hono<{ Bindings: AuthType }>({
-    strict: false,
-});
+  strict: false,
+})
 
-router.on(["POST", "GET"], "/auth/*", (c) => {
-  return auth.handler(c.req.raw);
-});
+router.on(['POST', 'GET'], '/auth/*', (c) => {
+  return auth.handler(c.req.raw)
+})
 
-export default router;
+export default router
 ```
 
 6. Mount the route

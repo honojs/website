@@ -128,6 +128,7 @@ gcloud run deploy my-app --source . --allow-unauthenticated
 If you want to deploy using Deno or Bun runtimes (or a customised Nodejs container), add a `Dockerfile` (and optionally `.dockerignore`) with your desired environment.
 
 For information on containerizing please refer to:
+
 - [Nodejs](/docs/getting-started/nodejs#building-deployment)
 - [Bun](https://bun.sh/guides/ecosystem/docker)
 - [Deno](https://docs.deno.com/examples/google_cloud_run_tutorial)
