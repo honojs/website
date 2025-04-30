@@ -85,7 +85,7 @@ bunx @better-auth/cli generate
 
 This route uses the handler provided by Better Auth to serve all `POST` and `GET` requests to the `/api/auth` endpoint.
 
-```sh
+```ts
 import { Hono } from "hono";
 import { auth } from "../lib/auth";
 import type { AuthType } from "../lib/auth"
@@ -106,14 +106,12 @@ export default router;
 The code below mounts the route.
 
 ```ts
-....
 import { Hono } from "hono";
 import type { AuthType } from "../lib/auth"
 import auth from "@/routes/auth";
-....
 
 const app = new Hono<{ Bindings: AuthType }>({
-    strict: false,
+  strict: false,
 });
 
 const routes = [auth, ...other routes] as const;
@@ -121,8 +119,6 @@ const routes = [auth, ...other routes] as const;
 routes.forEach((route) => {
   app.basePath("/api").route("/", route);
 });
-
-....
 
 export default app;
 ```
