@@ -233,7 +233,7 @@ Complete the following steps to build a simple Hono app. Apps with a front-end f
 Here is an example of a Dockerfile. You must complete steps 1-5 above before this build and deployment process will work.
 
 ```Dockerfile
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 FROM base AS builder
 
