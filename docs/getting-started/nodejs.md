@@ -237,7 +237,7 @@ pnpm run build
 bun run build
 ```
 
-::: warning
+::: info
 Apps with a front-end framework may need to use [Hono's Vite plugins](https://github.com/honojs/vite-plugins).
 :::
 
