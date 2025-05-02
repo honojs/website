@@ -219,18 +219,31 @@ const server = serve({
 
 ## Building & Deployment
 
-Complete the following steps to build a simple Hono app. Apps with a front-end framework may need to use [Hono's Vite plugins](https://github.com/honojs/vite-plugins).
+::: code-group
 
-1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
-2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
-3. Add `"build": "tsc"` to `script` section of `package.json`.
-4. Run `npm install typescript --save-dev`.
-5. Add `"type": "module"` to `package.json`.
-6. Run `npm run build`!
+```sh [npm]
+npm run build
+```
+
+```sh [yarn]
+yarn run build
+```
+
+```sh [pnpm]
+pnpm run build
+```
+
+```sh [bun]
+bun run build
+```
+
+::: info
+Apps with a front-end framework may need to use [Hono's Vite plugins](https://github.com/honojs/vite-plugins).
+:::
 
 ### Dockerfile
 
-Here is an example of a Dockerfile. You must complete steps 1-5 above before this build and deployment process will work.
+Here is an example of a nodejs Dockerfile.
 
 ```Dockerfile
 FROM node:22-alpine AS base
