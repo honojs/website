@@ -80,7 +80,17 @@ import { Hono } from 'hono'
 const app = new Hono()
 app.get('/', (c) => c.text('Hello Node.js!'))
 
-serve(app)
+const server = serve(app)
+
+// gracefully shutdown
+process.on("SIGINT", () => {
+  console.log("Ctrl-C was pressed")
+  server.close()
+})
+process.on("SIGTERM", () => {
+  console.log("SIGTERM received")
+  server.close()
+})
 ```
 
 ## 3. Run
