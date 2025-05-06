@@ -393,7 +393,7 @@ type Env = {
   }
 }
 
-const app = new Hono<Env>()
+const app = new Hono<Env>().basePath("/api");
 
 app.get('/hello', (c) => {
   return c.json({
