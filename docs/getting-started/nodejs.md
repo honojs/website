@@ -84,12 +84,15 @@ const server = serve(app)
 
 // gracefully shutdown
 process.on("SIGINT", () => {
-  console.log("Ctrl-C was pressed")
   server.close()
 })
 process.on("SIGTERM", () => {
-  console.log("SIGTERM received")
-  server.close()
+  server.close((err) => {
+    if (err) {
+      console.error(err)
+      process.exit(1)
+    }
+  })
 })
 ```
 
