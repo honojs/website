@@ -33,6 +33,7 @@ Most of this middleware leverages external libraries.
 ### Others
 
 - [Bun Transpiler](https://github.com/honojs/middleware/tree/main/packages/bun-transpiler)
+- [Bun Compress](https://github.com/honojs/middleware/tree/main/packages/bun-compress)
 - [esbuild Transpiler](https://github.com/honojs/middleware/tree/main/packages/esbuild-transpiler)
 - [Event Emitter](https://github.com/honojs/middleware/tree/main/packages/event-emitter)
 - [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
