@@ -80,6 +80,12 @@ import { Hono } from 'hono'
 const app = new Hono()
 app.get('/', (c) => c.text('Hello Node.js!'))
 
+serve(app)
+```
+
++If you want to gracefully shut down the server, write it like this:
+
+```ts
 const server = serve(app)
 
 // graceful shutdown
