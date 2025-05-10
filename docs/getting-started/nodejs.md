@@ -82,7 +82,7 @@ app.get('/', (c) => c.text('Hello Node.js!'))
 
 const server = serve(app)
 
-// gracefully shutdown
+// graceful shutdown
 process.on("SIGINT", () => {
   server.close()
   process.exit(0)
