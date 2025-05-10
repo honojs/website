@@ -85,6 +85,7 @@ const server = serve(app)
 // gracefully shutdown
 process.on("SIGINT", () => {
   server.close()
+  process.exit(0)
 })
 process.on("SIGTERM", () => {
   server.close((err) => {
@@ -92,6 +93,7 @@ process.on("SIGTERM", () => {
       console.error(err)
       process.exit(1)
     }
+    process.exit(0)
   })
 })
 ```
