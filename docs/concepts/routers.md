@@ -12,12 +12,12 @@ Although this is called "RegExp" it is not an Express-like implementation using 
 They are using linear loops.
 Therefore, regular expression matching will be performed for all routes and the performance will be degraded as you have more routes.
 
-![Router Linear](/images/router-linear.jpg)
+![](/images/router-linear.jpg)
 
 Hono's RegExpRouter turns the route pattern into "one large regular expression".
 Then it can get the result with one-time matching.
 
-![Router RegExp](/images/router-regexp.jpg)
+![](/images/router-regexp.jpg)
 
 This works faster than methods that use tree-based algorithms such as radix-tree in most cases.
 
@@ -26,7 +26,7 @@ This works faster than methods that use tree-based algorithms such as radix-tree
 **TrieRouter** is the router using the Trie-tree algorithm.
 It does not use linear loops as same as RegExpRouter.
 
-![Router Tree](/images/router-tree.jpg)
+![](/images/router-tree.jpg)
 
 This router is not as fast as the RegExpRouter, but it is much faster than the Express router.
 TrieRouter supports all patterns though RegExpRouter does not.

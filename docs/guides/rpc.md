@@ -577,7 +577,7 @@ However, we have some tips to mitigate this issue.
 
 If your backend is separate from the frontend and lives in a different directory, you need to ensure that the Hono versions match. If you use one Hono version on the backend and another on the frontend, you'll run into issues such as "_Type instantiation is excessively deep and possibly infinite_".
 
-![hono-version-mismatch](https://github.com/user-attachments/assets/e4393c80-29dd-408d-93ab-d55c11ccca05)
+![](https://github.com/user-attachments/assets/e4393c80-29dd-408d-93ab-d55c11ccca05)
 
 #### TypeScript project references
 

@@ -4,7 +4,7 @@ We call the primitive that returns `Response` as "Handler".
 "Middleware" is executed before and after the Handler and handles the `Request` and `Response`.
 It's like an onion structure.
 
-![Onion](/images/onion.png)
+![](/images/onion.png)
 
 For example, we can write the middleware to add the "X-Response-Time" header as follows.
 

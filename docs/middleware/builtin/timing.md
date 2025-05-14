@@ -62,7 +62,7 @@ app.use(
 
 ## Result
 
-![Example timing output](/images/timing-example.png)
+![](/images/timing-example.png)
 
 ## Options
 
