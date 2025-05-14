@@ -92,7 +92,7 @@ Do you want to see more? See [Who is using Hono in production?](https://github.c
 
 A demonstration to create an application for Cloudflare Workers with Hono.
 
-![Demo](/images/sc.gif)
+![A gif showing a hono app being created quickly with fast iteration.](/images/sc.gif)
 
 ## Ultrafast
 
@@ -202,7 +202,7 @@ Moreover, Hono is written in TypeScript. Hono has "**Types**".
 
 For example, the path parameters will be literal types.
 
-![SS](/images/ss.png)
+![A screenshot showing Hono having proper literal typing when URL parameters. The URL "/entry/:date/:id" allows for request parameters to be "date" or "id"](/images/ss.png)
 
 And, the Validator and Hono Client `hc` enable the RPC mode. In RPC mode,
 you can use your favorite validator such as Zod and easily share server-side API specs with the client and build type-safe applications.
