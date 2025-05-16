@@ -163,7 +163,7 @@ To pull those third party (Bytecode Alliance maintained) WIT interaces, one tool
 wkg wit fetch
 ```
 
-Once wkg finished running, you should find your `wit` folder populated with a new `deps` folder alongside `component.wit`:
+Once `wkg` has finished running, you should find your `wit` folder populated with a new `deps` folder alongside `component.wit`:
 
 ```
 wit
