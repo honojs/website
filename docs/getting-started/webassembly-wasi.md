@@ -53,7 +53,7 @@ cd my-app
 npm init
 yarn add hono
 yarn add -D @bytecodealliance/jco @bytecodealliance/componentize-js
-yarn add -D rollup @rollup/plugin-typescript @rollup/plugin-node-resolve
+yarn add -D rollup @rollup/plugin-typescript @rollup/plugin-node-resolve tslib
 ```
 
 ```sh [pnpm]
@@ -62,7 +62,7 @@ cd my-app
 npm init
 pnpm add hono
 pnpm add -D @bytecodealliance/jco @bytecodealliance/componentize-js
-pnpm add -D rollup @rollup/plugin-typescript @rollup/plugin-node-resolve
+pnpm add -D rollup @rollup/plugin-typescript @rollup/plugin-node-resolve tslib
 ```
 
 ```sh [bun]
@@ -75,31 +75,40 @@ bun add -D @bytecodealliance/jco @bytecodealliance/componentize-js
 
 :::
 
-Move into `my-app` and install the dependencies.
+::: info
+To ensure your project uses ES modules, consider setting `type` to `"module"` in package.json
+:::
+
+Once you're in `my-app`, install dependencies, and initialize Typescript:
 
 ::: code-group
 
 ```sh [npm]
-cd my-app
 npm i
+npx tsc --init
 ```
 
 ```sh [yarn]
-cd my-app
 yarn
+yarn tsc --init
 ```
 
 ```sh [pnpm]
-cd my-app
 pnpm i
+pnpx tsc --init
 ```
 
 ```sh [bun]
-cd my-app
 bun i
+bun run tsc --init
 ```
 
 :::
+
+
+Once you have a basic typescript configuration file (`tsconfig.json`), please ensure it has the following configuration:
+
+- `compilerOptions.module` set to `"nodenext"`
 
 Since `componentize-js` (and `jco` which re-uses that functionality) does not (yet) work with multiple JS files,
 bundling is necessary, so [`rollup`][rollup] is used for package managers that do not already bundle.
@@ -108,20 +117,16 @@ The following Rollup configuration (`rollup.config.mjs`) should also be used:
 
 ```js
 import typescript from "@rollup/plugin-typescript";
-import resolve from "@rollup/plugin-node-resolve";
-import dotenv from "rollup-plugin-dotenv";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
+import nodeResolve from "@rollup/plugin-node-resolve";
 
 export default {
-  input: "component.ts",
+  input: "component.mts",
   external: /wasi:.*/,
   output: {
     file: "dist/component.js",
     format: "esm",
   },
   plugins: [
-    dotenv(),
-    resolve(),
     typescript({ noEmitOnError: true }),
     nodeResolve(),
   ],
@@ -131,11 +136,59 @@ export default {
 [jco]: https://github.com/bytecodealliance/jco
 [componentize-js]: https://github.com/bytecodealliance/componentize-js
 
-## 2. Hello World
+## 2. Retrieve WIT dependencies
 
-If you use the App Router, Edit `app/api/[[...route]]/route.ts`. Refer to the [Supported HTTP Methods](https://nextjs.org/docs/app/building-your-application/routing/route-handlers#supported-http-methods) section for more options.
+[`wasi:http`][wasi-http] is the standardized interface for dealing with HTTP requests (whether it's receiving them or sending them out),
+and since our component reuses that functionality, we have to declare it in the [WIT world][wit-world] our component exports:
+
+[wit-world]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md#wit-worlds
+
+First, let's set up the component's WIT world:
+
+```wit
+/// wit/component.wit
+package example:hono;
+
+world component {
+    export wasi:http/incoming-handler@0.2.3;
+}
+```
+
+Put simply, the WIt above means that we "make available" the functionality of "receiving" HTTP requests. While the above is
+relatively simple, it does depend on some upstream third party WIT interfaces (specifications on how requests are structured, etc).
+
+To pull those third party (Bytecode Alliance maintained) WIT interaces, one tool we can use is [`wkg`][wkg]:
+
+```sh
+wkg wit fetch
+```
+
+Once wkg finished running, you should find your `wit` folder populated with a new `deps` folder alongside `component.wit`:
+
+```
+wit
+├── component.wit
+└── deps
+    ├── wasi-cli-0.2.3
+    │   └── package.wit
+    ├── wasi-clocks-0.2.3
+    │   └── package.wit
+    ├── wasi-http-0.2.3
+    │   └── package.wit
+    ├── wasi-io-0.2.3
+    │   └── package.wit
+    └── wasi-random-0.2.3
+        └── package.wit
+```
+
+[wkg]: https://github.com/bytecodealliance/wasm-pkg-tools
+
+## 3. Hello Wasm
+
+Let's fulfill our `component` world with a basic Hono application as a WebAssembly component:
 
 ```ts
+// component.mts
 import { Hono } from 'hono'
 
 const app = new Hono();
@@ -146,38 +199,23 @@ app.get('/hello', (c) => {
   })
 })
 
-export const GET = handle(app)
-export const POST = handle(app)
-
+/**
+ * Register the Hono application with the global fetch listener as supported by the underlying StarlingMonkey JS runtime.
+ *
+ * Since both Hono and StarlingMonkey are aligned Web Standards (WinterCG/WinterTC),
+ * this enables Hono to run smoothly in WASI-enabled (`wasi:http`) Webassembly environments.
+ *
+ * See: https://github.com/bytecodealliance/ComponentizeJS#using-starlingmonkeys-fetch-event
+ * See: https://hono.dev/docs/concepts/web-standard
+ * See: https://wintertc.org/
+ * See: https://github.com/WebAssembly/wasi-http
+ */
 app.fire();
 ```
 
-## 3. Build
+## 4. Build
 
-
-First, transpile your Typescript into javsacript:
-
-::: code-group
-
-```sh [npm]
-npx tsc -p .
-```
-
-```sh [yarn]
-yarn tsc -p .
-```
-
-```sh [pnpm]
-pnpx tsc -p .
-```
-
-```sh [bun]
-bun build --target=bun --outfile=dist/component.js ./component.ts
-```
-
-:::
-
-Then, bundle your transpile javascript into a single JS file, with it's dependencies:
+Since we're using Rollup (and it's configured to handle Typescript compilation), we can use it to build and bundle:
 
 ::: code-group
 
@@ -194,11 +232,17 @@ pnpx rollup -c
 ```
 
 ```sh [bun]
-bun build --target=bun --outfile=dist/component.js ./component.ts
+bun build --target=bun --outfile=dist/component.js ./component.mts
 ```
 
 :::
 
+::: info
+The bundling step is necessary because WebAssembly JS ecosystem tooling only currently supports a single JS file,
+and we'd like to include Hono along with related libraries.
+
+For components with simpler requirements, bundlers are not necessary.
+:::
 
 To build your WebAssembly component, use `jco` (and indirectly `componentize-js`):
 
