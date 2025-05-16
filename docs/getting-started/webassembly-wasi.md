@@ -150,11 +150,13 @@ First, let's set up the component's WIT world:
 package example:hono;
 
 world component {
+    import wasi:cli/environment@0.2.3;
+
     export wasi:http/incoming-handler@0.2.3;
 }
 ```
 
-Put simply, the WIt above means that we "make available" the functionality of "receiving" HTTP requests. While the above is
+Put simply, the WIT file above means that we "make available" the functionality of "receiving" HTTP requests. While the above is
 relatively simple, it does depend on some upstream third party WIT interfaces (specifications on how requests are structured, etc).
 
 To pull those third party (Bytecode Alliance maintained) WIT interaces, one tool we can use is [`wkg`][wkg]:
@@ -311,10 +313,15 @@ Server listening @ localhost:8000...
 
 Sending a request to `localhost:8000/hello` will produce the JSON output you've specified in your Hono application.
 
+You should see output like the following:
+
+```json
+{"message":"Hello WASM!"}
+```
 
 ## More information
 
-For more information on the WASI, WebAssembly components and more, see the following resources:
+To learn moreabout WASI, WebAssembly components and more, see the following resources:
 
 - [BytecodeAlliance Component Model book][cm-book]
 - [`jco` codebase][jco]
