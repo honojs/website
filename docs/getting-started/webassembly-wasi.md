@@ -133,8 +133,13 @@ export default {
 };
 ```
 
+::: info
+Feel free to use any other bundlers that you're more comfortable with (`esbuild`, `rolldown`, etc)
+:::
+
 [jco]: https://github.com/bytecodealliance/jco
 [componentize-js]: https://github.com/bytecodealliance/componentize-js
+[rollup]: https://rollupjs.org/
 
 ## 2. Retrieve WIT dependencies
 
@@ -184,6 +189,7 @@ wit
 ```
 
 [wkg]: https://github.com/bytecodealliance/wasm-pkg-tools
+[wasi-http]: https://github.com/WebAssembly/wasi-http
 
 ## 3. Hello Wasm
 
@@ -326,7 +332,7 @@ To learn moreabout WASI, WebAssembly components and more, see the following reso
 - [BytecodeAlliance Component Model book][cm-book]
 - [`jco` codebase][jco]
   - [`jco` example components][jco-example-components] (in particular the [Hono example][jco-example-component-hono])
-- [`componentize-js` codebase][compnentize-js]
+- [`componentize-js` codebase][componentize-js]
 
 [cm-book]: https://component-model.bytecodealliance.org/
 
