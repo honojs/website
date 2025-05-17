@@ -284,7 +284,7 @@ To run your Hono WebAssembly HTTP server, you can use any WASI-enabled WebAssemb
 
 In this guide, we'll use `jco serve` since it's already installed.
 
-::: warn
+::: warning
 `jco serve` is meant for development, and is not recommended for production use.
 :::
 
