@@ -71,6 +71,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/ali-function-compute',
       },
       {
+        text: 'WebAssembly',
+        link: '/docs/getting-started/webassembly-wasi',
+      },
+      {
         text: 'Service Worker',
         link: '/docs/getting-started/service-worker',
       },
