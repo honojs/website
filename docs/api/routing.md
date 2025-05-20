@@ -75,13 +75,20 @@ app.get('/api/animal/:type?', (c) => c.text('Animal!'))
 
 ## Regexp
 
+You can apply a Regular Expression to a path parameter. The syntax is `/:paramName{regexp}`.
+
 ```ts twoslash
 import { Hono } from 'hono'
 const app = new Hono()
 // ---cut---
+// Example: :date must be a sequence of digits ([0-9]+),
+// and :title must be a sequence of lowercase letters ([a-z]+).
 app.get('/post/:date{[0-9]+}/:title{[a-z]+}', async (c) => {
   const { date, title } = c.req.param()
   //       ^?
+  // e.g. /post/2025/my-post -> date = "2025", title = "my-post" (if [a-z-]+)
+  // Note: for "my-post", the regex should be `[a-z-]+`
+  // For the original `[a-z]+`: /post/2025/mypost -> date = "2025", title = "mypost"
   // ...
 })
 ```
@@ -92,8 +99,17 @@ app.get('/post/:date{[0-9]+}/:title{[a-z]+}', async (c) => {
 import { Hono } from 'hono'
 const app = new Hono()
 // ---cut---
-app.get('/posts/:filename{.+\\.png}', async (c) => {
-  //...
+// Example: :filename must end with .png and have a non-empty name part.
+// The regex `.+\\.png$` ensures this:
+//   - `.+` matches one or more leading characters (the filename base).
+//   - `\\.png$` matches the literal ".png" string at the end of the segment.
+//
+// This means paths like /file/dog.png will match, making filename "data.png".
+// Paths like /file/.png (empty name part) or /file/data.png.txt (wrong suffix) will not match.
+app.get('/post/:filename{.+\\.png$}', async (c) => {
+  const { filename } = c.req.param()
+  //        ^?
+  // ...
 })
 ```
 
