@@ -60,10 +60,8 @@ export const auth = betterAuth({
 })
 
 export type AuthType = {
-  Variables: {
     user: typeof auth.$Infer.Session.user | null
     session: typeof auth.$Infer.Session.session | null
-  }
 }
 ```
 
@@ -110,7 +108,7 @@ import { Hono } from "hono";
 import type { AuthType } from "../lib/auth"
 import auth from "@/routes/auth";
 
-const app = new Hono<{ Bindings: AuthType }>({
+const app = new Hono<{ Variables: AuthType }>({
   strict: false,
 });
 
