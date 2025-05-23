@@ -317,6 +317,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/better-auth',
       },
       {
+        text: 'Better Auth on Cloudflare',
+        link: '/examples/better-auth-on-cloudflare',
+      },
+      {
         text: 'Pylon (GraphQL)',
         link: '/examples/pylon',
       },
