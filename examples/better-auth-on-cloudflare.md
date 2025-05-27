@@ -20,6 +20,24 @@ A serverless Postgres optimized for the cloud.
 
 ### 1. Installation
 
+::: code-group
+
+```sh [npm]
+# Hono
+# > Select cloudflare-workers template
+npm create hono
+
+# Better Auth
+npm install better-auth
+
+# Drizzle ORM
+npm install drizzle-orm
+npm install --save-dev drizzle-kit
+
+# Neon
+npm install @neondatabase/serverless
+```
+
 ```sh [pnpm]
 # Hono
 # > Select cloudflare-workers template
@@ -35,6 +53,40 @@ pnpm add -D drizzle-kit
 # Neon
 pnpm add @neondatabase/serverless
 ```
+
+```sh [yarn]
+# Hono
+# > Select cloudflare-workers template
+yarn create hono
+
+# Better Auth
+yarn add better-auth
+
+# Drizzle ORM
+yarn add drizzle-orm
+yarn add --dev drizzle-kit
+
+# Neon
+yarn add @neondatabase/serverless
+```
+
+```sh [bun]
+# Hono
+# > Select cloudflare-workers template
+bun create hono
+
+# Better Auth
+bun add better-auth
+
+# Drizzle ORM
+bun add drizzle-orm
+bun add -d drizzle-kit
+
+# Neon
+bun add @neondatabase/serverless
+```
+
+:::
 
 ### 2. Environment Variables
 
@@ -75,14 +127,34 @@ DATABASE_URL=
 
 After setting your environment variables, run the following script to generate types for your Cloudflare Workers configuration:
 
-```sh
+::: code-group
+
+```sh[npm]
+npx wrangler types --env-interface CloudflareBindings
+# OR
+npm run cf-typegen
+```
+
+```sh[pnpm]
+pnpm wrangler types --env-interface CloudflareBindings
+# OR
 pnpm cf-typegen
 
-# or
-
-pnpm wrangler types --env-interface CloudflareBindings
-
 ```
+
+```sh[yarn]
+yarn wrangler types --env-interface CloudflareBindings
+# OR
+yarn cf-typegen
+```
+
+```sh[bun]
+bunx wrangler types --env-interface CloudflareBindings
+# OR
+bun run cf-typegen
+```
+
+:::
 
 Then, make sure your tsconfig.json includes the generated types.
 
@@ -205,18 +277,53 @@ export const auth: ReturnType<typeof betterAuth> = betterAuth({
 
 Then, execute the following script:
 
-```sh
+::: code-group
+
+```sh[npm]
+npx @better-auth/cli@latest generate --config ./better-auth.config.ts --output ./src/db/schema.ts
+```
+
+```sh[pnpm]
 pnpm dlx @better-auth/cli@latest generate --config ./better-auth.config.ts --output ./src/db/schema.ts
 ```
+
+```sh[yarn]
+yarn dlx @better-auth/cli@latest generate --config ./better-auth.config.ts --output ./src/db/schema.ts
+```
+
+```sh[bun]
+bunx @better-auth/cli@latest generate --config ./better-auth.config.ts --output ./src/db/schema.ts
+```
+
+:::
 
 ### 3. Apply Schema to Database
 
 After generating the schema file, run the following commands to create and apply the database migration:
 
-```sh
+::: code-group
+
+```sh[npm]
+npx drizzle-kit generate
+npx drizzle-kit migrate
+```
+
+```sh[pnpm]
 pnpm drizzle-kit generate
 pnpm drizzle-kit migrate
 ```
+
+```sh[yarn]
+yarn drizzle-kit generate
+yarn drizzle-kit migrate
+```
+
+```sh[bun]
+bunx drizzle-kit generate
+bunx drizzle-kit migrate
+```
+
+:::
 
 ### 4. Mount the handler
 
@@ -234,6 +341,34 @@ app.on(['GET', 'POST'], '/api/**', (c) => {
 
 export default app;
 ```
+
+## Advanced
+
+This example is assembled based on the official documentation of Hono, Better Auth, and Drizzle. However, it goes beyond simple integration and offers the following benefits:
+
+- Efficient development through integration of Cloudflare CLI, Better Auth CLI, and Drizzle CLI.
+- Seamless transition between development and production environments.
+- Apply changes consistently using a script.
+
+You can extend this setup with custom scripts tailored to your workflow. For example:
+
+```json[package.json]
+{
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "pnpm run cf-gen-types && wrangler secret bulk .dev.vars.production && wrangler deploy --minify",
+    "cf-gen-types": "wrangler types --env-interface CloudflareBindings",
+    "better-auth-gen-schema": "pnpm dlx @better-auth/cli@latest generate --config ./better-auth.config.ts --output ./src/db/schema.ts"
+  },
+}
+```
+
+> NOTE:  
+> Refer to the official CLI documentation for each tool for advanced usage and the most up-to-date options:
+>
+> - [Cloudflare CLI](https://developers.cloudflare.com/workers/wrangler/)
+> - [Better Auth CLI](https://www.better-auth.com/docs/concepts/cli)
+> - [Drizzle ORM CLI](https://orm.drizzle.team/docs/kit-overview)
 
 ## In Closing
 
