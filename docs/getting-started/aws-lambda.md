@@ -210,6 +210,7 @@ Typically, the implementation requires writing chunks to NodeJS.WritableStream u
 ```ts
 import { Hono } from 'hono'
 import { streamHandle } from 'hono/aws-lambda'
+import { streamText } from 'hono/streaming'
 
 const app = new Hono()
 
