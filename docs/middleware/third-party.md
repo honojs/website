@@ -49,3 +49,4 @@ Most of this middleware leverages external libraries.
 - [Hono Simple DI](https://github.com/maou-shonen/hono-simple-DI)
 - [Highlight.io](https://www.highlight.io/docs/getting-started/backend-sdk/js/hono)
 - [Apitally (API monitoring & analytics)](https://docs.apitally.io/frameworks/hono)
+- [Cap Checkpoint](https://capjs.js.org/guide/middleware/hono.html)
