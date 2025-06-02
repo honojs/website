@@ -99,3 +99,36 @@ describe('Search Endpoint', () => {
   })
 })
 ```
+
+To include a body in your test, pass it into the `init` property as part of the second parameter in the call.
+
+```ts
+// index.test.ts
+import { Hono } from 'hono'
+import { testClient } from 'hono/testing'
+import { describe, it, expect } from 'vitest' // Or your preferred test runner
+import app from './app'
+
+describe('Update user setting endpoint', () => {
+  // Create the test client from the app instance
+  const client = testClient(app)
+
+  it('should update a user\'s settings', async () => {
+    const body = { acceptCookies: true}
+    const res = await client.settings.$post(
+      {},
+      {
+        headers: {
+          'Content-Type': `application/json`,
+        },
+        init: {
+          body: JSON.stringify(body)
+        }
+      }
+    )
+
+    // Assertions
+    expect(res.status).toBe(200)
+  })
+})
+```
