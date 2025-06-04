@@ -62,7 +62,7 @@ describe('Search Endpoint', () => {
 })
 ```
 
-To include headers in your test, pass them as the second parameter in the call.
+To include headers in your test, pass them as the second parameter in the call. The second parameter can also take an `init` property as a `RequestInit` object, allowing you to set headers, method, body, etc. Learn more about the `init` property [here](/docs/guides/rpc#init-option).
 
 ```ts
 // index.test.ts
