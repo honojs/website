@@ -99,3 +99,20 @@ app.use('*', async (c, next) => {
   return corsMiddlewareHandler(c, next)
 })
 ```
+
+## Using with Vite
+
+When using Hono with Vite, you should disable Vite's built-in CORS feature by setting `server.cors` to `false` in your `vite.config.ts`. This prevents conflicts with Hono's CORS middleware.
+
+```ts
+// vite.config.ts
+import { cloudflare } from '@cloudflare/vite-plugin'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  server: {
+    cors: false, // disable Vite's built-in CORS setting
+  },
+  plugins: [cloudflare()],
+})
+```
