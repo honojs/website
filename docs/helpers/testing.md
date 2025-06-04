@@ -62,7 +62,7 @@ describe('Search Endpoint', () => {
 })
 ```
 
-To include headers in your test, pass them as the second parameter in the call.
+To include headers in your test, pass them as the second parameter in the call. The second parameter can also take an `init` property as a `RequestInit` object, allowing you to set headers, method, body, etc. Learn more about the `init` property [here](/docs/guides/rpc#init-option).
 
 ```ts
 // index.test.ts
@@ -96,39 +96,6 @@ describe('Search Endpoint', () => {
       query: 'hono',
       results: ['result1', 'result2'],
     })
-  })
-})
-```
-
-To include a body in your test, pass it into the `init` property as part of the second parameter in the call.
-
-```ts
-// index.test.ts
-import { Hono } from 'hono'
-import { testClient } from 'hono/testing'
-import { describe, it, expect } from 'vitest' // Or your preferred test runner
-import app from './app'
-
-describe('Update user setting endpoint', () => {
-  // Create the test client from the app instance
-  const client = testClient(app)
-
-  it('should update a user\'s settings', async () => {
-    const body = { acceptCookies: true}
-    const res = await client.settings.$post(
-      {},
-      {
-        headers: {
-          'Content-Type': `application/json`,
-        },
-        init: {
-          body: JSON.stringify(body)
-        }
-      }
-    )
-
-    // Assertions
-    expect(res.status).toBe(200)
   })
 })
 ```
