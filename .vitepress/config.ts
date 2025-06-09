@@ -422,4 +422,7 @@ export default defineConfig({
       allowedHosts: true
     }
   },
+  sitemap: {
+    hostname: 'https://hono.dev',
+  },
 })
