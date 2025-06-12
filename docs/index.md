@@ -18,6 +18,11 @@ app.get('/', (c) => c.text('Hono!'))
 
 export default app
 ```
+<AdSense 
+  ad-slot="6072780254" 
+  ad-format="auto"
+  style="display:block" 
+/>
 
 ## Quick Start
 
