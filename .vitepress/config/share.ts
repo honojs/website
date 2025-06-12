@@ -97,10 +97,33 @@ export default defineConfig({
     footer: {
       message: 'Released under the MIT License.',
       copyright:
-        'Copyright © 2022-present Yusuke Wada & Hono contributors. "kawaii" logo is created by SAWARATSUKI.',
+        'Copyright © 2022-present Yusuke Wada & ubitools',
     }
   },
   head: [
+    [
+      'script',
+      {
+        async: '',
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1331971422311386',
+        crossorigin: 'anonymous',
+      },
+    ],
+    [
+      'script',
+      {
+        async: '',
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-ZLJTKTTG43',
+      },
+    ],
+    [
+      'script',
+      {},
+      `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-ZLJTKTTG43');`,
+    ],
     [
       'meta',
       {
