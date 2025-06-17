@@ -139,6 +139,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'html', link: '/docs/helpers/html' },
       { text: 'JWT', link: '/docs/helpers/jwt' },
       { text: 'Proxy', link: '/docs/helpers/proxy' },
+      { text: 'Route', link: '/docs/helpers/route' },
       { text: 'SSG', link: '/docs/helpers/ssg' },
       { text: 'Streaming', link: '/docs/helpers/streaming' },
       { text: 'Testing', link: '/docs/helpers/testing' },
@@ -220,18 +221,18 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     items: [
       {
         text: 'Docs List',
-        link: '/llms.txt'
+        link: '/llms.txt',
       },
       {
         text: 'Full Docs',
-        link: '/llms-full.txt'
+        link: '/llms-full.txt',
       },
       {
         text: 'Tiny Docs',
-        link: '/llms-small.txt'
-      }
-    ]
-  }
+        link: '/llms-small.txt',
+      },
+    ],
+  },
 ]
 
 export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
@@ -419,7 +420,7 @@ export default defineConfig({
       }),
     ],
     server: {
-      allowedHosts: true
-    }
+      allowedHosts: true,
+    },
   },
 })
