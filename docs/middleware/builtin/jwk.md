@@ -50,15 +50,39 @@ app.get('/auth/page', (c) => {
 })
 ```
 
+Anonymous access:
+
+```ts
+const app = new Hono()
+
+app.use(
+  '/auth/*',
+  jwk({
+    jwks_uri: (c) =>
+      `https://${c.env.authServer}/.well-known/jwks.json`,
+    allow_anon: true,
+  })
+)
+
+app.get('/auth/page', (c) => {
+  const payload = c.get('jwtPayload')
+  return c.json(payload ?? { message: 'hello anon' })
+})
+```
+
 ## Options
 
-### <Badge type="info" text="optional" /> keys: `HonoJsonWebKey[] | (() => Promise<HonoJsonWebKey[]>)`
+### <Badge type="info" text="optional" /> keys: `HonoJsonWebKey[] | (c: Context) => Promise<HonoJsonWebKey[]>`
 
-The values of your public keys, or a function that returns them.
+The values of your public keys, or a function that returns them. The function receives the Context object.
 
-### <Badge type="info" text="optional" /> jwks_uri: `string`
+### <Badge type="info" text="optional" /> jwks_uri: `string` | `(c: Context) => Promise<string>`
 
-If this value is set, attempt to fetch JWKs from this URI, expecting a JSON response with `keys`, which are added to the provided `keys` option.
+If this value is set, attempt to fetch JWKs from this URI, expecting a JSON response with `keys`, which are added to the provided `keys` option. You can also pass a callback function to dynamically determine the JWKS URI using the Context.
+
+### <Badge type="info" text="optional" /> allow_anon: `boolean`
+
+If this value is set to `true`, requests without a valid token will be allowed to pass through the middleware. Use `c.get('jwtPayload')` to check if the request is authenticated. The default is `false`.
 
 ### <Badge type="info" text="optional" /> cookie: `string`
 
