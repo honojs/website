@@ -64,3 +64,18 @@ Sets the `Vary` header in the response. If the original response header already 
 ### <Badge type="info" text="optional" /> keyGenerator: `(c: Context) => string | Promise<string>`
 
 Generates keys for every request in the `cacheName` store. This can be used to cache data based on request parameters or context parameters. The default is `c.req.url`.
+
+### <Badge type="info" text="optional" /> cacheableStatusCodes: `number[]`
+
+An array of status codes that should be cached. The default is `[200]`. Use this option to cache responses with specific status codes.
+
+```ts
+app.get(
+  '*',
+  cache({
+    cacheName: 'my-app',
+    cacheControl: 'max-age=3600',
+    cacheableStatusCodes: [200, 404, 412],
+  })
+)
+```
