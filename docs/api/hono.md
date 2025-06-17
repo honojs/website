@@ -60,6 +60,10 @@ app.onError((err, c) => {
 
 ## fire()
 
+::: warning
+**`app.fire()` is deprecated**. Use `fire()` from `hono/service-worker` instead. See the [Service Worker documentation](/docs/getting-started/service-worker) for details.
+:::
+
 `app.fire()` automatically adds a global `fetch` event listener.
 
 This can be useful for environments that adhere to the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), such as [non-ES module Cloudflare Workers](https://developers.cloudflare.com/workers/reference/migrate-to-module-workers/).
