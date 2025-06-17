@@ -124,14 +124,16 @@ export interface ToSSGOptions {
   afterResponseHook?: AfterResponseHook
   afterGenerateHook?: AfterGenerateHook
   extensionMap?: Record<string, string>
+  plugins?: SSGPlugin[]
 }
 ```
 
 - `dir` is the output destination for Static files. The default value is `./static`.
 - `concurrency` is the concurrent number of files to be generated at the same time. The default value is `2`.
 - `extensionMap` is a map containing the `Content-Type` as a key and the string of the extension as a value. This is used to determine the file extension of the output file.
+- `plugins` is an array of SSG plugins that extend the functionality of the static site generation process.
 
-Each Hook will be described later.
+Each Hook and Plugin will be described later.
 
 ### Output
 
@@ -285,3 +287,60 @@ Routes with the `onlySSG` middleware set will be overridden by `c.notFound()` af
 ```ts
 app.get('/static-page', onlySSG(), (c) => c.html(<h1>Welcome to my site</h1>))
 ```
+
+## Plugins
+
+Plugins allow you to extend the functionality of the static site generation process. It can perform custom actions at various hooks during generation.
+
+### Plugin Interface
+
+```ts
+export interface SSGPlugin {
+  beforeRequestHook?: BeforeRequestHook | BeforeRequestHook[]
+  afterResponseHook?: AfterResponseHook | AfterResponseHook[]
+  afterGenerateHook?: AfterGenerateHook | AfterGenerateHook[]
+}
+```
+
+### Creating a plugin
+
+Here's an example of creating a sitemap plugin that generates a `sitemap.xml` file:
+
+```ts
+// plugins.ts
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import type { SSGPlugin } from 'hono/ssg'
+import { DEFAULT_OUTPUT_DIR } from 'hono/ssg'
+
+export const sitemapPlugin = (baseURL: string): SSGPlugin => {
+  return {
+    afterGenerateHook: (result, fsModule, options) => {
+      const outputDir = options?.dir ?? DEFAULT_OUTPUT_DIR
+      const filePath = path.join(outputDir, 'sitemap.xml')
+      const urls = result.files.map((file) =>
+        new URL(file, baseURL).toString()
+      )
+      const siteMapText = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((url) => `<url><loc>${url}</loc></url>`).join('\n')}
+</urlset>`
+      fsModule.writeFile(filePath, siteMapText)
+    },
+  }
+}
+```
+
+Applying the plugin:
+
+```ts
+import app from './index'
+import { toSSG } from 'hono/ssg'
+import { sitemapPlugin } from './plugins'
+
+toSSG(app, fs, {
+  plugins: [sitemapPlugin('https://example.com')],
+})
+```
+
+The plugin will generate a `sitemap.xml` file containing all the generated static files.
