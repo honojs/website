@@ -269,7 +269,11 @@ Available targets are below.
 
 See the [Validation section](/docs/guides/validation) for usage examples.
 
-## routePath()
+## routePath
+
+::: warning
+**Deprecated in v4.8.0**: This property is deprecated. Use `routePath()` from [Route Helper](/docs/helpers/route) instead.
+:::
 
 You can retrieve the registered path within the handler like this:
 
@@ -288,7 +292,11 @@ If you access `/posts/123`, it will return `/posts/:id`:
 { "path": "/posts/:id" }
 ```
 
-## matchedRoutes()
+## matchedRoutes
+
+::: warning
+**Deprecated in v4.8.0**: This property is deprecated. Use `matchedRoutes()` from [Route Helper](/docs/helpers/route) instead.
+:::
 
 It returns matched routes within the handler, which is useful for debugging.
 
