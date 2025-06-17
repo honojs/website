@@ -307,10 +307,11 @@ export interface SSGPlugin {
 Here's an example of creating a sitemap plugin that generates a `sitemap.xml` file:
 
 ```ts
+// plugins.ts
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import type { SSGPlugin } from 'hono/ssg'
-import { toSSG, DEFAULT_OUTPUT_DIR } from 'hono/ssg'
+import { DEFAULT_OUTPUT_DIR } from 'hono/ssg'
 
 export const sitemapPlugin = (baseURL: string): SSGPlugin => {
   return {
