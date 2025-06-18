@@ -395,6 +395,7 @@ export default defineConfig({
         content: 'https://hono.dev/images/hono-title.png',
       },
     ],
+    ['meta', { name: 'theme-color', content: '#E36002' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'twitter:domain', content: 'hono.dev' }],
     [
