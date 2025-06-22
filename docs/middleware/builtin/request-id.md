@@ -33,6 +33,29 @@ const app = new Hono<{
 }>()
 ```
 
+### Set Request ID
+
+You set a custom request ID in the header (default: `X-Request-Id`), the middleware will use that value instead of generating a new one:
+
+```ts
+const app = new Hono()
+
+app.use('*', requestId())
+
+app.get('/', (c) => {
+  return c.text(`${c.get('requestId')}`)
+})
+
+const res = await app.request('/', {
+  headers: {
+    'X-Request-Id': 'your-custom-id',
+  },
+})
+console.log(await res.text()) // your-custom-id
+```
+
+If you want to disable this feature, set [`headerName` option](#headername-string) to an empty string.
+
 ## Options
 
 ### <Badge type="info" text="optional" /> limitLength: `number`
