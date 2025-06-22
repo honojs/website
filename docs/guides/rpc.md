@@ -542,6 +542,40 @@ export type AppType = typeof routes
 
 You can now create a new client using the registered AppType and use it as you would normally.
 
+## 🛠 Code Generation Tools
+
+### [@rcmade/hono-docs](https://www.npmjs.com/package/@rcmade/hono-docs)
+
+> Auto-generate OpenAPI 3.0 specs and TypeScript type snapshots from your Hono route definitions.
+> Using `ts-morph`, `zod`, and `AppType`. Improves RPC development, documentation, and DX.
+
+- 📦 NPM: [`@rcmade/hono-docs`](https://www.npmjs.com/package/@rcmade/hono-docs)
+- 🧰 CLI: `hono-docs generate`
+- 📚 [GitHub Repo](https://github.com/rcmade/hono-docs)
+- 🧪 Example: [basic-app](https://github.com/rcmade/hono-docs/tree/main/examples/basic-app)
+
+```ts
+// hono-docs.ts
+export default defineConfig({
+  tsConfigPath: './tsconfig.json',
+  outputs: {
+    openApiJson: './openapi/openapi.json',
+  },
+  apis: [
+    {
+      apiPrefix: '/auth',
+      appTypePath: 'src/routes/authRoutes.ts',
+    },
+  ],
+})
+```
+
+```bash
+npx hono-docs generate
+```
+
+---
+
 ## Known issues
 
 ### IDE performance
