@@ -574,8 +574,6 @@ export default defineConfig({
 npx hono-docs generate
 ```
 
----
-
 ## Known issues
 
 ### IDE performance
