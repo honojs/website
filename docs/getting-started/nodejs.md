@@ -83,17 +83,17 @@ app.get('/', (c) => c.text('Hello Node.js!'))
 serve(app)
 ```
 
-+If you want to gracefully shut down the server, write it like this:
+If you want to gracefully shut down the server, write it like this:
 
 ```ts
 const server = serve(app)
 
 // graceful shutdown
-process.on("SIGINT", () => {
+process.on('SIGINT', () => {
   server.close()
   process.exit(0)
 })
-process.on("SIGTERM", () => {
+process.on('SIGTERM', () => {
   server.close((err) => {
     if (err) {
       console.error(err)
