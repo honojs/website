@@ -100,7 +100,6 @@ pnpx tsc --init
 
 ```sh [bun]
 bun i
-bun run tsc --init
 ```
 
 :::
@@ -150,7 +149,7 @@ and since our component reuses that functionality, we have to declare it in the 
 
 First, let's set up the component's WIT world:
 
-```wit
+```txt
 /// wit/component.wit
 package example:hono;
 
@@ -198,6 +197,7 @@ Let's fulfill our `component` world with a basic Hono application as a WebAssemb
 ```ts
 // component.mts
 import { Hono } from 'hono'
+import { fire } from 'hono/service-worker';
 
 const app = new Hono();
 
@@ -218,7 +218,7 @@ app.get('/hello', (c) => {
  * See: https://wintertc.org/
  * See: https://github.com/WebAssembly/wasi-http
  */
-app.fire();
+fire(app);
 ```
 
 ## 4. Build
