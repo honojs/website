@@ -325,6 +325,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Pylon (GraphQL)',
         link: '/examples/pylon',
       },
+      {
+        text: 'Stytch Authentication',
+        link: '/examples/stytch-auth',
+      },
     ],
   },
 ]
