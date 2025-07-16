@@ -21,7 +21,7 @@ Then it can get the result with one-time matching.
 
 This works faster than methods that use tree-based algorithms such as radix-tree in most cases. 
 
-However, RegExpRouter is it doesn't support all routing patterns, so it's usually used in combination with one of the other routers below that support all routing patterns.
+However, RegExpRouter doesn't support all routing patterns, so it's usually used in combination with one of the other routers below that support all routing patterns.
 
 ## TrieRouter
 
