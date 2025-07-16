@@ -19,25 +19,24 @@ Then it can get the result with one-time matching.
 
 ![](/images/router-regexp.jpg)
 
-This works faster than methods that use tree-based algorithms such as radix-tree in most cases.
+This works faster than methods that use tree-based algorithms such as radix-tree in most cases. 
+
+However, RegExpRouter is it doesn't support all routing patterns, so it's usually used in combination with one of the other routers below that support all routing patterns.
 
 ## TrieRouter
 
 **TrieRouter** is the router using the Trie-tree algorithm.
-It does not use linear loops as same as RegExpRouter.
+Like RegExpRouter, it does not use linear loops.
 
 ![](/images/router-tree.jpg)
 
 This router is not as fast as the RegExpRouter, but it is much faster than the Express router.
-TrieRouter supports all patterns though RegExpRouter does not.
+TrieRouter supports all patterns.
 
 ## SmartRouter
 
-RegExpRouter doesn't support all routing patterns.
-Therefore, it's usually used in combination with another router that does support all patterns.
-
-**SmartRouter** will select the best router by inferring from the registered routers.
-Hono uses SmartRouter and the two routers by default:
+**SmartRouter** is useful when you're using multiple routers. It selects the best router by inferring from the registered routers.
+Hono uses SmartRouter, RegExpRouter, and TrieRouter by default:
 
 ```ts
 // Inside the core of Hono.
@@ -81,7 +80,7 @@ For situations like Fastly Compute, it's better to use LinearRouter with the `ho
 
 **PatternRouter** is the smallest router among Hono's routers.
 
-While Hono is already compact, if you need to make it even smaller for an environment with limited resources, you can use PatternRouter.
+While Hono is already compact, if you need to make it even smaller for an environment with limited resources, use PatternRouter.
 
 An application using only PatternRouter is under 15KB in size.
 
