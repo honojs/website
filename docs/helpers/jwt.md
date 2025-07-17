@@ -66,6 +66,7 @@ verify(
   token: string,
   secret: string,
   alg?: 'HS256';
+  issuer?: string | RegExp;
 ): Promise<any>;
 
 ```
@@ -97,6 +98,10 @@ The secret key used for JWT verification or signing.
 #### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
 
 The algorithm used for JWT signing or verification. The default is HS256.
+
+#### <Badge type="info" text="optional" /> issuer: `string | RegExp`
+
+The expected issuer used for JWT verification.
 
 ## `decode()`
 
@@ -138,6 +143,7 @@ When verifying a JWT token, the following payload validations are performed:
 - `exp`: The token is checked to ensure it has not expired.
 - `nbf`: The token is checked to ensure it is not being used before a specified time.
 - `iat`: The token is checked to ensure it is not issued in the future.
+- `iss`: The token is checked to ensure it has been issued by a trusted issuer.
 
 Please ensure that your JWT payload includes these fields, as an object, if you intend to perform these checks during verification.
 
@@ -150,6 +156,7 @@ The module also defines custom error types to handle JWT-related errors.
 - `JwtTokenNotBefore`: Indicates that the token is being used before its valid date.
 - `JwtTokenExpired`: Indicates that the token has expired.
 - `JwtTokenIssuedAt`: Indicates that the "iat" claim in the token is incorrect.
+- `JwtTokenIssuer`: Indicates that the "iss" claim in the token is incorrect.
 - `JwtTokenSignatureMismatched`: Indicates a signature mismatch in the token.
 
 ## Supported AlgorithmTypes
