@@ -280,6 +280,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Hono OpenAPI',
         link: '/examples/hono-openapi',
       },
+      {
+        text: 'Hono Docs Generator',
+        link: '/examples/hono-docs',
+      },
     ],
   },
   {
