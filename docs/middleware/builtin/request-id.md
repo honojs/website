@@ -2,6 +2,10 @@
 
 Request ID Middleware generates a unique ID for each request, which you can use in your handlers.
 
+::: info
+**Node.js**: This middleware uses `crypto.randomUUID()` to generate IDs. The global `crypto` was introduced in Node.js version 20 or later. Therefore, errors may occur in versions earlier than that. In that case, please specify `generator`. However, if you are using [the Node.js adapter](https://github.com/honojs/node-server), it automatically sets `crypto` globally, so this is not necessary.
+:::
+
 ## Import
 
 ```ts
