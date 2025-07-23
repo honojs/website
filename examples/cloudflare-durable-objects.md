@@ -15,11 +15,11 @@ You can use Hono as the router in your Cloudflare Worker, calling RPCs (Remote P
 import { DurableObject } from 'cloudflare:workers'
 import { Hono } from 'hono'
 
-export class Counter<Env = unknown> extends DurableObject {
+export class Counter extends DurableObject {
   // In-memory state
   value = 0
 
-  constructor(ctx: DurableObjectState, env: Env) {
+  constructor(ctx: DurableObjectState, env: unknown) {
     super(ctx, env)
 
     // `blockConcurrencyWhile()` ensures no requests are delivered until initialization completes.
