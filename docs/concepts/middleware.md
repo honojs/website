@@ -13,9 +13,9 @@ import { Hono } from 'hono'
 const app = new Hono()
 // ---cut---
 app.use(async (c, next) => {
-  const start = Date.now()
+  const start = performance.now()
   await next()
-  const end = Date.now()
+  const end = performance.now()
   c.res.headers.set('X-Response-Time', `${end - start}`)
 })
 ```
