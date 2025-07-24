@@ -27,7 +27,7 @@ Most of this middleware leverages external libraries.
 ### OpenAPI
 
 - [Zod OpenAPI](https://github.com/honojs/middleware/tree/main/packages/zod-openapi)
-- [Scalar API Reference](https://github.com/scalar/scalar/tree/main/integrations/hono)
+- [Scalar](https://github.com/scalar/scalar/tree/main/integrations/hono)
 - [Swagger UI](https://github.com/honojs/middleware/tree/main/packages/swagger-ui)
 - [Hono OpenAPI](https://github.com/rhinobase/hono-openapi)
 

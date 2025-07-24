@@ -273,12 +273,16 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/zod-openapi',
       },
       {
-        text: 'Swagger UI',
-        link: '/examples/swagger-ui',
-      },
-      {
         text: 'Hono OpenAPI',
         link: '/examples/hono-openapi',
+      },
+      {
+        text: 'Scalar',
+        link: '/examples/scalar',
+      },
+      {
+        text: 'Swagger UI',
+        link: '/examples/swagger-ui',
       },
     ],
   },
