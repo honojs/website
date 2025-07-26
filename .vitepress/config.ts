@@ -284,6 +284,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Scalar',
         link: '/examples/scalar',
       },
+      {
+        text: 'Hono Docs Generator',
+        link: '/examples/hono-docs',
+      },
     ],
   },
   {
