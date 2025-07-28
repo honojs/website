@@ -111,7 +111,11 @@ export default docs
 
 Visiting `/api/docs` shows the UI; `/api/docs/open-api` serves the JSON.
 
----
+After you’ve **created** your **config**, generate the spec with:
+
+```bash
+npx @rcmade/hono-docs generate --config ./hono-docs.ts
+```
 
 ## CLI Usage
 
@@ -122,8 +126,6 @@ Options:
   -c, --config   Path to your config file (TS or JS)        [string] [required]
   -h, --help     Show help                                 [boolean]
 ```
-
----
 
 ## Examples
 
