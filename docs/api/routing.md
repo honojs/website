@@ -63,6 +63,90 @@ app.get('/posts/:id/comment/:comment_id', async (c) => {
 })
 ```
 
+## Routing Priority
+
+Understanding how Hono matches routes is crucial, especially when dealing with overlapping paths like static segments and parameters. **Handlers and middleware are matched in the order they are registered.** The first route definition that matches the incoming request path will be used, and the process stops there (unless `next()` is called in middleware).
+
+This means the order of your route definitions matters significantly. Specific static routes should usually be defined *before* more general parameterized routes that could potentially match the same path.
+
+Consider this example:
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+// Static route defined first
+app.get('/book/a', (c) => c.text('a')) // Specific 'a' route
+// Parameterized route defined second
+app.get('/book/:slug', (c) => c.text('common')) // General ':slug' route
+```
+
+```
+GET /book/a ---> `a` (Matches the first, specific route)
+GET /book/b ---> `common` (Matches the second, parameterized route)
+```
+
+If the order were reversed:
+
+```ts twoslash
+import { Hono } from 'hono' // Corrected typo: Hono() -> Hono
+const app = new Hono()
+// ---cut---
+// Parameterized route defined first
+app.get('/book/:slug', (c) => c.text('common')) // General ':slug' route
+// Static route defined second
+app.get('/book/a', (c) => c.text('a')) // Specific 'a' route
+```
+
+```
+GET /book/a ---> `common` (Matches the first route '/book/:slug', the second route is never reached)
+GET /book/b ---> `common` (Matches the first route '/book/:slug')
+```
+
+Similarly, wildcard routes capture everything if placed too early:
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+// Wildcard defined first
+app.get('*', (c) => c.text('common')) // Catches everything
+// Specific route defined second
+app.get('/foo', (c) => c.text('foo')) // This route will never be reached
+```
+
+```
+GET /foo ---> `common`
+```
+
+**Middleware and Fallbacks:**
+
+*   If you have middleware that should run for specific routes or all routes below it, register it *before* those routes:
+
+```ts twoslash
+import { Hono } from 'hono'
+import { logger } from 'hono/logger'
+const app = new Hono()
+// ---cut---
+app.use(logger()) // Logger runs for all subsequent routes
+app.get('/foo', (c) => c.text('foo'))
+```
+
+*   If you want to define a "_fallback_" handler for requests that don't match any specific routes above it, register it *last* (often using a wildcard):
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/bar', (c) => c.text('bar')) // Specific 'bar' route
+app.get('*', (c) => c.text('fallback')) // Fallback for anything else
+```
+
+```
+GET /bar ---> `bar`
+GET /foo ---> `fallback`
+```
+
 ## Optional Parameter
 
 ```ts twoslash
@@ -206,63 +290,6 @@ app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
 
 By applying this, for example, you can change the routing by `User-Agent` header.
 
-## Routing priority
-
-Handlers or middleware will be executed in registration order.
-
-```ts twoslash
-import { Hono } from 'hono'
-const app = new Hono()
-// ---cut---
-app.get('/book/a', (c) => c.text('a')) // a
-app.get('/book/:slug', (c) => c.text('common')) // common
-```
-
-```
-GET /book/a ---> `a`
-GET /book/b ---> `common`
-```
-
-When a handler is executed, the process will be stopped.
-
-```ts twoslash
-import { Hono } from 'hono'
-const app = new Hono()
-// ---cut---
-app.get('*', (c) => c.text('common')) // common
-app.get('/foo', (c) => c.text('foo')) // foo
-```
-
-```
-GET /foo ---> `common` // foo will not be dispatched
-```
-
-If you have the middleware that you want to execute, write the code above the handler.
-
-```ts twoslash
-import { Hono } from 'hono'
-import { logger } from 'hono/logger'
-const app = new Hono()
-// ---cut---
-app.use(logger())
-app.get('/foo', (c) => c.text('foo'))
-```
-
-If you want to have a "_fallback_" handler, write the code below the other handler.
-
-```ts twoslash
-import { Hono } from 'hono'
-const app = new Hono()
-// ---cut---
-app.get('/bar', (c) => c.text('bar')) // bar
-app.get('*', (c) => c.text('fallback')) // fallback
-```
-
-```
-GET /bar ---> `bar`
-GET /foo ---> `fallback`
-```
-
 ## Grouping ordering
 
 Note that the mistake of grouping routings is hard to notice.
@@ -291,12 +318,15 @@ const two = new Hono()
 const three = new Hono()
 // ---cut---
 three.get('/hi', (c) => c.text('hi'))
-app.route('/two', two) // `two` does not have routes
-two.route('/three', three)
+app.route('/two', two) // `two` does not have routes yet when it's added to `app`
+two.route('/three', three) // Routes are added to `two` *after* `two` was already processed by `app.route`
 
 export default app
 ```
 
 ```
 GET /two/three/hi ---> 404 Not Found
+```
+
+This happens because when `app.route('/two', two)` is called, the routes from `two` (which are none at that moment) are copied into `app`'s routing table under the `/two` prefix. Later, when `two.route('/three', three)` is called, it modifies the `two` instance, but `app`'s routing table is not updated retroactively. Ensure parent routes are defined *after* their children have been fully configured.
 ```
