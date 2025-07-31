@@ -40,6 +40,7 @@ Most of this middleware leverages external libraries.
 - [Hono Rate Limiter](https://github.com/rhinobase/hono-rate-limiter)
 - [Node WebSocket Helper](https://github.com/honojs/middleware/tree/main/packages/node-ws)
 - [Prometheus Metrics](https://github.com/honojs/middleware/tree/main/packages/prometheus)
+- [OpenTelemetry](https://github.com/honojs/middleware/tree/main/packages/otel)
 - [Qwik City](https://github.com/honojs/middleware/tree/main/packages/qwik-city)
 - [React Compatibility](https://github.com/honojs/middleware/tree/main/packages/react-compat)
 - [React Renderer](https://github.com/honojs/middleware/tree/main/packages/react-renderer)
