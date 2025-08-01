@@ -60,6 +60,8 @@ bun i
 
 :::
 
+We will use Vercel CLI to work on the app locally in the next step. If you haven't already, install it globally following [the Vercel CLI documentation](https://vercel.com/docs/cli).
+
 ## 2. Hello World
 
 In the `index.ts` or `src/index.ts` of your project, export the Hono application as a default export.
@@ -87,25 +89,9 @@ If you started with the `vercel` template, this is already set up for you.
 
 To run the development server locally:
 
-::: code-group
-
-```sh [npm]
-npm run dev
+```sh
+vercel dev
 ```
-
-```sh [yarn]
-yarn dev
-```
-
-```sh [pnpm]
-pnpm dev
-```
-
-```sh [bun]
-bun run dev
-```
-
-:::
 
 Visiting `localhost:3000` will respond with a text response.
 
@@ -113,25 +99,9 @@ Visiting `localhost:3000` will respond with a text response.
 
 Deploy to Vercel using `vc deploy`.
 
-::: code-group
-
-```sh [npm]
-npm run deploy
+```sh
+vercel deploy
 ```
-
-```sh [yarn]
-yarn deploy
-```
-
-```sh [pnpm]
-pnpm deploy
-```
-
-```sh [bun]
-bun run deploy
-```
-
-:::
 
 ## Further reading
 
