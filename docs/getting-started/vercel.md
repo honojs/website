@@ -105,4 +105,4 @@ vercel deploy
 
 ## Further reading
 
-[Learn more about Hono in the Vercel documentation](https://vercel.com/docs/frameworks/hono).
+[Learn more about Hono in the Vercel documentation](https://vercel.com/docs/frameworks/backend/hono).
