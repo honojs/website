@@ -87,3 +87,7 @@ If this value is set to `true`, requests without a valid token will be allowed t
 ### <Badge type="info" text="optional" /> cookie: `string`
 
 If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
+
+### <Badge type="info" text="optional" /> headerName: `string`
+
+The name of the header to look for the JWT token. The default is `Authorization`.
