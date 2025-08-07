@@ -457,6 +457,17 @@ type ReqType = InferRequestType<typeof $post>['form']
 type ResType = InferResponseType<typeof $post>
 ```
 
+## Automatic response parsing with type-safety helper
+
+You can use `parseResponse()` helper to easily parse a Response from `hc` with type-safety.
+
+```ts
+import { parseResponse, DetailedError } from 'hono/client'
+
+const res = await parseResponse(client.hello.$get())
+  .catch((e: DetailedError) => { console.error(e) }) // `parseResponse` will also automatically throw an error if the response is not `ok`.
+```
+
 ## Using SWR
 
 You can also use a React Hook library such as [SWR](https://swr.vercel.app).
