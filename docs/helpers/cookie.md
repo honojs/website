@@ -7,11 +7,13 @@ The Cookie Helper provides an easy interface to manage cookies, enabling develop
 ```ts
 import { Hono } from 'hono'
 import {
+  deleteCookie,
   getCookie,
   getSignedCookie,
   setCookie,
   setSignedCookie,
-  deleteCookie,
+  generateCookie,
+  generateSignedCookie,
 } from 'hono/cookie'
 ```
 
@@ -49,6 +51,51 @@ app.get('/signed-cookie', (c) => {
   // ...
 })
 ```
+
+### Cookie Generation
+
+`generateCookie` and `generateSignedCookie` functions allow you to create cookie strings directly without setting them in the response headers.
+
+#### `generateCookie`
+
+```ts
+// Basic cookie generation
+const cookie = generateCookie('delicious_cookie', 'macha')
+// Returns: 'delicious_cookie=macha; Path=/'
+
+// Cookie with options
+const cookie = generateCookie('delicious_cookie', 'macha', {
+  path: '/',
+  secure: true,
+  httpOnly: true,
+  domain: 'example.com'
+})
+```
+
+#### `generateSignedCookie`
+
+```ts
+// Basic signed cookie generation
+const signedCookie = await generateSignedCookie(
+  'delicious_cookie',
+  'macha',
+  'secret chocolate chips'
+)
+
+// Signed cookie with options
+const signedCookie = await generateSignedCookie(
+  'delicious_cookie',
+  'macha',
+  'secret chocolate chips',
+  {
+    path: '/',
+    secure: true,
+    httpOnly: true
+  }
+)
+```
+
+**Note**: Unlike `setCookie` and `setSignedCookie`, these functions only generate the cookie strings. You need to manually set them in headers if needed.
 
 ## Options
 
