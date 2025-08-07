@@ -82,6 +82,40 @@ app.get('/', (c) => {
 export default app
 ```
 
+## Metadata hoisting
+
+You can write document metadata tags such as `<title>`, `<link>`, and `<meta>` directly inside your components. These tags will be automatically hoisted to the `<head>` section of the document. This is especially useful when the `<head>` element is rendered far from the component that determines the appropriate metadata.
+
+```tsx
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.use('*', async (c, next) => {
+  c.setRenderer((content) => {
+    return c.html(
+      <html>
+        <head></head>
+        <body>{content}</body>
+      </html>
+    )
+  })
+  await next()
+})
+
+app.get('/about', (c) => {
+  return c.render(
+    <>
+      <title>About Page</title>
+      <meta name='description' content='This is the about page.' />
+      about page content
+    </>
+  )
+})
+
+export default app
+```
+
 ## Fragment
 
 Use Fragment to group multiple elements without adding extra nodes:
