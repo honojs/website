@@ -19,11 +19,7 @@ import { upgradeWebSocket } from 'hono/deno'
 
 ```ts [Bun]
 import { Hono } from 'hono'
-import { createBunWebSocket } from 'hono/bun'
-import type { ServerWebSocket } from 'bun'
-
-const { upgradeWebSocket, websocket } =
-  createBunWebSocket<ServerWebSocket>()
+import { upgradeWebSocket, websocket } from 'hono/bun'
 
 // ...
 
