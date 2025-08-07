@@ -46,12 +46,13 @@ app.use(
   '/auth/*',
   jwt({
     secret: 'it-is-very-secret',
+    issuer: 'my-trusted-issuer',
   })
 )
 
 app.get('/auth/page', (c) => {
   const payload = c.get('jwtPayload')
-  return c.json(payload) // eg: { "sub": "1234567890", "name": "John Doe", "iat": 1516239022 }
+  return c.json(payload) // eg: { "sub": "1234567890", "name": "John Doe", "iat": 1516239022, "iss": "my-trusted-issuer" }
 })
 ```
 
@@ -99,3 +100,7 @@ app.use(
   })
 )
 ```
+
+### <Badge type="info" text="optional" /> issuer: `string | RegExp`
+
+The expected issuer used for token verification. The `iss` claim will **not** be checked if this isn't set.
