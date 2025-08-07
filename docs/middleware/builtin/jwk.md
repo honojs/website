@@ -12,7 +12,7 @@ Example: `Bearer my.token.value` or `Basic my.token.value`
 
 ```ts
 import { Hono } from 'hono'
-import { jwk } from 'hono/jwk'
+import { jwk, verifyWithJwks } from 'hono/jwk'
 ```
 
 ## Usage
@@ -68,6 +68,22 @@ app.get('/auth/page', (c) => {
   const payload = c.get('jwtPayload')
   return c.json(payload ?? { message: 'hello anon' })
 })
+```
+
+## Using `verifyWithJwks` outside of middleware
+
+The `verifyWithJwks` utility function can be used to verify JWT tokens outside of Hono's middleware context, such as in SvelteKit SSR pages or other server-side environments:
+
+```ts
+const id_payload = await verifyWithJwks(
+  id_token,
+  {
+    jwks_uri: 'https://your-auth-server/.well-known/jwks.json',
+  },
+  {
+    cf: { cacheEverything: true, cacheTtl: 3600 },
+  }
+)
 ```
 
 ## Options
