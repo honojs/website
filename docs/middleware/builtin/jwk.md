@@ -12,7 +12,7 @@ Example: `Bearer my.token.value` or `Basic my.token.value`
 
 ```ts
 import { Hono } from 'hono'
-import { jwk } from 'hono/jwk'
+import { jwk, verifyWithJwks } from 'hono/jwk'
 ```
 
 ## Usage
@@ -70,6 +70,22 @@ app.get('/auth/page', (c) => {
 })
 ```
 
+## Using `verifyWithJwks` outside of middleware
+
+The `verifyWithJwks` utility function can be used to verify JWT tokens outside of Hono's middleware context, such as in SvelteKit SSR pages or other server-side environments:
+
+```ts
+const id_payload = await verifyWithJwks(
+  id_token,
+  {
+    jwks_uri: 'https://your-auth-server/.well-known/jwks.json',
+  },
+  {
+    cf: { cacheEverything: true, cacheTtl: 3600 },
+  }
+)
+```
+
 ## Options
 
 ### <Badge type="info" text="optional" /> keys: `HonoJsonWebKey[] | (c: Context) => Promise<HonoJsonWebKey[]>`
@@ -87,3 +103,7 @@ If this value is set to `true`, requests without a valid token will be allowed t
 ### <Badge type="info" text="optional" /> cookie: `string`
 
 If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
+
+### <Badge type="info" text="optional" /> headerName: `string`
+
+The name of the header to look for the JWT token. The default is `Authorization`.
