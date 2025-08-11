@@ -324,8 +324,8 @@ Everything is ready! Now push the code and enjoy it.
 
 ## Load env when local development
 
-To configure the environment variables for local development, create the `.dev.vars` file in the root directory of the project.
-Then configure your environment variables as you would with a normal env file.
+To configure the environment variables for local development, create a `.dev.vars` file or a `.env` file in the root directory of the project.
+These files should be formatted using the [dotenv](https://hexdocs.pm/dotenvy/dotenv-file-format.html) syntax. For example:
 
 ```
 SECRET_KEY=value
