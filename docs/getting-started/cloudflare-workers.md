@@ -134,20 +134,6 @@ bun run deploy
 
 That's all!
 
-## Service Worker mode or Module Worker mode
-
-There are two syntaxes for writing the Cloudflare Workers. _Module Worker mode_ and _Service Worker mode_. Using Hono, you can write with both syntax, but we recommend using Module Worker mode so that binding variables are localized.
-
-```ts
-// Module Worker
-export default app
-```
-
-```ts
-// Service Worker
-app.fire()
-```
-
 ## Using Hono with other event handlers
 
 You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_.
