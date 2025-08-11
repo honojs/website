@@ -67,11 +67,13 @@ Edit `src/index.ts`:
 ```ts
 // src/index.ts
 import { Hono } from 'hono'
+import { fire } from 'hono/service-worker'
+
 const app = new Hono()
 
 app.get('/', (c) => c.text('Hello Fastly!'))
 
-app.fire()
+fire(app)
 ```
 
 ## 3. Run
