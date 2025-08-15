@@ -22,12 +22,18 @@ const app = new Hono()
 app.get('/scalar', Scalar({ url: '/doc' }))
 
 // Or with dynamic configuration
-app.get('/scalar', Scalar((c) => {
-  return {
-    url: '/doc',
-    proxyUrl: c.env.ENVIRONMENT === 'development' ? 'https://proxy.scalar.com' : undefined,
-  }
-}))
+app.get(
+  '/scalar',
+  Scalar((c) => {
+    return {
+      url: '/doc',
+      proxyUrl:
+        c.env.ENVIRONMENT === 'development'
+          ? 'https://proxy.scalar.com'
+          : undefined,
+    }
+  })
+)
 
 export default app
 ```
@@ -40,10 +46,13 @@ The middleware comes with a custom theme for Hono. You can use one of [the other
 import { Scalar } from '@scalar/hono-api-reference'
 
 // Switch the theme (or pass other options)
-app.get('/scalar', Scalar({
-  url: '/doc',
-  theme: 'purple',
-}))
+app.get(
+  '/scalar',
+  Scalar({
+    url: '/doc',
+    theme: 'purple',
+  })
+)
 ```
 
 ### Custom page title
@@ -54,10 +63,13 @@ There's one additional option to set the page title:
 import { Scalar } from '@scalar/hono-api-reference'
 
 // Set a page title
-app.get('/scalar', Scalar({
-  url: '/doc',
-  pageTitle: 'Awesome API',
-}))
+app.get(
+  '/scalar',
+  Scalar({
+    url: '/doc',
+    pageTitle: 'Awesome API',
+  })
+)
 ```
 
 ### Custom CDN
@@ -73,10 +85,13 @@ import { Scalar } from '@scalar/hono-api-reference'
 
 app.get('/scalar', Scalar({ url: '/doc', pageTitle: 'Awesome API' }))
 
-app.get('/scalar', Scalar({
-  url: '/doc',
-  cdn: 'https://cdn.jsdelivr.net/npm/@scalar/api-reference@latest',
-}))
+app.get(
+  '/scalar',
+  Scalar({
+    url: '/doc',
+    cdn: 'https://cdn.jsdelivr.net/npm/@scalar/api-reference@latest',
+  })
+)
 ```
 
 ### Markdown for LLMs
@@ -120,7 +135,9 @@ const content = app.getOpenAPI31Document({
   info: { title: 'Example', version: 'v1' },
 })
 
-const markdown = await createMarkdownFromOpenApi(JSON.stringify(content))
+const markdown = await createMarkdownFromOpenApi(
+  JSON.stringify(content)
+)
 
 app.get('/llms.txt', async (c) => {
   return c.text(markdown)

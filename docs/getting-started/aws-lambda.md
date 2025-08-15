@@ -95,7 +95,7 @@ export class MyAppStack extends cdk.Stack {
       authType: lambda.FunctionUrlAuthType.NONE,
     })
     new cdk.CfnOutput(this, 'lambdaUrl', {
-      value: fnUrl.url!
+      value: fnUrl.url!,
     })
   }
 }

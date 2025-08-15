@@ -172,9 +172,9 @@ app.get('/health', (c) => c.json({ status: 'ok' }))
 // Protected route with local authentication (very fast)
 app.get('/api/local', Consumer.authenticateSessionLocal(), (c) => {
   const session = Consumer.getStytchSession(c)
-  return c.json({ 
+  return c.json({
     message: 'Protected data',
-    sessionId: session.session_id, 
+    sessionId: session.session_id,
   })
 })
 
@@ -182,7 +182,7 @@ app.get('/api/local', Consumer.authenticateSessionLocal(), (c) => {
 app.get('/api/remote', Consumer.authenticateSessionRemote(), (c) => {
   const session = Consumer.getStytchSession(c)
   const user = Consumer.getStytchUser(c)
-  return c.json({ 
+  return c.json({
     message: 'Protected data',
     sessionId: session.session_id,
     firstName: user.name.first_name,

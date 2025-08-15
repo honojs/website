@@ -268,7 +268,7 @@ const getOnlyPlugin: SSGPlugin = {
       return req
     }
     return false
-  }
+  },
 }
 ```
 
@@ -281,7 +281,7 @@ const statusFilterPlugin: SSGPlugin = {
       return res
     }
     return false
-  }
+  },
 }
 ```
 
@@ -293,7 +293,7 @@ const logFilesPlugin: SSGPlugin = {
     if (result.files) {
       result.files.forEach((file) => console.log(file))
     }
-  }
+  },
 }
 ```
 
@@ -338,7 +338,7 @@ toSSG(app, fs, {
     getOnlyPlugin,
     statusFilterPlugin,
     logFilesPlugin,
-    sitemapPlugin('https://example.com')
+    sitemapPlugin('https://example.com'),
   ],
 })
 ```

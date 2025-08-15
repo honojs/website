@@ -68,7 +68,7 @@ const cookie = generateCookie('delicious_cookie', 'macha', {
   path: '/',
   secure: true,
   httpOnly: true,
-  domain: 'example.com'
+  domain: 'example.com',
 })
 ```
 
@@ -90,7 +90,7 @@ const signedCookie = await generateSignedCookie(
   {
     path: '/',
     secure: true,
-    httpOnly: true
+    httpOnly: true,
   }
 )
 ```
