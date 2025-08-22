@@ -61,6 +61,16 @@ app.all('/proxy/:path', (c) => {
 })
 ```
 
+You can override the default global `fetch` function with the `customFetch` option:
+
+```ts
+app.get('/proxy', (c) => {
+  return proxy('https://example.com/', {
+    customFetch,
+  })
+})
+```
+
 ### `ProxyFetch`
 
 The type of `proxy()` is defined as `ProxyFetch` and is as follows
@@ -68,6 +78,7 @@ The type of `proxy()` is defined as `ProxyFetch` and is as follows
 ```ts
 interface ProxyRequestInit extends Omit<RequestInit, 'headers'> {
   raw?: Request
+  customFetch?: (request: Request) => Promise<Response>
   headers?:
     | HeadersInit
     | [string, string][]
