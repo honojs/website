@@ -12,6 +12,7 @@ Most of this middleware leverages external libraries.
 - [Firebase Auth](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
 - [Verify RSA JWT (JWKS)](https://github.com/wataruoguchi/verify-rsa-jwt-cloudflare-worker)
 - [Stytch Auth](https://github.com/honojs/middleware/tree/main/packages/stytch-auth)
+- [Better Auth](https://www.better-auth.com/docs/integrations/hono)
 
 ### Validators
 
