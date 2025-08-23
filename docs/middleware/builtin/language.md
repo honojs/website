@@ -73,6 +73,7 @@ export const DEFAULT_OPTIONS: DetectorOptions = {
 ### Detection Workflow
 
 1. **Order**: Checks sources in this sequence by default:
+
    - Query parameter (?lang=ar)
    - Cookie (language=ar)
    - Accept-Language header
