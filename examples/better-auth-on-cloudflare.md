@@ -300,6 +300,7 @@ bunx @better-auth/cli@latest generate --config ./better-auth.config.ts --output 
 ### 3. Apply Schema to Database
 
 After generating the schema file, run the following commands to create and apply the database migration:
+Check your wrangler config to read the `process.env` correctly for the `wrangler dev` to work later. You need [`node_compatibility`](https://developers.cloudflare.com/workers/wrangler/configuration/#hyperdrive) setup.
 
 ::: code-group
 
