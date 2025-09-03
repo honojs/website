@@ -213,6 +213,14 @@ deno test hello.ts
   }
 }
 ```
+To use middleware you need to use the [Deno directory](https://docs.deno.com/runtime/fundamentals/configuration/#custom-path-mappings) syntaxt in the import
+```json
+{
+  "imports": {
+    "hono/": "npm:/hono/"
+  }
+}
+```
 
 You can use either `npm:hono` or `jsr:@hono/hono`.
 
