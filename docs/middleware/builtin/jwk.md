@@ -12,7 +12,8 @@ Example: `Bearer my.token.value` or `Basic my.token.value`
 
 ```ts
 import { Hono } from 'hono'
-import { jwk, verifyWithJwks } from 'hono/jwk'
+import { jwk } from 'hono/jwk'
+import { verifyWithJwks } from 'hono/jwt'
 ```
 
 ## Usage
