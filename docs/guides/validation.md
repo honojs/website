@@ -192,7 +192,7 @@ bun add zod
 Import `z` from `zod`.
 
 ```ts
-import { z } from 'zod'
+import * as z from 'zod'
 ```
 
 Write your schema.
