@@ -9,7 +9,7 @@ By accepting `AppType` as a generic parameter, the Hono Client can infer both th
 > [!NOTE]
 > At this time, responses returned from middleware are [not inferred by the client.](https://github.com/honojs/hono/issues/2719)
 
-> [!NOTE]  
+> [!NOTE]
 > For the RPC types to work properly in a monorepo, in both the Client's and Server's tsconfig.json files, set `"strict": true` in `compilerOptions`. [Read more.](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)
 
 ## Server
@@ -610,7 +610,7 @@ import { app } from './app'
 import { hc } from 'hono/client'
 
 // this is a trick to calculate the type when compiling
-export type Client = ReturnType<typeof hc<typeof routes>>
+export type Client = ReturnType<typeof hc<typeof app>>
 
 export const hcWithType = (...args: Parameters<typeof hc>): Client =>
   hc<typeof app>(...args)
