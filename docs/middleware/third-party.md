@@ -52,3 +52,6 @@ Most of this middleware leverages external libraries.
 - [Highlight.io](https://www.highlight.io/docs/getting-started/backend-sdk/js/hono)
 - [Apitally (API monitoring & analytics)](https://docs.apitally.io/frameworks/hono)
 - [Cap Checkpoint](https://capjs.js.org/guide/middleware/hono.html)
+- [Hono JSON formatter](https://github.com/nswbmw/hono-json)
+- [Hono Throw](https://github.com/nswbmw/hono-throw)
+- [Hono Debug](https://github.com/nswbmw/hono-debug)
