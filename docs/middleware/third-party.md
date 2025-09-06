@@ -23,6 +23,7 @@ Most of this middleware leverages external libraries.
 - [unknownutil Validator](https://github.com/ryoppippi/hono-unknownutil-validator)
 - [Valibot Validator](https://github.com/honojs/middleware/tree/main/packages/valibot-validator)
 - [Zod Validator](https://github.com/honojs/middleware/tree/main/packages/zod-validator)
+- [Hono Zod](https://github.com/nswbmw/hono-zod)
 
 ### OpenAPI
 
