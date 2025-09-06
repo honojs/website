@@ -203,6 +203,8 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { betterAuth } from 'better-auth';
 import { betterAuthOptions } from './options';
 
+import * as schema from "../db/schema"; // Ensure the schema is imported
+
 /**
  * Better Auth Instance
  */
@@ -269,7 +271,7 @@ const db = drizzle(sql);
 
 export const auth: ReturnType<typeof betterAuth> = betterAuth({
   ...betterAuthOptions,
-  database: drizzleAdapter(db, { provider: 'pg' }),
+  database: drizzleAdapter(db, { provider: 'pg', schema }),  // schema is required in order for bettter-auth to recognize
   baseURL: BETTER_AUTH_URL,
   secret: BETTER_AUTH_SECRET,
 });
