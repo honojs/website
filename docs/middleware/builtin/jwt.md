@@ -101,6 +101,22 @@ app.use(
 )
 ```
 
-### <Badge type="info" text="optional" /> issuer: `string | RegExp`
+### <Badge type="info" text="optional" /> verifyOptions: `VerifyOptions`
+
+Options controlling verification of the token.
+
+#### <Badge type="info" text="optional" /> verifyOptions.iss: `string | RexExp`
 
 The expected issuer used for token verification. The `iss` claim will **not** be checked if this isn't set.
+
+#### <Badge type="info" text="optional" /> verifyOptions.nbf: `boolean`
+
+The `nbf` (not before) claim will be verified if present and this is set to `true`. The default is `true`.
+
+#### <Badge type="info" text="optional" /> verifyOptions.iat: `boolean`
+
+The `iat` (not before) claim will be verified if present and this is set to `true`. The default is `true`.
+
+#### <Badge type="info" text="optional" /> verifyOptions.exp: `boolean`
+
+The `exp` (not before) claim will be verified if present and this is set to `true`. The default is `true`.
