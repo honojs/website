@@ -44,6 +44,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/fastly',
       },
       { text: 'Vercel', link: '/docs/getting-started/vercel' },
+      { text: 'Next.js', link: '/docs/getting-started/nextjs' },
       { text: 'Netlify', link: '/docs/getting-started/netlify' },
       {
         text: 'AWS Lambda',
