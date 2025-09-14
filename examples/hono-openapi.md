@@ -39,7 +39,7 @@ import { Hono } from 'hono'
 import {
   describeRoute,
   resolver,
-  validator as vValidator,
+  validator,
 } from 'hono-openapi'
 
 const app = new Hono()
@@ -57,7 +57,7 @@ app.get(
       },
     },
   }),
-  vValidator('query', querySchema),
+  validator('query', querySchema),
   (c) => {
     const query = c.req.valid('query')
     return c.text(`Hello ${query?.name ?? 'Hono'}!`)
