@@ -36,11 +36,7 @@ Use `describeRoute` for route documentation and validation:
 
 ```ts
 import { Hono } from 'hono'
-import {
-  describeRoute,
-  resolver,
-  validator,
-} from 'hono-openapi'
+import { describeRoute, resolver, validator } from 'hono-openapi'
 
 const app = new Hono()
 
