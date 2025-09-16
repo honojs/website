@@ -224,7 +224,7 @@ When using third-party middleware, you may need to use Hono from the same regist
 }
 ```
 
-We also provide many third-party middleware packages on JSR(https://jsr.io/@hono). When using the middleware on JSR, use Hono from JSR:
+We also provide many third-party middleware packages on [JSR](https://jsr.io/@hono). When using the middleware on JSR, use Hono from JSR:
 
 ```json
 {
