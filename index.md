@@ -17,7 +17,7 @@ hero:
   image:
     src: /images/code.webp
     alt: "An example of code for Hono. \
-      import { Homo } from 'hono' \
+      import { Hono } from 'hono' \
       const app = new Hono() \
       app.get('/', (c) => c.text('Hello Hono!')) \
 
