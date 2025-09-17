@@ -8,18 +8,16 @@ You can use Hono, write the code with TypeScript, run the application with the `
 ## 1. Install Deno
 
 First, install `deno` command.
-Please refer to [the official document](https://docs.deno.com/runtime/manual/getting_started/installation).
+Please refer to [the official document](https://docs.deno.com/runtime/getting_started/installation/).
 
 ## 2. Setup
 
 A starter for Deno is available.
-Start your project with "create-hono" command.
+Start your project with the [`deno init`](https://docs.deno.com/runtime/reference/cli/init/) command.
 
 ```sh
-deno init --npm hono my-app
+deno init --npm hono my-app --template=deno
 ```
-
-Select `deno` template for this example.
 
 Move into `my-app`. For Deno, you don't have to install Hono explicitly.
 
@@ -29,9 +27,9 @@ cd my-app
 
 ## 3. Hello World
 
-Write your first application.
+Edit `main.ts`:
 
-```ts
+```ts [main.ts]
 import { Hono } from 'hono'
 
 const app = new Hono()
@@ -43,7 +41,7 @@ Deno.serve(app.fetch)
 
 ## 4. Run
 
-Just this command:
+Run the development server locally. Then, access `http://localhost:8000` in your Web browser.
 
 ```sh
 deno task start
@@ -60,7 +58,7 @@ Deno.serve({ port: 8787 }, app.fetch) // [!code ++]
 
 ## Serve static files
 
-To serve static files, use `serveStatic` imported from `hono/middleware.ts`.
+To serve static files, use `serveStatic` imported from `hono/deno`.
 
 ```ts
 import { Hono } from 'hono'
@@ -168,10 +166,10 @@ app.get(
 
 ## Deno Deploy
 
-Deno Deploy is an edge runtime platform for Deno.
-We can publish the application world widely on Deno Deploy.
+Deno Deploy is a serverless platform for running JavaScript and TypeScript applications in the cloud.
+It provides a management plane for deploying and running applications through integrations like GitHub deployment.
 
-Hono also supports Deno Deploy. Please refer to [the official document](https://docs.deno.com/deploy/manual/).
+Hono also works on Deno Deploy. Please refer to [the official document](https://docs.deno.com/deploy/manual/).
 
 ## Testing
 
@@ -182,7 +180,7 @@ You can write with `Deno.test` and use `assert` or `assertEquals` from [@std/ass
 deno add jsr:@std/assert
 ```
 
-```ts
+```ts [hello.ts]
 import { Hono } from 'hono'
 import { assertEquals } from '@std/assert'
 
@@ -201,9 +199,9 @@ Then run the command:
 deno test hello.ts
 ```
 
-## `npm:` specifier
+## npm and JSR
 
-`npm:hono` is also available. You can use it by fixing the `deno.json`:
+Hono is available on both [npm](https://www.npmjs.com/package/hono) and [JSR](https://jsr.io/@hono/hono) (the JavaScript Registry). You can use either `npm:hono` or `jsr:@hono/hono` in your `deno.json`:
 
 ```json
 {
@@ -214,9 +212,7 @@ deno test hello.ts
 }
 ```
 
-You can use either `npm:hono` or `jsr:@hono/hono`.
-
-If you want to use Third-party Middleware such as `npm:@hono/zod-validator` with the TypeScript Type inferences, you need to use the `npm:` specifier.
+When using third-party middleware, you may need to use Hono from the same registry as the middleware for proper TypeScript type inference. For example, if using the middleware from npm, you should also use Hono from npm:
 
 ```json
 {
@@ -224,6 +220,18 @@ If you want to use Third-party Middleware such as `npm:@hono/zod-validator` with
     "hono": "npm:hono",
     "zod": "npm:zod",
     "@hono/zod-validator": "npm:@hono/zod-validator"
+  }
+}
+```
+
+We also provide many third-party middleware packages on [JSR](https://jsr.io/@hono). When using the middleware on JSR, use Hono from JSR:
+
+```json
+{
+  "imports": {
+    "hono": "jsr:@hono/hono",
+    "zod": "npm:zod",
+    "@hono/zod-validator": "jsr:@hono/zod-validator"
   }
 }
 ```
