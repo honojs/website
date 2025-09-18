@@ -133,7 +133,7 @@ export type AppType = typeof app
 If you pass the type of the `app` to `hc`, it will get the correct type.
 
 ```ts
-import type AppType from './authors'
+import type { AppType } from './authors'
 import { hc } from 'hono/client'
 
 // 😃
