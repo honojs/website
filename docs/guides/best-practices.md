@@ -127,16 +127,17 @@ const app = new Hono()
   .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
 
 export default app
+export type AppType = typeof app
 ```
 
 If you pass the type of the `app` to `hc`, it will get the correct type.
 
 ```ts
-import app from './authors'
+import type { AppType } from './authors'
 import { hc } from 'hono/client'
 
 // 😃
-const client = hc<typeof app>('http://localhost') // Typed correctly
+const client = hc<AppType>('http://localhost') // Typed correctly
 ```
 
 For more detailed information, please see [the RPC page](/docs/guides/rpc#using-rpc-with-larger-applications).
