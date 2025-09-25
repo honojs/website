@@ -51,8 +51,7 @@ Within the handler you can get the validated value with `c.req.valid('form')`.
 Validation targets include `json`, `query`, `header`, `param` and `cookie` in addition to `form`.
 
 ::: warning
-When you validate `json`, the request _must_ contain a `Content-Type: application/json` header
-otherwise the request body will not be parsed and you will receive a warning.
+When you validate `json` or `form`, the request _must_ contain a matching `content-type` header (e.g. `Content-Type: application/json` for `json`). Otherwise, the request body will not be parsed and you will receive an empty object (`{}`) as value in the callback.
 
 It is important to set the `content-type` header when testing using
 [`app.request()`](../api/request.md).
@@ -83,7 +82,7 @@ const res = await app.request('/testing', {
   body: JSON.stringify({ key: 'value' }),
 })
 const data = await res.json()
-console.log(data) // undefined
+console.log(data) // {}
 
 // ✅ this will work
 const res = await app.request('/testing', {
