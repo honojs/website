@@ -342,6 +342,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Stytch Authentication',
         link: '/examples/stytch-auth',
       },
+      {
+        text: 'Auth.js',
+        link: '/examples/hono-authjs.md',
+      },
     ],
   },
 ]
