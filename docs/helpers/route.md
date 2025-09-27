@@ -49,7 +49,7 @@ apiApp.get('/posts/:id', (c) => {
 app.route('/api', apiApp)
 ```
 
-## `matchedRoutes(c)`
+## `matchedRoutes()`
 
 Returns an array of all routes that matched the current request, including middleware.
 
@@ -69,7 +69,7 @@ app.get('/api/users/:id', (c) => {
 })
 ```
 
-## `routePath(c)`
+## `routePath()`
 
 Returns the route path pattern registered for the current handler.
 
@@ -80,7 +80,23 @@ app.get('/posts/:id', (c) => {
 })
 ```
 
-## `baseRoutePath(c)`
+### Using with index parameter
+
+You can optionally pass an index parameter to get the route path at a specific position, similar to `Array.prototype.at()`.
+
+```ts
+app.all('/api/*', (c, next) => {
+  return next()
+})
+
+app.get('/api/users/:id', (c) => {
+  console.log(routePath(c, 0)) // '/api/*' (first matched route)
+  console.log(routePath(c, -1)) // '/api/users/:id' (last matched route)
+  return c.text('User details')
+})
+```
+
+## `baseRoutePath()`
 
 Returns the base path pattern of the current route as specified in routing.
 
@@ -93,7 +109,27 @@ subApp.get('/posts/:id', (c) => {
 app.route('/:sub', subApp)
 ```
 
-## `basePath(c)`
+### Using with index parameter
+
+You can optionally pass an index parameter to get the base route path at a specific
+position, similar to `Array.prototype.at()`.
+
+```ts
+app.all('/api/*', (c, next) => {
+  return next()
+})
+
+const subApp = new Hono()
+subApp.get('/users/:id', (c) => {
+  console.log(baseRoutePath(c, 0)) // '/' (first matched route)
+  console.log(baseRoutePath(c, -1)) // '/api' (last matched route)
+  return c.text('User details')
+})
+
+app.route('/api', subApp)
+```
+
+## `basePath()`
 
 Returns the base path with embedded parameters from the actual request.
 
