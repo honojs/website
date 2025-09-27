@@ -1,23 +1,21 @@
-# Hono AuthJS Integration
+# Hono Auth.js Integration
 
-This guide shows you how to add authentication to your Hono applications using Auth.js (formerly NextAuth.js). Perfect for VitePress and other web applications!
+This guide shows you how to add authentication to your Hono applications using **Auth.js** (formerly NextAuth.js).
 
-> ⚠️ **Important**: The `@hono/auth-js @auth/core` package currently **only supports React** for client-side integration.
+> [!IMPORTANT]
+> The `@hono/auth-js` package currently **only supports React** for client-side integration.
 
 ## Quick Start
 
 Get authentication running in 5 minutes:
+
 1. **Install** → `npm install @hono/auth-js @auth/core`
 2. **Set environment variables** → Copy the `.env` example below
 3. **Create database tables** → Run the schema migration
-4. **Add auth routes** → Copy the basic Hono setup
-5. **Test it** → Use the provided client example
-
-That's it! 🎉
+4. **Add auth routes** → Copy the Hono setup
+5. **Test it** → Use the client example
 
 ## Installation
-
-Install the required package:
 
 ```bash
 npm install hono @hono/auth-js @auth/core
@@ -37,14 +35,20 @@ GOOGLE_ID=your-google-client-id
 GOOGLE_SECRET=your-google-client-secret
 ```
 
-> 💡 **Pro Tip**: Generate a strong `AUTH_SECRET` using `openssl rand -base64 32` or use the npm package by authjs `npx auth secret` this will automatically generate a secret and add it into the env
+> [!TIP]
+> Generate a strong `AUTH_SECRET` with:
+> `openssl rand -base64 32`
+> or use: `npx auth secret`
 
 ### Step 2: Database Setup
 
-> 📝 **Note**: You can copy the latest schema from the [Auth.js documentation](https://authjs.dev/getting-started/adapters/drizzle)
+> [!NOTE]
+> Copy the latest schema from the [Auth.js Drizzle adapter docs](https://authjs.dev/getting-started/adapters/drizzle).
 
-Here's the complete schema for **SQLite with Drizzle ORM**:
+Here's a schema for **SQLite with Drizzle ORM**:
+
 ::: code-group
+
 ```ts [db.ts]
 import { createClient } from "@libsql/client"
 import { drizzle } from "drizzle-orm/libsql"
@@ -117,9 +121,9 @@ export const authenticators = sqliteTable("authenticator", {
 
 ### Route Setup
 
-Create an API route at `/api/v1` or any custom route you'd like in your Hono application:
+Create an API route in your Hono application:
 
-```typescript
+```ts
 import { Hono } from 'hono'
 import {
   initAuthConfig,
@@ -127,60 +131,30 @@ import {
   authHandler,
   DrizzleAdapter
 } from '@hono/auth-js'
-import { GitHub, Google, Credentials } from '@auth/core/providers'
-import { db } from './db' // Your database instance
-import {
-  users,
-  accounts,
-  authenticators,
-  sessions,
-  verificationTokens
-} from './schema' // Your database schema
-import { tryPromise, comparePassword } from './utils' // Your utility functions
+import { GitHub, Google } from '@auth/core/providers'
+import { db } from './db'
+import { users, accounts, authenticators, sessions, verificationTokens } from './schema'
 
 const v1Router = new Hono()
-  .use(
-    '*',
-    initAuthConfig((c) => ({
-      adapter: DrizzleAdapter(c.get('db'), {
-        usersTable: users,
-        accountsTable: accounts,
-        authenticatorsTable: authenticators,
-        sessionsTable: sessions,
-        verificationTokensTable: verificationTokens,
-      }),
-      secret: c.env.AUTH_SECRET,
-      providers: [
-        GitHub({
-          clientId: c.env.GITHUB_ID,
-          clientSecret: c.env.GITHUB_SECRET,
-        }),
-        Google({
-          clientId: c.env.GOOGLE_ID,
-          clientSecret: c.env.GOOGLE_SECRET,
-        }),
-      ],
-      session: {
-        strategy: 'jwt',
-      },
-      callbacks: {
-        async jwt({ token, trigger }) {
-          if (trigger === 'signUp') {
-            // New User can be done something
-          }
-          return token
-        },
-        async session({ session }) {
-          return session
-        },
-      },
-    }))
-  )
+  .use('*', initAuthConfig((c) => ({
+    adapter: DrizzleAdapter(c.get('db'), {
+      usersTable: users,
+      accountsTable: accounts,
+      authenticatorsTable: authenticators,
+      sessionsTable: sessions,
+      verificationTokensTable: verificationTokens,
+    }),
+    secret: c.env.AUTH_SECRET,
+    providers: [
+      GitHub({ clientId: c.env.GITHUB_ID, clientSecret: c.env.GITHUB_SECRET }),
+      Google({ clientId: c.env.GOOGLE_ID, clientSecret: c.env.GOOGLE_SECRET }),
+    ],
+    session: { strategy: 'jwt' },
+  })))
   .use('*', verifyAuth())
   .use('/auth/*', authHandler())
 
 const app = new Hono().route("/api/v1", v1Router)
-
 export default app
 ```
 
@@ -188,236 +162,66 @@ export default app
 
 ### Protecting Routes
 
-```typescript
-// Protected route example
-app.get('/protected', async (c) => {
+```ts
+app.get('/protected', (c) => {
   const auth = c.get('authUser')
-
-  if (!auth) {
-    return c.json({ error: 'Unauthorized' }, 401)
-  }
-
+  if (!auth) return c.json({ error: 'Unauthorized' }, 401)
   return c.json(auth)
 })
 ```
 
-### Client-side Integration
-
-For client-side authentication, you can use the Auth.js client:
+### Client-side Integration (React)
 
 ```tsx
-import { SessionProvider, authConfigManager, useSession, signIn, signUp } from "@hono/auth-js/react";
+import { SessionProvider, useSession, signIn } from "@hono/auth-js/react";
 
-authConfigManager.setConfig({
-  basePath: "/api/v1/auth", // if you picked a different based path then use that instead of /api/v1
-});
-
-// Render the app
-const rootElement = document.getElementById("root")!;
-if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <StrictMode>
-      <SessionProvider>
-        <App />
-      </SessionProvider>
-    </StrictMode>
-  );
+function App() {
+  const { data: session } = useSession()
+  return session
+    ? <p>Hello {session.user?.name}</p>
+    : <button onClick={() => signIn("github")}>Sign in with GitHub</button>
 }
 
-function App () {
-  const { data: session, status } = useSession()
-
+export default function Root() {
   return (
-    <div>
-      <div>
-        {
-          session?.user 
-          ? `Hello ${session?.user.name}` 
-          : `Please Signin`
-        }
-      </div>
-      {
-        !!session
-        ? null 
-        : <button 
-            onClick={() => signIn("github")}
-          >
-            Sign in with Github
-          <button>
-      }
-    </div>
+    <SessionProvider>
+      <App />
+    </SessionProvider>
   )
 }
 ```
 
-### API Routes
+## Configuration Reference
 
-The following API routes will be automatically created:
+Customize Auth.js in your Hono app with:
 
-- `GET /api/auth/providers` - Get available providers
-- `POST /api/auth/signin/:provider` - Sign in with a provider
-- `POST /api/auth/signout` - Sign out
-- `GET /api/auth/session` - Get current session
-- `GET /api/auth/csrf` - Get CSRF token
+* **Adapter** → Connects to your database (Drizzle shown above)
+* **Providers** → GitHub, Google, or any Auth.js provider
+* **Session** → `"jwt"` (stateless) or `"database"` (persistent)
+* **Callbacks** → Hook into sign-in or session events
 
-## Configuration Options
+Example:
 
-### Adapter
-
-The `DrizzleAdapter` requires your database instance and table schemas:
-
-```typescript
-adapter: DrizzleAdapter(c.get('db'), {
-  usersTable: users,
-  accountsTable: accounts,
-  authenticatorsTable: authenticators,
-  sessionsTable: sessions,
-  verificationTokensTable: verificationTokens,
-})
-```
-
-### Providers
-
-You can configure multiple authentication providers:
-
-```typescript
-providers: [
-  GitHub({
-    clientId: process.env.GITHUB_ID,
-    clientSecret: process.env.GITHUB_SECRET,
-  }),
-  Google({
-    clientId: process.env.GOOGLE_ID,
-    clientSecret: process.env.GOOGLE_SECRET,
-  }),
-  // Add more providers as needed
-]
-```
-
-### Session Strategy
-
-Choose between JWT and database sessions:
-
-```typescript
-session: {
-  strategy: 'jwt', // or 'database'
-}
-```
-
-### Callbacks
-
-Use callbacks to customize the authentication flow:
-
-```typescript
-callbacks: {
-  async jwt({ token, trigger }) {
-    if (trigger === 'signUp') {
-      // Handle new user signup
-    }
-    return token
-  },
-  async session({ session }) {
-    // Customize session object
-    return session
-  },
-}
-```
-
-## Error Handling
-
-The integration includes built-in error handling for common authentication scenarios:
-
-- Invalid credentials
-- User not found
-- Email verification required
-- Password authentication errors
-
-## Security Considerations
-
-1. Always use HTTPS in production
-2. Store sensitive environment variables securely
-3. Use strong, unique `AUTH_SECRET`
-4. Validate and sanitize user inputs
-5. Implement proper session management
-6. Use secure session cookies
-
-## Deployment Considerations
-
-> ⚠️ **Important for Production**: This setup requires careful configuration for deployment.
-
-### Development (Vite Proxy)
-During development with Vite, you can use proxy configuration to avoid CORS issues:
-
-```typescript
-// vite.config.ts
-export default defineConfig({
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000', // Your Hono server
-        changeOrigin: true
-      }
+```ts
+initAuthConfig((c) => ({
+  adapter: DrizzleAdapter(c.get('db'), { /* tables */ }),
+  secret: c.env.AUTH_SECRET,
+  providers: [
+    GitHub({ clientId: c.env.GITHUB_ID, clientSecret: c.env.GITHUB_SECRET }),
+    Google({ clientId: c.env.GOOGLE_ID, clientSecret: c.env.GOOGLE_SECRET }),
+  ],
+  session: { strategy: 'jwt' },
+  callbacks: {
+    async session({ session }) {
+      return session
     }
   }
-})
+}))
 ```
 
-### Production Deployment
-For production, you'll need to configure your web server (nginx, Apache, etc.) to serve both your frontend and Hono API from the **same domain** to avoid CORS issues:
+## Learn More
 
-```nginx
-# nginx.conf example
-server {
-    listen 80;
-    server_name yourdomain.com;
+* [Auth.js Docs](https://authjs.dev/) – providers, schema reference
+* [Hono Docs](https://hono.dev/) – routing & middleware patterns
+* Recipes: role-based access, password reset, email verification
 
-    location / {
-        proxy_pass http://localhost:3000;  # Your frontend server
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-
-    location /api/ {
-        proxy_pass http://localhost:3001/api;  # Your Hono server
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
-
-This ensures both your frontend and API are served from the same origin, which is required for authentication cookies to work properly.
-
-### Cloudflare Workers/Pages Deployment
-
-For **Cloudflare Workers/Pages** deployment, see the comprehensive [Cloudflare Pages Getting Started Guide](/docs/getting-started/cloudflare-pages) for detailed setup instructions.
-
-> ⚠️ **Critical OAuth Requirement**: OAuth authentication requires the entire flow to happen on the same domain. For Cloudflare Pages, use **Pages Functions** to serve both your React app and API from the same domain (`yoursite.pages.dev`).
-
-**Quick Cloudflare Setup:**
-1. Use the [Cloudflare Pages template](https://hono.dev/docs/getting-started/cloudflare-pages) for your project
-2. Deploy your Hono API as **Pages Functions** (`functions/api/[[route]].ts`)
-3. Set environment variables as **secrets** via Wrangler CLI
-4. Use **JWT session strategy** for better serverless performance
-
-**Example Pages Functions Structure:**
-```
-functions/
-├── api/
-│   └── [[route]].ts    # Your Hono auth API
-└── _middleware.ts       # Optional middleware
-public/                  # Your React app build files
-```
-
-This setup ensures OAuth redirects work properly since everything runs on the same domain. For complete deployment instructions, refer to the [Cloudflare Pages documentation](/docs/getting-started/cloudflare-pages).
-
-## Next Steps
-
-- Explore additional Auth.js providers
-- Implement custom credential providers
-- Add email verification workflows
-- Set up password reset functionality
-- Configure role-based access control
-
-For more information, check out the [Auth.js documentation](https://authjs.dev/).
