@@ -1,6 +1,6 @@
 # HTTPException
 
-When a fatal error occurs, Hono (and many ecosystem middleware) will throw an `HTTPException`. This is a custom Hono `Error` that simplifies [returning error responses](#handling-httpexceptions).
+When a fatal error occurs, Hono (and many ecosystem middleware) may throw an `HTTPException`. This is a custom Hono `Error` that simplifies [returning error responses](#handling-httpexceptions).
 
 ## Throwing HTTPExceptions
 
