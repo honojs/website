@@ -56,7 +56,7 @@ app.post('/login', async (c) => {
 
 ## Handling HTTPExceptions
 
-You can handle uncaught HTTPExceptions with [`app.onError`](/docs/api/hono#error-handling). They include a `getResponse` method that returns a new `Response`, created from the error `status`, and either the error `message`, or the [custom response](#custom-response) set when the error was thrown.
+You can handle uncaught HTTPExceptions with [`app.onError`](/docs/api/hono#error-handling). They include a `getResponse` method that returns a new `Response` created from the error `status`, and either the error `message`, or the [custom response](#custom-response) set when the error was thrown.
 
 ```ts twoslash
 import { Hono } from 'hono'
