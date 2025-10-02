@@ -1,36 +1,30 @@
-# Exception
+# HTTPException
 
-When a fatal error occurs, such as authentication failure, an HTTPException must be thrown.
+When a fatal error occurs, Hono (and many ecosystem middleware) may throw an `HTTPException`. This is a custom Hono `Error` that simplifies [returning error responses](#handling-httpexceptions).
 
-## throw HTTPException
+## Throwing HTTPExceptions
 
-This example throws an HTTPException from the middleware.
+You can throw your own HTTPExceptions by specifying a status code, and either a message or a custom response.
+
+### Custom Message
+
+For basic `text` responses, just set a the error `message`.
 
 ```ts twoslash
-import { Hono } from 'hono'
-const app = new Hono()
-declare const authorized: boolean
-// ---cut---
 import { HTTPException } from 'hono/http-exception'
 
-// ...
-
-app.post('/auth', async (c, next) => {
-  // authentication
-  if (authorized === false) {
-    throw new HTTPException(401, { message: 'Custom error message' })
-  }
-  await next()
-})
+throw new HTTPException(401, { message: 'Unauthorized' })
 ```
 
-You can specify the response to be returned back to the user.
+### Custom Response
+
+For other response types, or to set response headers, use the `res` option. _Note that the status passed to the constructor is the one used to create responses._
 
 ```ts twoslash
 import { HTTPException } from 'hono/http-exception'
 
 const errorResponse = new Response('Unauthorized', {
-  status: 401,
+  status: 401, // this gets ignored
   headers: {
     Authenticate: 'error="invalid_token"',
   },
@@ -39,9 +33,30 @@ const errorResponse = new Response('Unauthorized', {
 throw new HTTPException(401, { res: errorResponse })
 ```
 
-## Handling HTTPException
+### Cause
 
-You can handle the thrown HTTPException with `app.onError`.
+In either case, you can use the [`cause`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause) option to add arbitrary data to the HTTPException.
+
+```ts twoslash
+import { Hono, Context } from 'hono'
+import { HTTPException } from 'hono/http-exception'
+const app = new Hono()
+declare const message: string
+declare const authorize: (c: Context) => Promise<void>
+// ---cut---
+app.post('/login', async (c) => {
+  try {
+    await authorize(c)
+  } catch (cause) {
+    throw new HTTPException(401, { message, cause })
+  }
+  return c.redirect('/')
+})
+```
+
+## Handling HTTPExceptions
+
+You can handle uncaught HTTPExceptions with [`app.onError`](/docs/api/hono#error-handling). They include a `getResponse` method that returns a new `Response` created from the error `status`, and either the error `message`, or the [custom response](#custom-response) set when the error was thrown.
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -51,35 +66,19 @@ import { HTTPException } from 'hono/http-exception'
 
 // ...
 
-app.onError((err, c) => {
-  if (err instanceof HTTPException) {
+app.onError((error, c) => {
+  if (error instanceof HTTPException) {
+    console.error(error.cause)
     // Get the custom response
-    return err.getResponse()
+    return error.getResponse()
   }
   // ...
   // ---cut-start---
-  return c.text('Error')
+  return c.text('Unexpected error')
   // ---cut-end---
 })
 ```
 
-## `cause`
-
-The `cause` option is available to add a [`cause`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/cause) data.
-
-```ts twoslash
-import { Hono, Context } from 'hono'
-import { HTTPException } from 'hono/http-exception'
-const app = new Hono()
-declare const message: string
-declare const authorize: (c: Context) => void
-// ---cut---
-app.post('/auth', async (c, next) => {
-  try {
-    authorize(c)
-  } catch (e) {
-    throw new HTTPException(401, { message, cause: e })
-  }
-  await next()
-})
-```
+::: warning
+**`HTTPException.getResponse` is not aware of `Context`**. To include headers already set in `Context`, you must apply them to a new `Response`.
+:::

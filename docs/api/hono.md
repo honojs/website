@@ -44,9 +44,13 @@ app.notFound((c) => {
 })
 ```
 
+:::warning
+The `notFound` method is only called from the top-level app. For more information, see this [issue](https://github.com/honojs/hono/issues/3465#issuecomment-2381210165).
+:::
+
 ## Error Handling
 
-`app.onError` handles an error and returns a customized Response.
+`app.onError` allows you to handle uncaught errors and return a custom Response.
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -57,6 +61,10 @@ app.onError((err, c) => {
   return c.text('Custom Error Message', 500)
 })
 ```
+
+::: info
+If both a parent app and its routes have `onError` handlers, the route-level handlers get priority.
+:::
 
 ## fire()
 
