@@ -61,6 +61,10 @@ app.get(
 )
 ```
 
+> **Note:**  
+> When using `validator()` from `hono-openapi`, any validation added for `query`, `json`, `param` or `form` is automatically included in the OpenAPI request schema.  
+> There’s no need to manually define request parameters inside `describeRoute()`.
+
 ---
 
 ### 3. Generate OpenAPI Spec
