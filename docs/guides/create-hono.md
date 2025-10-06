@@ -10,12 +10,11 @@ Command-line options supported by `create-hono` - the project initializer that r
 
 When you use `npm create` (or `npx`) arguments intended for the initializer script must be placed **after** `--`. Anything after `--` is forwarded to the initializer.
 
-
 ::: code-group
 
 ```sh [npm]
 # Forwarding arguments to create-hono (npm requires `--`)
-npm create hono@latest my-app -- --template cloudflare-workers 
+npm create hono@latest my-app -- --template cloudflare-workers
 ```
 
 ```sh [yarn]
@@ -37,17 +36,17 @@ bun create hono@latest my-app --template cloudflare-workers
 # "--template cloudflare-workers" selects the Cloudflare Workers template
 deno init --npm hono@latest my-app --template cloudflare-workers
 ```
-:::
----
+
+## :::
 
 ## Commonly used arguments
 
-| Argument                | Description                                                                                                                                           | Example                         |
-| :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------ |
+| Argument                | Description                                                                                                                                      | Example                         |
+| :---------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------ |
 | `--template <template>` | Select a starter template and skip the interactive template prompt. Templates may include names like `bun`, `cloudflare-workers`, `vercel`, etc. | `--template cloudflare-workers` |
-| `--install`             | Automatically install dependencies after the template is created.                                                                                     | `--install`                     |
-| `--pm <packageManager>` | Specify which package manager to run when installing dependencies. Common values: `npm`, `pnpm`, `yarn`.                                              | `--pm pnpm`                     |
-| `--offline`             | Use the local cache/templates instead of fetching the latest remote templates. Useful for offline environments or deterministic local runs.           | `--offline`                     |
+| `--install`             | Automatically install dependencies after the template is created.                                                                                | `--install`                     |
+| `--pm <packageManager>` | Specify which package manager to run when installing dependencies. Common values: `npm`, `pnpm`, `yarn`.                                         | `--pm pnpm`                     |
+| `--offline`             | Use the local cache/templates instead of fetching the latest remote templates. Useful for offline environments or deterministic local runs.      | `--offline`                     |
 
 > Note: The exact set of templates and available options is maintained by the `create-hono` project. This docs page summarizes the most-used flags — see the linked repository below for the full, authoritative reference.
 
@@ -81,12 +80,11 @@ pnpm create hono@latest my-app --template deno --offline
 
 ## Troubleshooting & tips
 
-* If an option appears not to be recognized, make sure you're forwarding it with `--` when using `npm create` / `npx` .
-* To see the most current list of templates and flags, consult the `create-hono` repository or run the initializer locally and follow its help output.
-
+- If an option appears not to be recognized, make sure you're forwarding it with `--` when using `npm create` / `npx` .
+- To see the most current list of templates and flags, consult the `create-hono` repository or run the initializer locally and follow its help output.
 
 ## Links & references
 
-* `create-hono` repository : [create-hono](https://github.com/honojs/create-hono)
+- `create-hono` repository : [create-hono](https://github.com/honojs/create-hono)
 
 ---
