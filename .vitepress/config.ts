@@ -93,6 +93,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'Guides',
     collapsed: true,
     items: [
+      { text: 'Create-hono', link: '/docs/guides/create-hono' },
       { text: 'Middleware', link: '/docs/guides/middleware' },
       { text: 'Helpers', link: '/docs/guides/helpers' },
       {
