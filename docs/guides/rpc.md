@@ -437,7 +437,7 @@ services = [
 
 ```ts
 // src/client.ts
-const client = hc<CreateProfileType>('/', {
+const client = hc<CreateProfileType>('https://valid-url.com', {
   fetch: c.env.AUTH.fetch.bind(c.env.AUTH),
 })
 ```
