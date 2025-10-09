@@ -5,7 +5,6 @@ Command-line options supported by `create-hono` - the project initializer that r
 > [!NOTE]
 > **Why this page?** The installation / quick-start examples often show a minimal `npm create hono@latest my-app` command. `create-hono` supports several useful flags you can pass to automate and customize project creation (select templates, skip prompts, pick a package manager, use local cache, and more).
 
-
 ## Passing arguments:
 
 When you use `npm create` (or `npx`) arguments intended for the initializer script must be placed **after** `--`. Anything after `--` is forwarded to the initializer.
@@ -51,8 +50,6 @@ deno init --npm hono@latest my-app --template cloudflare-workers
 > [!NOTE]
 > The exact set of templates and available options is maintained by the `create-hono` project. This docs page summarizes the most-used flags — see the linked repository below for the full, authoritative reference.
 
-
-
 ## Example flows
 
 ### Minimal, interactive
@@ -77,7 +74,6 @@ This creates `my-app` using the `vercel` template, installs dependencies using `
 pnpm create hono@latest my-app --template deno --offline
 ```
 
-
 ## Troubleshooting & tips
 
 - If an option appears not to be recognized, make sure you're forwarding it with `--` when using `npm create` / `npx` .
@@ -86,4 +82,3 @@ pnpm create hono@latest my-app --template deno --offline
 ## Links & references
 
 - `create-hono` repository : [create-hono](https://github.com/honojs/create-hono)
-
