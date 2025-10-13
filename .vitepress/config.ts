@@ -1,11 +1,11 @@
-import { defineConfig } from 'vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs'
 import type { DefaultTheme } from 'vitepress'
+import { defineConfig } from 'vitepress'
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
-import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs'
 
 const sidebars = (): DefaultTheme.SidebarItem[] => [
   {
@@ -69,6 +69,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       {
         text: 'Ali Function Compute',
         link: '/docs/getting-started/ali-function-compute',
+      },
+      {
+        text: 'Azion',
+        link: '/docs/getting-started/azion',
       },
       {
         text: 'Service Worker',
