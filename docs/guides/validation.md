@@ -30,12 +30,13 @@ app.post(
       body: body,
     }
   }),
-  //...
+  // ...
 ```
 
 Within the handler you can get the validated value with `c.req.valid('form')`.
 
 ```ts
+// after your middleware...
 , (c) => {
   const { body } = c.req.valid('form')
   // ... do something
@@ -161,12 +162,11 @@ app.post(
   }
 ```
 
-## With Zod
+## Validator with Zod
 
-You can use [Zod](https://zod.dev), one of third-party validators.
-We recommend using a third-party validator.
+You can use [Zod](https://zod.dev), or the (typed) validator you prefer, to simplify `validator` callback logic. In essence, this is what our [third-party validators](#with-a-third-party-validator) are doing internally.
 
-Install from the Npm registry.
+Install from the NPM registry.
 
 ::: code-group
 
@@ -227,9 +227,17 @@ const route = app.post(
 )
 ```
 
-## Zod Validator Middleware
+## Third-party validator middleware
+We recommend using one of our [supported third-party validators,](https://hono.dev/docs/middleware/third-party#validators) which internally call `hono/validator`. These libraries make for both a better developer and user experience by simplifying (typed) validation.
 
-You can use the [Zod Validator Middleware](https://github.com/honojs/middleware/tree/main/packages/zod-validator) to make it even easier.
+We do our best to support common TypeScript-enabled validators. If you don't see your validator of choice on the list, please [open an issue in the `honojs/middleware` repo.](https://github.com/honojs/middleware/issues)
+
+
+### Zod Validator Middleware
+
+The [Zod Validator Middleware](https://github.com/honojs/middleware/tree/main/packages/zod-validator) makes it even easier by handling the boilerplate for you!
+
+Like most of our third-party validator middleware, it takes three parameters: the validation **target**, the validation **callback**, and an optional **hook** for manually handling errors or modifying data after validation. 
 
 ::: code-group
 
@@ -274,3 +282,32 @@ const route = app.post(
   }
 )
 ```
+
+## How it works
+
+Validator uses `HonoRequest.addValidatedData` to set valid data in `Context`, making it available in your handler through `c.req.valid`. While the JavaScript implementation might seem straightforward, [`hono/validator` relies on non-trivial generics](https://github.com/honojs/hono/blob/eb86162a9a4472ef86329efe27007caf0afb9284/src/validator/validator.ts) to share validated data types with your handler.
+
+::: warning
+While `c.req.addValidatedData` is a public method, it **must** be used in properly-typed middleware. When used on its own, you will get a type error.
+
+```typescript
+app.get(
+  '/',
+  async (c, next) => {
+    c.req.addValidatedData('form', {
+      timestamp: new Date(),
+    })
+
+    await next()
+  },
+  async (c) => {
+    // Type Error: Argument of type 'string' is not 
+    // assignable to parameter of type 'never'
+    const body = c.req.valid('form')
+    // ...
+  },
+)
+```
+
+Also note that the method **overwrites** the target data, if any. If you are validating data with `validator` or third-party validation middleware, you must spread in any of the original data you want to keep.
+:::
