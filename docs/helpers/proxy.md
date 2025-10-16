@@ -71,6 +71,25 @@ app.get('/proxy', (c) => {
 })
 ```
 
+### Connection Header Processing
+
+By default, `proxy()` ignores the `Connection` header to prevent Hop-by-Hop Header Injection attacks. You can enable strict RFC 9110 compliance with the `strictConnectionProcessing` option:
+
+```ts
+// Default behavior (recommended for untrusted clients)
+app.get('/proxy/:path', (c) => {
+  return proxy(`http://${originServer}/${c.req.param('path')}`, c.req)
+})
+
+// Strict RFC 9110 compliance (use only in trusted environments)
+app.get('/internal-proxy/:path', (c) => {
+  return proxy(`http://${internalServer}/${c.req.param('path')}`, {
+    ...c.req,
+    strictConnectionProcessing: true,
+  })
+})
+```
+
 ### `ProxyFetch`
 
 The type of `proxy()` is defined as `ProxyFetch` and is as follows
@@ -79,6 +98,7 @@ The type of `proxy()` is defined as `ProxyFetch` and is as follows
 interface ProxyRequestInit extends Omit<RequestInit, 'headers'> {
   raw?: Request
   customFetch?: (request: Request) => Promise<Response>
+  strictConnectionProcessing?: boolean
   headers?:
     | HeadersInit
     | [string, string][]
