@@ -231,6 +231,28 @@ app.get('/static-page', onlySSG(), (c) => c.html(<h1>Welcome to my site</h1>))
 
 Plugins allow you to extend the functionality of the static site generation process. They use hooks to customize the generation process at different stages.
 
+### Default Plugin
+
+By default, `toSSG` uses `defaultPlugin` which skips non-200 status responses (like redirects, errors, or 404s). This prevents generating files for unsuccessful responses.
+
+```ts
+import { toSSG, defaultPlugin } from 'hono/ssg'
+
+// defaultPlugin is automatically applied when no plugins specified
+toSSG(app, fs)
+
+// Equivalent to:
+toSSG(app, fs, { plugins: [defaultPlugin] })
+```
+
+If you specify custom plugins, `defaultPlugin` is **not** automatically included. To keep the default behavior while adding custom plugins, explicitly include it:
+
+```ts
+toSSG(app, fs, {
+  plugins: [defaultPlugin, myCustomPlugin],
+})
+```
+
 ### Hook Types
 
 Plugins can use the following hooks to customize the `toSSG` process:
