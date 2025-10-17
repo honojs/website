@@ -130,5 +130,5 @@ If you want to deploy using Deno or Bun runtimes (or a customised Nodejs contain
 For information on containerizing please refer to:
 
 - [Nodejs](/docs/getting-started/nodejs#building-deployment)
-- [Bun](https://bun.sh/guides/ecosystem/docker)
+- [Bun](https://bun.com/guides/ecosystem/docker)
 - [Deno](https://docs.deno.com/examples/google_cloud_run_tutorial)
