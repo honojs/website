@@ -73,3 +73,23 @@ The header name used for the request ID. The default is `X-Request-Id`.
 ### <Badge type="info" text="optional" /> generator: `(c: Context) => string`
 
 The request ID generation function. By default, it uses `crypto.randomUUID()`.
+
+## Note: Platform specific Request IDs
+
+Some platform (such as AWS Lambda) already generate their own Request IDs per request. 
+Without any additional configuration, this middleware is unaware of these specific Request IDs 
+and generates a new Request ID. This can lead to confusion when looking at your application logs.
+
+To unify these IDs, use the `generator` function to capture the platform specific Request ID and to use it in this middleware.
+
+### Platform specific links
+* AWS Lambda
+  * [AWS documentation: Context object](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-context.html) 
+  * [Hono: Access AWS Lambda Object](/docs/getting-started/aws-lambda#access-aws-lambda-object)
+* Cloudflare
+  * [Cloudflare Ray ID
+](https://developers.cloudflare.com/fundamentals/reference/cloudflare-ray-id/)
+* Deno
+  * [Request ID on the Deno Blog](https://deno.com/blog/zero-config-debugging-deno-opentelemetry#:~:text=s%20automatically%20have-,unique%20request%20IDs,-associated%20with%20them)
+* Fastly 
+  * [Fastly documentation: req.xid](https://www.fastly.com/documentation/reference/vcl/variables/client-request/req-xid/)
