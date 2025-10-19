@@ -1,6 +1,6 @@
 # Fastly Compute
 
-[Fastly Compute](https://www.fastly.com/products/edge-compute) is an advanced edge computing system that runs your code, in your favorite language, on its global edge network. Hono also works on Fastly Compute.
+[Fastly Compute](https://www.fastly.com/products/edge-compute) is an advanced edge computing system that runs your code, in your favorite language, on Fastly's global edge network. Hono also works on Fastly Compute.
 
 You can develop the application locally and publish it with a few commands using [Fastly CLI](https://www.fastly.com/documentation/reference/tools/cli/), which is installed locally automatically as part of the template.
 
@@ -71,9 +71,7 @@ import { fire } from '@fastly/hono-fastly-compute'
 
 const app = new Hono()
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+app.get('/', (c) => c.text('Hello Fastly!'))
 
 fire(app)
 ```
