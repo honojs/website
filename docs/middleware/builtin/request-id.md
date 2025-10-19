@@ -74,7 +74,7 @@ The header name used for the request ID. The default is `X-Request-Id`.
 
 The request ID generation function. By default, it uses `crypto.randomUUID()`.
 
-## Note: Platform specific Request IDs
+## Platform specific Request IDs
 
 Some platform (such as AWS Lambda) already generate their own Request IDs per request.
 Without any additional configuration, this middleware is unaware of these specific Request IDs
