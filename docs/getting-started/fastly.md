@@ -142,7 +142,7 @@ To use these bindings, import `buildFire` instead of `fire` from `@fastly/hono-f
 import { buildFire } from '@fastly/hono-fastly-compute'
 
 const fire = buildFire({
-  siteData: 'KVStore:site-data',  // I have a KV Store named "site-data"
+  siteData: 'KVStore:site-data', // I have a KV Store named "site-data"
 })
 
 const app = new Hono<{ Bindings: typeof fire.Bindings }>()
