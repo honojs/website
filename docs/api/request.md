@@ -375,3 +375,27 @@ app.post('/', async (c) => {
   // ...
 })
 ```
+
+## cloneRawRequest()
+
+Clones the raw Request object from a HonoRequest. Works even after the request body has been consumed by validators or HonoRequest methods.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+
+import { cloneRawRequest } from 'hono/request'
+import { validator } from 'hono/validator'
+
+app.post(
+  '/forward',
+  validator('json', (data) => data),
+  async (c) => {
+    // Clone after validation
+    const clonedReq = await cloneRawRequest(c.req)
+    // Does not throw the error
+    await clonedReq.json()
+    // ...
+  }
+)
+```

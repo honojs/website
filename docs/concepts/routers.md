@@ -74,8 +74,6 @@ summary for GET /user/lookup/username/hey
    33.24x faster than FindMyWay
 ```
 
-For situations like Fastly Compute, it's better to use LinearRouter with the `hono/quick` preset.
-
 ## PatternRouter
 
 **PatternRouter** is the smallest router among Hono's routers.

@@ -274,3 +274,161 @@ const route = app.post(
   }
 )
 ```
+
+## Standard Schema Validator Middleware
+
+[Standard Schema](https://standardschema.dev/) is a specification that provides a common interface for TypeScript validation libraries. It was created by the maintainers of Zod, Valibot, and ArkType to allow ecosystem tools to work with any validation library without needing custom adapters.
+
+The [Standard Schema Validator Middleware](https://github.com/honojs/middleware/tree/main/packages/standard-validator) lets you use any Standard Schema-compatible validation library with Hono, giving you the flexibility to choose your preferred validator while maintaining consistent type safety.
+
+::: code-group
+
+```sh [npm]
+npm i @hono/standard-validator
+```
+
+```sh [yarn]
+yarn add @hono/standard-validator
+```
+
+```sh [pnpm]
+pnpm add @hono/standard-validator
+```
+
+```sh [bun]
+bun add @hono/standard-validator
+```
+
+:::
+
+Import `sValidator` from the package:
+
+```ts
+import { sValidator } from '@hono/standard-validator'
+```
+
+### With Zod
+
+You can use Zod with the Standard Schema validator:
+
+::: code-group
+
+```sh [npm]
+npm i zod
+```
+
+```sh [yarn]
+yarn add zod
+```
+
+```sh [pnpm]
+pnpm add zod
+```
+
+```sh [bun]
+bun add zod
+```
+
+:::
+
+```ts
+import { z } from 'zod'
+import { sValidator } from '@hono/standard-validator'
+
+const schema = z.object({
+  name: z.string(),
+  age: z.number(),
+})
+
+app.post('/author', sValidator('json', schema), (c) => {
+  const data = c.req.valid('json')
+  return c.json({
+    success: true,
+    message: `${data.name} is ${data.age}`,
+  })
+})
+```
+
+### With Valibot
+
+[Valibot](https://valibot.dev/) is a lightweight alternative to Zod with a modular design:
+
+::: code-group
+
+```sh [npm]
+npm i valibot
+```
+
+```sh [yarn]
+yarn add valibot
+```
+
+```sh [pnpm]
+pnpm add valibot
+```
+
+```sh [bun]
+bun add valibot
+```
+
+:::
+
+```ts
+import * as v from 'valibot'
+import { sValidator } from '@hono/standard-validator'
+
+const schema = v.object({
+  name: v.string(),
+  age: v.number(),
+})
+
+app.post('/author', sValidator('json', schema), (c) => {
+  const data = c.req.valid('json')
+  return c.json({
+    success: true,
+    message: `${data.name} is ${data.age}`,
+  })
+})
+```
+
+### With ArkType
+
+[ArkType](https://arktype.io/) offers TypeScript-native syntax for runtime validation:
+
+::: code-group
+
+```sh [npm]
+npm i arktype
+```
+
+```sh [yarn]
+yarn add arktype
+```
+
+```sh [pnpm]
+pnpm add arktype
+```
+
+```sh [bun]
+bun add arktype
+```
+
+:::
+
+```ts
+import { type } from 'arktype'
+import { sValidator } from '@hono/standard-validator'
+
+const schema = type({
+  name: 'string',
+  age: 'number',
+})
+
+app.post('/author', sValidator('json', schema), (c) => {
+  const data = c.req.valid('json')
+  return c.json({
+    success: true,
+    message: `${data.name} is ${data.age}`,
+  })
+})
+```

@@ -199,7 +199,7 @@ const app = new Hono({ strict: false })
 
 ## router option
 
-The `router` option specifices which router to use. The default router is `SmartRouter`. If you want to use `RegExpRouter`, pass it to a new `Hono` instance:
+The `router` option specifies which router to use. The default router is `SmartRouter`. If you want to use `RegExpRouter`, pass it to a new `Hono` instance:
 
 ```ts twoslash
 import { Hono } from 'hono'
