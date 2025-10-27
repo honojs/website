@@ -16,7 +16,7 @@ A starter for Deno is available.
 Start your project with the [`deno init`](https://docs.deno.com/runtime/reference/cli/init/) command.
 
 ```sh
-deno init --npm hono my-app --template=deno
+deno init --npm hono --template=deno my-app
 ```
 
 Move into `my-app`. For Deno, you don't have to install Hono explicitly.
