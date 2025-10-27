@@ -135,10 +135,8 @@ ws.addEventListener('open', () => {
 
 ```tsx
 import { Hono } from 'hono'
-import { createBunWebSocket } from 'hono/bun'
+import { upgradeWebSocket, websocket } from 'hono/bun'
 import { html } from 'hono/html'
-
-const { upgradeWebSocket, websocket } = createBunWebSocket()
 
 const app = new Hono()
 
