@@ -7,9 +7,6 @@ First, export the `typeof` your Hono app (commonly called `AppType`)—or just t
 By accepting `AppType` as a generic parameter, the Hono Client can infer both the input type(s) specified by the Validator, and the output type(s) emitted by handlers returning `c.json()`.
 
 > [!NOTE]
-> At this time, responses returned from middleware are [not inferred by the client.](https://github.com/honojs/hono/issues/2719)
-
-> [!NOTE]
 > For the RPC types to work properly in a monorepo, in both the Client's and Server's tsconfig.json files, set `"strict": true` in `compilerOptions`. [Read more.](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)
 
 ## Server
