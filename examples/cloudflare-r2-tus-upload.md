@@ -81,7 +81,8 @@ app.all('/files/*', async (c) => {
   const env = c.env
 
   // Get or create a Durable Object instance for this upload
-  const id = env.ATTACHMENT_UPLOAD_HANDLER.idFromName('upload-session')
+  const id =
+    env.ATTACHMENT_UPLOAD_HANDLER.idFromName('upload-session')
   const stub = env.ATTACHMENT_UPLOAD_HANDLER.get(id)
 
   // Forward the request to the Durable Object
@@ -107,14 +108,19 @@ import { bearerAuth } from 'hono/bearer-auth'
 const app = new Hono<{ Bindings: Bindings }>()
 
 // Add authentication middleware
-app.use('/files/*', bearerAuth({
-  token: async (c) => {
-    // Validate token from your auth system
-    const token = c.req.header('Authorization')?.replace('Bearer ', '')
-    // Return true if valid, false otherwise
-    return token === c.env.UPLOAD_TOKEN
-  }
-}))
+app.use(
+  '/files/*',
+  bearerAuth({
+    token: async (c) => {
+      // Validate token from your auth system
+      const token = c.req
+        .header('Authorization')
+        ?.replace('Bearer ', '')
+      // Return true if valid, false otherwise
+      return token === c.env.UPLOAD_TOKEN
+    },
+  })
+)
 
 app.all('/files/*', async (c) => {
   // ... handle upload
@@ -135,7 +141,7 @@ const upload = new tus.Upload(file, {
   retryDelays: [0, 3000, 5000, 10000, 20000],
   metadata: {
     filename: file.name,
-    filetype: file.type
+    filetype: file.type,
   },
   onError: (error) => {
     console.error('Upload failed:', error)
@@ -146,7 +152,7 @@ const upload = new tus.Upload(file, {
   },
   onSuccess: () => {
     console.log('Upload completed!')
-  }
+  },
 })
 
 upload.start()
@@ -172,11 +178,11 @@ export class AttachmentUploadHandler extends DurableObject {
 
   async createUpload(metadata: any) {
     // Set expiration time (e.g., 24 hours)
-    const expiresAt = Date.now() + (24 * 60 * 60 * 1000)
+    const expiresAt = Date.now() + 24 * 60 * 60 * 1000
 
     await this.ctx.storage.put('upload-metadata', {
       ...metadata,
-      expiresAt
+      expiresAt,
     })
 
     // Schedule alarm to clean up
