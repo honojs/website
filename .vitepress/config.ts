@@ -304,6 +304,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/cloudflare-durable-objects',
       },
       {
+        text: 'Cloudflare R2 TUS Upload',
+        link: '/examples/cloudflare-r2-tus-upload',
+      },
+      {
         text: 'Cloudflare Queue',
         link: '/examples/cloudflare-queue',
       },
