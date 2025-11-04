@@ -211,6 +211,14 @@ Hono is available on both [npm](https://www.npmjs.com/package/hono) and [JSR](ht
   }
 }
 ```
+To use middleware you need to use the [Deno directory](https://docs.deno.com/runtime/fundamentals/configuration/#custom-path-mappings) syntaxt in the import
+```json
+{
+  "imports": {
+    "hono/": "npm:/hono/"
+  }
+}
+```
 
 When using third-party middleware, you may need to use Hono from the same registry as the middleware for proper TypeScript type inference. For example, if using the middleware from npm, you should also use Hono from npm:
 
