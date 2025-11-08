@@ -275,17 +275,20 @@ Before deploying code to Cloudflare via CI, you need a Cloudflare token. You can
 
 If it's a newly created token, select the **Edit Cloudflare Workers** template, if you already have another token, make sure the token has the corresponding permissions(No, token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
 
-then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
+Then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
 
-then create `.github/workflows/deploy.yml` in your Hono project root folder, paste the following code:
+Don't forget to add your `account_id` to your `wrangler.toml` because the workflow will fail otherwise.
+
+Then create `.github/workflows/deploy.yml` in your Hono project root folder, paste the following code:
 
 ```yml
-name: Deploy
+name: Deploy to CF Workers
 
 on:
   push:
     branches:
-      - main
+      - master
+  workflow_dispatch: # optional for triggering manual redeploys
 
 jobs:
   deploy:
@@ -293,6 +296,17 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v4
+      - name: Setup pnpm # use your package manager!
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22" # use your node version!
+          cache: "pnpm" # use your package manager!
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile # use your package manager!
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
