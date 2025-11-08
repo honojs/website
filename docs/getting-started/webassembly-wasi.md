@@ -1,39 +1,44 @@
 # WebAssembly (w/ WASI)
 
-[WebAssembly][wasm-core] is a secure, sandboxed, portable runtime that runs inside and outside browsers. In practice,
-many languages *compile to* WebAssembly, and WebAssembly runtimes *run* WebAssembly binaries (`.wasm`).
+[WebAssembly][wasm-core] is a secure, sandboxed, portable runtime that runs inside and outside web browsers.
+
+In practice:
+- Languages (like Javascript) *compile to* WebAssembly (`.wasm` files)
+- WebAssembly runtimes (like [`wasmtime`][wasmtime] or [`jco`][jco]) enable *running* WebAssembly binaries
 
 While core WebAssembly has *no* access to things like the local filesystem or sockets, the [WebAssembly System Interface][wasi]
-steps in to enable defining a platform under WebAssebly workloads. This means that *with* WASI, WebAssembly can operate on
-files, sockets, and much more.
+steps in to enable defining a platform under WebAssebly workloads.
+
+This means that *with* WASI, WebAssembly can operate on files, sockets, and much more.
 
 ::: info
 Want to peek at the WASI interface yourself? check out [`wasi:http`][wasi-http]
 :::
 
-Support for WebAssembly w/ WASI in JS is powered underneat by [StarlingMonkey][sm], and thanks to the focus on Web standards in
+Support for WebAssembly w/ WASI in JS is powered by [StarlingMonkey][sm], and thanks to the focus on Web standards in
 both StarlingMonkey and Hono, **Hono works *out of the box with WASI-enabled WebAssembly ecosystems.**
 
 [sm]: https://github.com/bytecodealliance/StarlingMonkey
 [wasm-core]: https://webassembly.org/
 [wasi]: https://wasi.dev/
 [bca]: https://bytecodealliance.org/
+[wasi-http]: https://github.com/WebAssembly/wasi-http
 
 ## 1. Setup
 
 The WebAssembly JS ecosystem provides tooling to make it easy to get started building WASI-enabled WebAssembly components:
 
-- [StarlingMonkey][sm] is a WebAssembly-aware JS runtime
-- [`componentize-js`][componentize-js] is a tool for building WebAssembly components from Javascript files
-- [`jco`][jco] is a multi-tool for building, generating types, and running components in environments like NodeJS or the browser
+- [StarlingMonkey][sm] is a fork of [SpiderMonkey][spidermonkey] that compiles to WebAssembly and enables components
+- [`componentize-js`][componentize-js] turns Javascript ES modules into WebAssembly components
+- [`jco`][jco] is a multi-tool that builds components, generates types, and runs components in environments like NodeJS or the browser
 
 ::: info
-Webassembly has an open ecosystem is an open source, with core projects stewarded primarily by the [Bytecode Alliance][bca] and it's members.
+Webassembly has an open ecosystem and is open source, with core projects stewarded primarily by the [Bytecode Alliance][bca] and it's members.
 
 New features, issues, pull requests and other types of contributions are always welcome.
 :::
 
-While a starter for WebAssembly Hono is not yet available, you can start a WebAssembly Hono project just
+While a starter for Hono on WebAssembly is not yet available, you can start a WebAssembly Hono project just
 like any other:
 
 ::: code-group
@@ -43,8 +48,8 @@ mkdir my-app
 cd my-app
 npm init
 npm i hono
-npm i -D @bytecodealliance/jco @bytecodealliance/componentize-js rollup
-npm i -D rollup @rollup/plugin-typescript @rollup/plugin-node-resolve
+npm i -D @bytecodealliance/jco @bytecodealliance/componentize-js @bytecodealliance/jco-std
+npm i -D rolldown
 ```
 
 ```sh [yarn]
@@ -52,17 +57,17 @@ mkdir my-app
 cd my-app
 npm init
 yarn add hono
-yarn add -D @bytecodealliance/jco @bytecodealliance/componentize-js
-yarn add -D rollup @rollup/plugin-typescript @rollup/plugin-node-resolve tslib
-```
+yarn add -D @bytecodealliance/jco @bytecodealliance/componentize-js @bytecodealliance/jco-std
+yarn add -D rolldown
+G```
 
 ```sh [pnpm]
 mkdir my-app
 cd my-app
-npm init
+pnpm init --init-type module
 pnpm add hono
-pnpm add -D @bytecodealliance/jco @bytecodealliance/componentize-js
-pnpm add -D rollup @rollup/plugin-typescript @rollup/plugin-node-resolve tslib
+pnpm add -D @bytecodealliance/jco @bytecodealliance/componentize-js @bytecodealliance/jco-std
+pnpm add -D rolldown
 ```
 
 ```sh [bun]
@@ -70,16 +75,16 @@ mkdir my-app
 cd my-app
 npm init
 bun add hono
-bun add -D @bytecodealliance/jco @bytecodealliance/componentize-js
+bun add -D @bytecodealliance/jco @bytecodealliance/componentize-js @bytecodealliance/jco-std
 ```
 
 :::
 
 ::: info
-To ensure your project uses ES modules, consider setting `type` to `"module"` in package.json
+To ensure your project uses ES modules, ensure `type` is set to `"module"` in `package.json`
 :::
 
-Once you're in `my-app`, install dependencies, and initialize Typescript:
+After entering the `my-app` folder, install dependencies, and initialize Typescript:
 
 ::: code-group
 
@@ -95,7 +100,7 @@ yarn tsc --init
 
 ```sh [pnpm]
 pnpm i
-pnpx tsc --init
+pnpm exec --init
 ```
 
 ```sh [bun]
@@ -109,59 +114,57 @@ Once you have a basic typescript configuration file (`tsconfig.json`), please en
 
 - `compilerOptions.module` set to `"nodenext"`
 
-Since `componentize-js` (and `jco` which re-uses that functionality) does not (yet) work with multiple JS files,
-bundling is necessary, so [`rollup`][rollup] is used for package managers that do not already bundle.
+Since `componentize-js` (and `jco` which re-uses it) supports only single JS files,
+bundling is necessary, so [`rolldown`][rolldown] can be used to create a single file bundle.
 
-The following Rollup configuration (`rollup.config.mjs`) should also be used:
+A Rolldown configuration (`rolldown.config.mjs`) like the following can be used:
 
 ```js
-import typescript from "@rollup/plugin-typescript";
-import nodeResolve from "@rollup/plugin-node-resolve";
+import { defineConfig } from 'rolldown';
 
-export default {
-  input: "component.mts",
+export default defineConfig({
+  input: "src/component.ts",
   external: /wasi:.*/,
   output: {
     file: "dist/component.js",
     format: "esm",
   },
-  plugins: [
-    typescript({ noEmitOnError: true }),
-    nodeResolve(),
-  ],
-};
+});
 ```
 
 ::: info
-Feel free to use any other bundlers that you're more comfortable with (`esbuild`, `rolldown`, etc)
+Feel free to use any other bundlers that you're more comfortable with (`rolldown`, `esbuild`, `rolldown`, etc)
 :::
 
 [jco]: https://github.com/bytecodealliance/jco
 [componentize-js]: https://github.com/bytecodealliance/componentize-js
-[rollup]: https://rollupjs.org/
+[rolldown]: https://rolldown.rs
+[spidermonkey]: https://spidermonkey.dev/
 
-## 2. Retrieve WIT dependencies
+## 2. Set up WIT interface & dependencies
 
-[`wasi:http`][wasi-http] is the standardized interface for dealing with HTTP requests (whether it's receiving them or sending them out),
-and since our component reuses that functionality, we have to declare it in the [WIT world][wit-world] our component exports:
+[WebAssembly Inteface Types (WIT)][wit] is an Interface Definition Language ("IDL") that governs what functionality
+a WebAssembly component uses ("imports"), and what it provides ("exports").
 
-[wit-world]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md#wit-worlds
+Amongst the standardized WIT interfaces, [`wasi:http`][wasi-http] is for dealing with HTTP requests (whether it's
+receiving them or sending them out), and since we intend to make a web server, our component must declare the use
+of `wasi:http/incoming-handler` in it's [WIT world][wit-world]:
 
-First, let's set up the component's WIT world:
+First, let's set up the component's WIT world in a file called `wit/component.wit`:
 
 ```txt
-/// wit/component.wit
 package example:hono;
 
 world component {
-    import wasi:cli/environment@0.2.3;
-
-    export wasi:http/incoming-handler@0.2.3;
+    export wasi:http/incoming-handler@0.2.6;
 }
 ```
 
-Put simply, the WIT file above means that we "make available" the functionality of "receiving" HTTP requests. While the above is
-relatively simple, it does depend on some upstream third party WIT interfaces (specifications on how requests are structured, etc).
+Put simply, the WIT file above means that our component "providers" the functionality of "receiving"/"handling incoming"
+HTTP requests.
+
+The `wasi:http/incoming-handler` interface relies on upstream standardized WIT interfaces (specifications
+on how requests are structured, etc).
 
 To pull those third party (Bytecode Alliance maintained) WIT interaces, one tool we can use is [`wkg`][wkg]:
 
@@ -175,50 +178,46 @@ Once `wkg` has finished running, you should find your `wit` folder populated wit
 wit
 ├── component.wit
 └── deps
-    ├── wasi-cli-0.2.3
+    ├── wasi-cli-0.2.6
     │   └── package.wit
-    ├── wasi-clocks-0.2.3
+    ├── wasi-clocks-0.2.6
     │   └── package.wit
-    ├── wasi-http-0.2.3
+    ├── wasi-http-0.2.6
     │   └── package.wit
-    ├── wasi-io-0.2.3
+    ├── wasi-io-0.2.6
     │   └── package.wit
-    └── wasi-random-0.2.3
+    └── wasi-random-0.2.6
         └── package.wit
 ```
 
 [wkg]: https://github.com/bytecodealliance/wasm-pkg-tools
-[wasi-http]: https://github.com/WebAssembly/wasi-http
+[wit-world]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md#wit-worlds
+[wit]: https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md
 
 ## 3. Hello Wasm
 
-Let's fulfill our `component` world with a basic Hono application as a WebAssembly component:
+To build a HTTP server in WebAssembly, we can make use of the [`jco-std`][jco-std] project, which
+contains helpers that make the experience very similar to the standard Hono experience.
+
+Let's fulfill our `component` world with a basic Hono application as a WebAssembly component in
+a file called `src/component.ts`:
 
 ```ts
-// component.mts
-import { Hono } from 'hono'
-import { fire } from 'hono/service-worker';
+import { Hono } from "hono";
+import { fire } from '@bytecodealliance/jco-std/wasi/0.2.6/http/adapters/hono/server';
 
 const app = new Hono();
 
-app.get('/hello', (c) => {
-  return c.json({
-    message: 'Hello WASM!',
-  })
-})
+app.get("/hello", (c) => {
+    return c.json({ message: "Hello from WebAssembly!"});
+});
 
-/**
- * Register the Hono application with the global fetch listener as supported by the underlying StarlingMonkey JS runtime.
- *
- * Since both Hono and StarlingMonkey are aligned Web Standards (WinterCG/WinterTC),
- * this enables Hono to run smoothly in WASI-enabled (`wasi:http`) Webassembly environments.
- *
- * See: https://github.com/bytecodealliance/ComponentizeJS#using-starlingmonkeys-fetch-event
- * See: https://hono.dev/docs/concepts/web-standard
- * See: https://wintertc.org/
- * See: https://github.com/WebAssembly/wasi-http
- */
 fire(app);
+
+// Although we've called `fire()` with wasi HTTP configured for use above,
+// we still need to actually export the `wasi:http/incoming-handler` interface object,
+// as jco and componentize-js will be looking for the ES module export that matches the WASI interface.
+export { incomingHandler } from '@bytecodealliance/jco-std/wasi/0.2.6/http/adapters/hono/server';
 ```
 
 ## 4. Build
@@ -228,19 +227,19 @@ Since we're using Rollup (and it's configured to handle Typescript compilation),
 ::: code-group
 
 ```sh [npm]
-npx rollup -c
+npx rolldown -c
 ```
 
 ```sh [yarn]
-yarn rollup -c
+yarn rolldown -c
 ```
 
 ```sh [pnpm]
-pnpx rollup -c
+pnpm exec rolldown -c
 ```
 
 ```sh [bun]
-bun build --target=bun --outfile=dist/component.js ./component.mts
+bun build --target=bun --outfile=dist/component.js ./src/component.ts
 ```
 
 :::
@@ -265,7 +264,7 @@ yarn jco componentize -w wit -o dist/component.wasm dist/component.js
 ```
 
 ```sh [pnpm]
-pnpx jco componentize -w wit -o dist/component.wasm dist/component.js
+pnpm exec jco componentize -w wit -o dist/component.wasm dist/component.js
 ```
 
 ```sh [bun]
@@ -301,7 +300,7 @@ yarn jco serve dist/component.wasm
 ```
 
 ```sh [pnpm]
-pnpx jco serve dist/component.wasm
+pnpm exec jco serve dist/component.wasm
 ```
 
 ```sh [bun]
@@ -322,8 +321,18 @@ Sending a request to `localhost:8000/hello` will produce the JSON output you've 
 You should see output like the following:
 
 ```json
-{"message":"Hello WASM!"}
+{"message":"Hello from WebAssembly!"}
 ```
+
+::: info
+`jco serve` works by converting the WebAssembly component into a basic WebAssembly coremodule,
+so that it can be run in runtimes like NodeJS and the browser.
+
+This process is normally run via `jco transpile`, and is the way we can use JS engines like NodeJS
+and the browser (which may use V8 or other Javascript engines) as WebAssembly Component runtimes.
+
+How `jco transpile` is outside the scope of this guide, you can read more about it in [the Jco book][jco-book]
+:::
 
 ## More information
 
@@ -332,9 +341,12 @@ To learn moreabout WASI, WebAssembly components and more, see the following reso
 - [BytecodeAlliance Component Model book][cm-book]
 - [`jco` codebase][jco]
   - [`jco` example components][jco-example-components] (in particular the [Hono example][jco-example-component-hono])
+- [Jco book][jco-book]
 - [`componentize-js` codebase][componentize-js]
+- [StarlingMonkey codebase][sm]
 
 [cm-book]: https://component-model.bytecodealliance.org/
+[jco-book]: https://bytecodealliance.github.io/jco/
 
 [jco-example-components]: https://github.com/bytecodealliance/jco/tree/main/examples/components
 [jco-example-component-hono]: https://github.com/bytecodealliance/jco/tree/main/examples/components/http-server-hono
