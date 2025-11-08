@@ -303,8 +303,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22" # use your node version!
-          cache: "pnpm" # use your package manager!
+          node-version: '22' # use your node version!
+          cache: 'pnpm' # use your package manager!
       - name: Install dependencies
         run: pnpm install --frozen-lockfile # use your package manager!
       - name: Deploy
