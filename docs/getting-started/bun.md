@@ -39,7 +39,7 @@ Then add the `dev` command to your existing `package.json`.
 {
   "scripts": {
     "dev": "bun run --hot src/index.ts"
-  },
+  }
 }
 ```
 
