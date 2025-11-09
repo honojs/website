@@ -3,20 +3,21 @@
 [WebAssembly][wasm-core] is a secure, sandboxed, portable runtime that runs inside and outside web browsers.
 
 In practice:
-- Languages (like Javascript) *compile to* WebAssembly (`.wasm` files)
-- WebAssembly runtimes (like [`wasmtime`][wasmtime] or [`jco`][jco]) enable *running* WebAssembly binaries
 
-While core WebAssembly has *no* access to things like the local filesystem or sockets, the [WebAssembly System Interface][wasi]
+- Languages (like Javascript) _compile to_ WebAssembly (`.wasm` files)
+- WebAssembly runtimes (like [`wasmtime`][wasmtime] or [`jco`][jco]) enable _running_ WebAssembly binaries
+
+While core WebAssembly has _no_ access to things like the local filesystem or sockets, the [WebAssembly System Interface][wasi]
 steps in to enable defining a platform under WebAssebly workloads.
 
-This means that *with* WASI, WebAssembly can operate on files, sockets, and much more.
+This means that _with_ WASI, WebAssembly can operate on files, sockets, and much more.
 
 ::: info
 Want to peek at the WASI interface yourself? check out [`wasi:http`][wasi-http]
 :::
 
 Support for WebAssembly w/ WASI in JS is powered by [StarlingMonkey][sm], and thanks to the focus on Web standards in
-both StarlingMonkey and Hono, **Hono works *out of the box with WASI-enabled WebAssembly ecosystems.**
+both StarlingMonkey and Hono, **Hono works \*out of the box with WASI-enabled WebAssembly ecosystems.**
 
 [sm]: https://github.com/bytecodealliance/StarlingMonkey
 [wasm-core]: https://webassembly.org/
@@ -52,7 +53,7 @@ npm i -D @bytecodealliance/jco @bytecodealliance/componentize-js @bytecodeallian
 npm i -D rolldown
 ```
 
-```sh [yarn]
+````sh [yarn]
 mkdir my-app
 cd my-app
 npm init
@@ -68,7 +69,7 @@ pnpm init --init-type module
 pnpm add hono
 pnpm add -D @bytecodealliance/jco @bytecodealliance/componentize-js @bytecodealliance/jco-std
 pnpm add -D rolldown
-```
+````
 
 ```sh [bun]
 mkdir my-app
@@ -109,7 +110,6 @@ bun i
 
 :::
 
-
 Once you have a basic typescript configuration file (`tsconfig.json`), please ensure it has the following configuration:
 
 - `compilerOptions.module` set to `"nodenext"`
@@ -120,16 +120,16 @@ bundling is necessary, so [`rolldown`][rolldown] can be used to create a single 
 A Rolldown configuration (`rolldown.config.mjs`) like the following can be used:
 
 ```js
-import { defineConfig } from 'rolldown';
+import { defineConfig } from 'rolldown'
 
 export default defineConfig({
-  input: "src/component.ts",
+  input: 'src/component.ts',
   external: /wasi:.*/,
   output: {
-    file: "dist/component.js",
-    format: "esm",
+    file: 'dist/component.js',
+    format: 'esm',
   },
-});
+})
 ```
 
 ::: info
@@ -203,21 +203,21 @@ Let's fulfill our `component` world with a basic Hono application as a WebAssemb
 a file called `src/component.ts`:
 
 ```ts
-import { Hono } from "hono";
-import { fire } from '@bytecodealliance/jco-std/wasi/0.2.6/http/adapters/hono/server';
+import { Hono } from 'hono'
+import { fire } from '@bytecodealliance/jco-std/wasi/0.2.6/http/adapters/hono/server'
 
-const app = new Hono();
+const app = new Hono()
 
-app.get("/hello", (c) => {
-    return c.json({ message: "Hello from WebAssembly!"});
-});
+app.get('/hello', (c) => {
+  return c.json({ message: 'Hello from WebAssembly!' })
+})
 
-fire(app);
+fire(app)
 
 // Although we've called `fire()` with wasi HTTP configured for use above,
 // we still need to actually export the `wasi:http/incoming-handler` interface object,
 // as jco and componentize-js will be looking for the ES module export that matches the WASI interface.
-export { incomingHandler } from '@bytecodealliance/jco-std/wasi/0.2.6/http/adapters/hono/server';
+export { incomingHandler } from '@bytecodealliance/jco-std/wasi/0.2.6/http/adapters/hono/server'
 ```
 
 ## 4. Build
@@ -273,7 +273,6 @@ bun run jco componentize -w wit -o dist/component.wasm dist/component.js
 
 :::
 
-
 ## 3. Run
 
 To run your Hono WebAssembly HTTP server, you can use any WASI-enabled WebAssembly runtime:
@@ -321,7 +320,7 @@ Sending a request to `localhost:8000/hello` will produce the JSON output you've 
 You should see output like the following:
 
 ```json
-{"message":"Hello from WebAssembly!"}
+{ "message": "Hello from WebAssembly!" }
 ```
 
 ::: info
@@ -347,6 +346,5 @@ To learn moreabout WASI, WebAssembly components and more, see the following reso
 
 [cm-book]: https://component-model.bytecodealliance.org/
 [jco-book]: https://bytecodealliance.github.io/jco/
-
 [jco-example-components]: https://github.com/bytecodealliance/jco/tree/main/examples/components
 [jco-example-component-hono]: https://github.com/bytecodealliance/jco/tree/main/examples/components/http-server-hono
