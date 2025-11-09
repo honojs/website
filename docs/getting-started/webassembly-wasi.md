@@ -133,7 +133,7 @@ export default defineConfig({
 ```
 
 ::: info
-Feel free to use any other bundlers that you're more comfortable with (`rolldown`, `esbuild`, `rolldown`, etc)
+Feel free to use any other bundlers that you're more comfortable with (`rolldown`, `esbuild`, `rollup`, etc)
 :::
 
 [jco]: https://github.com/bytecodealliance/jco
