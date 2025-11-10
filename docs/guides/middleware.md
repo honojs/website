@@ -1,11 +1,11 @@
 # Middleware
 
-Middleware works before/after the endpoint handler `Handler`. We can get the `Request` before dispatching or manipulate the `Response` after dispatching.
+Middleware works before/after the endpoint `Handler`. We can get the `Request` before dispatching or manipulate the `Response` after dispatching.
 
 ## Definition of Middleware
 
 - Handler - should return `Response` object. Only one handler will be called.
-- Middleware - should `await next()` and return nothing and call the next Middleware, **or** return a `Response` to early-exit.
+- Middleware - should `await next()` and return nothing to call the next Middleware, **or** return a `Response` to early-exit.
 
 The user can register middleware using `app.use` or using `app.HTTP_METHOD` as well as the handlers. For this feature, it's easy to specify the path and the method.
 
