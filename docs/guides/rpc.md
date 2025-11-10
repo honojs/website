@@ -244,6 +244,7 @@ const route = app.get(
   }
 )
 ```
+
 Both path parameters and query values **must** be passed as `string`, even if the underlying value is of a different type.
 
 Specify the string you want to include in the path with `param`, and any query values with `query`.
