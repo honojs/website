@@ -255,7 +255,7 @@ const res = await client.posts[':id'].$get({
     id: '123',
   },
   query: {
-    page: '1', // `string`, even though server expects `number`
+    page: '1', // `string`, converted by the validator to `number`
   },
 })
 ```
