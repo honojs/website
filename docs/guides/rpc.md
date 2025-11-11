@@ -224,7 +224,7 @@ export const routes = new Hono().get(
 
 ## Path parameters
 
-You can also handle routes that include path parameters.
+You can also handle routes that include path parameters or query values.
 
 ```ts
 const route = app.get(
@@ -232,7 +232,7 @@ const route = app.get(
   zValidator(
     'query',
     z.object({
-      page: z.string().optional(),
+      page: z.coerce.number().optional(), // coerce to convert to number
     })
   ),
   (c) => {
@@ -245,14 +245,18 @@ const route = app.get(
 )
 ```
 
-Specify the string you want to include in the path with `param`.
+Both path parameters and query values **must** be passed as `string`, even if the underlying value is of a different type.
+
+Specify the string you want to include in the path with `param`, and any query values with `query`.
 
 ```ts
 const res = await client.posts[':id'].$get({
   param: {
     id: '123',
   },
-  query: {},
+  query: {
+    page: '1', // `string`, converted by the validator to `number`
+  },
 })
 ```
 
