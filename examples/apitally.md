@@ -36,14 +36,14 @@ bun add apitally
 First, create an app in the [Apitally dashboard](https://app.apitally.io) to get your client ID. Then add the middleware to your Hono application using the `useApitally` function:
 
 ```ts
-import { Hono } from "hono";
-import { useApitally } from "apitally/hono";
+import { Hono } from 'hono'
+import { useApitally } from 'apitally/hono'
 
-const app = new Hono();
+const app = new Hono()
 
 useApitally(app, {
-  clientId: "your-client-id", // Get this from the Apitally dashboard
-  env: "dev", // or "prod", etc.
+  clientId: 'your-client-id', // Get this from the Apitally dashboard
+  env: 'dev', // or "prod", etc.
 
   // Optional: Enable and configure request logging
   requestLogging: {
@@ -53,12 +53,12 @@ useApitally(app, {
     logResponseBody: true,
     captureLogs: true,
   },
-});
+})
 
 // Add your routes after the middleware
-app.get("/", (c) => c.text("Hello Hono!"));
+app.get('/', (c) => c.text('Hello Hono!'))
 
-export default app;
+export default app
 ```
 
 Add the Apitally middleware before any other middleware to ensure it wraps the entire application stack.
@@ -68,19 +68,19 @@ Add the Apitally middleware before any other middleware to ensure it wraps the e
 To track API usage by individual consumers, use the `setConsumer` function to associate requests with consumer identifiers. This is typically done in a middleware after authentication. You can also provide an optional display name and consumer group.
 
 ```ts
-import { setConsumer } from "apitally/hono";
+import { setConsumer } from 'apitally/hono'
 
 app.use(async (c, next) => {
-  const payload = c.get("jwtPayload");
+  const payload = c.get('jwtPayload')
   if (payload) {
     setConsumer(c, {
       identifier: payload.sub,
       name: payload.name, // optional
       group: payload.group, // optional
-    });
+    })
   }
-  await next();
-});
+  await next()
+})
 ```
 
 The Consumers dashboard in Apitally will now show all consumers and you can filter logs and metrics by consumer.
