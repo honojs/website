@@ -222,7 +222,7 @@ export { incomingHandler } from '@bytecodealliance/jco-std/wasi/0.2.6/http/adapt
 
 ## 4. Build
 
-Since we're using Rollup (and it's configured to handle Typescript compilation), we can use it to build and bundle:
+Since we're using Rolldown (and it's configured to handle Typescript compilation), we can use it to build and bundle:
 
 ::: code-group
 
