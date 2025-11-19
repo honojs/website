@@ -351,6 +351,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Auth.js',
         link: '/examples/hono-authjs',
       },
+      {
+        text: 'Apitally (Monitoring)',
+        link: '/examples/apitally',
+      },
     ],
   },
 ]
