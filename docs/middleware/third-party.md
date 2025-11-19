@@ -6,7 +6,9 @@ Most of this middleware leverages external libraries.
 ### Authentication
 
 - [Auth.js(Next Auth)](https://github.com/honojs/middleware/tree/main/packages/auth-js)
+- [Casbin](https://github.com/honojs/middleware/tree/main/packages/casbin)
 - [Clerk Auth](https://github.com/honojs/middleware/tree/main/packages/clerk-auth)
+- [Cloudflare Access](https://github.com/honojs/middleware/tree/main/packages/cloudflare-access)
 - [OAuth Providers](https://github.com/honojs/middleware/tree/main/packages/oauth-providers)
 - [OIDC Auth](https://github.com/honojs/middleware/tree/main/packages/oidc-auth)
 - [Firebase Auth](https://github.com/honojs/middleware/tree/main/packages/firebase-auth)
@@ -15,7 +17,10 @@ Most of this middleware leverages external libraries.
 
 ### Validators
 
-- [ArkType validator](https://github.com/honojs/middleware/tree/main/packages/arktype-validator)
+- [Ajv Validator](https://github.com/honojs/middleware/tree/main/packages/ajv-validator)
+- [ArkType Validator](https://github.com/honojs/middleware/tree/main/packages/arktype-validator)
+- [Class Validator](https://github.com/honojs/middleware/tree/main/packages/class-validator)
+- [Conform Validator](https://github.com/honojs/middleware/tree/main/packages/conform-validator)
 - [Effect Schema Validator](https://github.com/honojs/middleware/tree/main/packages/effect-validator)
 - [Standard Schema Validator](https://github.com/honojs/middleware/tree/main/packages/standard-validator)
 - [TypeBox Validator](https://github.com/honojs/middleware/tree/main/packages/typebox-validator)
@@ -29,28 +34,51 @@ Most of this middleware leverages external libraries.
 - [Zod OpenAPI](https://github.com/honojs/middleware/tree/main/packages/zod-openapi)
 - [Scalar](https://github.com/scalar/scalar/tree/main/integrations/hono)
 - [Swagger UI](https://github.com/honojs/middleware/tree/main/packages/swagger-ui)
+- [Swagger Editor](https://github.com/honojs/middleware/tree/main/packages/swagger-editor)
 - [Hono OpenAPI](https://github.com/rhinobase/hono-openapi)
 - [hono-zod-openapi](https://github.com/paolostyle/hono-zod-openapi)
 
-### Others
+### Development
+
+- [ESLint Config](https://github.com/honojs/middleware/tree/main/packages/eslint-config)
+- [SSG Plugin Essential](https://github.com/honojs/middleware/tree/main/packages/ssg-plugins-essential)
+
+### Monitoring / Tracing
+
+- [Apitally (API monitoring & analytics)](https://docs.apitally.io/frameworks/hono)
+- [Highlight.io](https://www.highlight.io/docs/getting-started/backend-sdk/js/hono)
+- [OpenTelemetry](https://github.com/honojs/middleware/tree/main/packages/otel)
+- [Prometheus Metrics](https://github.com/honojs/middleware/tree/main/packages/prometheus)
+- [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
+
+### Server / Adapter
+
+- [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
+- [Node WebSocket Helper](https://github.com/honojs/middleware/tree/main/packages/node-ws)
+- [tRPC Server](https://github.com/honojs/middleware/tree/main/packages/trpc-server)
+
+### Transpiler
 
 - [Bun Transpiler](https://github.com/honojs/middleware/tree/main/packages/bun-transpiler)
 - [esbuild Transpiler](https://github.com/honojs/middleware/tree/main/packages/esbuild-transpiler)
-- [Event Emitter](https://github.com/honojs/middleware/tree/main/packages/event-emitter)
-- [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
-- [Hono Rate Limiter](https://github.com/rhinobase/hono-rate-limiter)
-- [Node WebSocket Helper](https://github.com/honojs/middleware/tree/main/packages/node-ws)
-- [Prometheus Metrics](https://github.com/honojs/middleware/tree/main/packages/prometheus)
-- [OpenTelemetry](https://github.com/honojs/middleware/tree/main/packages/otel)
+
+### UI / Renderer
+
 - [Qwik City](https://github.com/honojs/middleware/tree/main/packages/qwik-city)
 - [React Compatibility](https://github.com/honojs/middleware/tree/main/packages/react-compat)
 - [React Renderer](https://github.com/honojs/middleware/tree/main/packages/react-renderer)
-- [RONIN (Database)](https://github.com/ronin-co/hono-client)
-- [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
-- [tRPC Server](https://github.com/honojs/middleware/tree/main/packages/trpc-server)
-- [Geo](https://github.com/ktkongtong/hono-geo-middleware/tree/main/packages/middleware)
-- [Hono Simple DI](https://github.com/maou-shonen/hono-simple-DI)
-- [Highlight.io](https://www.highlight.io/docs/getting-started/backend-sdk/js/hono)
-- [Apitally (API monitoring & analytics)](https://docs.apitally.io/frameworks/hono)
+
+### Utilities
+
+- [Bun Compress](https://github.com/honojs/middleware/tree/main/packages/bun-compress)
 - [Cap Checkpoint](https://capjs.js.org/guide/middleware/hono.html)
+- [Event Emitter](https://github.com/honojs/middleware/tree/main/packages/event-emitter)
+- [Geo](https://github.com/ktkongtong/hono-geo-middleware/tree/main/packages/middleware)
+- [Hono Rate Limiter](https://github.com/rhinobase/hono-rate-limiter)
+- [Hono Simple DI](https://github.com/maou-shonen/hono-simple-DI)
 - [jsonv-ts (Validator, OpenAPI, MCP)](https://github.com/dswbx/jsonv-ts)
+- [MCP](https://github.com/honojs/middleware/tree/main/packages/mcp)
+- [RONIN (Database)](https://github.com/ronin-co/hono-client)
+- [Session](https://github.com/honojs/middleware/tree/main/packages/session)
+- [tsyringe](https://github.com/honojs/middleware/tree/main/packages/tsyringe)
+- [User Agent based Blocker](https://github.com/honojs/middleware/tree/main/packages/ua-blocker)
