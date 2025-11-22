@@ -12,7 +12,13 @@ since [timers only show the time of last I/O](https://developers.cloudflare.com/
 
 ```ts [npm]
 import { Hono } from 'hono'
-import { timing, setMetric, startTime, endTime } from 'hono/timing'
+import {
+  timing,
+  setMetric,
+  startTime,
+  endTime,
+  wrapTime,
+} from 'hono/timing'
 import type { TimingVariables } from 'hono/timing'
 ```
 
@@ -41,6 +47,9 @@ app.get('/', async (c) => {
 
   // end the timer
   endTime(c, 'db');
+
+  // ...or you can also just wrap a Promise using this function:
+  const data = await wrapTime(c, 'db', db.findMany(...));
 
   return c.json({ response: data });
 });
