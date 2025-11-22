@@ -60,6 +60,7 @@ Most of this middleware leverages external libraries.
 ### Transpiler
 
 - [Bun Transpiler](https://github.com/honojs/middleware/tree/main/packages/bun-transpiler)
+- [Bun Compress](https://github.com/honojs/middleware/tree/main/packages/bun-compress)
 - [esbuild Transpiler](https://github.com/honojs/middleware/tree/main/packages/esbuild-transpiler)
 
 ### UI / Renderer
