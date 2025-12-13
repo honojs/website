@@ -128,6 +128,7 @@ app.use(
       mediaSrc: ["'self'"],
       objectSrc: ["'none'"],
       reportTo: 'endpoint-1',
+      reportUri: '/csp-report',
       sandbox: ['allow-same-origin', 'allow-scripts'],
       scriptSrc: ["'self'"],
       scriptSrcAttr: ["'none'"],
