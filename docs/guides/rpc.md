@@ -486,6 +486,29 @@ const client = hc<CreateProfileType>('http://localhost', {
 })
 ```
 
+## Custom query serializer
+
+You can customize how query parameters are serialized using the `buildSearchParams` option. This is useful when you need bracket notation for arrays or other custom formats:
+
+```ts
+const client = hc<AppType>('http://localhost', {
+  buildSearchParams: (query) => {
+    const searchParams = new URLSearchParams()
+    for (const [k, v] of Object.entries(query)) {
+      if (v === undefined) {
+        continue
+      }
+      if (Array.isArray(v)) {
+        v.forEach((item) => searchParams.append(`${k}[]`, item))
+      } else {
+        searchParams.set(k, v)
+      }
+    }
+    return searchParams
+  },
+})
+```
+
 ## Infer
 
 Use `InferRequestType` and `InferResponseType` to know the type of object to be requested and the type of object to be returned.
