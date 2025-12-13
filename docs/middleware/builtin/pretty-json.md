@@ -47,3 +47,7 @@ Number of spaces for indentation. The default is `2`.
 ### <Badge type="info" text="optional" /> query: `string`
 
 The name of the query string for applying. The default is `pretty`.
+
+### <Badge type="info" text="optional" /> force: `boolean`
+
+When set to `true`, JSON responses are always prettified regardless of the query parameter. The default is `false`.
