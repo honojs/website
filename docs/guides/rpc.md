@@ -211,9 +211,9 @@ export const routes = new Hono().get(
   ),
   async (c) => {
     const { id } = c.req.valid('query')
-    const post: Post | undefined = await getPost(id)
+    const post = await getPost(id)
 
-    if (post === undefined) {
+    if (!post) {
       return c.json({ error: 'not found' }, 404) // Specify 404
     }
 
@@ -221,6 +221,33 @@ export const routes = new Hono().get(
   }
 )
 ```
+
+Alternatively, you can use module augmentation to extend `NotFoundResponse` interface. This allows `c.notFound()` to return a typed response:
+
+```ts
+// server.ts
+import { Hono, TypedResponse } from 'hono'
+
+declare module 'hono' {
+  interface NotFoundResponse
+    extends Response,
+      TypedResponse<{ error: string }, 404, 'json'> {}
+}
+
+const app = new Hono()
+  .get('/posts/:id', async (c) => {
+    const post = await getPost(c.req.param('id'))
+    if (!post) {
+      return c.notFound()
+    }
+    return c.json({ post }, 200)
+  })
+  .notFound((c) => c.json({ error: 'not found' }, 404))
+
+export type AppType = typeof app
+```
+
+Now the client can correctly infer the 404 response type.
 
 ## Path parameters
 
@@ -394,6 +421,22 @@ url = client.api.posts[':id'].$url({
 console.log(url.pathname) // `/api/posts/123`
 ```
 
+### Typed URL
+
+You can pass the base URL as the second type parameter to `hc` to get more precise URL types:
+
+```ts
+const client = hc<typeof route, 'http://localhost:8787'>(
+  'http://localhost:8787/'
+)
+
+const url = client.api.posts.$url()
+// url is TypedURL with precise type information
+// including protocol, host, and path
+```
+
+This is useful when you want to use the URL as a type-safe key for libraries like SWR.
+
 ## File Uploads
 
 You can upload files using a form body:
@@ -440,6 +483,29 @@ services = [
 // src/client.ts
 const client = hc<CreateProfileType>('http://localhost', {
   fetch: c.env.AUTH.fetch.bind(c.env.AUTH),
+})
+```
+
+## Custom query serializer
+
+You can customize how query parameters are serialized using the `buildSearchParams` option. This is useful when you need bracket notation for arrays or other custom formats:
+
+```ts
+const client = hc<AppType>('http://localhost', {
+  buildSearchParams: (query) => {
+    const searchParams = new URLSearchParams()
+    for (const [k, v] of Object.entries(query)) {
+      if (v === undefined) {
+        continue
+      }
+      if (Array.isArray(v)) {
+        v.forEach((item) => searchParams.append(`${k}[]`, item))
+      } else {
+        searchParams.set(k, v)
+      }
+    }
+    return searchParams
+  },
 })
 ```
 
