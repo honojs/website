@@ -12,7 +12,11 @@ The Context Storage Middleware stores the Hono `Context` in the `AsyncLocalStora
 
 ```ts
 import { Hono } from 'hono'
-import { contextStorage, getContext } from 'hono/context-storage'
+import {
+  contextStorage,
+  getContext,
+  tryGetContext,
+} from 'hono/context-storage'
 ```
 
 ## Usage
@@ -60,5 +64,17 @@ app.use(contextStorage())
 
 const setKV = (value: string) => {
   return getContext<Env>().env.KV.put('key', value)
+}
+```
+
+## tryGetContext
+
+`tryGetContext()` works like `getContext()`, but returns `undefined` instead of throwing an error when the context is not available:
+
+```ts
+const context = tryGetContext<Env>()
+if (context) {
+  // Context is available
+  console.log(context.var.message)
 }
 ```
