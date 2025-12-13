@@ -394,6 +394,22 @@ url = client.api.posts[':id'].$url({
 console.log(url.pathname) // `/api/posts/123`
 ```
 
+### Typed URL
+
+You can pass the base URL as the second type parameter to `hc` to get more precise URL types:
+
+```ts
+const client = hc<typeof route, 'http://localhost:8787'>(
+  'http://localhost:8787/'
+)
+
+const url = client.api.posts.$url()
+// url is TypedURL with precise type information
+// including protocol, host, and path
+```
+
+This is useful when you want to use the URL as a type-safe key for libraries like SWR.
+
 ## File Uploads
 
 You can upload files using a form body:
