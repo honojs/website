@@ -164,7 +164,7 @@ app.get('/redirect-permanently', (c) => {
 
 ## res
 
-You can access the Response object that will be returned.
+You can access the [Response] object that will be returned.
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -176,6 +176,8 @@ app.use('/', async (c, next) => {
   c.res.headers.append('X-Debug', 'Debug message')
 })
 ```
+
+[Response]: https://developer.mozilla.org/en-US/docs/Web/API/Response
 
 ## set() / get()
 
