@@ -53,9 +53,12 @@ GET   /v1/posts/:id
 POST  /v1/posts
 ```
 
-### Options
+## Options
 
-- `verbose`: boolean - optional
-  - When set to `true`, it displays verbose information.
-- `colorize`: boolean - optional
-  - When set to `false`, the output will not be colored.
+### <Badge type="info" text="optional" /> verbose: `boolean`
+
+When set to `true`, it displays verbose information.
+
+### <Badge type="info" text="optional" /> colorize: `boolean`
+
+When set to `false`, the output will not be colored.

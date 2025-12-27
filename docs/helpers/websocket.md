@@ -19,16 +19,14 @@ import { upgradeWebSocket } from 'hono/deno'
 
 ```ts [Bun]
 import { Hono } from 'hono'
-import { createBunWebSocket } from 'hono/bun'
-
-const { upgradeWebSocket, websocket } = createBunWebSocket()
+import { upgradeWebSocket, websocket } from 'hono/bun'
 
 // ...
 
-Bun.serve({
+export default {
   fetch: app.fetch,
   websocket,
-})
+}
 ```
 
 :::
@@ -137,9 +135,8 @@ ws.addEventListener('open', () => {
 
 ```tsx
 import { Hono } from 'hono'
-import { createBunWebSocket } from 'hono/bun'
-
-const { upgradeWebSocket, websocket } = createBunWebSocket()
+import { upgradeWebSocket, websocket } from 'hono/bun'
+import { html } from 'hono/html'
 
 const app = new Hono()
 
@@ -151,17 +148,15 @@ app.get('/', (c) => {
       </head>
       <body>
         <div id='now-time'></div>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-        const ws = new WebSocket('ws://localhost:3000/ws')
-        const $nowTime = document.getElementById('now-time')
-        ws.onmessage = (event) => {
-          $nowTime.textContent = event.data
-        }
-        `,
-          }}
-        ></script>
+        {html`
+          <script>
+            const ws = new WebSocket('ws://localhost:3000/ws')
+            const $nowTime = document.getElementById('now-time')
+            ws.onmessage = (event) => {
+              $nowTime.textContent = event.data
+            }
+          </script>
+        `}
       </body>
     </html>
   )
@@ -184,8 +179,8 @@ const ws = app.get(
   })
 )
 
-Bun.serve({
+export default {
   fetch: app.fetch,
   websocket,
-})
+}
 ```

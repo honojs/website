@@ -120,18 +120,15 @@ Options are specified in the ToSSGOptions interface.
 export interface ToSSGOptions {
   dir?: string
   concurrency?: number
-  beforeRequestHook?: BeforeRequestHook
-  afterResponseHook?: AfterResponseHook
-  afterGenerateHook?: AfterGenerateHook
   extensionMap?: Record<string, string>
+  plugins?: SSGPlugin[]
 }
 ```
 
 - `dir` is the output destination for Static files. The default value is `./static`.
 - `concurrency` is the concurrent number of files to be generated at the same time. The default value is `2`.
 - `extensionMap` is a map containing the `Content-Type` as a key and the string of the extension as a value. This is used to determine the file extension of the output file.
-
-Each Hook will be described later.
+- `plugins` is an array of SSG plugins that extend the functionality of the static site generation process.
 
 ### Output
 
@@ -143,62 +140,6 @@ export interface ToSSGResult {
   files: string[]
   error?: Error
 }
-```
-
-## Hook
-
-You can customize the process of `toSSG` by specifying the following custom hooks in options.
-
-```ts
-export type BeforeRequestHook = (req: Request) => Request | false
-export type AfterResponseHook = (res: Response) => Response | false
-export type AfterGenerateHook = (
-  result: ToSSGResult
-) => void | Promise<void>
-```
-
-### BeforeRequestHook/AfterResponseHook
-
-`toSSG` targets all routes registered in app, but if there are routes you want to exclude, you can filter them by specifying a Hook.
-
-For example, if you want to output only GET requests, filter `req.method` in `beforeRequestHook`.
-
-```ts
-toSSG(app, fs, {
-  beforeRequestHook: (req) => {
-    if (req.method === 'GET') {
-      return req
-    }
-    return false
-  },
-})
-```
-
-For example, if you want to output only when StatusCode is 200 or 500, filter `res.status` in `afterResponseHook`.
-
-```ts
-toSSG(app, fs, {
-  afterResponseHook: (res) => {
-    if (res.status === 200 || res.status === 500) {
-      return res
-    }
-    return false
-  },
-})
-```
-
-### AfterGenerateHook
-
-Use `afterGenerateHook` if you want to hook the result of `toSSG`.
-
-```ts
-toSSG(app, fs, {
-  afterGenerateHook: (result) => {
-    if (result.files) {
-      result.files.forEach((file) => console.log(file))
-    }
-  })
-})
 ```
 
 ## Generate File
@@ -245,7 +186,7 @@ Introducing built-in middleware that supports SSG.
 
 ### ssgParams
 
-You can use an API like `generateStaticPaths` of Next.js.
+You can use an API like `generateStaticParams` of Next.js.
 
 Example:
 
@@ -284,4 +225,142 @@ Routes with the `onlySSG` middleware set will be overridden by `c.notFound()` af
 
 ```ts
 app.get('/static-page', onlySSG(), (c) => c.html(<h1>Welcome to my site</h1>))
+```
+
+## Plugins
+
+Plugins allow you to extend the functionality of the static site generation process. They use hooks to customize the generation process at different stages.
+
+### Default Plugin
+
+By default, `toSSG` uses `defaultPlugin` which skips non-200 status responses (like redirects, errors, or 404s). This prevents generating files for unsuccessful responses.
+
+```ts
+import { toSSG, defaultPlugin } from 'hono/ssg'
+
+// defaultPlugin is automatically applied when no plugins specified
+toSSG(app, fs)
+
+// Equivalent to:
+toSSG(app, fs, { plugins: [defaultPlugin] })
+```
+
+If you specify custom plugins, `defaultPlugin` is **not** automatically included. To keep the default behavior while adding custom plugins, explicitly include it:
+
+```ts
+toSSG(app, fs, {
+  plugins: [defaultPlugin, myCustomPlugin],
+})
+```
+
+### Hook Types
+
+Plugins can use the following hooks to customize the `toSSG` process:
+
+```ts
+export type BeforeRequestHook = (req: Request) => Request | false
+export type AfterResponseHook = (res: Response) => Response | false
+export type AfterGenerateHook = (
+  result: ToSSGResult
+) => void | Promise<void>
+```
+
+- **BeforeRequestHook**: Called before processing each request. Return `false` to skip the route.
+- **AfterResponseHook**: Called after receiving each response. Return `false` to skip file generation.
+- **AfterGenerateHook**: Called after the entire generation process completes.
+
+### Plugin Interface
+
+```ts
+export interface SSGPlugin {
+  beforeRequestHook?: BeforeRequestHook | BeforeRequestHook[]
+  afterResponseHook?: AfterResponseHook | AfterResponseHook[]
+  afterGenerateHook?: AfterGenerateHook | AfterGenerateHook[]
+}
+```
+
+### Basic Plugin Examples
+
+Filter only GET requests:
+
+```ts
+const getOnlyPlugin: SSGPlugin = {
+  beforeRequestHook: (req) => {
+    if (req.method === 'GET') {
+      return req
+    }
+    return false
+  },
+}
+```
+
+Filter by status code:
+
+```ts
+const statusFilterPlugin: SSGPlugin = {
+  afterResponseHook: (res) => {
+    if (res.status === 200 || res.status === 500) {
+      return res
+    }
+    return false
+  },
+}
+```
+
+Log generated files:
+
+```ts
+const logFilesPlugin: SSGPlugin = {
+  afterGenerateHook: (result) => {
+    if (result.files) {
+      result.files.forEach((file) => console.log(file))
+    }
+  },
+}
+```
+
+### Advanced Plugin Example
+
+Here's an example of creating a sitemap plugin that generates a `sitemap.xml` file:
+
+```ts
+// plugins.ts
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import type { SSGPlugin } from 'hono/ssg'
+import { DEFAULT_OUTPUT_DIR } from 'hono/ssg'
+
+export const sitemapPlugin = (baseURL: string): SSGPlugin => {
+  return {
+    afterGenerateHook: (result, fsModule, options) => {
+      const outputDir = options?.dir ?? DEFAULT_OUTPUT_DIR
+      const filePath = path.join(outputDir, 'sitemap.xml')
+      const urls = result.files.map((file) =>
+        new URL(file, baseURL).toString()
+      )
+      const siteMapText = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((url) => `<url><loc>${url}</loc></url>`).join('\n')}
+</urlset>`
+      fsModule.writeFile(filePath, siteMapText)
+    },
+  }
+}
+```
+
+Applying plugins:
+
+```ts
+import app from './index'
+import { toSSG } from 'hono/ssg'
+import { sitemapPlugin } from './plugins'
+
+toSSG(app, fs, {
+  plugins: [
+    getOnlyPlugin,
+    statusFilterPlugin,
+    logFilesPlugin,
+    sitemapPlugin('https://example.com'),
+  ],
+})
 ```

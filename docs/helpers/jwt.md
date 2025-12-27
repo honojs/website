@@ -43,12 +43,19 @@ const token = await sign(payload, secret)
 
 ### Options
 
-- `payload`: unknown - required
-  - The JWT payload to be signed. You can include other claims like in [Payload Validation](#payload-validation).
-- `secret`: string - required
-  - The secret key used for JWT verification or signing.
-- `alg`: [AlgorithmTypes](#supported-algorithmtypes)
-  - The algorithm used for JWT signing or verification. Default is HS256.
+<br/>
+
+#### <Badge type="danger" text="required" /> payload: `unknown`
+
+The JWT payload to be signed. You can include other claims like in [Payload Validation](#payload-validation).
+
+#### <Badge type="danger" text="required" /> secret: `string`
+
+The secret key used for JWT verification or signing.
+
+#### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
+
+The algorithm used for JWT signing or verification. The default is HS256.
 
 ## `verify()`
 
@@ -59,6 +66,7 @@ verify(
   token: string,
   secret: string,
   alg?: 'HS256';
+  issuer?: string | RegExp;
 ): Promise<any>;
 
 ```
@@ -77,12 +85,23 @@ console.log(decodedPayload)
 
 ### Options
 
-- `token`: string - required
-  - The JWT token to be verified.
-- `secret`: string - required
-  - The secret key used for JWT verification or signing.
-- `alg`: [AlgorithmTypes](#supported-algorithmtypes)
-  - The algorithm used for JWT signing or verification. Default is HS256.
+<br/>
+
+#### <Badge type="danger" text="required" /> token: `string`
+
+The JWT token to be verified.
+
+#### <Badge type="danger" text="required" /> secret: `string`
+
+The secret key used for JWT verification or signing.
+
+#### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
+
+The algorithm used for JWT signing or verification. The default is HS256.
+
+#### <Badge type="info" text="optional" /> issuer: `string | RegExp`
+
+The expected issuer used for JWT verification.
 
 ## `decode()`
 
@@ -109,8 +128,11 @@ console.log('Decoded Payload:', payload)
 
 ### Options
 
-- `token`: string - required
-  - The JWT token to be decoded.
+<br/>
+
+#### <Badge type="danger" text="required" /> token: `string`
+
+The JWT token to be decoded.
 
 > The `decode` function allows you to inspect the header and payload of a JWT token _**without**_ performing verification. This can be useful for debugging or extracting information from JWT tokens.
 
@@ -121,6 +143,7 @@ When verifying a JWT token, the following payload validations are performed:
 - `exp`: The token is checked to ensure it has not expired.
 - `nbf`: The token is checked to ensure it is not being used before a specified time.
 - `iat`: The token is checked to ensure it is not issued in the future.
+- `iss`: The token is checked to ensure it has been issued by a trusted issuer.
 
 Please ensure that your JWT payload includes these fields, as an object, if you intend to perform these checks during verification.
 
@@ -133,6 +156,7 @@ The module also defines custom error types to handle JWT-related errors.
 - `JwtTokenNotBefore`: Indicates that the token is being used before its valid date.
 - `JwtTokenExpired`: Indicates that the token has expired.
 - `JwtTokenIssuedAt`: Indicates that the "iat" claim in the token is incorrect.
+- `JwtTokenIssuer`: Indicates that the "iss" claim in the token is incorrect.
 - `JwtTokenSignatureMismatched`: Indicates a signature mismatch in the token.
 
 ## Supported AlgorithmTypes

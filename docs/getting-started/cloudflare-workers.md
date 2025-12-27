@@ -28,11 +28,11 @@ pnpm create hono my-app
 ```
 
 ```sh [bun]
-bunx create-hono my-app
+bun create hono@latest my-app
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono my-app
+deno init --npm hono my-app
 ```
 
 :::
@@ -100,6 +100,14 @@ bun run dev
 
 :::
 
+### Change port number
+
+If you need to change the port number you can follow the instructions here to update `wrangler.toml` / `wrangler.json` / `wrangler.jsonc` files:
+[Wrangler Configuration](https://developers.cloudflare.com/workers/wrangler/configuration/#local-development-settings)
+
+Or, you can follow the instructions here to set CLI options:
+[Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/commands/#dev)
+
 ## 4. Deploy
 
 If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
@@ -126,20 +134,6 @@ bun run deploy
 
 That's all!
 
-## Service Worker mode or Module Worker mode
-
-There are two syntaxes for writing the Cloudflare Workers. _Module Worker mode_ and _Service Worker mode_. Using Hono, you can write with both syntax, but we recommend using Module Worker mode so that binding variables are localized.
-
-```ts
-// Module Worker
-export default app
-```
-
-```ts
-// Service Worker
-app.fire()
-```
-
 ## Using Hono with other event handlers
 
 You can integrate Hono with other event handlers (such as `scheduled`) in _Module Worker mode_.
@@ -157,96 +151,24 @@ export default {
 
 ## Serve static files
 
-::: warning
-This "Serve static files" feature for Cloudflare Workers has been deprecated. If you want to create an application that serves static assets files, use [Cloudflare Pages](/docs/getting-started/cloudflare-pages) instead of Cloudflare Workers.
-:::
-
-You need to set it up to serve static files.
-Static files are distributed by using Workers Sites.
-To enable this feature, edit `wrangler.toml` and specify the directory where the static files will be placed.
+If you want to serve static files, you can use [the Static Assets feature](https://developers.cloudflare.com/workers/static-assets/) of Cloudflare Workers. Specify the directory for the files in `wrangler.toml`:
 
 ```toml
-[site]
-bucket = "./assets"
+assets = { directory = "public" }
 ```
 
-Then create the `assets` directory and place the files there.
+Then create the `public` directory and place the files there. For instance, `./public/static/hello.txt` will be served as `/static/hello.txt`.
 
 ```
-./
-├── assets
-│   ├── favicon.ico
-│   └── static
-│       ├── demo
-│       │   └── index.html
-│       ├── fallback.txt
-│       └── images
-│           └── dinotocat.png
+.
 ├── package.json
+├── public
+│   ├── favicon.ico
+│   └── static
+│       └── hello.txt
 ├── src
-│   └── index.ts
+│   └── index.ts
 └── wrangler.toml
-```
-
-Then use "Adapter".
-
-```ts
-import { Hono } from 'hono'
-import { serveStatic } from 'hono/cloudflare-workers'
-import manifest from '__STATIC_CONTENT_MANIFEST'
-
-const app = new Hono()
-
-app.get('/static/*', serveStatic({ root: './', manifest }))
-app.get('/favicon.ico', serveStatic({ path: './favicon.ico' }))
-```
-
-See [Example](https://github.com/honojs/examples/tree/main/serve-static).
-
-### `rewriteRequestPath`
-
-If you want to map `http://localhost:8787/static/*` to `./assets/statics`, you can use the `rewriteRequestPath` option:
-
-```ts
-app.get(
-  '/static/*',
-  serveStatic({
-    root: './',
-    rewriteRequestPath: (path) =>
-      path.replace(/^\/static/, '/statics'),
-  })
-)
-```
-
-### `mimes`
-
-You can add MIME types with `mimes`:
-
-```ts
-app.get(
-  '/static/*',
-  serveStatic({
-    mimes: {
-      m3u8: 'application/vnd.apple.mpegurl',
-      ts: 'video/mp2t',
-    },
-  })
-)
-```
-
-### `onNotFound`
-
-You can specify handling when the requested file is not found with `onNotFound`:
-
-```ts
-app.get(
-  '/static/*',
-  serveStatic({
-    onNotFound: (path, c) => {
-      console.log(`${path} is not found, you access ${c.req.path}`)
-    },
-  })
-)
 ```
 
 ## Types
@@ -275,7 +197,7 @@ bun add --dev @cloudflare/workers-types
 
 ## Testing
 
-For testing, we recommend using `jest-environment-miniflare`.
+For testing, we recommend using `@cloudflare/vitest-pool-workers`.
 Refer to [examples](https://github.com/honojs/examples) for setting it up.
 
 If there is the application below.
@@ -347,15 +269,15 @@ app.use('/auth/*', async (c, next) => {
 
 The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.
 
-## Deploy from Github Action
+## Deploy from GitHub Actions
 
-Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
+Before deploying code to Cloudflare via CI, you need a Cloudflare token. You can manage it from [User API Tokens](https://dash.cloudflare.com/profile/api-tokens).
 
-If it's a newly created token, select the **Edit Cloudflare Workers** template, if you have already another token, make sure the token has the corresponding permissions(No, token permissions are not shared between cloudflare page and cloudflare worker).
+If it's a newly created token, select the **Edit Cloudflare Workers** template, if you already have another token, make sure the token has the corresponding permissions(No, token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
 
-then go to your Github repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
+then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
 
-then create `.github/workflows/deploy.yml` in your hono project root folder,paste the following code:
+then create `.github/workflows/deploy.yml` in your Hono project root folder, paste the following code:
 
 ```yml
 name: Deploy
@@ -388,8 +310,8 @@ Everything is ready! Now push the code and enjoy it.
 
 ## Load env when local development
 
-To configure the environment variables for local development, create the `.dev.vars` file in the root directory of the project.
-Then configure your environment variables as you would with a normal env file.
+To configure the environment variables for local development, create a `.dev.vars` file or a `.env` file in the root directory of the project.
+These files should be formatted using the [dotenv](https://hexdocs.pm/dotenvy/dotenv-file-format.html) syntax. For example:
 
 ```
 SECRET_KEY=value
@@ -399,8 +321,11 @@ API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 > For more about this section you can find in the Cloudflare documentation:
 > https://developers.cloudflare.com/workers/wrangler/configuration/#secrets
 
-Then we use the `c.env.*` to get the environment variables in our code.  
-**For Cloudflare Workers, environment variables must be obtained via `c`, not via `process.env`.**
+Then we use the `c.env.*` to get the environment variables in our code.
+
+::: info
+By default, `process.env` is not available in Cloudflare Workers, so it is recommended to get environment variables from `c.env`. If you want to use it, you need to enable [`nodejs_compat_populate_process_env`](https://developers.cloudflare.com/workers/configuration/compatibility-flags/#enable-auto-populating-processenv) flag. You can also import `env` from `cloudflare:workers`. For details, please see [How to access `env` on Cloudflare docs](https://developers.cloudflare.com/workers/runtime-apis/bindings/#how-to-access-env)
+:::
 
 ```ts
 type Bindings = {
@@ -415,7 +340,7 @@ app.get('/env', (c) => {
 })
 ```
 
-Before you deploy your project to cloudflare, remember to set the environment variable/secrets in the Cloudflare Worker project's configuration.
+Before you deploy your project to Cloudflare, remember to set the environment variable/secrets in the Cloudflare Workers project's configuration.
 
 > For more about this section you can find in the Cloudflare documentation:
 > https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard

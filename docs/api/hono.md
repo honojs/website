@@ -3,7 +3,7 @@
 `Hono` is the primary object.
 It will be imported first and used until the end.
 
-```ts
+```ts twoslash
 import { Hono } from 'hono'
 
 const app = new Hono()
@@ -35,24 +35,42 @@ The first part of them is used for routing, please refer to the [routing section
 
 `app.notFound` allows you to customize a Not Found Response.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.notFound((c) => {
   return c.text('Custom 404 Message', 404)
 })
 ```
 
+:::warning
+The `notFound` method is only called from the top-level app. For more information, see this [issue](https://github.com/honojs/hono/issues/3465#issuecomment-2381210165).
+:::
+
 ## Error Handling
 
-`app.onError` handles an error and returns a customized Response.
+`app.onError` allows you to handle uncaught errors and return a custom Response.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.onError((err, c) => {
   console.error(`${err}`)
   return c.text('Custom Error Message', 500)
 })
 ```
 
+::: info
+If both a parent app and its routes have `onError` handlers, the route-level handlers get priority.
+:::
+
 ## fire()
+
+::: warning
+**`app.fire()` is deprecated**. Use `fire()` from `hono/service-worker` instead. See the [Service Worker documentation](/docs/getting-started/service-worker) for details.
+:::
 
 `app.fire()` automatically adds a global `fetch` event listener.
 
@@ -72,7 +90,12 @@ addEventListener('fetch', (event: FetchEventLike): void => {
 
 For Cloudflare Workers, you can use the following:
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+type Env = any
+type ExecutionContext = any
+// ---cut---
 export default {
   fetch(request: Request, env: Env, ctx: ExecutionContext) {
     return app.fetch(request, env, ctx)
@@ -82,7 +105,10 @@ export default {
 
 or just do:
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 export default app
 ```
 
@@ -104,7 +130,12 @@ export default {  // [!code ++]
 You can pass a URL or pathname to send a GET request.
 `app` will return a `Response` object.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+declare const test: (name: string, fn: () => void) => void
+declare const expect: (value: any) => any
+// ---cut---
 test('GET /hello is ok', async () => {
   const res = await app.request('/hello')
   expect(res.status).toBe(200)
@@ -113,7 +144,12 @@ test('GET /hello is ok', async () => {
 
 You can also pass a `Request` object:
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+declare const test: (name: string, fn: () => void) => void
+declare const expect: (value: any) => any
+// ---cut---
 test('POST /message is ok', async () => {
   const req = new Request('Hello!', {
     method: 'POST',
@@ -155,15 +191,19 @@ Strict mode defaults to `true` and distinguishes the following routes.
 
 By setting strict mode to `false`, both paths will be treated equally.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
 const app = new Hono({ strict: false })
 ```
 
 ## router option
 
-The `router` option specifices which router to use. The default router is `SmartRouter`. If you want to use `RegExpRouter`, pass it to a new `Hono` instance:
+The `router` option specifies which router to use. The default router is `SmartRouter`. If you want to use `RegExpRouter`, pass it to a new `Hono` instance:
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
 import { RegExpRouter } from 'hono/router/reg-exp-router'
 
 const app = new Hono({ router: new RegExpRouter() })
@@ -173,7 +213,11 @@ const app = new Hono({ router: new RegExpRouter() })
 
 You can pass Generics to specify the types of Cloudflare Workers Bindings and variables used in `c.set`/`c.get`.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+type User = any
+declare const user: User
+// ---cut---
 type Bindings = {
   TOKEN: string
 }
@@ -182,7 +226,10 @@ type Variables = {
   user: User
 }
 
-const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
+const app = new Hono<{
+  Bindings: Bindings
+  Variables: Variables
+}>()
 
 app.use('/auth/*', async (c, next) => {
   const token = c.env.TOKEN // token is `string`

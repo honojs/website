@@ -25,7 +25,7 @@ bun create hono@latest my-app
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono@latest my-app
+deno init --npm hono@latest my-app
 ```
 
 :::
@@ -159,7 +159,7 @@ app.get('/posts/:id', (c) => {
   const page = c.req.query('page')
   const id = c.req.param('id')
   c.header('X-Message', 'Hi!')
-  return c.text(`You want see ${page} of ${id}`)
+  return c.text(`You want to see ${page} of ${id}`)
 })
 ```
 
@@ -174,7 +174,7 @@ app.delete('/posts/:id', (c) =>
 
 ## Return HTML
 
-Hono is also suitable for returning a little HTML. Rename the file to `src/index.tsx` and configure it to use JSX (check with each runtime as it is different). You don't need to use a huge front-end framework.
+You can write HTML with [the html Helper](/docs/helpers/html) or using [JSX](/docs/guides/jsx) syntax. If you want to use JSX, rename the file to `src/index.tsx` and configure it (check with each runtime as it is different). Below is an example using JSX.
 
 ```tsx
 const View = () => {
@@ -197,7 +197,7 @@ app.get('/page', (c) => {
 You can also return the raw [Response](https://developer.mozilla.org/en-US/docs/Web/API/Response).
 
 ```ts
-app.get('/', (c) => {
+app.get('/', () => {
   return new Response('Good morning!')
 })
 ```

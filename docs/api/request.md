@@ -6,16 +6,21 @@ The `HonoRequest` is an object that can be taken from `c.req` which wraps a [Req
 
 Get the values of path parameters.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 // Captured params
-app.get('/entry/:id', (c) => {
+app.get('/entry/:id', async (c) => {
   const id = c.req.param('id')
-  ...
+  //    ^?
+  // ...
 })
 
 // Get all params at once
-app.get('/entry/:id/comment/:commentId', (c) => {
+app.get('/entry/:id/comment/:commentId', async (c) => {
   const { id, commentId } = c.req.param()
+  //      ^?
 })
 ```
 
@@ -23,17 +28,20 @@ app.get('/entry/:id/comment/:commentId', (c) => {
 
 Get querystring parameters.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 // Query params
-app.get('/search', (c) => {
+app.get('/search', async (c) => {
   const query = c.req.query('q')
-  ...
+  //     ^?
 })
 
 // Get all params at once
-app.get('/search', (c) => {
+app.get('/search', async (c) => {
   const { q, limit, offset } = c.req.query()
-  ...
+  //      ^?
 })
 ```
 
@@ -41,11 +49,15 @@ app.get('/search', (c) => {
 
 Get multiple querystring parameter values, e.g. `/search?tags=A&tags=B`
 
-```ts
-app.get('/search', (c) => {
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/search', async (c) => {
   // tags will be string[]
   const tags = c.req.queries('tags')
-  ...
+  //     ^?
+  // ...
 })
 ```
 
@@ -53,21 +65,45 @@ app.get('/search', (c) => {
 
 Get the request header value.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.get('/', (c) => {
   const userAgent = c.req.header('User-Agent')
-  ...
+  //      ^?
+  return c.text(`Your user agent is ${userAgent}`)
 })
 ```
+
+::: warning
+When `c.req.header()` is called with no arguments, all keys in the returned record are **lowercase**.
+
+If you want to get the value of a header with an uppercase name,
+use `c.req.header(“X-Foo”)`.
+
+```ts
+// ❌ Will not work
+const headerRecord = c.req.header()
+const foo = headerRecord['X-Foo']
+
+// ✅ Will work
+const foo = c.req.header('X-Foo')
+```
+
+:::
 
 ## parseBody()
 
 Parse Request body of type `multipart/form-data` or `application/x-www-form-urlencoded`
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.post('/entry', async (c) => {
   const body = await c.req.parseBody()
-  ...
+  // ...
 })
 ```
 
@@ -75,9 +111,13 @@ app.post('/entry', async (c) => {
 
 **Single file**
 
-```ts
+```ts twoslash
+import { Context } from 'hono'
+declare const c: Context
+// ---cut---
 const body = await c.req.parseBody()
-body['foo']
+const data = body['foo']
+//    ^?
 ```
 
 `body['foo']` is `(string | File)`.
@@ -86,7 +126,10 @@ If multiple files are uploaded, the last one will be used.
 
 ### Multiple files
 
-```ts
+```ts twoslash
+import { Context } from 'hono'
+declare const c: Context
+// ---cut---
 const body = await c.req.parseBody()
 body['foo[]']
 ```
@@ -95,9 +138,14 @@ body['foo[]']
 
 `[]` postfix is required.
 
-### Multiple files with same name
+### Multiple files or fields with same name
 
-```ts
+If you have a input field that allows multiple `<input type="file" multiple />` or multiple checkboxes with the same name `<input type="checkbox" name="favorites" value="Hono"/>`.
+
+```ts twoslash
+import { Context } from 'hono'
+declare const c: Context
+// ---cut---
 const body = await c.req.parseBody({ all: true })
 body['foo']
 ```
@@ -113,7 +161,7 @@ If you set the `dot` option `true`, the return value is structured based on the 
 
 Imagine receiving the following data:
 
-```ts
+```ts twoslash
 const data = new FormData()
 data.append('obj.key1', 'value1')
 data.append('obj.key2', 'value2')
@@ -121,7 +169,10 @@ data.append('obj.key2', 'value2')
 
 You can get the structured value by setting the `dot` option `true`:
 
-```ts
+```ts twoslash
+import { Context } from 'hono'
+declare const c: Context
+// ---cut---
 const body = await c.req.parseBody({ dot: true })
 // body is `{ obj: { key1: 'value1', key2: 'value2' } }`
 ```
@@ -130,10 +181,13 @@ const body = await c.req.parseBody({ dot: true })
 
 Parses the request body of type `application/json`
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.post('/entry', async (c) => {
   const body = await c.req.json()
-  ...
+  // ...
 })
 ```
 
@@ -141,10 +195,13 @@ app.post('/entry', async (c) => {
 
 Parses the request body of type `text/plain`
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.post('/entry', async (c) => {
   const body = await c.req.text()
-  ...
+  // ...
 })
 ```
 
@@ -152,10 +209,13 @@ app.post('/entry', async (c) => {
 
 Parses the request body as an `ArrayBuffer`
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.post('/entry', async (c) => {
   const body = await c.req.arrayBuffer()
-  ...
+  // ...
 })
 ```
 
@@ -163,10 +223,13 @@ app.post('/entry', async (c) => {
 
 Parses the request body as a `Blob`.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.post('/entry', async (c) => {
   const body = await c.req.blob()
-  ...
+  // ...
 })
 ```
 
@@ -174,10 +237,13 @@ app.post('/entry', async (c) => {
 
 Parses the request body as a `FormData`.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.post('/entry', async (c) => {
   const body = await c.req.formData()
-  ...
+  // ...
 })
 ```
 
@@ -186,9 +252,9 @@ app.post('/entry', async (c) => {
 Get the validated data.
 
 ```ts
-app.post('/posts', (c) => {
+app.post('/posts', async (c) => {
   const { title, body } = c.req.valid('form')
-  ...
+  // ...
 })
 ```
 
@@ -203,11 +269,18 @@ Available targets are below.
 
 See the [Validation section](/docs/guides/validation) for usage examples.
 
-## routePath()
+## routePath
+
+::: warning
+**Deprecated in v4.8.0**: This property is deprecated. Use `routePath()` from [Route Helper](/docs/helpers/route) instead.
+:::
 
 You can retrieve the registered path within the handler like this:
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.get('/posts/:id', (c) => {
   return c.json({ path: c.req.routePath })
 })
@@ -219,11 +292,18 @@ If you access `/posts/123`, it will return `/posts/:id`:
 { "path": "/posts/:id" }
 ```
 
-## matchedRoutes()
+## matchedRoutes
+
+::: warning
+**Deprecated in v4.8.0**: This property is deprecated. Use `matchedRoutes()` from [Route Helper](/docs/helpers/route) instead.
+:::
 
 It returns matched routes within the handler, which is useful for debugging.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.use(async function logger(c, next) {
   await next()
   c.req.matchedRoutes.forEach(({ handler, method, path }, i) => {
@@ -246,10 +326,13 @@ app.use(async function logger(c, next) {
 
 The request pathname.
 
-```ts
-app.get('/about/me', (c) => {
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/about/me', async (c) => {
   const pathname = c.req.path // `/about/me`
-  ...
+  // ...
 })
 ```
 
@@ -257,10 +340,13 @@ app.get('/about/me', (c) => {
 
 The request url strings.
 
-```ts
-app.get('/about/me', (c) => {
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/about/me', async (c) => {
   const url = c.req.url // `http://localhost:8787/about/me`
-  ...
+  // ...
 })
 ```
 
@@ -268,10 +354,13 @@ app.get('/about/me', (c) => {
 
 The method name of the request.
 
-```ts
-app.get('/about/me', (c) => {
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
+app.get('/about/me', async (c) => {
   const method = c.req.method // `GET`
-  ...
+  // ...
 })
 ```
 
@@ -283,6 +372,30 @@ The raw [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) ob
 // For Cloudflare Workers
 app.post('/', async (c) => {
   const metadata = c.req.raw.cf?.hostMetadata?
-  ...
+  // ...
 })
+```
+
+## cloneRawRequest()
+
+Clones the raw Request object from a HonoRequest. Works even after the request body has been consumed by validators or HonoRequest methods.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+
+import { cloneRawRequest } from 'hono/request'
+import { validator } from 'hono/validator'
+
+app.post(
+  '/forward',
+  validator('json', (data) => data),
+  async (c) => {
+    // Clone after validation
+    const clonedReq = await cloneRawRequest(c.req)
+    // Does not throw the error
+    await clonedReq.json()
+    // ...
+  }
+)
 ```

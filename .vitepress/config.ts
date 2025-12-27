@@ -1,5 +1,11 @@
 import { defineConfig } from 'vitepress'
 import type { DefaultTheme } from 'vitepress'
+import {
+  groupIconMdPlugin,
+  groupIconVitePlugin,
+} from 'vitepress-plugin-group-icons'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import { createFileSystemTypesCache } from '@shikijs/vitepress-twoslash/cache-fs'
 
 const sidebars = (): DefaultTheme.SidebarItem[] => [
   {
@@ -13,7 +19,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Middleware', link: '/docs/concepts/middleware' },
       {
         text: 'Developer Experience',
-        link: '/docs/concepts/developer-experience.md',
+        link: '/docs/concepts/developer-experience',
       },
       { text: 'Hono Stacks', link: '/docs/concepts/stacks' },
     ],
@@ -38,6 +44,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/fastly',
       },
       { text: 'Vercel', link: '/docs/getting-started/vercel' },
+      { text: 'Next.js', link: '/docs/getting-started/nextjs' },
       { text: 'Netlify', link: '/docs/getting-started/netlify' },
       {
         text: 'AWS Lambda',
@@ -52,10 +59,25 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/azure-functions',
       },
       {
+        text: 'Google Cloud Run',
+        link: '/docs/getting-started/google-cloud-run',
+      },
+      {
         text: 'Supabase Functions',
         link: '/docs/getting-started/supabase-functions',
       },
-      { text: 'Ali Function Compute', link: '/docs/getting-started/ali-function-compute' },
+      {
+        text: 'Ali Function Compute',
+        link: '/docs/getting-started/ali-function-compute',
+      },
+      {
+        text: 'WebAssembly',
+        link: '/docs/getting-started/webassembly-wasi',
+      },
+      {
+        text: 'Service Worker',
+        link: '/docs/getting-started/service-worker',
+      },
       { text: 'Node.js', link: '/docs/getting-started/nodejs' },
     ],
   },
@@ -75,6 +97,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'Guides',
     collapsed: true,
     items: [
+      { text: 'create-hono', link: '/docs/guides/create-hono' },
       { text: 'Middleware', link: '/docs/guides/middleware' },
       { text: 'Helpers', link: '/docs/guides/helpers' },
       {
@@ -121,6 +144,8 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Factory', link: '/docs/helpers/factory' },
       { text: 'html', link: '/docs/helpers/html' },
       { text: 'JWT', link: '/docs/helpers/jwt' },
+      { text: 'Proxy', link: '/docs/helpers/proxy' },
+      { text: 'Route', link: '/docs/helpers/route' },
       { text: 'SSG', link: '/docs/helpers/ssg' },
       { text: 'Streaming', link: '/docs/helpers/streaming' },
       { text: 'Testing', link: '/docs/helpers/testing' },
@@ -144,7 +169,12 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/middleware/builtin/body-limit',
       },
       { text: 'Cache', link: '/docs/middleware/builtin/cache' },
+      { text: 'Combine', link: '/docs/middleware/builtin/combine' },
       { text: 'Compress', link: '/docs/middleware/builtin/compress' },
+      {
+        text: 'Context Storage',
+        link: '/docs/middleware/builtin/context-storage',
+      },
       { text: 'CORS', link: '/docs/middleware/builtin/cors' },
       {
         text: 'CSRF Protection',
@@ -152,11 +182,17 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       },
       { text: 'ETag', link: '/docs/middleware/builtin/etag' },
       {
+        text: 'IP Restriction',
+        link: '/docs/middleware/builtin/ip-restriction',
+      },
+      {
         text: 'JSX Renderer',
         link: '/docs/middleware/builtin/jsx-renderer',
       },
+      { text: 'JWK', link: '/docs/middleware/builtin/jwk' },
       { text: 'JWT', link: '/docs/middleware/builtin/jwt' },
       { text: 'Logger', link: '/docs/middleware/builtin/logger' },
+      { text: 'Language', link: '/docs/middleware/builtin/language' },
       {
         text: 'Method Override',
         link: '/docs/middleware/builtin/method-override',
@@ -164,6 +200,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       {
         text: 'Pretty JSON',
         link: '/docs/middleware/builtin/pretty-json',
+      },
+      {
+        text: 'Request ID',
+        link: '/docs/middleware/builtin/request-id',
       },
       {
         text: 'Secure Headers',
@@ -178,6 +218,24 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       {
         text: '3rd-party Middleware',
         link: '/docs/middleware/third-party',
+      },
+    ],
+  },
+  {
+    text: 'LLM',
+    collapsed: true,
+    items: [
+      {
+        text: 'Docs List',
+        link: '/llms.txt',
+      },
+      {
+        text: 'Full Docs',
+        link: '/llms-full.txt',
+      },
+      {
+        text: 'Tiny Docs',
+        link: '/llms-small.txt',
       },
     ],
   },
@@ -200,12 +258,20 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/file-upload',
       },
       {
+        text: 'Bind a reverse proxy',
+        link: '/examples/behind-reverse-proxy',
+      },
+      {
         text: 'Error handling in Validator',
         link: '/examples/validator-error-handling',
       },
       {
         text: 'Grouping routes for RPC',
         link: '/examples/grouping-routes-rpc',
+      },
+      {
+        text: 'CBOR',
+        link: '/examples/cbor',
       },
     ],
   },
@@ -217,8 +283,20 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/zod-openapi',
       },
       {
+        text: 'Hono OpenAPI',
+        link: '/examples/hono-openapi',
+      },
+      {
         text: 'Swagger UI',
         link: '/examples/swagger-ui',
+      },
+      {
+        text: 'Scalar',
+        link: '/examples/scalar',
+      },
+      {
+        text: 'Hono Docs Generator',
+        link: '/examples/hono-docs',
       },
     ],
   },
@@ -232,6 +310,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
       {
         text: 'Cloudflare Queue',
         link: '/examples/cloudflare-queue',
+      },
+      {
+        text: 'Cloudflare Testing',
+        link: '/examples/cloudflare-vitest',
       },
       {
         text: 'Remix',
@@ -250,8 +332,28 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/prisma',
       },
       {
+        text: 'Better Auth',
+        link: '/examples/better-auth',
+      },
+      {
+        text: 'Better Auth on Cloudflare',
+        link: '/examples/better-auth-on-cloudflare',
+      },
+      {
         text: 'Pylon (GraphQL)',
         link: '/examples/pylon',
+      },
+      {
+        text: 'Stytch Authentication',
+        link: '/examples/stytch-auth',
+      },
+      {
+        text: 'Auth.js',
+        link: '/examples/hono-authjs',
+      },
+      {
+        text: 'Apitally (Monitoring)',
+        link: '/examples/apitally',
       },
     ],
   },
@@ -261,7 +363,7 @@ export default defineConfig({
   lang: 'en-US',
   title: 'Hono',
   description:
-    'Ultrafast web framework for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Node.js, and others. Fast, but not only fast.',
+    'Web framework built on Web Standards for Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Node.js, and others. Fast, but not only fast.',
   lastUpdated: true,
   ignoreDeadLinks: true,
   cleanUrls: true,
@@ -270,19 +372,28 @@ export default defineConfig({
       light: 'github-light',
       dark: 'github-dark',
     },
+    config(md) {
+      md.use(groupIconMdPlugin)
+    },
+    codeTransformers: [
+      transformerTwoslash({
+        typesCache: createFileSystemTypesCache(),
+      }),
+    ],
   },
   themeConfig: {
-    logo: '/images/logo-small.png',
+    logo: '/images/logo.svg',
     siteTitle: 'Hono',
     algolia: {
       appId: '1GIFSU1REV',
-      apiKey: '6a9bb2036e456356e224ece74546ca14',
+      apiKey: 'c6a0f86b9a9f8551654600f28317a9e9',
       indexName: 'hono',
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/honojs' },
       { icon: 'discord', link: 'https://discord.gg/KMh2eNSdxV' },
-      { icon: 'x', link: 'https://twitter.com/honojs' },
+      { icon: 'x', link: 'https://x.com/honojs' },
+      { icon: 'bluesky', link: 'https://bsky.app/profile/hono.dev' },
     ],
     editLink: {
       pattern: 'https://github.com/honojs/website/edit/main/:path',
@@ -330,4 +441,16 @@ export default defineConfig({
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
   ],
   titleTemplate: ':title - Hono',
+  vite: {
+    plugins: [
+      groupIconVitePlugin({
+        customIcon: {
+          cloudflare: 'logos:cloudflare-workers-icon',
+        },
+      }),
+    ],
+    server: {
+      allowedHosts: true,
+    },
+  },
 })

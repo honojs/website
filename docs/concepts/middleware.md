@@ -4,15 +4,18 @@ We call the primitive that returns `Response` as "Handler".
 "Middleware" is executed before and after the Handler and handles the `Request` and `Response`.
 It's like an onion structure.
 
-![Onion](/images/onion.png)
+![](/images/onion.png)
 
 For example, we can write the middleware to add the "X-Response-Time" header as follows.
 
-```ts
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+// ---cut---
 app.use(async (c, next) => {
-  const start = Date.now()
+  const start = performance.now()
   await next()
-  const end = Date.now()
+  const end = performance.now()
   c.res.headers.set('X-Response-Time', `${end - start}`)
 })
 ```

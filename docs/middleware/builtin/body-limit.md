@@ -37,10 +37,13 @@ app.post(
 
 ## Options
 
-- `maxSize`: number - _required_
-  - The maximum file size of the file you want to limit. The default is `100 * 1024` - `100kb`.
-- `onError`: `OnError`
-  - The error handler to be invoked if the specified file size is exceeded.
+### <Badge type="danger" text="required" /> maxSize: `number`
+
+The maximum file size of the file you want to limit. The default is `100 * 1024` - `100kb`.
+
+### <Badge type="info" text="optional" /> onError: `OnError`
+
+The error handler to be invoked if the specified file size is exceeded.
 
 ## Usage with Bun for large requests
 

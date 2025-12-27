@@ -35,7 +35,7 @@ app.get('/page/about', (c) => {
 
 ## Options
 
-### `docType`: `boolean` | `string`
+### <Badge type="info" text="optional" /> docType: `boolean` | `string`
 
 If you do not want to add a DOCTYPE at the beginning of the HTML, set the `docType` option to `false`.
 
@@ -76,7 +76,7 @@ app.use(
 )
 ```
 
-### `stream`: `boolean` | `Record<string, string>`
+### <Badge type="info" text="optional" /> stream: `boolean` | `Record<string, string>`
 
 If you set it to `true` or provide a Record value, it will be rendered as a streaming response.
 
@@ -117,7 +117,8 @@ If `true` is set, the following headers are added:
 ```ts
 {
   'Transfer-Encoding': 'chunked',
-  'Content-Type': 'text/html; charset=UTF-8'
+  'Content-Type': 'text/html; charset=UTF-8',
+  'Content-Encoding': 'Identity'
 }
 ```
 
@@ -158,6 +159,11 @@ app.route('/blog', blog)
 `useRequestContext()` returns an instance of Context.
 
 ```tsx
+import { useRequestContext, jsxRenderer } from 'hono/jsx-renderer'
+
+const app = new Hono()
+app.use(jsxRenderer())
+
 const RequestUrlBadge: FC = () => {
   const c = useRequestContext()
   return <b>{c.req.url}</b>
@@ -171,6 +177,20 @@ app.get('/page/info', (c) => {
   )
 })
 ```
+
+::: warning
+You can't use `useRequestContext()` with the Deno's `precompile` JSX option. Use the `react-jsx`:
+
+```json
+   "compilerOptions": {
+     "jsx": "precompile", // [!code --]
+     "jsx": "react-jsx", // [!code ++]
+     "jsxImportSource": "hono/jsx"
+   }
+ }
+```
+
+:::
 
 ## Extending `ContextRenderer`
 

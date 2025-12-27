@@ -46,6 +46,8 @@ You can use `render()` to insert JSX components within a specified HTML element.
 render(<Component />, container)
 ```
 
+You can see full example code here: [Counter example](https://github.com/honojs/examples/tree/main/hono-vite-jsx).
+
 ## Hooks compatible with React
 
 hono/jsx/dom has Hooks that are compatible or partially compatible with React. You can learn about these APIs by looking at [the React documentation](https://react.dev/reference/react/hooks).
@@ -71,6 +73,9 @@ hono/jsx/dom has Hooks that are compatible or partially compatible with React. Y
 - `useImperativeHandle()`
 - `useSyncExternalStore()`
 - `useInsertionEffect()`
+- `useFormStatus()`
+- `useActionState()`
+- `useOptimistic()`
 
 ## `startViewTransition()` family
 
@@ -267,7 +272,7 @@ export default function App() {
 
 ## The `hono/jsx/dom` runtime
 
-There is a small JSX Runtime for Client Components. Using this will result in smaller bundled results than using `hono/jsx`. Specify `hono/jsx/dom` in `tsconfig.json`.
+There is a small JSX Runtime for Client Components. Using this will result in smaller bundled results than using `hono/jsx`. Specify `hono/jsx/dom` in `tsconfig.json`. For Deno, modify the deno.json.
 
 ```json
 {
@@ -276,4 +281,16 @@ There is a small JSX Runtime for Client Components. Using this will result in sm
     "jsxImportSource": "hono/jsx/dom"
   }
 }
+```
+
+Alternatively, you can specify `hono/jsx/dom` in the esbuild transform options in `vite.config.ts`.
+
+```ts
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  esbuild: {
+    jsxImportSource: 'hono/jsx/dom',
+  },
+})
 ```

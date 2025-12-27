@@ -1,12 +1,12 @@
 ---
-title: Hono - Ultrafast web framework for the Edges
+title: Hono - Web framework built on Web Standards
 titleTemplate: ':title'
 head:
   - [
       'meta',
       {
         property: 'og:description',
-        content: 'Hono is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
+        content: 'Hono is a small, simple, and ultrafast web framework built on Web Standards. It works on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
       },
     ]
 layout: home
@@ -16,7 +16,12 @@ hero:
   tagline: Fast, lightweight, built on Web Standards. Support for any JavaScript runtime.
   image:
     src: /images/code.webp
-    alt: Hono
+    alt: "An example of code for Hono. \
+      import { Hono } from 'hono' \
+      const app = new Hono() \
+      app.get('/', (c) => c.text('Hello Hono!')) \
+
+      export default app"
   actions:
     - theme: brand
       text: Get Started
@@ -54,6 +59,7 @@ onMounted(() => {
     const images = document.querySelectorAll('.VPImage.image-src')
     images.forEach((img) => {
       img.src = '/images/hono-kawaii.png'
+      img.alt = 'A Kawai Version of the Hono Logo. The first "o" is replaced with a flame, with japanese characters in the bottom right, and a JSX fragment closing tag above the flame.'
       img.classList.add("kawaii")
     })
   }

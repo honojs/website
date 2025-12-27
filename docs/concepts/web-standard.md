@@ -7,7 +7,7 @@ In addition to `Requests` and `Responses`, there are `URL`, `URLSearchParam`, `H
 Cloudflare Workers, Deno, and Bun also build upon Web Standards.
 For example, a server that returns "Hello World" could be written as below. This could run on Cloudflare Workers and Bun.
 
-```ts
+```ts twoslash
 export default {
   async fetch() {
     return new Response('Hello World')
@@ -25,9 +25,13 @@ In addition, we have a Node.js adapter. Hono runs on these runtimes:
 - AWS Lambda
 - Node.js
 - Vercel (edge-light)
+- WebAssembly (w/ [WebAssembly System Interface (WASI)][wasi] via [`wasi:http`][wasi-http])
 
 It also works on Netlify and other platforms.
 The same code runs on all platforms.
 
 Cloudflare Workers, Deno, Shopify, and others launched [WinterCG](https://wintercg.org) to discuss the possibility of using the Web Standards to enable "web-interoperability".
 Hono will follow their steps and go for **the Standard of the Web Standards**.
+
+[wasi]: https://github.com/WebAssembly/wasi
+[wasi-http]: https://github.com/WebAssembly/wasi-http

@@ -18,6 +18,9 @@ import { bearerAuth } from 'hono/bearer-auth'
 
 ## Usage
 
+> [!NOTE]
+> Your `token` must match the regex `/[A-Za-z0-9._~+/-]+=*/`, otherwise a 400 error will be returned. Notably, this regex accommodates both URL-safe Base64- and standard Base64-encoded JWTs. This middleware does not require the bearer token to be a JWT, just that it matches the above regex.
+
 ```ts
 const app = new Hono()
 
@@ -86,16 +89,50 @@ app.use(
 
 ## Options
 
-- `token`: string | string[] - _required_
-  - The string to validate the incoming bearer token against
-- `verifyToken`: `(token: string, c: Context) => boolean | Promise<boolean>`
-  - The function to verify the token
-- `realm`: string
-  - The domain name of the realm, as part of the returned WWW-Authenticate challenge header. Default is `""`
-  - _See:_ https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
-- `prefix`: string
-  - The prefix (or known as `schema`) for the Authorization header value. Default is `"Bearer"`
-- `headerName`: string
-  - The header name. Default is `Authorization`
-- `hashFunction`: Function
-  - A function to handle hashing for safe comparison of authentication tokens
+### <Badge type="danger" text="required" /> token: `string` | `string[]`
+
+The string to validate the incoming bearer token against.
+
+### <Badge type="info" text="optional" /> realm: `string`
+
+The domain name of the realm, as part of the returned WWW-Authenticate challenge header. The default is `""`.
+See more: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
+
+### <Badge type="info" text="optional" /> prefix: `string`
+
+The prefix (or known as `schema`) for the Authorization header value. The default is `"Bearer"`.
+
+### <Badge type="info" text="optional" /> headerName: `string`
+
+The header name. The default value is `Authorization`.
+
+### <Badge type="info" text="optional" /> hashFunction: `Function`
+
+A function to handle hashing for safe comparison of authentication tokens.
+
+### <Badge type="info" text="optional" /> verifyToken: `(token: string, c: Context) => boolean | Promise<boolean>`
+
+The function to verify the token.
+
+### <Badge type="info" text="optional" /> noAuthenticationHeader: `object`
+
+Customizes the error response when the request does not have an authentication header.
+
+- `wwwAuthenticateHeader`: `string | object | MessageFunction` - Customizes the WWW-Authenticate header value.
+- `message`: `string | object | MessageFunction` - The custom message for the response body.
+
+`MessageFunction` is `(c: Context) => string | object | Promise<string | object>`.
+
+### <Badge type="info" text="optional" /> invalidAuthenticationHeader: `object`
+
+Customizes the error response when the authentication header format is invalid.
+
+- `wwwAuthenticateHeader`: `string | object | MessageFunction` - Customizes the WWW-Authenticate header value.
+- `message`: `string | object | MessageFunction` - The custom message for the response body.
+
+### <Badge type="info" text="optional" /> invalidToken: `object`
+
+Customizes the error response when the token is invalid.
+
+- `wwwAuthenticateHeader`: `string | object | MessageFunction` - Customizes the WWW-Authenticate header value.
+- `message`: `string | object | MessageFunction` - The custom message for the response body.

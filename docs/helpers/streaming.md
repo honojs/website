@@ -45,6 +45,21 @@ app.get('/streamText', (c) => {
 })
 ```
 
+::: warning
+
+If you are developing an application for Cloudflare Workers, a streaming may not work well on Wrangler. If so, add `Identity` for `Content-Encoding` header.
+
+```ts
+app.get('/streamText', (c) => {
+  c.header('Content-Encoding', 'Identity')
+  return streamText(c, async (stream) => {
+    // ...
+  })
+})
+```
+
+:::
+
 ## `streamSSE()`
 
 It allows you to stream Server-Sent Events (SSE) seamlessly.

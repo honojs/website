@@ -35,11 +35,11 @@ pnpm create hono my-app
 ```
 
 ```sh [bun]
-bunx create-hono my-app
+bun create hono@latest my-app
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono my-app
+deno init --npm hono my-app
 ```
 
 :::
@@ -81,6 +81,27 @@ const app = new Hono()
 app.get('/', (c) => c.text('Hello Node.js!'))
 
 serve(app)
+```
+
+If you want to gracefully shut down the server, write it like this:
+
+```ts
+const server = serve(app)
+
+// graceful shutdown
+process.on('SIGINT', () => {
+  server.close()
+  process.exit(0)
+})
+process.on('SIGTERM', () => {
+  server.close((err) => {
+    if (err) {
+      console.error(err)
+      process.exit(1)
+    }
+    process.exit(0)
+  })
+})
 ```
 
 ## 3. Run
@@ -140,12 +161,35 @@ serve(app)
 
 ## Serve static files
 
-You can use `serveStatic` to serve static files from the local file system.
+You can use `serveStatic` to serve static files from the local file system. For example, suppose the directory structure is as follows:
+
+```sh
+./
+├── favicon.ico
+├── index.ts
+└── static
+    ├── hello.txt
+    └── image.png
+```
+
+If a request to the path `/static/*` comes in and you want to return a file under `./static`, you can write the following:
 
 ```ts
 import { serveStatic } from '@hono/node-server/serve-static'
 
 app.use('/static/*', serveStatic({ root: './' }))
+```
+
+Use the `path` option to serve `favicon.ico` in the directory root:
+
+```ts
+app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
+```
+
+If a request to the path `/hello.txt` or `/image.png` comes in and you want to return a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
+
+```ts
+app.use('*', serveStatic({ root: './static' }))
 ```
 
 ### `rewriteRequestPath`
@@ -173,7 +217,7 @@ You can run hono on a [Node.js http2 Server](https://nodejs.org/api/http2.html).
 import { createServer } from 'node:http2'
 
 const server = serve({
-  fetch: app.fetch
+  fetch: app.fetch,
   createServer,
 })
 ```
@@ -194,12 +238,36 @@ const server = serve({
 })
 ```
 
-## Dockerfile
+## Building & Deployment
 
-Here is an example of a Dockerfile.
+::: code-group
+
+```sh [npm]
+npm run build
+```
+
+```sh [yarn]
+yarn run build
+```
+
+```sh [pnpm]
+pnpm run build
+```
+
+```sh [bun]
+bun run build
+```
+
+::: info
+Apps with a front-end framework may need to use [Hono's Vite plugins](https://github.com/honojs/vite-plugins).
+:::
+
+### Dockerfile
+
+Here is an example of a nodejs Dockerfile.
 
 ```Dockerfile
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 FROM base AS builder
 
@@ -227,11 +295,3 @@ EXPOSE 3000
 
 CMD ["node", "/app/dist/index.js"]
 ```
-
-The following steps shall be taken in advance.
-
-1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
-2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
-3. Add `"build": "tsc"` to `script` section of `package.json`.
-4. Run `npm install typescript --save-dev`.
-5. Add `"type": "module"` to `package.json`.

@@ -1,8 +1,12 @@
 cache
 
 node_modules
-yarn.lock
 yarn-error.log
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+deno.lock
+bun.lockb
 
 # Windows
 Thumbs.db
@@ -20,3 +24,8 @@ $RECYCLE.BIN/
 
 # IDE-specific settings
 .idea
+
+# Docs for LLM
+public/llms.txt
+public/llms-full.txt
+public/llms-small.txt

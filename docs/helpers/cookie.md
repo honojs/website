@@ -7,60 +7,110 @@ The Cookie Helper provides an easy interface to manage cookies, enabling develop
 ```ts
 import { Hono } from 'hono'
 import {
+  deleteCookie,
   getCookie,
   getSignedCookie,
   setCookie,
   setSignedCookie,
-  deleteCookie,
+  generateCookie,
+  generateSignedCookie,
 } from 'hono/cookie'
 ```
 
 ## Usage
 
+### Regular cookies
+
+```ts
+app.get('/cookie', (c) => {
+  setCookie(c, 'cookie_name', 'cookie_value')
+  const yummyCookie = getCookie(c, 'cookie_name')
+  deleteCookie(c, 'cookie_name')
+  const allCookies = getCookie(c)
+  // ...
+})
+```
+
+### Signed cookies
+
 **NOTE**: Setting and retrieving signed cookies returns a Promise due to the async nature of the WebCrypto API, which is used to create HMAC SHA-256 signatures.
 
 ```ts
-const app = new Hono()
+app.get('/signed-cookie', (c) => {
+  const secret = 'secret' // make sure it's a large enough string to be secure
 
-app.get('/cookie', (c) => {
-  const allCookies = getCookie(c)
-  const yummyCookie = getCookie(c, 'yummy_cookie')
-  // ...
-  setCookie(c, 'delicious_cookie', 'macha')
-  deleteCookie(c, 'delicious_cookie')
-  //
-})
-
-app.get('/signed-cookie', async (c) => {
-  const secret = 'secret ingredient'
-  // `getSignedCookie` will return `false` for a specified cookie if the signature was tampered with or is invalid
-  const allSignedCookies = await getSignedCookie(c, secret)
+  await setSignedCookie(c, 'cookie_name0', 'cookie_value', secret)
   const fortuneCookie = await getSignedCookie(
     c,
     secret,
-    'fortune_cookie'
+    'cookie_name0'
   )
+  deleteCookie(c, 'cookie_name0')
+  // `getSignedCookie` will return `false` for a specified cookie if the signature was tampered with or is invalid
+  const allSignedCookies = await getSignedCookie(c, secret)
   // ...
-  const anotherSecret = 'secret chocolate chips'
-  await setSignedCookie(c, 'great_cookie', 'blueberry', anotherSecret)
-  deleteCookie(c, 'great_cookie')
-  //
 })
 ```
+
+### Cookie Generation
+
+`generateCookie` and `generateSignedCookie` functions allow you to create cookie strings directly without setting them in the response headers.
+
+#### `generateCookie`
+
+```ts
+// Basic cookie generation
+const cookie = generateCookie('delicious_cookie', 'macha')
+// Returns: 'delicious_cookie=macha; Path=/'
+
+// Cookie with options
+const cookie = generateCookie('delicious_cookie', 'macha', {
+  path: '/',
+  secure: true,
+  httpOnly: true,
+  domain: 'example.com',
+})
+```
+
+#### `generateSignedCookie`
+
+```ts
+// Basic signed cookie generation
+const signedCookie = await generateSignedCookie(
+  'delicious_cookie',
+  'macha',
+  'secret chocolate chips'
+)
+
+// Signed cookie with options
+const signedCookie = await generateSignedCookie(
+  'delicious_cookie',
+  'macha',
+  'secret chocolate chips',
+  {
+    path: '/',
+    secure: true,
+    httpOnly: true,
+  }
+)
+```
+
+**Note**: Unlike `setCookie` and `setSignedCookie`, these functions only generate the cookie strings. You need to manually set them in headers if needed.
 
 ## Options
 
 ### `setCookie` & `setSignedCookie`
 
-- `domain`: string
-- `expires`: Date
-- `httpOnly`: boolean
-- `maxAge`: number
-- `path`: string
-- `secure`: boolean
-- `sameSite`: `'Strict'` | `'Lax'` | `'None'`
-- `prefix`: `secure` | `'host'`
-- `partitioned`: boolean
+- domain: `string`
+- expires: `Date`
+- httpOnly: `boolean`
+- maxAge: `number`
+- path: `string`
+- secure: `boolean`
+- sameSite: `'Strict'` | `'Lax'` | `'None'`
+- priority: `'Low' | 'Medium' | 'High'`
+- prefix: `secure` | `'host'`
+- partitioned: `boolean`
 
 Example:
 
@@ -96,9 +146,9 @@ await setSignedCookie(
 
 ### `deleteCookie`
 
-- `path`: string
-- `secure`: boolean
-- `domain`: string
+- path: `string`
+- secure: `boolean`
+- domain: `string`
 
 Example:
 
@@ -174,6 +224,6 @@ The cookie helper will throw an `Error` when parsing cookies under the following
 - The cookie name starts with `__Secure-`, but `secure` option is not set.
 - The cookie name starts with `__Host-`, but `secure` option is not set.
 - The cookie name starts with `__Host-`, but `path` is not `/`.
-- The cookie name starts with `__Host-`, but `domain` is not set.
+- The cookie name starts with `__Host-`, but `domain` is set.
 - The `maxAge` option value is greater than 400 days.
 - The `expires` option value is 400 days later than the current time.

@@ -17,7 +17,12 @@ For example, `find-my-way` is a very fast router used inside Fastify.
 First, we registered the following routing to each of our routers.
 These are similar to those used in the real world.
 
-```ts
+```ts twoslash
+interface Route {
+  method: string
+  path: string
+}
+// ---cut---
 export const routes: Route[] = [
   { method: 'GET', path: '/user' },
   { method: 'GET', path: '/user/comments' },
@@ -36,7 +41,12 @@ export const routes: Route[] = [
 
 Then we sent the Request to the endpoints like below.
 
-```ts
+```ts twoslash
+interface Route {
+  method: string
+  path: string
+}
+// ---cut---
 const routes: (Route & { name: string })[] = [
   {
     name: 'short static',
@@ -82,41 +92,41 @@ Let's see the results.
 
 The following screenshots show the results on Node.js.
 
-![bench](/images/bench01.png)
+![](/images/bench01.png)
 
-![bench](/images/bench02.png)
+![](/images/bench02.png)
 
-![bench](/images/bench03.png)
+![](/images/bench03.png)
 
-![bench](/images/bench04.png)
+![](/images/bench04.png)
 
-![bench](/images/bench05.png)
+![](/images/bench05.png)
 
-![bench](/images/bench06.png)
+![](/images/bench06.png)
 
-![bench](/images/bench07.png)
+![](/images/bench07.png)
 
-![bench](/images/bench08.png)
+![](/images/bench08.png)
 
 ### On Bun
 
 The following screenshots show the results on Bun.
 
-![bench](/images/bench09.png)
+![](/images/bench09.png)
 
-![bench](/images/bench10.png)
+![](/images/bench10.png)
 
-![bench](/images/bench11.png)
+![](/images/bench11.png)
 
-![bench](/images/bench12.png)
+![](/images/bench12.png)
 
-![bench](/images/bench13.png)
+![](/images/bench13.png)
 
-![bench](/images/bench14.png)
+![](/images/bench14.png)
 
-![bench](/images/bench15.png)
+![](/images/bench15.png)
 
-![bench](/images/bench16.png)
+![](/images/bench16.png)
 
 ## Cloudflare Workers
 

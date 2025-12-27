@@ -1,14 +1,24 @@
 # Testing
 
+[Vitest]: https://vitest.dev/
+
 Testing is important.
 In actuality, it is easy to test Hono's applications.
 The way to create a test environment differs from each runtime, but the basic steps are the same.
-In this section, let's test with Cloudflare Workers and Jest.
+In this section, let's test with Cloudflare Workers and [Vitest].
+
+::: tip
+Cloudflare recommends using [Vitest] with [@cloudflare/vitest-pool-workers](https://www.npmjs.com/package/@cloudflare/vitest-pool-workers). For more details, please refer to [Vitest integration](https://developers.cloudflare.com/workers/testing/vitest-integration/) in the Cloudflare Workers docs.
+:::
 
 ## Request and Response
 
 All you do is create a Request and pass it to the Hono application to validate the Response.
 And, you can use `app.request` the useful method.
+
+::: tip
+For a typed test client see the [testing helper](/docs/helpers/testing).
+:::
 
 For example, consider an application that provides the following REST API.
 

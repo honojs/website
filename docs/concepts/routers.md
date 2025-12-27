@@ -12,32 +12,31 @@ Although this is called "RegExp" it is not an Express-like implementation using 
 They are using linear loops.
 Therefore, regular expression matching will be performed for all routes and the performance will be degraded as you have more routes.
 
-![Router Linear](/images/router-linear.jpg)
+![](/images/router-linear.jpg)
 
 Hono's RegExpRouter turns the route pattern into "one large regular expression".
 Then it can get the result with one-time matching.
 
-![Router RegExp](/images/router-regexp.jpg)
+![](/images/router-regexp.jpg)
 
 This works faster than methods that use tree-based algorithms such as radix-tree in most cases.
+
+However, RegExpRouter doesn't support all routing patterns, so it's usually used in combination with one of the other routers below that support all routing patterns.
 
 ## TrieRouter
 
 **TrieRouter** is the router using the Trie-tree algorithm.
-It does not use linear loops as same as RegExpRouter.
+Like RegExpRouter, it does not use linear loops.
 
-![Router Tree](/images/router-tree.jpg)
+![](/images/router-tree.jpg)
 
 This router is not as fast as the RegExpRouter, but it is much faster than the Express router.
-TrieRouter supports all patterns though RegExpRouter does not.
+TrieRouter supports all patterns.
 
 ## SmartRouter
 
-RegExpRouter doesn't support all routing patterns.
-Therefore, it's usually used in combination with another router that does support all patterns.
-
-**SmartRouter** will select the best router by inferring from the registered routers.
-Hono uses SmartRouter and the two routers by default:
+**SmartRouter** is useful when you're using multiple routers. It selects the best router by inferring from the registered routers.
+Hono uses SmartRouter, RegExpRouter, and TrieRouter by default:
 
 ```ts
 // Inside the core of Hono.
@@ -75,13 +74,11 @@ summary for GET /user/lookup/username/hey
    33.24x faster than FindMyWay
 ```
 
-For situations like Fastly Compute, it's better to use LinearRouter with the `hono/quick` preset.
-
 ## PatternRouter
 
 **PatternRouter** is the smallest router among Hono's routers.
 
-While Hono is already compact, if you need to make it even smaller for an environment with limited resources, you can use PatternRouter.
+While Hono is already compact, if you need to make it even smaller for an environment with limited resources, use PatternRouter.
 
 An application using only PatternRouter is under 15KB in size.
 

@@ -1,5 +1,5 @@
 ---
-title: Hono - Ultrafast web framework for the Edges
+title: Hono - Web framework built on Web Standards
 titleTemplate: ':title'
 ---
 
@@ -10,7 +10,7 @@ It works on any JavaScript runtime: Cloudflare Workers, Fastly Compute, Deno, Bu
 
 Fast, but not only fast.
 
-```ts
+```ts twoslash
 import { Hono } from 'hono'
 const app = new Hono()
 
@@ -42,7 +42,7 @@ bun create hono@latest
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono@latest
+deno init --npm hono@latest
 ```
 
 :::
@@ -70,13 +70,16 @@ Here are some examples of use-cases.
 
 ## Who is using Hono?
 
-| Project                                                            | Platform           | What for?                                                                               |
-| ------------------------------------------------------------------ | ------------------ | --------------------------------------------------------------------------------------- |
-| [cdnjs](https://cdnjs.com)                                         | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the api server_.                  |
-| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/) | Cloudflare Workers | Serverless SQL databases. _Hono is used for the internal api server_.                   |
-| [Unkey](https://unkey.dev)                                         | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the api server_. |
-| [OpenStatus](https://openstatus.dev)                               | Bun                | An open-source website & API monitoring platform. _Hono is used for the api server_.    |
-| [Deno Benchmarks](https://deno.com/benchmarks)                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.               |
+| Project                                                                            | Platform           | What for?                                                                                                   |
+| ---------------------------------------------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| [cdnjs](https://cdnjs.com)                                                         | Cloudflare Workers | A free and open-source CDN service. _Hono is used for the API server_.                                      |
+| [Cloudflare D1](https://www.cloudflare.com/developer-platform/d1/)                 | Cloudflare Workers | Serverless SQL databases. _Hono is used for the internal API server_.                                       |
+| [Cloudflare Workers KV](https://www.cloudflare.com/developer-platform/workers-kv/) | Cloudflare Workers | Serverless key-value database. _Hono is used for the internal API server_.                                  |
+| [BaseAI](https://baseai.dev)                                                       | Local AI Server    | Serverless AI agent pipes with memory. An open-source agentic AI framework for web. _API server with Hono_. |
+| [Unkey](https://unkey.dev)                                                         | Cloudflare Workers | An open-source API authentication and authorization. _Hono is used for the API server_.                     |
+| [OpenStatus](https://openstatus.dev)                                               | Bun                | An open-source website & API monitoring platform. _Hono is used for the API server_.                        |
+| [Deno Benchmarks](https://deno.com/benchmarks)                                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                                   |
+| [Clerk](https://clerk.com)                                                         | Cloudflare Workers | An open-source User Management Platform. _Hono is used for the API server_.                                 |
 
 And the following.
 
@@ -89,7 +92,7 @@ Do you want to see more? See [Who is using Hono in production?](https://github.c
 
 A demonstration to create an application for Cloudflare Workers with Hono.
 
-![Demo](/images/sc.gif)
+![A gif showing a hono app being created quickly with fast iteration.](/images/sc.gif)
 
 ## Ultrafast
 
@@ -150,7 +153,7 @@ See [more information about Web Standards](/docs/concepts/web-standard).
 
 ## Middleware & Helpers
 
-**Hono has many middleware and helpers**. These makes "Write Less, do more" a reality.
+**Hono has many middleware and helpers**. This makes "Write Less, do more" a reality.
 
 Out of the box, Hono provides middleware and helpers for:
 
@@ -159,6 +162,7 @@ Out of the box, Hono provides middleware and helpers for:
 - [Body Limit](/docs/middleware/builtin/body-limit)
 - [Cache](/docs/middleware/builtin/cache)
 - [Compress](/docs/middleware/builtin/compress)
+- [Context Storage](/docs/middleware/builtin/context-storage)
 - [Cookie](/docs/helpers/cookie)
 - [CORS](/docs/middleware/builtin/cors)
 - [ETag](/docs/middleware/builtin/etag)
@@ -166,6 +170,7 @@ Out of the box, Hono provides middleware and helpers for:
 - [JSX](/docs/guides/jsx)
 - [JWT Authentication](/docs/middleware/builtin/jwt)
 - [Logger](/docs/middleware/builtin/logger)
+- [Language](/docs/middleware/builtin/language)
 - [Pretty JSON](/docs/middleware/builtin/pretty-json)
 - [Secure Headers](/docs/middleware/builtin/secure-headers)
 - [SSG](/docs/helpers/ssg)
@@ -197,7 +202,7 @@ Moreover, Hono is written in TypeScript. Hono has "**Types**".
 
 For example, the path parameters will be literal types.
 
-![SS](/images/ss.png)
+![A screenshot showing Hono having proper literal typing when URL parameters. The URL "/entry/:date/:id" allows for request parameters to be "date" or "id"](/images/ss.png)
 
 And, the Validator and Hono Client `hc` enable the RPC mode. In RPC mode,
 you can use your favorite validator such as Zod and easily share server-side API specs with the client and build type-safe applications.

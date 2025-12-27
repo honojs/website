@@ -105,8 +105,39 @@ import books from './books'
 
 const app = new Hono()
 
+// 😃
 app.route('/authors', authors)
 app.route('/books', books)
 
 export default app
 ```
+
+### If you want to use RPC features
+
+The code above works well for normal use cases.
+However, if you want to use the `RPC` feature, you can get the correct type by chaining as follows.
+
+```ts
+// authors.ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+  .get('/', (c) => c.json('list authors'))
+  .post('/', (c) => c.json('create an author', 201))
+  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+export default app
+export type AppType = typeof app
+```
+
+If you pass the type of the `app` to `hc`, it will get the correct type.
+
+```ts
+import type { AppType } from './authors'
+import { hc } from 'hono/client'
+
+// 😃
+const client = hc<AppType>('http://localhost') // Typed correctly
+```
+
+For more detailed information, please see [the RPC page](/docs/guides/rpc#using-rpc-with-larger-applications).

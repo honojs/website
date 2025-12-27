@@ -1,6 +1,6 @@
 # Netlify
 
-Netlify provides static site hosting and serverless backend services. [Edge Functions](https://docs.netlify.com/edge-functions/overview/) enables us make the web pages dynamic.
+Netlify provides static site hosting and serverless backend services. [Edge Functions](https://docs.netlify.com/edge-functions/overview/) enables us to make the web pages dynamic.
 
 Edge Functions support writing in Deno and TypeScript, and deployment is made easy through the [Netlify CLI](https://docs.netlify.com/cli/get-started/). With Hono, you can create the application for Netlify Edge Functions.
 
@@ -25,11 +25,11 @@ pnpm create hono my-app
 ```
 
 ```sh [bun]
-bunx create-hono my-app
+bun create hono@latest my-app
 ```
 
 ```sh [deno]
-deno run -A npm:create-hono my-app
+deno init --npm hono my-app
 ```
 
 :::
