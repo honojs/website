@@ -46,6 +46,8 @@ You can use `render()` to insert JSX components within a specified HTML element.
 render(<Component />, container)
 ```
 
+You can see full example code here: [Counter example](https://github.com/honojs/examples/tree/main/hono-vite-jsx).
+
 ## Hooks compatible with React
 
 hono/jsx/dom has Hooks that are compatible or partially compatible with React. You can learn about these APIs by looking at [the React documentation](https://react.dev/reference/react/hooks).
