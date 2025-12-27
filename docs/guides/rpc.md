@@ -287,6 +287,41 @@ const res = await client.posts[':id'].$get({
 })
 ```
 
+### Multiple parameters
+
+Handle routes with multiple parameters.
+
+```ts
+const route = app.get(
+  '/posts/:postId/:authorId',
+  zValidator(
+    'query',
+    z.object({
+      page: z.string().optional(),
+    })
+  ),
+  (c) => {
+    // ...
+    return c.json({
+      title: 'Night',
+      body: 'Time to sleep',
+    })
+  }
+)
+```
+
+Add multiple `['']` to specify params in path.
+
+```ts
+const res = await client.posts[':postId'][':authorId'].$get({
+  param: {
+    postId: '123',
+    authorId: '456',
+  },
+  query: {},
+})
+```
+
 ### Include slashes
 
 `hc` function does not URL-encode the values of `param`. To include slashes in parameters, use [regular expressions](/docs/api/routing#regexp).
