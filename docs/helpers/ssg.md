@@ -18,6 +18,7 @@ app.use('/about', async (c, next) => {
   c.setRenderer((content) => {
     return c.html(
       <html>
+        <head />
         <body>
           <p>{content}</p>
         </body>
