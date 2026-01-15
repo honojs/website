@@ -47,6 +47,7 @@ Most of this middleware leverages external libraries.
 
 - [Apitally (API monitoring & analytics)](https://docs.apitally.io/frameworks/hono)
 - [Highlight.io](https://www.highlight.io/docs/getting-started/backend-sdk/js/hono)
+- [LogTape (Logging)](https://logtape.org/manual/integrations#hono)
 - [OpenTelemetry](https://github.com/honojs/middleware/tree/main/packages/otel)
 - [Prometheus Metrics](https://github.com/honojs/middleware/tree/main/packages/prometheus)
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
