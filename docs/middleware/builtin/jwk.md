@@ -80,6 +80,7 @@ const id_payload = await verifyWithJwks(
   id_token,
   {
     jwks_uri: 'https://your-auth-server/.well-known/jwks.json',
+    allowedAlgorithms: ['RS256'],
   },
   {
     cf: { cacheEverything: true, cacheTtl: 3600 },
