@@ -32,7 +32,7 @@ For Deno, you have to modify the `deno.json` instead of the `tsconfig.json`:
 {
   "compilerOptions": {
     "jsx": "precompile",
-    "jsxImportSource": "hono/jsx"
+    "jsxImportSource": "@hono/hono/jsx"
   }
 }
 ```
