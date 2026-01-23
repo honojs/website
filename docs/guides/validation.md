@@ -332,7 +332,7 @@ bun add zod
 :::
 
 ```ts
-import { z } from 'zod'
+import * as z from 'zod'
 import { sValidator } from '@hono/standard-validator'
 
 const schema = z.object({
