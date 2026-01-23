@@ -5,7 +5,7 @@ By using a validator, you can handle invalid input more easily. This example sho
 Although this snippet employs [Zod Validator](https://github.com/honojs/middleware/blob/main/packages/zod-validator), you can apply a similar approach with any supported validator library.
 
 ```ts
-import { z } from 'zod'
+import * as z from 'zod'
 import { zValidator } from '@hono/zod-validator'
 
 const app = new Hono()
