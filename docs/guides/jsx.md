@@ -116,6 +116,10 @@ app.get('/about', (c) => {
 export default app
 ```
 
+:::info
+When hoisting occurs, existing elements are not removed. Elements appearing later are added to the end. For example, if you have `<title>Default</title>` in your `<head>` and a component renders `<title>Page Title</title>`, both titles will appear in the head.
+:::
+
 ## Fragment
 
 Use Fragment to group multiple elements without adding extra nodes:
