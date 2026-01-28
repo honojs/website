@@ -335,7 +335,7 @@ How `jco transpile` is outside the scope of this guide, you can read more about 
 
 ## More information
 
-To learn moreabout WASI, WebAssembly components and more, see the following resources:
+To learn more about WASI, WebAssembly components and more, see the following resources:
 
 - [BytecodeAlliance Component Model book][cm-book]
 - [`jco` codebase][jco]
@@ -343,6 +343,12 @@ To learn moreabout WASI, WebAssembly components and more, see the following reso
 - [Jco book][jco-book]
 - [`componentize-js` codebase][componentize-js]
 - [StarlingMonkey codebase][sm]
+
+To reach out to the WebAssembly community with questions, comments, contributions or to file issues:
+
+- [Bytecode Alliance Zulip](https://bytecodealliance.zulipchat.com) (consider posting in the [#jco channel](https://bytecodealliance.zulipchat.com/#narrow/channel/409526-jco))
+- [Jco repository](https://github.com/bytecodealliance/jco)
+- [componentize-js repository](https://github.com/bytecodealliance/componentize-js)
 
 [cm-book]: https://component-model.bytecodealliance.org/
 [jco-book]: https://bytecodealliance.github.io/jco/
