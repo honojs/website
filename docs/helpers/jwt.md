@@ -65,7 +65,7 @@ This function checks if a JWT token is genuine and still valid. It ensures the t
 verify(
   token: string,
   secret: string,
-  alg?: 'HS256';
+  alg: 'HS256';
   issuer?: string | RegExp;
 ): Promise<any>;
 
@@ -79,7 +79,7 @@ import { verify } from 'hono/jwt'
 const tokenToVerify = 'token'
 const secretKey = 'mySecretKey'
 
-const decodedPayload = await verify(tokenToVerify, secretKey)
+const decodedPayload = await verify(tokenToVerify, secretKey, 'HS256')
 console.log(decodedPayload)
 ```
 
@@ -95,9 +95,9 @@ The JWT token to be verified.
 
 The secret key used for JWT verification or signing.
 
-#### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
+#### <Badge type="danger" text="required" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
 
-The algorithm used for JWT signing or verification. The default is HS256.
+The algorithm used for JWT signing or verification.
 
 #### <Badge type="info" text="optional" /> issuer: `string | RegExp`
 
