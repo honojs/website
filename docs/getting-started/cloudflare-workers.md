@@ -275,9 +275,9 @@ Before deploying code to Cloudflare via CI, you need a Cloudflare token. You can
 
 If it's a newly created token, select the **Edit Cloudflare Workers** template, if you already have another token, make sure the token has the corresponding permissions(No, token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
 
-then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
+Then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
 
-then create `.github/workflows/deploy.yml` in your Hono project root folder, paste the following code:
+Then create `.github/workflows/deploy.yml` in your Hono project root folder, paste the following code:
 
 ```yml
 name: Deploy
@@ -293,6 +293,8 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v4
+      - name: Install Wrangler v4
+        run: npm install --save-dev wrangler@4
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
