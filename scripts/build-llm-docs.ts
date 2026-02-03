@@ -3,6 +3,7 @@ import path from 'node:path'
 import { glob } from 'node:fs/promises'
 
 const frontmatterRegex = /^\n*---(\n.+)*?\n---\n/
+const doubleNewLineRegex = /(\n{2})/g
 
 const docsDir = path.resolve('docs')
 
@@ -14,7 +15,7 @@ const extractLabel = (file: string) => {
   return sliceExt(file.split('/').pop() || '')
 }
 
-function capitalizeDelimiter(str) {
+function capitalizeDelimiter(str: string) {
   return str
     .split('-')
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
@@ -64,7 +65,8 @@ async function generateLLMDocs() {
   const fullContent = await generateContent(
     files,
     docsDir,
-    '<SYSTEM>This is the full developer documentation for Hono.</SYSTEM>\n\n'
+    '<SYSTEM>This is the full developer documentation for Hono.</SYSTEM>\n\n',
+    false
   )
 
   fs.writeFileSync(outputFullFile, fullContent, 'utf-8')
@@ -75,13 +77,15 @@ async function generateLLMDocs() {
   const tinyExclude = ['concepts', 'helpers', 'middleware']
   const tinyFiles = await glob('**/*.md', {
     cwd: docsDir,
-    exclude: (filename: string) => tinyExclude.includes(filename),
+    exclude: (filename: string) =>
+      tinyExclude.every((exc) => !filename.includes(exc)),
   })
 
   const tinyContent = await generateContent(
     tinyFiles,
     docsDir,
-    '<SYSTEM>This is the tiny developer documentation for Hono.</SYSTEM>\n\n'
+    '<SYSTEM>This is the tiny developer documentation for Hono.</SYSTEM>\n\n',
+    true
   )
 
   fs.writeFileSync(outputTinyFile, tinyContent, 'utf-8')
@@ -91,7 +95,8 @@ async function generateLLMDocs() {
 async function generateContent(
   files: NodeJS.AsyncIterator<string>,
   docsDir: string,
-  header: string
+  header: string,
+  isTiny: boolean
 ): Promise<string> {
   let content = header + '# Start of Hono documentation\n'
 
@@ -101,7 +106,10 @@ async function generateContent(
       path.resolve(docsDir, file),
       'utf-8'
     )
-    content += fileContent.replace(frontmatterRegex, '') + '\n\n'
+    content +=
+      fileContent
+        .replace(frontmatterRegex, '')
+        .replace(doubleNewLineRegex, isTiny ? '\n' : '$1') + '\n'
   }
 
   return content
