@@ -14,7 +14,7 @@ const extractLabel = (file: string) => {
   return sliceExt(file.split('/').pop() || '')
 }
 
-function capitalizeDelimiter(str) {
+function capitalizeDelimiter(str: string) {
   return str
     .split('-')
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
@@ -24,15 +24,16 @@ function capitalizeDelimiter(str) {
 async function generateLLMDocs() {
   const outputListFile = path.resolve('public/llms.txt')
 
-  const optionalFiles = await glob('**/*.md', { cwd: docsDir })
-
-  const optionals: string[] = []
-
-  for await (const file of optionalFiles) {
-    optionals.push(
-      `- [${capitalizeDelimiter(extractLabel(file)).replace(/-/, ' ')}](https://hono.dev/docs/${sliceExt(file)})`
-    )
+  const optionalFiles: string[] = []
+  for await (const file of glob('**/*.md', { cwd: docsDir })) {
+    optionalFiles.push(file)
   }
+  optionalFiles.sort()
+
+  const optionals = optionalFiles.map(
+    (file) =>
+      `- [${capitalizeDelimiter(extractLabel(file)).replace(/-/, ' ')}](https://hono.dev/docs/${sliceExt(file)})`
+  )
 
   fs.writeFileSync(
     outputListFile,
@@ -59,10 +60,14 @@ async function generateLLMDocs() {
   console.log(`< Output '${outputListFile}' `)
 
   const outputFullFile = path.resolve('public/llms-full.txt')
-  const files = await glob('**/*.md', { cwd: docsDir })
+  const fullFiles: string[] = []
+  for await (const file of glob('**/*.md', { cwd: docsDir })) {
+    fullFiles.push(file)
+  }
+  fullFiles.sort()
 
   const fullContent = await generateContent(
-    files,
+    fullFiles,
     docsDir,
     '<SYSTEM>This is the full developer documentation for Hono.</SYSTEM>\n\n'
   )
@@ -72,11 +77,16 @@ async function generateLLMDocs() {
 
   const outputTinyFile = path.resolve('public/llms-small.txt')
 
+  // Note: glob's `exclude` option doesn't work in Bun runtime
+  // so we manually filter the files instead
   const tinyExclude = ['concepts', 'helpers', 'middleware']
-  const tinyFiles = await glob('**/*.md', {
-    cwd: docsDir,
-    exclude: (filename: string) => tinyExclude.includes(filename),
-  })
+  const tinyFiles: string[] = []
+  for await (const file of glob('**/*.md', { cwd: docsDir })) {
+    if (!tinyExclude.some((exc) => file.startsWith(`${exc}/`))) {
+      tinyFiles.push(file)
+    }
+  }
+  tinyFiles.sort()
 
   const tinyContent = await generateContent(
     tinyFiles,
@@ -89,7 +99,7 @@ async function generateLLMDocs() {
 }
 
 async function generateContent(
-  files: NodeJS.AsyncIterator<string>,
+  files: AsyncIterable<string> | string[],
   docsDir: string,
   header: string
 ): Promise<string> {
