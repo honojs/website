@@ -75,7 +75,8 @@ async function generateLLMDocs() {
   const tinyExclude = ['concepts', 'helpers', 'middleware']
   const tinyFiles = await glob('**/*.md', {
     cwd: docsDir,
-    exclude: (filename: string) => tinyExclude.includes(filename),
+    exclude: (filename: string) =>
+      tinyExclude.some((exclude) => filename.startsWith(exclude)),
   })
 
   const tinyContent = await generateContent(
