@@ -222,7 +222,7 @@ describe('Test the application', () => {
 
 ## Bindings
 
-In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "_type struct_" for the bindings to the `Hono` as generics.
+In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "_type definition_" for the bindings to the `Hono` as generics.
 
 ```ts
 type Bindings = {
