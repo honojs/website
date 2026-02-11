@@ -25,6 +25,7 @@ app.use(
   '/auth/*',
   jwk({
     jwks_uri: `https://${backendServer}/.well-known/jwks.json`,
+    alg: ['RS256'],
   })
 )
 
@@ -42,6 +43,7 @@ app.use(
   '/auth/*',
   jwk({
     jwks_uri: `https://${backendServer}/.well-known/jwks.json`,
+    alg: ['RS256'],
   })
 )
 
@@ -61,6 +63,7 @@ app.use(
   jwk({
     jwks_uri: (c) =>
       `https://${c.env.authServer}/.well-known/jwks.json`,
+    alg: ['RS256'],
     allow_anon: true,
   })
 )
@@ -89,6 +92,12 @@ const id_payload = await verifyWithJwks(
 ```
 
 ## Options
+
+### <Badge type="danger" text="required" /> alg: `AsymmetricAlgorithm[]`
+
+An array of allowed asymmetric algorithms used for token verification.
+
+Available types are `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`.
 
 ### <Badge type="info" text="optional" /> keys: `HonoJsonWebKey[] | (c: Context) => Promise<HonoJsonWebKey[]>`
 
