@@ -91,6 +91,31 @@ const id_payload = await verifyWithJwks(
 )
 ```
 
+## Configuring JWKS fetch request options
+
+To configure how JWKS is retrieved from `jwks_uri`, pass fetch request options as the second argument of `jwk()`.
+
+This argument is `RequestInit` and is used only for the JWKS fetch request.
+
+```ts
+const app = new Hono()
+
+app.use(
+  '/auth/*',
+  jwk(
+    {
+      jwks_uri: `https://${backendServer}/.well-known/jwks.json`,
+      alg: ['RS256'],
+    },
+    {
+      headers: {
+        Authorization: 'Bearer TOKEN',
+      },
+    }
+  )
+)
+```
+
 ## Options
 
 ### <Badge type="danger" text="required" /> alg: `AsymmetricAlgorithm[]`
