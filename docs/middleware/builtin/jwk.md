@@ -118,3 +118,7 @@ If this value is set, then the value is retrieved from the cookie header using t
 ### <Badge type="info" text="optional" /> headerName: `string`
 
 The name of the header to look for the JWT token. The default is `Authorization`.
+
+### <Badge type="info" text="optional" /> verification: `VerifyOptions`
+
+If this option is set, you can specify validation rules for claims in the JWT payload (`iss` / `aud` / `exp` / `nbf` / `iat`), in addition to signature verification.
