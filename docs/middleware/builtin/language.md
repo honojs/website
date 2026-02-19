@@ -98,6 +98,22 @@ app.use(
 )
 ```
 
+### Progressive Locale Matching
+
+When a detected locale code like `ja-JP` is not in `supportedLanguages`, the middleware progressively truncates subtags to find a match. For example, `zh-Hant-CN` will try `zh-Hant`, then `zh`. An exact match is always preferred.
+
+```ts
+app.use(
+  languageDetector({
+    supportedLanguages: ['en', 'ja', 'zh-Hant'],
+    fallbackLanguage: 'en',
+  })
+)
+
+// Accept-Language: ja-JP → matches 'ja'
+// Accept-Language: zh-Hant-CN → matches 'zh-Hant'
+```
+
 ### Language Code Transformation
 
 Normalize complex codes (e.g., en-US → en):
