@@ -472,6 +472,40 @@ const url = client.api.posts.$url()
 
 This is useful when you want to use the URL as a type-safe key for libraries like SWR.
 
+## `$path()`
+
+`$path()` is similar to `$url()`, but returns a path string instead of a `URL` object. Unlike `$url()`, it does not include the base URL origin, so it works regardless of the base URL you pass to `hc`.
+
+```ts
+const route = app
+  .get('/api/posts', (c) => c.json({ posts }))
+  .get('/api/posts/:id', (c) => c.json({ post }))
+
+const client = hc<typeof route>('http://localhost:8787/')
+
+let path = client.api.posts.$path()
+console.log(path) // `/api/posts`
+
+path = client.api.posts[':id'].$path({
+  param: {
+    id: '123',
+  },
+})
+console.log(path) // `/api/posts/123`
+```
+
+You can also pass query parameters:
+
+```ts
+const path = client.api.posts.$path({
+  query: {
+    page: '1',
+    limit: '10',
+  },
+})
+console.log(path) // `/api/posts?page=1&limit=10`
+```
+
 ## File Uploads
 
 You can upload files using a form body:
