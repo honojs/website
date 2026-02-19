@@ -158,6 +158,53 @@ type ResponseType200 = InferResponseType<
 >
 ```
 
+## Global Response
+
+Hono RPC client doesn't automatically infer response types from global error handlers like `app.onError()` or global middleware. You can use the `ApplyGlobalResponse` type helper to merge global error response types into all routes.
+
+```ts
+import type { ApplyGlobalResponse } from 'hono/client'
+
+const app = new Hono()
+  .get('/api/users', (c) => c.json({ users: ['alice', 'bob'] }, 200))
+  .onError((err, c) => c.json({ error: err.message }, 500))
+
+type AppWithErrors = ApplyGlobalResponse<
+  typeof app,
+  {
+    500: { json: { error: string } }
+  }
+>
+
+const client = hc<AppWithErrors>('http://localhost')
+```
+
+Now the client knows about both success and error responses:
+
+```ts
+const res = await client.api.users.$get()
+
+if (res.ok) {
+  const data = await res.json() // { users: string[] }
+}
+
+// InferResponseType includes the global error type
+type ResType = InferResponseType<typeof client.api.users.$get>
+// { users: string[] } | { error: string }
+```
+
+You can also define multiple global error status codes at once:
+
+```ts
+type AppWithErrors = ApplyGlobalResponse<
+  typeof app,
+  {
+    401: { json: { error: string; message: string } }
+    500: { json: { error: string; message: string } }
+  }
+>
+```
+
 ## Not Found
 
 If you want to use a client, you should not use `c.notFound()` for the Not Found response. The data that the client gets from the server cannot be inferred correctly.
