@@ -167,9 +167,7 @@ import type { ApplyGlobalResponse } from 'hono/client'
 
 const app = new Hono()
   .get('/api/users', (c) => c.json({ users: ['alice', 'bob'] }, 200))
-  .onError((err, c) =>
-    c.json({ error: err.message }, 500)
-  )
+  .onError((err, c) => c.json({ error: err.message }, 500))
 
 type AppWithErrors = ApplyGlobalResponse<
   typeof app,
