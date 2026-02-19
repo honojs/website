@@ -257,6 +257,29 @@ toSSG(app, fs, {
 })
 ```
 
+### Redirect Plugin
+
+The `redirectPlugin` generates HTML redirect pages for routes that return HTTP redirect responses (301, 302, 303, 307, 308). The generated HTML includes a `<meta http-equiv="refresh">` tag and a canonical link.
+
+```ts
+import { toSSG, redirectPlugin, defaultPlugin } from 'hono/ssg'
+
+toSSG(app, fs, {
+  plugins: [redirectPlugin(), defaultPlugin()],
+})
+```
+
+For example, if your app has:
+
+```ts
+app.get('/old', (c) => c.redirect('/new'))
+```
+
+The `redirectPlugin` will generate an HTML file at `/old.html` with a meta refresh redirect to `/new`.
+
+> [!NOTE]
+> When used with `defaultPlugin`, place `redirectPlugin` **before** `defaultPlugin`. Since `defaultPlugin` skips non-200 responses, placing it first would prevent `redirectPlugin` from processing redirect responses.
+
 ### Hook Types
 
 Plugins can use the following hooks to customize the `toSSG` process:
