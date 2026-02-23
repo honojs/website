@@ -4,11 +4,11 @@ Vercel is the AI cloud, providing the developer tools and cloud infrastructure t
 
 Hono can be deployed to Vercel with zero-configuration.
 
-## 1. Setup
+## 1. セットアップ
 
-A starter for Vercel is available.
-Start your project with "create-hono" command.
-Select `vercel` template for this example.
+Vercel 向けのスターターもあります。
+"create-hono" コマンドで始めましょう。
+`vercel` テンプレートを選択します。
 
 ::: code-group
 
@@ -34,7 +34,7 @@ deno init --npm hono my-app
 
 :::
 
-Move into `my-app` and install the dependencies.
+`my-app` に移動し、依存関係をインストールします。
 
 ::: code-group
 
@@ -95,7 +95,7 @@ vercel dev
 
 Visiting `localhost:3000` will respond with a text response.
 
-## 4. Deploy
+## 4. デプロイ
 
 Deploy to Vercel using `vc deploy`.
 

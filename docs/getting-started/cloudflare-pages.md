@@ -1,16 +1,16 @@
 # Cloudflare Pages
 
-[Cloudflare Pages](https://pages.cloudflare.com) is an edge platform for full-stack web applications.
-It serves static files and dynamic content provided by Cloudflare Workers.
+[Cloudflare Pages](https://pages.cloudflare.com) はフルスタックアプリケーションのためのエッジプラットフォームです。
+静的なファイルと Cloudflare Workes を用いた動的なコンテンツを提供します。
 
-Hono fully supports Cloudflare Pages.
-It introduces a delightful developer experience. Vite's dev server is fast, and deploying with Wrangler is super quick.
+Hono は完璧に Cloudflare Pages をサポートします。
+楽しい開発体験ができます。 Vite の開発サーバーは高速で、 Wrangler を使ったデプロイは爆速です。
 
 ## 1. Setup
 
-A starter for Cloudflare Pages is available.
-Start your project with "create-hono" command.
-Select `cloudflare-pages` template for this example.
+Cloudflare Pages 向けのスターターも準備されています。
+"create-hono" コマンドでプロジェクトを開始できます。
+この例では、 `cloudflare-pages` テンプレートを選択します。
 
 ::: code-group
 
@@ -36,7 +36,7 @@ deno init --npm hono my-app
 
 :::
 
-Move into `my-app` and install the dependencies.
+`my-app` に移動して依存関係をインストールします。
 
 ::: code-group
 
@@ -62,7 +62,7 @@ bun i
 
 :::
 
-Below is a basic directory structure.
+以下が基本的なディレクトリ構成です。
 
 ```text
 ./
@@ -79,7 +79,7 @@ Below is a basic directory structure.
 
 ## 2. Hello World
 
-Edit `src/index.tsx` like the following:
+`src/index.tsx` をこのように変更します:
 
 ```tsx
 import { Hono } from 'hono'
@@ -96,9 +96,9 @@ app.get('/', (c) => {
 export default app
 ```
 
-## 3. Run
+## 3. 実行
 
-Run the development server locally. Then, access `http://localhost:5173` in your Web browser.
+開発サーバーをローカルで実行して、 Web ブラウザで `http://localhost:5173` にアクセスします。
 
 ::: code-group
 
@@ -120,9 +120,9 @@ bun run dev
 
 :::
 
-## 4. Deploy
+## 4. デプロイ
 
-If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
+Cloudflare アカウントを持っている場合は Cloudflare にデプロイできます。 `package.json` の `$npm_execpath` は選んだパッケージマネージャに変更する必要があります。
 
 ::: code-group
 
@@ -144,11 +144,11 @@ bun run deploy
 
 :::
 
-### Deploy via the Cloudflare dashboard with GitHub
+### Cloudflare ダッシュボードから GitHub 連携でデプロイする
 
-1. Log in to the [Cloudflare dashboard](https://dash.cloudflare.com) and select your account.
-2. In Account Home, select Workers & Pages > Create application > Pages > Connect to Git.
-3. Authorize your GitHub account, and select the repository. In Set up builds and deployments, provide the following information:
+1. [Cloudflare dashboard](https://dash.cloudflare.com) にログインしてアカウントを選択します。
+2. Account Home で Workers & Pages > Create application > Pages > Connect to Git を選択します。
+3. GitHub アカウントを認可して、リポジトリを選択します。 ビルドとデプロイの設定は次のようになります:
 
 | Configuration option | Value           |
 | -------------------- | --------------- |
@@ -156,41 +156,41 @@ bun run deploy
 | Build command        | `npm run build` |
 | Build directory      | `dist`          |
 
-## Bindings
+## バインディング
 
-You can use Cloudflare Bindings like Variables, KV, D1, and others.
-In this section, let's use Variables and KV.
+Variables 、 KV 、 D1 などの Cloudflare バインディングを使うことができます。
+このセクションでは Variables と KV のセットアップを解説します。
 
-### Create `wrangler.toml`
+### `wrangler.toml` を作る
 
-First, create `wrangler.toml` for local Bindings:
+まずは、ローカルバインディング用に `wrangler.toml` を作成します:
 
 ```sh
 touch wrangler.toml
 ```
 
-Edit `wrangler.toml`. Specify Variable with the name `MY_NAME`.
+`wrangler.toml` を編集して、 `MY_NAME` の Variable を設定します。
 
 ```toml
 [vars]
 MY_NAME = "Hono"
 ```
 
-### Create KV
+### KV を作る
 
-Next, make the KV. Run the following `wrangler` command:
+次に、 KV を作ります。 以下の `wrangler` コマンドを実行します:
 
 ```sh
 wrangler kv namespace create MY_KV --preview
 ```
 
-Note down the `preview_id` as the following output:
+このような出力があるので `preview_id` をメモしてください:
 
 ```
 { binding = "MY_KV", preview_id = "abcdef" }
 ```
 
-Specify `preview_id` with the name of Bindings, `MY_KV`:
+`MY_KV` のバインディングで `preview_id` を設定します:
 
 ```toml
 [[kv_namespaces]]
@@ -198,9 +198,9 @@ binding = "MY_KV"
 id = "abcdef"
 ```
 
-### Edit `vite.config.ts`
+### `vite.config.ts` を変更する
 
-Edit the `vite.config.ts`:
+`vite.config.ts` を変更します:
 
 ```ts
 import devServer from '@hono/vite-dev-server'
@@ -219,9 +219,9 @@ export default defineConfig({
 })
 ```
 
-### Use Bindings in your application
+### アプリケーションでバインディングを使用する
 
-Use Variable and KV in your application. Set the types.
+Variable と KV をアプリケーションで使用します。 まずは、型を設定します。
 
 ```ts
 type Bindings = {
@@ -232,7 +232,7 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>()
 ```
 
-Use them:
+使います:
 
 ```tsx
 app.get('/', async (c) => {
@@ -242,15 +242,15 @@ app.get('/', async (c) => {
 })
 ```
 
-### In production
+### 本番環境では
 
-For Cloudflare Pages, you will use `wrangler.toml` for local development, but for production, you will set up Bindings in the dashboard.
+Cloudflare Pages では、ローカル開発用には `wrangler.toml` を使用しますが、本番環境ではダッシュボードでバインディングを設定します。
 
-## Client-side
+## クライアントサイド
 
-You can write client-side scripts and import them into your application using Vite's features.
-If `/src/client.ts` is the entry point for the client, simply write it in the script tag.
-Additionally, `import.meta.env.PROD` is useful for detecting whether it's running on a dev server or in the build phase.
+Vite の機能を使ってクライアントサイドのスクリプトを書いてアプリケーションに組み込むことができます。
+`/src/client.ts` がクライアントのエントリポイントのとき、 script タグに書くだけです。
+更に、 `import.meta.env.PROD` は動作環境が開発サーバーかビルド中かを検出するために有用です。
 
 ```tsx
 app.get('/', (c) => {
@@ -271,7 +271,7 @@ app.get('/', (c) => {
 })
 ```
 
-In order to build the script properly, you can use the example config file `vite.config.ts` as shown below.
+スクリプトをうまくビルドするために、下に示すような設定の例を `vite.config.ts` に使うことができます。
 
 ```ts
 import pages from '@hono/vite-cloudflare-pages'
@@ -303,15 +303,15 @@ export default defineConfig(({ mode }) => {
 })
 ```
 
-You can run the following command to build the server and client script.
+次のコマンドを実行して、サーバーとクライアントスクリプトをビルドします。
 
 ```sh
 vite build --mode client && vite build
 ```
 
-## Cloudflare Pages Middleware
+## Cloudflare Pages のミドルウェア
 
-Cloudflare Pages uses its own [middleware](https://developers.cloudflare.com/pages/functions/middleware/) system that is different from Hono's middleware. You can enable it by exporting `onRequest` in a file named `_middleware.ts` like this:
+Cloudflare Pages は Hono とは違う[ミドルウェア](https://developers.cloudflare.com/pages/functions/middleware/)システムを持っています。 `_middleware.ts` で `onRequest` を export することで有効化できます:
 
 ```ts
 // functions/_middleware.ts
@@ -321,7 +321,7 @@ export async function onRequest(pagesContext) {
 }
 ```
 
-Using `handleMiddleware`, you can use Hono's middleware as Cloudflare Pages middleware.
+`handleMiddleware` を使うことで、 Hono のミドルウェアを Cloudflare Pages のミドルウェアとして使うことができます。
 
 ```ts
 // functions/_middleware.ts
@@ -333,7 +333,7 @@ export const onRequest = handleMiddleware(async (c, next) => {
 })
 ```
 
-You can also use built-in and 3rd party middleware for Hono. For example, to add Basic Authentication, you can use [Hono's Basic Authentication Middleware](/docs/middleware/builtin/basic-auth).
+Hono のビルトイン、サードパーティミドルウェアも使うことができます。 例えば、 Basic 認証を追加するために [Hono の Basic 認証ミドルウェア](/docs/middleware/builtin/basic-auth) を使うことができます。
 
 ```ts
 // functions/_middleware.ts
@@ -348,7 +348,7 @@ export const onRequest = handleMiddleware(
 )
 ```
 
-If you want to apply multiple middleware, you can write it like this:
+このように複数のミドルウェアを使うこともできます:
 
 ```ts
 import { handleMiddleware } from 'hono/cloudflare-pages'
@@ -362,9 +362,9 @@ export const onRequest = [
 ]
 ```
 
-### Accessing `EventContext`
+### `EventContext` へのアクセス
 
-You can access [`EventContext`](https://developers.cloudflare.com/pages/functions/api-reference/#eventcontext) object via `c.env` in `handleMiddleware`.
+[`EventContext`](https://developers.cloudflare.com/pages/functions/api-reference/#eventcontext) オブジェクトには `handleMiddleware` の `c.env` からアクセスできます。
 
 ```ts
 // functions/_middleware.ts
@@ -378,7 +378,7 @@ export const onRequest = [
 ]
 ```
 
-Then, you can access the data value in via `c.env.eventContext` in the handler:
+次に、ハンドラでは `c.env.eventContext` からセットしたデータにアクセスできます:
 
 ```ts
 // functions/api/[[route]].ts

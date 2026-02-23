@@ -1,10 +1,10 @@
 # HonoRequest
 
-The `HonoRequest` is an object that can be taken from `c.req` which wraps a [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
+`HonoRequest` は [Request](https://developer.mozilla.org/en-US/docs/Web/API/Request) をラップするオブジェクトで、 `c.req` からアクセスできます。
 
 ## param()
 
-Get the values of path parameters.
+パスパラメータの値を取得します。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -26,7 +26,7 @@ app.get('/entry/:id/comment/:commentId', async (c) => {
 
 ## query()
 
-Get querystring parameters.
+クエリパラメータを取得します。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -47,7 +47,7 @@ app.get('/search', async (c) => {
 
 ## queries()
 
-Get multiple querystring parameter values, e.g. `/search?tags=A&tags=B`
+複数のクエリパラメータを取得します。 例: `/search?tags=A&tags=B`
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -63,7 +63,7 @@ app.get('/search', async (c) => {
 
 ## header()
 
-Get the request header value.
+リクエストのヘッダを取得します。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -77,10 +77,10 @@ app.get('/', (c) => {
 ```
 
 ::: warning
-When `c.req.header()` is called with no arguments, all keys in the returned record are **lowercase**.
+引数無しで `c.req.header()` が呼ばれた場合、すべてのレコードのキーは **小文字** になって返されます。
 
-If you want to get the value of a header with an uppercase name,
-use `c.req.header(“X-Foo”)`.
+大文字を使ったヘッダ名で値を取得したい場合は
+`c.req.header(“X-Foo”)` のように使います。
 
 ```ts
 // ❌ Will not work
@@ -95,7 +95,7 @@ const foo = c.req.header('X-Foo')
 
 ## parseBody()
 
-Parse Request body of type `multipart/form-data` or `application/x-www-form-urlencoded`
+`multipart/form-data` または `application/x-www-form-urlencoded` のリクエストボディをパースします。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -107,9 +107,9 @@ app.post('/entry', async (c) => {
 })
 ```
 
-`parseBody()` supports the following behaviors.
+`parseBody()` は次の動作をサポートします。
 
-**Single file**
+**単一ファイル**
 
 ```ts twoslash
 import { Context } from 'hono'
@@ -122,9 +122,9 @@ const data = body['foo']
 
 `body['foo']` is `(string | File)`.
 
-If multiple files are uploaded, the last one will be used.
+複数のファイルがアップロードされた場合、最後のファイルが取得されます。
 
-### Multiple files
+### 複数ファイル
 
 ```ts twoslash
 import { Context } from 'hono'
@@ -134,11 +134,11 @@ const body = await c.req.parseBody()
 body['foo[]']
 ```
 
-`body['foo[]']` is always `(string | File)[]`.
+`body['foo[]']` は常に `(string | File)[]` です。
 
-`[]` postfix is required.
+`[]` ポストフィックスが必要です。
 
-### Multiple files or fields with same name
+### 同じ名前の複数ファイルやフィールド
 
 If you have a input field that allows multiple `<input type="file" multiple />` or multiple checkboxes with the same name `<input type="checkbox" name="favorites" value="Hono"/>`.
 
@@ -150,16 +150,16 @@ const body = await c.req.parseBody({ all: true })
 body['foo']
 ```
 
-`all` option is disabled by default.
+`all` オプションはデフォルトで無効です。
 
-- If `body['foo']` is multiple files, it will be parsed to `(string | File)[]`.
-- If `body['foo']` is single file, it will be parsed to `(string | File)`.
+- `body['foo']` が複数ファイルだった場合、 `(string | File)[]` にパースされます。
+- `body['foo']` が単一ファイルだった場合、 `(string | File)` にパースされます。
 
-### Dot notation
+### ドット表記
 
-If you set the `dot` option `true`, the return value is structured based on the dot notation.
+`dot` オプションを `true` にした場合、戻り値はドット表記基づいて構造化されます。
 
-Imagine receiving the following data:
+このようなデータを受け取ることを考えてください:
 
 ```ts twoslash
 const data = new FormData()
@@ -167,7 +167,7 @@ data.append('obj.key1', 'value1')
 data.append('obj.key2', 'value2')
 ```
 
-You can get the structured value by setting the `dot` option `true`:
+`dot` オプションを `true` にすることで構造化された値を取得することができます:
 
 ```ts twoslash
 import { Context } from 'hono'
@@ -179,7 +179,7 @@ const body = await c.req.parseBody({ dot: true })
 
 ## json()
 
-Parses the request body of type `application/json`
+`application/json` のリクエストボディをパースします。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -193,7 +193,7 @@ app.post('/entry', async (c) => {
 
 ## text()
 
-Parses the request body of type `text/plain`
+`text/plain` のリクエストボディをパースします。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -207,7 +207,7 @@ app.post('/entry', async (c) => {
 
 ## arrayBuffer()
 
-Parses the request body as an `ArrayBuffer`
+リクエストボディを `ArrayBuffer` としてパースします。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -221,7 +221,7 @@ app.post('/entry', async (c) => {
 
 ## blob()
 
-Parses the request body as a `Blob`.
+リクエストボディを `Blob` としてパースします。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -235,7 +235,7 @@ app.post('/entry', async (c) => {
 
 ## formData()
 
-Parses the request body as a `FormData`.
+リクエストボディを `FormData` としてパースします。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -249,7 +249,7 @@ app.post('/entry', async (c) => {
 
 ## valid()
 
-Get the validated data.
+バリデーションされたデータを取得します。
 
 ```ts
 app.post('/posts', async (c) => {
@@ -258,7 +258,7 @@ app.post('/posts', async (c) => {
 })
 ```
 
-Available targets are below.
+これらのデータに対して利用可能です。
 
 - `form`
 - `json`
@@ -267,7 +267,7 @@ Available targets are below.
 - `cookie`
 - `param`
 
-See the [Validation section](/docs/guides/validation) for usage examples.
+[バリデーションセクション](/docs/guides/validation)で利用例を見てください。
 
 ## routePath
 
@@ -275,7 +275,7 @@ See the [Validation section](/docs/guides/validation) for usage examples.
 **Deprecated in v4.8.0**: This property is deprecated. Use `routePath()` from [Route Helper](/docs/helpers/route) instead.
 :::
 
-You can retrieve the registered path within the handler like this:
+ハンドラ内で定義されたパスをこのように取得できます:
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -286,7 +286,7 @@ app.get('/posts/:id', (c) => {
 })
 ```
 
-If you access `/posts/123`, it will return `/posts/:id`:
+`/posts/123` にアクセスしたとき、 `/posts/:id` が返されます:
 
 ```json
 { "path": "/posts/:id" }
@@ -298,7 +298,7 @@ If you access `/posts/123`, it will return `/posts/:id`:
 **Deprecated in v4.8.0**: This property is deprecated. Use `matchedRoutes()` from [Route Helper](/docs/helpers/route) instead.
 :::
 
-It returns matched routes within the handler, which is useful for debugging.
+ハンドラで一致したルートを返します、デバッグに適しています。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -324,7 +324,7 @@ app.use(async function logger(c, next) {
 
 ## path
 
-The request pathname.
+リクエストのパス。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -338,7 +338,7 @@ app.get('/about/me', async (c) => {
 
 ## url
 
-The request url strings.
+リクエストの URL 文字列。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -352,7 +352,7 @@ app.get('/about/me', async (c) => {
 
 ## method
 
-The method name of the request.
+リクエストの HTTP メソッド名。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -366,7 +366,7 @@ app.get('/about/me', async (c) => {
 
 ## raw
 
-The raw [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object.
+生の [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) オブジェクト。
 
 ```ts
 // For Cloudflare Workers

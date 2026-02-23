@@ -1,6 +1,6 @@
-# Dev Helper
+# Dev ヘルパー
 
-Dev Helper provides useful methods you can use in development.
+Dev ヘルパーは開発中に使用することができる便利なメソッドを提供します。
 
 ```ts
 import { Hono } from 'hono'
@@ -9,7 +9,7 @@ import { getRouterName, showRoutes } from 'hono/dev'
 
 ## `getRouterName()`
 
-You can get the name of the currently used router with `getRouterName()`.
+現在使用しているルーターの名前を `getRouterName()` で取得できます。
 
 ```ts
 const app = new Hono()
@@ -21,9 +21,9 @@ console.log(getRouterName(app))
 
 ## `showRoutes()`
 
-`showRoutes()` function displays the registered routes in your console.
+`showRoutes()` 関数はコンソールに登録されているルートを表示します。
 
-Consider an application like the following:
+次のようなアプリケーションを考えてみましょう:
 
 ```ts
 const app = new Hono().basePath('/v1')
@@ -45,7 +45,7 @@ showRoutes(app, {
 })
 ```
 
-When this application starts running, the routes will be shown in your console as follows:
+アプリケーションが起動する時、このようにルートがコンソールに表示されます:
 
 ```txt
 GET   /v1/posts
@@ -53,12 +53,12 @@ GET   /v1/posts/:id
 POST  /v1/posts
 ```
 
-## Options
+## オプション
 
 ### <Badge type="info" text="optional" /> verbose: `boolean`
 
-When set to `true`, it displays verbose information.
+`true` に設定すると、詳細な情報を表示します。
 
 ### <Badge type="info" text="optional" /> colorize: `boolean`
 
-When set to `false`, the output will not be colored.
+`false` に設定すると、出力に色が付きません。

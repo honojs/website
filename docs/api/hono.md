@@ -1,7 +1,7 @@
 # App - Hono
 
-`Hono` is the primary object.
-It will be imported first and used until the end.
+`Hono` は中心的なオブジェクトです。
+最初にインポートされ、最後まで使用されます。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -12,9 +12,9 @@ const app = new Hono()
 export default app // for Cloudflare Workers or Bun
 ```
 
-## Methods
+## メソッド
 
-An instance of `Hono` has the following methods.
+`Hono` のインスタンスには以下のメソッドがあります。
 
 - app.**HTTP_METHOD**(\[path,\]handler|middleware...)
 - app.**all**(\[path,\]handler|middleware...)
@@ -29,11 +29,11 @@ An instance of `Hono` has the following methods.
 - app.**fetch**(request, env, event)
 - app.**request**(path, options)
 
-The first part of them is used for routing, please refer to the [routing section](/docs/api/routing).
+これらの前半の部分はルーティングで使用されます。 [ルーティング](/docs/api/routing)を読んでください。
 
 ## Not Found
 
-`app.notFound` allows you to customize a Not Found Response.
+`app.notFound` を使用して Not Found レスポンスをカスタマイズできます。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -48,9 +48,9 @@ app.notFound((c) => {
 The `notFound` method is only called from the top-level app. For more information, see this [issue](https://github.com/honojs/hono/issues/3465#issuecomment-2381210165).
 :::
 
-## Error Handling
+## エラーハンドリング
 
-`app.onError` allows you to handle uncaught errors and return a custom Response.
+`app.onError` は処理されなかったエラーをハンドルし、カスタマイズしたレスポンスを返すことが出来ます。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -69,14 +69,14 @@ If both a parent app and its routes have `onError` handlers, the route-level han
 ## fire()
 
 ::: warning
-**`app.fire()` is deprecated**. Use `fire()` from `hono/service-worker` instead. See the [Service Worker documentation](/docs/getting-started/service-worker) for details.
+**`app.fire()` は非推奨です**。代わりに `hono/service-worker` から `fire()` を使ってください。 詳しくは[サービスワーカーのドキュメント](/docs/getting-started/service-worker) を読んでください。
 :::
 
-`app.fire()` automatically adds a global `fetch` event listener.
+`app.fire()` は自動で `fetch` イベントリスナーを追加します。
 
-This can be useful for environments that adhere to the [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), such as [non-ES module Cloudflare Workers](https://developers.cloudflare.com/workers/reference/migrate-to-module-workers/).
+これは [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API) を使用している [non-ES module Cloudflare Workers](https://developers.cloudflare.com/workers/reference/migrate-to-module-workers/) のような環境で上手く機能します。
 
-`app.fire()` executes the following for you:
+`app.fire()` はあなたの代わりに以下の作業を行います:
 
 ```ts
 addEventListener('fetch', (event: FetchEventLike): void => {
@@ -86,9 +86,9 @@ addEventListener('fetch', (event: FetchEventLike): void => {
 
 ## fetch()
 
-`app.fetch` will be entry point of your application.
+`app.fetch` はアプリケーションのエントリポイントです。
 
-For Cloudflare Workers, you can use the following:
+Cloudflare Workers ではこのように使用できます:
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -103,7 +103,7 @@ export default {
 }
 ```
 
-or just do:
+もしくは:
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -125,10 +125,10 @@ export default {  // [!code ++]
 
 ## request()
 
-`request` is a useful method for testing.
+`request` はテストに便利なメソッドです。
 
-You can pass a URL or pathname to send a GET request.
-`app` will return a `Response` object.
+URL かパスを渡して GET リクエストを送信します。
+`app` は `Response` オブジェクトを返します。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -142,7 +142,7 @@ test('GET /hello is ok', async () => {
 })
 ```
 
-You can also pass a `Request` object:
+また、 `Request` オブジェクトを渡すことも出来ます:
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -161,7 +161,7 @@ test('POST /message is ok', async () => {
 
 ## mount()
 
-The `mount()` allows you to mount applications built with other frameworks into your Hono application.
+`mount()` は他のフレームワークで書かれたアプリケーションを Hono のアプリケーションにマウントできます。
 
 ```ts
 import { Router as IttyRouter } from 'itty-router'
@@ -182,14 +182,14 @@ app.mount('/itty-router', ittyRouter.handle)
 
 ## strict mode
 
-Strict mode defaults to `true` and distinguishes the following routes.
+strict mode はデフォルトで `true` で、以下のルートが区別されます。
 
 - `/hello`
 - `/hello/`
 
-`app.get('/hello')` will not match `GET /hello/`.
+`app.get('/hello')` は `GET /hello/` にマッチしません。
 
-By setting strict mode to `false`, both paths will be treated equally.
+strict mode を `false` に設定した場合、2つのルートは等しくなります。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -197,9 +197,9 @@ import { Hono } from 'hono'
 const app = new Hono({ strict: false })
 ```
 
-## router option
+## ルーターオプション
 
-The `router` option specifies which router to use. The default router is `SmartRouter`. If you want to use `RegExpRouter`, pass it to a new `Hono` instance:
+`router` オプションはどのルーターを使うか指定できます。 デフォルトでは `SmartRouter` が使われます。 `RegExpRouter` を使いたい場合、このように `Hono` のインスタンスを生成してください。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -209,9 +209,9 @@ import { RegExpRouter } from 'hono/router/reg-exp-router'
 const app = new Hono({ router: new RegExpRouter() })
 ```
 
-## Generics
+## ジェネリクス
 
-You can pass Generics to specify the types of Cloudflare Workers Bindings and variables used in `c.set`/`c.get`.
+ジェネリクスを使用して、 `c.set` / `c.get` で使用される Cloudflare Workers バインディングと変数を追加します。
 
 ```ts twoslash
 import { Hono } from 'hono'

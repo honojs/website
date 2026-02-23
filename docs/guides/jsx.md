@@ -1,12 +1,12 @@
 # JSX
 
-You can write HTML with JSX syntax with `hono/jsx`.
+`hono/jsx` で、 HTML を JSX 構文で書くことができます。
 
-Although `hono/jsx` works on the client, you will probably use it most often when rendering content on the server side. Here are some things related to JSX that are common to both server and client.
+`hono/jsx` はクライアントでも動作しますが、サーバー側でコンテンツをレンダリングするとき最も頻繁に使うことになるでしょう。 ここでは、サーバーとクライアントの両方に共通する、 JSX に関するいくつかのことを説明します。
 
-## Settings
+## 設定
 
-To use JSX, modify the `tsconfig.json`:
+JSX を使うために `tsconfig.json` を変更します:
 
 `tsconfig.json`:
 
@@ -19,7 +19,7 @@ To use JSX, modify the `tsconfig.json`:
 }
 ```
 
-Alternatively, use the pragma directives:
+あるいは、プラグマを使用します:
 
 ```ts
 /** @jsx jsx */
@@ -37,7 +37,7 @@ For Deno, you have to modify the `deno.json` instead of the `tsconfig.json`:
 }
 ```
 
-## Usage
+## 使い方
 
 :::info
 If you are coming straight from the [Quick Start](/docs/#quick-start), the main file has a `.ts` extension - you need to change it to `.tsx` - otherwise you will not be able to run the application at all. You should additionally modify the `package.json` (or `deno.json` if you are using Deno) to reflect that change (e.g. instead of having `bun run --hot src/index.ts` in dev script, you should have `bun run --hot src/index.tsx`).
@@ -120,9 +120,9 @@ export default app
 When hoisting occurs, existing elements are not removed. Elements appearing later are added to the end. For example, if you have `<title>Default</title>` in your `<head>` and a component renders `<title>Page Title</title>`, both titles will appear in the head.
 :::
 
-## Fragment
+## フラグメント
 
-Use Fragment to group multiple elements without adding extra nodes:
+フラグメントを使用して、複数の要素を追加ノード無しでグループ化します:
 
 ```tsx
 import { Fragment } from 'hono/jsx'
@@ -136,7 +136,7 @@ const List = () => (
 )
 ```
 
-Or you can write it with `<></>` if it set up properly.
+きちんと設定されていれば、 `<></>` を使って書くこともできます。
 
 ```tsx
 const List = () => (
@@ -150,7 +150,7 @@ const List = () => (
 
 ## `PropsWithChildren`
 
-You can use `PropsWithChildren` to correctly infer a child element in a function component.
+`PropsWithChildren` を使用すると、関数コンポーネント内の子要素を正しく推論できます。
 
 ```tsx
 import { PropsWithChildren } from 'hono/jsx'
@@ -170,9 +170,9 @@ function Component({ title, children }: PropsWithChildren<Post>) {
 }
 ```
 
-## Inserting Raw HTML
+## 生 HTML の挿入
 
-To directly insert HTML, use `dangerouslySetInnerHTML`:
+直接 HTML を挿入するには、 `dangerouslySetInnerHTML` を使用します:
 
 ```tsx
 app.get('/foo', (c) => {
@@ -181,9 +181,9 @@ app.get('/foo', (c) => {
 })
 ```
 
-## Memoization
+## メモ
 
-Optimize your components by memoizing computed strings using `memo`:
+`memo` を使用して、計算済みの文字列を保存することでコンポーネントを最適化します:
 
 ```tsx
 import { memo } from 'hono/jsx'

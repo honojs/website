@@ -1,24 +1,24 @@
 # Node.js
 
-[Node.js](https://nodejs.org/) is an open-source, cross-platform JavaScript runtime environment.
+[Node.js](https://nodejs.org/) はオープンソースでクロスプラットフォームの JavaScript ランタイム環境です。
 
-Hono was not designed for Node.js at first. But with a [Node.js Adapter](https://github.com/honojs/node-server) it can run on Node.js as well.
+Hono は Node.js 向けに設計されたわけではありませんが、 [Node.js Adapter](https://github.com/honojs/node-server) を使うと Node.js でも実行できます。
 
 ::: info
-It works on Node.js versions greater than 18.x. The specific required Node.js versions are as follows:
+Node.js 18.x 以上で動作します。 具体的に必要な Node.js のバージョンは以下の通りです:
 
 - 18.x => 18.14.1+
 - 19.x => 19.7.0+
 - 20.x => 20.0.0+
 
-Essentially, you can simply use the latest version of each major release.
+具体的には、各メジャーリリースの最新バージョンを使用するだけです。
 :::
 
-## 1. Setup
+## 1. セットアップ
 
-A starter for Node.js is available.
-Start your project with "create-hono" command.
-Select `nodejs` template for this example.
+スターターは Node.js もサポートしています。
+"create-hono" コマンドで開発を開始しましょう。
+この例では `nodejs` テンプレートを選びます。
 
 ::: code-group
 
@@ -43,7 +43,7 @@ deno init --npm hono my-app
 ```
 
 :::
-Move to `my-app` and install the dependencies.
+`my-app` に移動して依存パッケージをインストールします。
 
 ::: code-group
 
@@ -71,7 +71,7 @@ bun i
 
 ## 2. Hello World
 
-Edit `src/index.ts`:
+`src/index.ts` を編集します:
 
 ```ts
 import { serve } from '@hono/node-server'
@@ -106,7 +106,7 @@ process.on('SIGTERM', () => {
 
 ## 3. Run
 
-Run the development server locally. Then, access `http://localhost:3000` in your Web browser.
+開発サーバーをローカルで起動し、ブラウザで `http://localhost:3000` にアクセスします。
 
 ::: code-group
 
@@ -124,9 +124,9 @@ pnpm dev
 
 :::
 
-## Change port number
+## ポートを変える
 
-You can specify the port number with the `port` option.
+`port` オプションでポート番号を指定できます。
 
 ```ts
 serve({
@@ -135,9 +135,9 @@ serve({
 })
 ```
 
-## Access the raw Node.js APIs
+## 生の Node.js API にアクセスする
 
-You can access the Node.js APIs from `c.env.incoming` and `c.env.outgoing`.
+Node.js API は `c.env.incoming` と `c.env.outgoing` で使用できます。
 
 ```ts
 import { Hono } from 'hono'
@@ -159,9 +159,9 @@ app.get('/', (c) => {
 serve(app)
 ```
 
-## Serve static files
+## 静的ファイルの配信
 
-You can use `serveStatic` to serve static files from the local file system. For example, suppose the directory structure is as follows:
+`serveStatic` を使うことでローカルファイルシステムから静的ファイルを配信できます。 以下のようなディレクトリ構成の場合を考えてみましょう:
 
 ```sh
 ./
@@ -172,7 +172,7 @@ You can use `serveStatic` to serve static files from the local file system. For 
     └── image.png
 ```
 
-If a request to the path `/static/*` comes in and you want to return a file under `./static`, you can write the following:
+`/static/*` にリクエストがあったときに `./static` にあるファイルを返したい場合は、下のように書けます:
 
 ```ts
 import { serveStatic } from '@hono/node-server/serve-static'
@@ -180,13 +180,13 @@ import { serveStatic } from '@hono/node-server/serve-static'
 app.use('/static/*', serveStatic({ root: './' }))
 ```
 
-Use the `path` option to serve `favicon.ico` in the directory root:
+`path` オプションを使って、ルートにある `favicon.ico` を配信します:
 
 ```ts
 app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
-If a request to the path `/hello.txt` or `/image.png` comes in and you want to return a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
+`/hello.txt` や `/image.png` がリクエストされたときに、 `./static/hello.txt` や `./static/image.png` といったファイル名のファイルを返すには、以下のように使います:
 
 ```ts
 app.use('*', serveStatic({ root: './static' }))
@@ -194,7 +194,7 @@ app.use('*', serveStatic({ root: './static' }))
 
 ### `rewriteRequestPath`
 
-If you want to map `http://localhost:3000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+`http://localhost:3000/static/*` を `./statics` にマップしたい場合は `rewriteRequestPath` オプションを使用できます:
 
 ```ts
 app.get(
@@ -209,7 +209,7 @@ app.get(
 
 ## http2
 
-You can run hono on a [Node.js http2 Server](https://nodejs.org/api/http2.html).
+Hono を [Node.js http2 Server](https://nodejs.org/api/http2.html) でも実行できます。
 
 ### unencrypted http2
 
@@ -264,7 +264,7 @@ Apps with a front-end framework may need to use [Hono's Vite plugins](https://gi
 
 ### Dockerfile
 
-Here is an example of a nodejs Dockerfile.
+以下は Node.js の Dockerfile の例です。
 
 ```Dockerfile
 FROM node:22-alpine AS base

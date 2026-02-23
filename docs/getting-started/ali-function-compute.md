@@ -1,10 +1,10 @@
 # Alibaba Cloud Function Compute
 
-[Alibaba Cloud Function Compute](https://www.alibabacloud.com/en/product/function-compute) is a fully managed, event-driven compute service. Function Compute allows you to focus on writing and uploading code without having to manage infrastructure such as servers.
+[Alibaba Cloud Function Compute](https://www.alibabacloud.com/en/product/function-compute) はフルマネージドな、イベント・ドリブンなコンピューティングサービスです。 Function Compute を使用するとサーバーのようなインフラを管理することなく、コードを書いてアップロードすることに集中できます。
 
-This guide uses a third-party adapter [rwv/hono-alibaba-cloud-fc3-adapter](https://github.com/rwv/hono-alibaba-cloud-fc3-adapter) to run Hono on Alibaba Cloud Function Compute.
+このガイドではサードパーティアダプタの [rwv/hono-alibaba-cloud-fc3-adapter](https://github.com/rwv/hono-alibaba-cloud-fc3-adapter) を使って Alibaba Cloud Function Compute で Hono を動かします。
 
-## 1. Setup
+## 1. セットアップ
 
 ::: code-group
 
@@ -48,7 +48,7 @@ touch src/index.ts
 
 ## 2. Hello World
 
-Edit `src/index.ts`.
+`src/index.ts` を書きます。
 
 ```ts
 import { Hono } from 'hono'
@@ -61,11 +61,11 @@ app.get('/', (c) => c.text('Hello Hono!'))
 export const handler = handle(app)
 ```
 
-## 3. Setup serverless-devs
+## 3. serverless-devs をセットアップする
 
 > [serverless-devs](https://github.com/Serverless-Devs/Serverless-Devs) is an open source and open serverless developer platform dedicated to providing developers with a powerful tool chain system. Through this platform, developers can not only experience multi cloud serverless products with one click and rapidly deploy serverless projects, but also manage projects in the whole life cycle of serverless applications, and combine serverless devs with other tools / platforms very simply and quickly to further improve the efficiency of R & D, operation and maintenance.
 
-Add the Alibaba Cloud AccessKeyID & AccessKeySecret
+Alibaba Cloud AccessKeyID と AccessKeySecret を追加します。
 
 ```sh
 npx s config add
@@ -73,7 +73,7 @@ npx s config add
 # Input your AccessKeyID & AccessKeySecret
 ```
 
-Edit `s.yaml`
+`s.yaml` を書きます。
 
 ```yaml
 edition: 3.0.0
@@ -97,7 +97,7 @@ resources:
       timeout: 300
 ```
 
-Edit `scripts` section in `package.json`:
+`package.json` の `scripts` を追加します:
 
 ```json
 {
@@ -108,9 +108,9 @@ Edit `scripts` section in `package.json`:
 }
 ```
 
-## 4. Deploy
+## 4. デプロイ
 
-Finally, run the command to deploy:
+最後に、コマンドでデプロイしましょう:
 
 ```sh
 npm run build # Compile the TypeScript code to JavaScript

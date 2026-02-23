@@ -1,11 +1,11 @@
-# Benchmarks
+# ベンチマーク
 
-Benchmarks are only benchmarks, but they are important to us.
+ベンチマークはあくまでもベンチマークですが、非常に重要です。
 
-## Routers
+## ルーター
 
-We measured the speeds of a bunch of JavaScript routers.
-For example, `find-my-way` is a very fast router used inside Fastify.
+多くの JavaScript ルーターのベンチマークを行いました。
+例えば、 Fastify 内部で使われている `find-my-way` は非常に高速です。
 
 - @medley/router
 - find-my-way
@@ -14,8 +14,8 @@ For example, `find-my-way` is a very fast router used inside Fastify.
 - express (includes handling)
 - koa-router
 
-First, we registered the following routing to each of our routers.
-These are similar to those used in the real world.
+まず、それぞれのルーターに以下のルートを登録しました。
+それらは現実で実際に使われるものとよく似ています。
 
 ```ts twoslash
 interface Route {
@@ -39,7 +39,7 @@ export const routes: Route[] = [
 ]
 ```
 
-Then we sent the Request to the endpoints like below.
+そして、以下のようにそれぞれのエンドポイントにリクエストを行いました。
 
 ```ts twoslash
 interface Route {
@@ -86,11 +86,11 @@ const routes: (Route & { name: string })[] = [
 ]
 ```
 
-Let's see the results.
+結果を見てみましょう。
 
-### On Node.js
+### Node.js では...
 
-The following screenshots show the results on Node.js.
+以下のスクリーンショットは Node.js での結果です。
 
 ![](/images/bench01.png)
 
@@ -108,9 +108,9 @@ The following screenshots show the results on Node.js.
 
 ![](/images/bench08.png)
 
-### On Bun
+### Bun では...
 
-The following screenshots show the results on Bun.
+以下のスクリーンショットは Bun での結果です。
 
 ![](/images/bench09.png)
 
@@ -130,7 +130,7 @@ The following screenshots show the results on Bun.
 
 ## Cloudflare Workers
 
-**Hono is the fastest**, compared to other routers for Cloudflare Workers.
+Cloudflare Workers 向けの他のルーターと比較して **Hono は最速です**。
 
 - Machine: Apple MacBook Pro, 32 GiB, M1 Pro
 - Scripts: [benchmarks/handle-event](https://github.com/honojs/hono/tree/main/benchmarks/handle-event)
@@ -146,7 +146,7 @@ Fastest is Hono
 
 ## Deno
 
-**Hono is the fastest**, compared to other frameworks for Deno.
+Deno の他のフレームワークと比べて **Hono はここでも最速です**。
 
 - Machine: Apple MacBook Pro, 32 GiB, M1 Pro, Deno v1.22.0
 - Scripts: [benchmarks/deno](https://github.com/honojs/hono/tree/main/benchmarks/deno)
@@ -161,11 +161,11 @@ Fastest is Hono
 | oak       |    10.5.1    |      Requests/sec: 43326 |
 | opine     |    2.2.0     |      Requests/sec: 30700 |
 
-Another benchmark result: [denosaurs/bench](https://github.com/denosaurs/bench)
+他のベンチマーク結果: [denosaurs/bench](https://github.com/denosaurs/bench)
 
 ## Bun
 
-Hono is one of the fastest frameworks for Bun.
-You can see it below.
+Hono は Bun の最速なフレームワークのひとつです。
+以下でご覧いただけます。
 
 - [SaltyAom/bun-http-framework-benchmark](https://github.com/SaltyAom/bun-http-framework-benchmark)

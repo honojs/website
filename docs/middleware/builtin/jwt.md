@@ -1,12 +1,12 @@
-# JWT Auth Middleware
+# JWT 認証ミドルウェア
 
-The JWT Auth Middleware provides authentication by verifying the token with JWT.
-The middleware will check for an `Authorization` header if the `cookie` option is not set. You can customize the header name using the `headerName` option.
+JWT 認証ミドルウェアは、 JWT を使ってトークンを検証して認証することができます。
+ミドルウェアは、 `cookie` オプションがセットされていない場合に `Authorization` ヘッダを確認します。 ヘッダの名前は `headerName` オプションでカスタマイズすることができます。
 
 :::info
-The Authorization header sent from the client must have a specified scheme.
+クライアントから送信された Authotization ヘッダには、指定されたスキーマが必要です。
 
-Example: `Bearer my.token.value` or `Basic my.token.value`
+例: `Bearer my.token.value` や `Basic my.token.value` など
 :::
 
 ## Import
@@ -17,7 +17,7 @@ import { jwt } from 'hono/jwt'
 import type { JwtVariables } from 'hono/jwt'
 ```
 
-## Usage
+## 使い方
 
 ```ts
 // Specify the variable types to infer the `c.get('jwtPayload')`:
@@ -38,7 +38,7 @@ app.get('/auth/page', (c) => {
 })
 ```
 
-Get payload:
+ペイロードを取得する:
 
 ```ts
 const app = new Hono()
@@ -60,7 +60,7 @@ app.get('/auth/page', (c) => {
 
 ::: tip
 
-`jwt()` is just a middleware function. If you want to use an environment variable (eg: `c.env.JWT_SECRET`), you can use it as follows:
+`jwt()` は単なるミドルウェア関数です。 環境変数を使いたい場合は、 (例: `c.env.JWT_SECRET`) 、 以下のように使用できます:
 
 ```js
 app.use('/auth/*', (c, next) => {
@@ -74,25 +74,25 @@ app.use('/auth/*', (c, next) => {
 
 :::
 
-## Options
+## オプション
 
 ### <Badge type="danger" text="required" /> secret: `string`
 
-A value of your secret key.
+秘密鍵の値。
 
 ### <Badge type="danger" text="required" /> alg: `string`
 
-An algorithm type that is used for verifying.
+認証に使われるアルゴリズム。
 
-Available types are `HS256` | `HS384` | `HS512` | `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`.
+利用可能な型は `HS256` | `HS384` | `HS512` | `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA` です。
 
 ### <Badge type="info" text="optional" /> cookie: `string`
 
-If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
+この値が設定されている場合は、 Cookie ヘッダから値が取得され、検証されます。
 
 ### <Badge type="info" text="optional" /> headerName: `string`
 
-The name of the header to look for the JWT token. The default is `Authorization`.
+JWT トークンを探すヘッダの名前。 デフォルトは `Authorization` です。
 
 ```ts
 app.use(
@@ -107,20 +107,20 @@ app.use(
 
 ### <Badge type="info" text="optional" /> verifyOptions: `VerifyOptions`
 
-Options controlling verification of the token.
+トークンの検証を制御するオプション。
 
 #### <Badge type="info" text="optional" /> verifyOptions.iss: `string | RexExp`
 
-The expected issuer used for token verification. The `iss` claim will **not** be checked if this isn't set.
+期待される検証トークンの発行者。 この値が設定されていない場合、 `iss` クレームはチェック**されません**。
 
 #### <Badge type="info" text="optional" /> verifyOptions.nbf: `boolean`
 
-The `nbf` (not before) claim will be verified if present and this is set to `true`. The default is `true`.
+`nbf`（not before）クレームは、存在し、かつこれが `true` に設定されている場合に検証されます。 デフォルトは `true` です。
 
 #### <Badge type="info" text="optional" /> verifyOptions.iat: `boolean`
 
-The `iat` (not before) claim will be verified if present and this is set to `true`. The default is `true`.
+`iat` （not before）クレームは、存在し、かつこれが `true` に設定されている場合に検証されます。 デフォルトは `true` です。
 
 #### <Badge type="info" text="optional" /> verifyOptions.exp: `boolean`
 
-The `exp` (not before) claim will be verified if present and this is set to `true`. The default is `true`.
+`exp` （not before）クレームは、存在し、かつこれが `true` に設定されている場合に検証されます。 デフォルトは `true` です。

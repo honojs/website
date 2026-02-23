@@ -1,8 +1,8 @@
-# ConnInfo Helper
+# ConnInfo ヘルパー
 
-The ConnInfo Helper helps you to get the connection information. For example, you can get the client's remote address easily.
+ConnInfo ヘルパーはネットワーク接続の情報を得るために役立ちます。 例えば、クライアントのリモートアドレスを簡単に取得できます。
 
-## Import
+## インポート
 
 ::: code-group
 
@@ -53,7 +53,7 @@ import { getConnInfo } from '@hono/node-server/conninfo'
 
 :::
 
-## Usage
+## 使用方法
 
 ```ts
 const app = new Hono()
@@ -64,9 +64,9 @@ app.get('/', (c) => {
 })
 ```
 
-## Type Definitions
+## 型定義
 
-The type definitions of the values that you can get from `getConnInfo()` are the following:
+`getConnInfo()` で得られる情報の型定義は以下の通りです:
 
 ```ts
 type AddressType = 'IPv6' | 'IPv4' | undefined

@@ -1,23 +1,23 @@
-# Philosophy
+# 哲学
 
-In this section, we talk about the concept, or philosophy, of Hono.
+この章では、 Hono のコンセプトや哲学について説明します。
 
-## Motivation
+## 動機
 
-At first, I just wanted to create a web application on Cloudflare Workers.
-But, there was no good framework that works on Cloudflare Workers.
-So, I started building Hono.
+始めは、 Cloudflare Workers でウェブアプリケーションを作りたいだけでした。
+しかし、 Cloudflare Workers で動く良いフレームワークがありませんでした。
+そのため、 Hono の開発を始めました。
 
-I thought it would be a good opportunity to learn how to build a router using Trie trees.
-Then a friend showed up with ultra crazy fast router called "RegExpRouter".
-And I also have a friend who created the Basic authentication middleware.
+それは、 Trie 木を使ったルーターの作り方を学ぶための良い機会になると思いました。
+次に、ある友達が "RegExpRouter" と呼ばれる滅茶苦茶爆速なルーターを持ってやってきました。
+また Basic 認証をするミドルウェアを作った友達もいました。
 
-Using only Web Standard APIs, we could make it work on Deno and Bun. When people asked "is there Express for Bun?", we could answer, "no, but there is Hono".
-(Although Express works on Bun now.)
+Web 標準の API のみを使うことで、 Deno でも Bun でも動くものを作ることができました。 人々が 「 Bun 向けの Express は無いの? 」 聞いたとき、 「 いいえ、でも Hono があるよ! 」 と答えることができました。
+( Express は現在 Bun でも動きます )
 
-We also have friends who make GraphQL servers, Firebase authentication, and Sentry middleware.
-And, we also have a Node.js adapter.
-An ecosystem has sprung up.
+GraphQL サーバーや Firebase 認証、 Sentry ミドルウェアを作ってくれた友達もいます。
+また、 Node.js アダプタもあります。
+一つのエコシステムが出来上がりました。
 
-In other words, Hono is damn fast, makes a lot of things possible, and works anywhere.
-We might imagine that Hono could become the **Standard for Web Standards**.
+言い換えれば、 Hono は超速くて、何でもできて、どこでも動きます。
+Hono が **Web 標準の標準** になれることを想像するかもしれません。

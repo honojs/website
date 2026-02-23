@@ -1,6 +1,6 @@
-# File Upload
+# ファイルアップロード
 
-You can upload a file with `multipart/form-data` content type. The uploaded file will be available in `c.req.parseBody()`.
+コンテンツタイプ `multipart/form-data` でファイルをアップロードできます。 アップロードされたファイルは `c.req.parseBody()` で使用できます。
 
 ```ts
 const app = new Hono()

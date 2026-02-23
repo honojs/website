@@ -1,37 +1,37 @@
-# Routers
+# ルーター
 
-The routers are the most important features for Hono.
+ルーターは Hono にとって最も重要な要素です。
 
-Hono has five routers.
+Hono は5つのルーターを持ちます。
 
 ## RegExpRouter
 
-**RegExpRouter** is the fastest router in the JavaScript world.
+**RegExpRouter** は JavaScript で最速のルーターです。
 
-Although this is called "RegExp" it is not an Express-like implementation using [path-to-regexp](https://github.com/pillarjs/path-to-regexp).
-They are using linear loops.
-Therefore, regular expression matching will be performed for all routes and the performance will be degraded as you have more routes.
+これは "RegExp" と呼ばれますが、 Express のような [path-to-regexp](https://github.com/pillarjs/path-to-regexp) を使用する実装ではありません。
+それらは線形ループを使用します。
+そのため、全てのルートに対して正規表現が照合が実行されルートが増えるほどパフォーマンスが悪化します。
 
 ![](/images/router-linear.jpg)
 
-Hono's RegExpRouter turns the route pattern into "one large regular expression".
-Then it can get the result with one-time matching.
+Hono の RegExpRouter はルートパターンを "ひとつの巨大な正規表現" に変換します。
+そのため一回の照合で結果を取得できます。
 
 ![](/images/router-regexp.jpg)
 
-This works faster than methods that use tree-based algorithms such as radix-tree in most cases.
+これはほとんどの場合、 radix-tree などのツリーベースのアルゴリズムより高速に動作します。
 
 However, RegExpRouter doesn't support all routing patterns, so it's usually used in combination with one of the other routers below that support all routing patterns.
 
 ## TrieRouter
 
-**TrieRouter** is the router using the Trie-tree algorithm.
-Like RegExpRouter, it does not use linear loops.
+**TrieRouter** は Trie 木を使用するルーターです。
+RegExpRouter と同様に線形ループを使用しません。
 
 ![](/images/router-tree.jpg)
 
-This router is not as fast as the RegExpRouter, but it is much faster than the Express router.
-TrieRouter supports all patterns.
+これは RegExpRouter ほど速くはありませんが、 Express よりは圧倒的に高速です。
+TrieRouter は全てのルートパターンをサポートします。
 
 ## SmartRouter
 
@@ -45,17 +45,17 @@ readonly defaultRouter: Router = new SmartRouter({
 })
 ```
 
-When the application starts, SmartRouter detects the fastest router based on routing and continues to use it.
+アプリケーションが起動したときに、 SmartRouter はルーティングに基づき最速のルーターを選択し、使用します。
 
 ## LinearRouter
 
-RegExpRouter is fast, but the route registration phase can be slightly slow.
-So, it's not suitable for an environment that initializes with every request.
+RegExpRouter は高速ですが、ルートの登録が少し遅くなることがあります。
+そのため、リクエスト毎に初期化が行われる環境には適していません。
 
-**LinearRouter** is optimized for "one shot" situations.
-Route registration is significantly faster than with RegExpRouter because it adds the route without compiling strings, using a linear approach.
+**LinearRouter** は "ワンショット" の状況に最適化されています。
+ルートの登録はコンパイルせずに線形アプローチを使用して行うため RegExpRouter より大幅に高速です。
 
-The following is one of the benchmark results, which includes the route registration phase.
+以下はルート登録も含めたベンチマークの結果です。
 
 ```console
 • GET /user/lookup/username/hey
@@ -76,11 +76,11 @@ summary for GET /user/lookup/username/hey
 
 ## PatternRouter
 
-**PatternRouter** is the smallest router among Hono's routers.
+**PatternRouter** は Hono で最も小さいルーターです。
 
-While Hono is already compact, if you need to make it even smaller for an environment with limited resources, use PatternRouter.
+Hono は既に十分コンパクトですが、リソースが限られている環境で更に小さくする必要があるなら PatternRouter を使用してください。
 
-An application using only PatternRouter is under 15KB in size.
+PatternRouter のみを使用したアプリケーションは 15KB 以下になります。
 
 ```console
 $ npx wrangler deploy --minify ./src/index.ts

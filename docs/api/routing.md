@@ -1,9 +1,9 @@
-# Routing
+# ルーティング
 
-Routing of Hono is flexible and intuitive.
-Let's take a look.
+Hono のルーティングは柔軟で直感的です。
+では見てみましょう。
 
-## Basic
+## 基本
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -37,7 +37,7 @@ app.on('GET', ['/hello', '/ja/hello', '/en/hello'], (c) =>
 )
 ```
 
-## Path Parameter
+## パスパラメータ
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -50,7 +50,7 @@ app.get('/user/:name', async (c) => {
 })
 ```
 
-or all parameters at once:
+または一度に多くのパラメータを使用できます:
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -63,7 +63,7 @@ app.get('/posts/:id/comment/:comment_id', async (c) => {
 })
 ```
 
-## Optional Parameter
+## オプションのパラメータ
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -73,7 +73,7 @@ const app = new Hono()
 app.get('/api/animal/:type?', (c) => c.text('Animal!'))
 ```
 
-## Regexp
+## 正規表現
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -86,7 +86,7 @@ app.get('/post/:date{[0-9]+}/:title{[a-z]+}', async (c) => {
 })
 ```
 
-## Including slashes
+## スラッシュを含む
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -97,7 +97,7 @@ app.get('/posts/:filename{.+\\.png}', async (c) => {
 })
 ```
 
-## Chained route
+## メソッドチェーンでルーティングする
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -115,9 +115,9 @@ app
   })
 ```
 
-## Grouping
+## グループ化
 
-You can group the routes with the Hono instance and add them to the main app with the route method.
+Hono インスタンスを使用してルートをグループ化し、メインのアプリケーションで route メソッドを使用して追加します。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -136,9 +136,9 @@ const app = new Hono()
 app.route('/book', book)
 ```
 
-## Grouping without changing base
+## ベースパスを変更せずにグループ化する
 
-You can also group multiple instances while keeping base.
+ベースパスをそのままに複数のインスタンスをグループ化することもできます。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -156,9 +156,9 @@ app.route('/', book) // Handle /book
 app.route('/', user) // Handle /user
 ```
 
-## Base path
+## ベースパス
 
-You can specify the base path.
+ベースパスを指定できます。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -167,9 +167,9 @@ const api = new Hono().basePath('/api')
 api.get('/book', (c) => c.text('List Books')) // GET /api/book
 ```
 
-## Routing with hostname
+## ホスト名でルーティングする
 
-It works fine if it includes a hostname.
+ホスト名をルートに含めても動作します。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -182,9 +182,9 @@ app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
 app.get('/www2.example.com/hello', (c) => c.text('hello www2'))
 ```
 
-## Routing with `host` Header value
+## `host` ヘッダを使用したルーティング
 
-Hono can handle the `host` header value if you set the `getPath()` function in the Hono constructor.
+Hono コンストラクタに `getPath()` 関数を実装すると `host` ヘッダの値を処理できます。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -204,11 +204,11 @@ app.get('/www1.example.com/hello', (c) => c.text('hello www1'))
 // })
 ```
 
-By applying this, for example, you can change the routing by `User-Agent` header.
+これを応用すれば、 `User-Agent` ヘッダでルーティングを変更するようなことも出来ます。
 
-## Routing priority
+## ルーティングの優先順序
 
-Handlers or middleware will be executed in registration order.
+ハンドラ、ミドルウェアは登録順に実行されます。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -223,7 +223,7 @@ GET /book/a ---> `a`
 GET /book/b ---> `common`
 ```
 
-When a handler is executed, the process will be stopped.
+ハンドラが実行されると処理が停止します。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -237,7 +237,7 @@ app.get('/foo', (c) => c.text('foo')) // foo
 GET /foo ---> `common` // foo will not be dispatched
 ```
 
-If you have the middleware that you want to execute, write the code above the handler.
+実行したいミドルウェアがある場合は、ハンドラよりも前に記述します。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -248,7 +248,7 @@ app.use(logger())
 app.get('/foo', (c) => c.text('foo'))
 ```
 
-If you want to have a "_fallback_" handler, write the code below the other handler.
+”_フォールバック_" ハンドラが必要な場合は、他のハンドラの下にコードを書きます。
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -263,10 +263,10 @@ GET /bar ---> `bar`
 GET /foo ---> `fallback`
 ```
 
-## Grouping ordering
+## グループの順序
 
-Note that the mistake of grouping routings is hard to notice.
-The `route()` function takes the stored routing from the second argument (such as `three` or `two`) and adds it to its own (`two` or `app`) routing.
+ルーティングのグループ化の間違いは気が付きにくいので気をつけてください。
+`route()` 関数は2番目の引数 ( `three` や `two` のような) から保存されたルーティングを取得し、自分自身 ( `two` や `app` ) のルートに追加します。
 
 ```ts
 three.get('/hi', (c) => c.text('hi'))
@@ -276,13 +276,13 @@ app.route('/two', two)
 export default app
 ```
 
-It will return 200 response.
+これは 200 レスポンスを返しますが、
 
 ```
 GET /two/three/hi ---> `hi`
 ```
 
-However, if they are in the wrong order, it will return a 404.
+順序が間違っている場合は 404 を返します。
 
 ```ts twoslash
 import { Hono } from 'hono'

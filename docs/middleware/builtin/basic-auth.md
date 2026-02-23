@@ -1,9 +1,9 @@
-# Basic Auth Middleware
+# Basic 認証ミドルウェア
 
-This middleware can apply Basic authentication to a specified path.
-Implementing Basic authentication with Cloudflare Workers or other platforms is more complicated than it seems, but with this middleware, it's a breeze.
+このミドルウェアは、特定のパスに Basic 認証を設定することができます。
+Cloudflare Workers や他のプラットフォームで Basic 認証を実装することは思ったよりも複雑ですが、このミドルウェアを使えば簡単にできます。
 
-For more information about how the Basic auth scheme works under the hood, see the [MDN docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme).
+Basic 認証方式が内部でどのように動くか知りたい場合は、 [MDN のドキュメント](https://developer.mozilla.org/ja/docs/Web/HTTP/Guides/Authentication#basic_%E8%AA%8D%E8%A8%BC%E6%96%B9%E5%BC%8F) をご覧ください。
 
 ## Import
 
@@ -12,7 +12,7 @@ import { Hono } from 'hono'
 import { basicAuth } from 'hono/basic-auth'
 ```
 
-## Usage
+## 使い方
 
 ```ts
 const app = new Hono()
@@ -30,7 +30,7 @@ app.get('/auth/page', (c) => {
 })
 ```
 
-To restrict to a specific route + method:
+特定のルート + メソッドを制限します:
 
 ```ts
 const app = new Hono()
@@ -48,7 +48,7 @@ app.delete(
 )
 ```
 
-If you want to verify the user by yourself, specify the `verifyUser` option; returning `true` means it is accepted.
+ユーザーを自分で検証したい場合は、 `verifyUser` オプションを指定してください。 `true` を返すことで、資格情報が受け入れられたことを示します。
 
 ```ts
 const app = new Hono()
@@ -64,32 +64,32 @@ app.use(
 )
 ```
 
-## Options
+## オプション
 
 ### <Badge type="danger" text="required" /> username: `string`
 
-The username of the user who is authenticating.
+認証されている人のユーザー名。
 
 ### <Badge type="danger" text="required" /> password: `string`
 
-The password value for the provided username to authenticate against.
+そのユーザーのパスワード。
 
 ### <Badge type="info" text="optional" /> realm: `string`
 
-The domain name of the realm, as part of the returned WWW-Authenticate challenge header. The default is `"Secure Area"`.  
-See more: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate#directives
+The domain name of the realm, as part of the returned WWW-Authenticate challenge header. The default is `"Secure Area"`.
+詳しくは: https://developer.mozilla.org/ja/docs/Web/HTTP/Reference/Headers/WWW-Authenticate#digest
 
 ### <Badge type="info" text="optional" /> hashFunction: `Function`
 
-A function to handle hashing for safe comparison of passwords.
+パスワードを安全に比較するためのハッシュ関数。
 
 ### <Badge type="info" text="optional" /> verifyUser: `(username: string, password: string, c: Context) => boolean | Promise<boolean>`
 
-The function to verify the user.
+ユーザーを検証する関数。
 
 ### <Badge type="info" text="optional" /> invalidUserMessage: `string | object | MessageFunction`
 
-`MessageFunction` is `(c: Context) => string | object | Promise<string | object>`. The custom message if the user is invalid.
+`MessageFunction` は `(c: Context) => string | object | Promise<string | object>` 。 ユーザーが無効だったときのメッセージ。
 
 ### <Badge type="info" text="optional" /> onAuthSuccess: `(c: Context, username: string) => void | Promise<void>`
 
@@ -117,11 +117,11 @@ app.get('/auth/page', (c) => {
 
 ### <Badge type="info" text="optional" /> ...users: `{ username: string, password: string }[]`
 
-## Recipes
+## レシピ
 
-### Defining Multiple Users
+### 複数ユーザーの設定
 
-This middleware also allows you to pass arbitrary parameters containing objects defining more `username` and `password` pairs.
+このミドルウェアでは、 `username` と `password` のペアを含む任意の数のオブジェクトをパラメータとして渡すこともできます。
 
 ```ts
 app.use(

@@ -1,7 +1,7 @@
-# WebSocket Helper
+# WebSocket ヘルパー
 
-WebSocket Helper is a helper for server-side WebSockets in Hono applications.
-Currently Cloudflare Workers / Pages, Deno, and Bun adapters are available.
+WebSocket ヘルパーは、 Hono アプリケーションのサーバーサイド WebSocket のヘルパーです。
+現在、 Cloudflare Workers / Pages 、 Deno 、および Bun アダプタが利用可能です。
 
 ## Import
 
@@ -31,11 +31,11 @@ export default {
 
 :::
 
-If you use Node.js, you can use [@hono/node-ws](https://github.com/honojs/middleware/tree/main/packages/node-ws).
+Node.js なら: [@hono/node-ws](https://github.com/honojs/middleware/tree/main/packages/node-ws)
 
 ## `upgradeWebSocket()`
 
-`upgradeWebSocket()` returns a handler for handling WebSocket.
+`upgradeWebSocket()` は WebSocket をハンドルするためのハンドラを返します。
 
 ```ts
 const app = new Hono()
@@ -56,24 +56,24 @@ app.get(
 )
 ```
 
-Available events:
+使えるイベント一覧:
 
-- `onOpen` - Currently, Cloudflare Workers does not support it.
+- `onOpen` - Cloudflare Workers では現在動きません
 - `onMessage`
 - `onClose`
 - `onError`
 
 ::: warning
 
-If you use middleware that modifies headers (e.g., applying CORS) on a route that uses WebSocket Helper, you may encounter an error saying you can't modify immutable headers. This is because `upgradeWebSocket()` also changes headers internally.
+WebSocket ヘルパーを使用するルートでヘッダを変更するミドルウェア ( CORS など) を使用している場合、イミュータブルなヘッドを変更できないというエラーが発生する可能性があります。これは、 `upgradeWebSocket()` が内部的にヘッダを変更するためです。
 
-Therefore, please be cautious if you are using WebSocket Helper and middleware at the same time.
+なので、 WebSocket ヘルパーとミドルウェアを同時に使用している場合は注意してください。
 
 :::
 
-## RPC-mode
+## RPC モード
 
-Handlers defined with WebSocket Helper support RPC mode.
+WebSocket ヘルパーで定義されたハンドラーは、 RPC モードをサポートしています。
 
 ```ts
 // server.ts
@@ -91,11 +91,11 @@ const client = hc<WebSocketApp>('http://localhost:8787')
 const socket = client.ws.$ws() // A WebSocket object for a client
 ```
 
-## Examples
+## 例
 
-See the examples using WebSocket Helper.
+WebSocket を使った例:
 
-### Server and Client
+### サーバーとクライアント
 
 ```ts
 // server.ts

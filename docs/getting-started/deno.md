@@ -1,25 +1,25 @@
 # Deno
 
-[Deno](https://deno.com/) is a JavaScript runtime built on V8. It's not Node.js.
-Hono also works on Deno.
+[Deno](https://deno.com/) は V8 上に構築された JavaScript ランタイムです。 Node.js ではありません。
+Hono は Deno でも動作します。
 
-You can use Hono, write the code with TypeScript, run the application with the `deno` command, and deploy it to "Deno Deploy".
+Hono を使用して TypeScript でコードを書き、 `deno` コマンドでアプリケーションを起動します。 そして "Deno Deploy" にデプロイ出来ます。
 
-## 1. Install Deno
+## 1. Deno のインストール
 
-First, install `deno` command.
-Please refer to [the official document](https://docs.deno.com/runtime/getting_started/installation/).
+まず `deno` コマンドをインストールします。
+[公式ドキュメント](https://docs.deno.com/runtime/getting_started/installation/) を参照してください。
 
-## 2. Setup
+## 2. セットアップ
 
-A starter for Deno is available.
-Start your project with the [`deno init`](https://docs.deno.com/runtime/reference/cli/init/) command.
+Deno でもスターターを使用できます。
+[`deno init`](https://docs.deno.com/runtime/reference/cli/init/) コマンドでプロジェクトを作成してください。
 
 ```sh
 deno init --npm hono --template=deno my-app
 ```
 
-Move into `my-app`. For Deno, you don't have to install Hono explicitly.
+`my-app` に移動しますが、 Deno では Hono を明示的にインストールする必要はありません。
 
 ```sh
 cd my-app
@@ -27,7 +27,7 @@ cd my-app
 
 ## 3. Hello World
 
-Edit `main.ts`:
+`main.ts` を変更します:
 
 ```ts [main.ts]
 import { Hono } from 'hono'
@@ -41,24 +41,24 @@ Deno.serve(app.fetch)
 
 ## 4. Run
 
-Run the development server locally. Then, access `http://localhost:8000` in your Web browser.
+ローカルで開発サーバーを実行します。次に、 Web ブラウザで `http://localhost:8000` にアクセスします。
 
 ```sh
 deno task start
 ```
 
-## Change port number
+## ポートを変える
 
-You can specify the port number by updating the arguments of `Deno.serve` in `main.ts`:
+`main.ts` の `Deno.serve` の引数を変更することでポート番号を指定できます:
 
 ```ts
 Deno.serve(app.fetch) // [!code --]
 Deno.serve({ port: 8787 }, app.fetch) // [!code ++]
 ```
 
-## Serve static files
+## 静的ファイルの提供
 
-To serve static files, use `serveStatic` imported from `hono/deno`.
+静的ファイルを提供するには `hono/deno` から `serveStatic` をインポートして使用します。
 
 ```ts
 import { Hono } from 'hono'
@@ -74,7 +74,7 @@ app.get('*', serveStatic({ path: './static/fallback.txt' }))
 Deno.serve(app.fetch)
 ```
 
-For the above code, it will work well with the following directory structure.
+上のコードは、このようなディレクトリ構成で機能します。
 
 ```
 ./
@@ -91,7 +91,7 @@ For the above code, it will work well with the following directory structure.
 
 ### `rewriteRequestPath`
 
-If you want to map `http://localhost:8000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
+`http://localhost:8000/static/*` を `./statics` にマップしたい場合、 `rewriteRequestPath` をオプションに追加してください:
 
 ```ts
 app.get(
@@ -106,7 +106,7 @@ app.get(
 
 ### `mimes`
 
-You can add MIME types with `mimes`:
+MIME タイプを追加するためには `mimes` を使用します:
 
 ```ts
 app.get(
@@ -122,7 +122,7 @@ app.get(
 
 ### `onFound`
 
-You can specify handling when the requested file is found with `onFound`:
+要求されたファイルが見つかったときの処理を `onFound` で指定できます:
 
 ```ts
 app.get(
@@ -138,7 +138,7 @@ app.get(
 
 ### `onNotFound`
 
-You can specify handling when the requested file is not found with `onNotFound`:
+`onNotFound` を使用して、要求されたファイルが見つからない場合の処理を記述できます:
 
 ```ts
 app.get(
@@ -153,7 +153,7 @@ app.get(
 
 ### `precompressed`
 
-The `precompressed` option checks if files with extensions like `.br` or `.gz` are available and serves them based on the `Accept-Encoding` header. It prioritizes Brotli, then Zstd, and Gzip. If none are available, it serves the original file.
+`precompressed` オプションを使うと `Accept-Encoding` ヘッダに基づいて `.br` や `.gz` といった拡張子を持っているファイルが有るか確認し、提供します。 Brotli 、 Zstd 、 Gzip の順で優先されます。 それらが無ければ元のファイルが提供されます。
 
 ```ts
 app.get(
@@ -169,12 +169,12 @@ app.get(
 Deno Deploy is a serverless platform for running JavaScript and TypeScript applications in the cloud.
 It provides a management plane for deploying and running applications through integrations like GitHub deployment.
 
-Hono also works on Deno Deploy. Please refer to [the official document](https://docs.deno.com/deploy/manual/).
+Hono は Deno Deploy もサポートしています。 [公式ドキュメント](https://docs.deno.com/deploy/manual/)を参照してください。
 
-## Testing
+## テスト
 
-Testing the application on Deno is easy.
-You can write with `Deno.test` and use `assert` or `assertEquals` from [@std/assert](https://jsr.io/@std/assert).
+Deno でアプリケーションをテストするのは簡単です。
+`Deno.test` と、公式ライブラリの `assert` か `assertEquals` を [@std/assert](https://jsr.io/@std/assert) からインポートして書いてください。
 
 ```sh
 deno add jsr:@std/assert
@@ -193,13 +193,13 @@ Deno.test('Hello World', async () => {
 })
 ```
 
-Then run the command:
+次にこのコマンドを実行します:
 
 ```sh
 deno test hello.ts
 ```
 
-## npm and JSR
+## npm と JSR
 
 Hono is available on both [npm](https://www.npmjs.com/package/hono) and [JSR](https://jsr.io/@hono/hono) (the JavaScript Registry). You can use either `npm:hono` or `jsr:@hono/hono` in your `deno.json`:
 

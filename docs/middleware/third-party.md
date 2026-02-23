@@ -1,9 +1,9 @@
-# Third-party Middleware
+# サードパーティー製のミドルウェア
 
-Third-party middleware refers to middleware not bundled within the Hono package.
-Most of this middleware leverages external libraries.
+サードパーティーミドルウェアとは Hono のパッケージにバンドルされていないミドルウェアのことです。
+ここにある殆どのミドルウェアは外部ライブラリを使用します。
 
-### Authentication
+### 認証
 
 - [Auth.js(Next Auth)](https://github.com/honojs/middleware/tree/main/packages/auth-js)
 - [Casbin](https://github.com/honojs/middleware/tree/main/packages/casbin)
@@ -15,7 +15,7 @@ Most of this middleware leverages external libraries.
 - [Verify RSA JWT (JWKS)](https://github.com/wataruoguchi/verify-rsa-jwt-cloudflare-worker)
 - [Stytch Auth](https://github.com/honojs/middleware/tree/main/packages/stytch-auth)
 
-### Validators
+### バリデーター
 
 - [Ajv Validator](https://github.com/honojs/middleware/tree/main/packages/ajv-validator)
 - [ArkType Validator](https://github.com/honojs/middleware/tree/main/packages/arktype-validator)

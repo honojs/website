@@ -1,36 +1,36 @@
 # Google Cloud Run
 
-[Google Cloud Run](https://cloud.google.com/run) is a serverless platform built by Google Cloud. You can run your code in response to events and Google automatically manages the underlying compute resources for you.
+[Google Cloud Run](https://cloud.google.com/run) は Google Cloud 上に構築されたサーバーレスプラットフォームです。 イベントに対してコードを実行でき、基盤となるコンピューティングリソースは Google が自動で管理します。
 
-Google Cloud Run uses containers to run your service. This means you can use any runtime you like (E.g., Deno or Bun) by providing a Dockerfile. If no Dockerfile is provided Google Cloud Run will use the default Nodejs buildpack.
+Google Cloud Run はサービスを実行するためにコンテナを使用します。 つまり、 Dockerfile を設定することで好きなランタイム (Deno や Bun 等) を使用できることを意味します。 Dockerfile が無かった場合、 Google Cloud Run はデフォルトの Node.js ビルドパックを使用します。
 
-This guide assumes you already have a Google Cloud account and a billing account.
+このガイドは、あなたがすでに Google Cloud アカウントと請求先アカウントを持っていることを前提にしています。
 
-## 1. Install the CLI
+## 1. CLI をインストールする
 
-When working with Google Cloud Platform it is easiest to work with the [gcloud CLI](https://cloud.google.com/sdk/docs/install).
+Google Cloud Platform での作業は、 [gcloud CLI](https://cloud.google.com/sdk/docs/install) を使用するのが最も簡単です。
 
-For example, on MacOS using Homebrew:
+例えば、 MacOS で Homebrew を使用するとき:
 
 ```sh
 brew install --cask gcloud-cli
 ```
 
-Authenticate with the CLI.
+CLI で認証します。
 
 ```sh
 gcloud auth login
 ```
 
-## 2. Project setup
+## 2. プロジェクトをセットアップする
 
-Create a project. Accept the auto-generated project ID at the prompt.
+プロジェクトを作成します。 提案されるプロジェクトIDをそのまま使用してください。
 
 ```sh
 gcloud projects create --set-as-default --name="my app"
 ```
 
-Create environment variables for your project ID and project number for easy reuse. It may take ~30 seconds before the project successfully returns with the `gcloud projects list` command.
+プロジェクト ID とプロジェクト番号を簡単に使用するために環境変数を作成してください。 `gcloud projects list` コマンドでプロジェクトが正しく表示されるまでは最大30秒かかります。
 
 ```sh
 PROJECT_ID=$(gcloud projects list \
@@ -44,27 +44,27 @@ PROJECT_NUMBER=$(gcloud projects list \
 echo $PROJECT_ID $PROJECT_NUMBER
 ```
 
-Find your billing account ID.
+請求先アカウント ID を探します。
 
 ```sh
 gcloud billing accounts list
 ```
 
-Add your billing account from the prior command to the project.
+前のコマンドの出力から、請求先アカウントをプロジェクトに追加します。
 
 ```sh
 gcloud billing projects link $PROJECT_ID \
     --billing-account=[billing_account_id]
 ```
 
-Enable the required APIs.
+必要な API を有効化します。
 
 ```sh
 gcloud services enable run.googleapis.com \
     cloudbuild.googleapis.com
 ```
 
-Update the service account permissions to have access to Cloud Build.
+Cloud Build にアクセスできるように、サービスアカウントの権限を更新します。
 
 ```sh
 gcloud projects add-iam-policy-binding $PROJECT_ID \
@@ -74,20 +74,20 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 
 ## 3. Hello World
 
-Start your project with "create-hono" command. Select `nodejs`.
+"create-hono" コマンドでプロジェクトを始めましょう! `nodejs` を選択してください。
 
 ```sh
 npm create hono@latest my-app
 ```
 
-Move to `my-app` and install the dependencies.
+`my-app` ディレクトリに移動し、依存関係をインストールします。
 
 ```sh
 cd my-app
 npm i
 ```
 
-Update the port in `src/index.ts` to be `8080`.
+`src/index.ts` で ポートを `8080` に設定します。
 
 <!-- prettier-ignore -->
 ```ts
@@ -109,25 +109,25 @@ serve({
 })
 ```
 
-Run the development server locally. Then, access http://localhost:8080 in your Web browser.
+ローカルで開発サーバーを実行し、 Web ブラウザで http://localhost:8080 にアクセスしてください。
 
 ```sh
 npm run dev
 ```
 
-## 4. Deploy
+## 4. デプロイ
 
-Start the deployment and follow the interactive prompts (E.g., select a region).
+コマンドでデプロイを開始し、対話形式のプロンプトに従って設定をします。 (例: リージョンの設定)
 
 ```sh
 gcloud run deploy my-app --source . --allow-unauthenticated
 ```
 
-## Changing runtimes
+## ランタイムを変更する
 
-If you want to deploy using Deno or Bun runtimes (or a customised Nodejs container), add a `Dockerfile` (and optionally `.dockerignore`) with your desired environment.
+Deno や Bun (または、カスタム Node.js コンテナ) を使用してデプロイを行いたい場合、 `Dockerfile` (と、必要に応じて `.dockerignore` ) を使用したい環境に合わせて設定してください。
 
-For information on containerizing please refer to:
+コンテナ化の詳細は以下のドキュメントを参照してください:
 
 - [Nodejs](/docs/getting-started/nodejs#building-deployment)
 - [Bun](https://bun.com/guides/ecosystem/docker)

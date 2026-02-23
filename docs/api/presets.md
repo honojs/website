@@ -1,21 +1,21 @@
-# Presets
+# プリセット
 
-Hono has several routers, each designed for a specific purpose.
-You can specify the router you want to use in the constructor of Hono.
+Hono にはいくつかのルーターがあり、それぞれが特定の目的のために作られています。
+Hono のコンストラクタで使用するルーターを指定できます。
 
-**Presets** are provided for common use cases, so you don't have to specify the router each time.
-The `Hono` class imported from all presets is the same, the only difference being the router.
-Therefore, you can use them interchangeably.
+**プリセット** は一般的な仕様ケースに合わせて提供されるため、毎回ルーターを指定する必要はありません。
+すべてのプリセットからインポートされた `Hono` クラスは同じものであり、ルーターだけが違います。
+そのため、交換が可能です。
 
 ## `hono`
 
-Usage:
+使い方:
 
 ```ts twoslash
 import { Hono } from 'hono'
 ```
 
-Routers:
+ルーター:
 
 ```ts
 this.router = new SmartRouter({
@@ -25,13 +25,13 @@ this.router = new SmartRouter({
 
 ## `hono/quick`
 
-Usage:
+使い方 :
 
 ```ts twoslash
 import { Hono } from 'hono/quick'
 ```
 
-Router:
+ルーター:
 
 ```ts
 this.router = new SmartRouter({
@@ -41,22 +41,22 @@ this.router = new SmartRouter({
 
 ## `hono/tiny`
 
-Usage:
+使い方:
 
 ```ts twoslash
 import { Hono } from 'hono/tiny'
 ```
 
-Router:
+ルーター:
 
 ```ts
 this.router = new PatternRouter()
 ```
 
-## Which preset should I use?
+## どのプリセットを使うべきですか?
 
-| Preset       | Suitable platforms                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| プリセット   | 適切なプラットフォーム                                                                                                                                                                                                                                                                                                                       |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `hono`       | This is highly recommended for most use cases. Although the registration phase may be slower than `hono/quick`, it exhibits high performance once booted. It's ideal for long-life servers built with **Deno**, **Bun**, or **Node.js**. It is also suitable for **Fastly Compute**, as route registration occurs during the app build phase on that platform. For environments such as **Cloudflare Workers**, **Deno Deploy**, where v8 isolates are utilized, this preset is suitable as well. Because the isolations persist for a certain amount of time after booting. |
-| `hono/quick` | This preset is designed for environments where the application is initialized for every request.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `hono/tiny`  | This is the smallest router package and it's suitable for environments where resources are limited.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `hono`       | ほとんどのユースケースで特におすすめされます。 ルート登録は `hono/quick` より遅いかもしれませんが、起動してしまえば高速です。 **Deno** 、 **Bun** 、 **Node.js** で構築された常時起動サーバーに最適です。 ルート登録はプラットフォーム上のアプリのビルド段階で行われるため、 **Fastly Compute** にも適しています。 V8 Isolates が使用される **Cloudflare Workers** 、 **Deno Deploy** にも適しています。 分離環境は起動後、一定時間持続するためです。 |
+| `hono/quick` | リクエストごとにアプリケーションが初期化される環境向けに設計されています。 |
+| `hono/tiny`  | 最も小さいルーターパッケージで、リソースが限られている環境に適しています。 |

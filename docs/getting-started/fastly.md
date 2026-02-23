@@ -1,14 +1,14 @@
 # Fastly Compute
 
-[Fastly Compute](https://www.fastly.com/products/edge-compute) is an advanced edge computing system that runs your code, in your favorite language, on Fastly's global edge network. Hono also works on Fastly Compute.
+[Fastly Compute](https://www.fastly.com/products/edge-compute) は好きな言語で書かれたコードをグローバルネットワーク上で実行できる高度なエッジコンピューティングシステムです。 Hono はもちろん Fastly Compute 上でも動作します。
 
-You can develop the application locally and publish it with a few commands using [Fastly CLI](https://www.fastly.com/documentation/reference/tools/cli/), which is installed locally automatically as part of the template.
+[Fastly CLI](https://www.fastly.com/documentation/reference/tools/cli/) を使用すると、少しのコマンドでアプリケーションをローカルで開発して、公開できます。
 
 ## 1. Setup
 
-A starter for Fastly Compute is available.
-Start your project with "create-hono" command.
-Select `fastly` template for this example.
+スターターは Fastly Compute でも使用できます。
+"create-hono" コマンドでプロジェクトを開始しましょう。
+`fastly` テンプレートを選択します。
 
 ::: code-group
 
@@ -34,7 +34,7 @@ deno init --npm hono my-app
 
 :::
 
-Move to `my-app` and install the dependencies.
+`my-app` に移動して依存関係をインストールします。
 
 ::: code-group
 
@@ -62,7 +62,7 @@ bun i
 
 ## 2. Hello World
 
-Edit `src/index.ts`:
+`src/index.ts` を変更します:
 
 ```ts
 // src/index.ts
@@ -81,7 +81,7 @@ fire(app)
 
 ## 3. Run
 
-Run the development server locally. Then, access `http://localhost:7676` in your Web browser.
+ローカルで開発サーバーを起動し、ブラウザで `http://localhost:7676` にアクセスしてください。
 
 ::: code-group
 
@@ -103,11 +103,11 @@ bun run start
 
 :::
 
-## 4. Deploy
+## 4. デプロイ
 
-To build and deploy your application to your Fastly account, type the following command. The first time you deploy the application, you will be prompted to create a new service in your account.
+ビルドして、あなたの Fastly アカウントにデプロイするには以下のコマンドを実行します。 あなたがアプリケーションを始めてデプロイする場合、アカウントに新しいサービスを作成するように求められます。
 
-If you don't have an account yet, you must [create your Fastly account](https://www.fastly.com/signup/).
+まだアカウントを持っていない場合は、[作成する必要があります](https://www.fastly.com/signup/)。
 
 ::: code-group
 

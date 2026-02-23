@@ -1,13 +1,13 @@
-# Middleware
+# ミドルウェア
 
-Middleware works before/after the endpoint `Handler`. We can get the `Request` before dispatching or manipulate the `Response` after dispatching.
+ミドルウェアはエンドポイントのハンドラの前後で動作します。 ディスパッチ前に `Request` を取得したり、ディスパッチ後に `Response` を操作したりできます。
 
-## Definition of Middleware
+## ミドルウェアの定義
 
-- Handler - should return `Response` object. Only one handler will be called.
+- ハンドラ - `Response` オブジェクトを返す必要があります。 一つのヘルパーのみが実行されます。
 - Middleware - should `await next()` and return nothing to call the next Middleware, **or** return a `Response` to early-exit.
 
-The user can register middleware using `app.use` or using `app.HTTP_METHOD` as well as the handlers. For this feature, it's easy to specify the path and the method.
+ミドルウェアの登録には `app.use` か `app.HTTP_METHOD` をハンドラと同じように登録できます。 この方法ではパスや HTTP メソッドを簡単に指定できます。
 
 ```ts
 // match any method, all routes
@@ -20,24 +20,24 @@ app.use('/posts/*', cors())
 app.post('/posts/*', basicAuth())
 ```
 
-If the handler returns `Response`, it will be used for the end-user, and stopping the processing.
+ハンドラが `Response` を返した場合、エンドユーザのために使用されて、処理が終了します。
 
 ```ts
 app.post('/posts', (c) => c.text('Created!', 201))
 ```
 
-In this case, four middleware are processed before dispatching like this:
+この場合、ディスパッチ前に4つのミドルウェアが使用されます:
 
 ```ts
 logger() -> cors() -> basicAuth() -> *handler*
 ```
 
-## Execution order
+## 実行順序
 
-The order in which Middleware is executed is determined by the order in which it is registered.
-The process before the `next` of the first registered Middleware is executed first,
-and the process after the `next` is executed last.
-See below.
+ミドルウェアが実行される順序は、ミドルウェアが登録された順序によって決まります。
+最初に登録されたミドルウェアの `next` より前の処理が最初に実行され、
+`next` 以降の処理が最後に実行されます。
+実例を見てください。
 
 ```ts
 app.use(async (_, next) => {
@@ -62,7 +62,7 @@ app.get('/', (c) => {
 })
 ```
 
-Result is the following.
+このような結果になります。
 
 ```
 middleware 1 start
@@ -76,9 +76,9 @@ middleware 1 end
 
 Note that if the handler or any middleware throws, hono will catch it and either pass it to [your app.onError() callback](/docs/api/hono#error-handling) or automatically convert it to a 500 response before returning it up the chain of middleware. This means that next() will never throw, so there is no need to wrap it in a try/catch/finally.
 
-## Built-in Middleware
+## ビルトインミドルウェア
 
-Hono has built-in middleware.
+Hono にはビルトインミドルウェアがあります。
 
 ```ts
 import { Hono } from 'hono'
@@ -120,9 +120,9 @@ app.get(
 
 :::
 
-## Custom Middleware
+## カスタムミドルウェア
 
-You can write your own middleware directly inside `app.use()`:
+独自のミドルウェアを作成できます。
 
 ```ts
 // Custom logger
@@ -212,10 +212,10 @@ app.get('/echo', echoMiddleware, (c) => {
 })
 ```
 
-## Third-party Middleware
+## サードパーティーミドルウェア
 
-Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries.
-So with them, we may make a more complex application.
+ビルトインミドルウェアは外部モジュールに依存しません、しかしサードパーティーミドルウェアはサードパーティー製ライブラリに依存している可能性があります。
+したがって、それらを使用してより複雑なアプリケーションを作成できると思います。
 
 We can explore a variety of [third-party middleware](https://hono.dev/docs/middleware/third-party).
-For example, we have GraphQL Server Middleware, Sentry Middleware, Firebase Auth Middleware, and others.
+例えば、 GraphQL サーバーミドルウェア、 Sentry ミドルウェア、 Firebase Auth ミドルウェア等...

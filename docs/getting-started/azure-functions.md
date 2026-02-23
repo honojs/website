@@ -1,35 +1,35 @@
 # Azure Functions
 
-[Azure Functions](https://azure.microsoft.com/en-us/products/functions) is a serverless platform from Microsoft Azure. You can run your code in response to events, and it automatically manages the underlying compute resources for you.
+[Azure Functions](https://azure.microsoft.com/en-us/products/functions) は Microsoft Azure のサーバーレスプラットフォームです。 イベントに応じてコードを実行でき、自動でコンピューティングリソースを管理します。
 
-Hono was not designed for Azure Functions at first. But with [Azure Functions Adapter](https://github.com/Marplex/hono-azurefunc-adapter) it can run on it as well.
+Hono は Azure Functions のために作られたわけではありませんが、 [Azure Functions Adapter](https://github.com/Marplex/hono-azurefunc-adapter) を使うことでうまく動かすことができます。
 
-It works with Azure Functions **V4** running on Node.js 18 or above.
+Node.js 18 以上の Azure Functions **V4** で動作します。
 
-## 1. Install CLI
+## 1. CLI をインストールする
 
-To create an Azure Function, you must first install [Azure Functions Core Tools](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?pivots=nodejs-model-v4#install-the-azure-functions-core-tools).
+Azure Function を作るために、 [Azure Functions Core Tools](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?pivots=nodejs-model-v4#install-the-azure-functions-core-tools) をインストールする必要があります。
 
-On macOS
+macOS では:
 
 ```sh
 brew tap azure/functions
 brew install azure-functions-core-tools@4
 ```
 
-Follow this link for other OS:
+他の OS では:
 
 - [Install the Azure Functions Core Tools | Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?pivots=nodejs-model-v4#install-the-azure-functions-core-tools)
 
-## 2. Setup
+## 2. セットアップ
 
-Create a TypeScript Node.js V4 project in the current folder.
+TypeScript Node.js V4 プロジェクトをカレントディレクトリに作ります。
 
 ```sh
 func init --typescript
 ```
 
-Change the default route prefix of the host. Add this property to the root json object of `host.json`:
+ホストのデフォルトプレフィックスを変更するには、 `host.json` のルートに以下のプロパティを追加します:
 
 ```json
 "extensions": {
@@ -40,10 +40,10 @@ Change the default route prefix of the host. Add this property to the root json 
 ```
 
 ::: info
-The default Azure Functions route prefix is `/api`. If you don't change it as shown above, be sure to start all your Hono routes with `/api`
+Azure Functions でデフォルトのルートプレフィックスは `/api` です。 上のように変更しない場合は、 Hono の全てのルートを `/api` から初めてください。
 :::
 
-Now you are ready to install Hono and the Azure Functions Adapter with:
+Hono と Azure Functions Adapter をインストールする準備ができました:
 
 ::: code-group
 
@@ -67,7 +67,7 @@ bun add @marplex/hono-azurefunc-adapter hono
 
 ## 3. Hello World
 
-Create `src/app.ts`:
+`src/app.ts` を作ります:
 
 ```ts
 // src/app.ts
@@ -79,7 +79,7 @@ app.get('/', (c) => c.text('Hello Azure Functions!'))
 export default app
 ```
 
-Create `src/functions/httpTrigger.ts`:
+`src/functions/httpTrigger.ts` を作ります:
 
 ```ts
 // src/functions/httpTrigger.ts
@@ -101,9 +101,9 @@ app.http('httpTrigger', {
 })
 ```
 
-## 4. Run
+## 4. 実行
 
-Run the development server locally. Then, access `http://localhost:7071` in your Web browser.
+開発サーバーをローカルで実行し、 `http://localhost:7071` を Web ブラウザで開きます。
 
 ::: code-group
 
@@ -125,13 +125,13 @@ bun run start
 
 :::
 
-## 5. Deploy
+## 5. デプロイ
 
 ::: info
-Before you can deploy to Azure, you need to create some resources in your cloud infrastructure. Please visit the Microsoft documentation on [Create supporting Azure resources for your function](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?pivots=nodejs-model-v4&tabs=windows%2Cazure-cli%2Cbrowser#create-supporting-azure-resources-for-your-function)
+Azure にデプロイする前に、クラウドインフラストラクチャリソースを作る必要があります。 Microsoft のドキュメントを読んでください。 [Create supporting Azure resources for your function](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-cli-typescript?pivots=nodejs-model-v4&tabs=windows%2Cazure-cli%2Cbrowser#create-supporting-azure-resources-for-your-function)
 :::
 
-Build the project for deployment:
+プロジェクトをビルドしてデプロイします:
 
 ::: code-group
 
@@ -153,7 +153,7 @@ bun run build
 
 :::
 
-Deploy your project to the function app in Azure Cloud. Replace `<YourFunctionAppName>` with the name of your app.
+プロジェクトを自分の Azure Cloud のファンクションアプリケーションにデプロイするために、 `<YourFunctionAppName>` を自分のアプリの名前に変えます。
 
 ```sh
 func azure functionapp publish <YourFunctionAppName>

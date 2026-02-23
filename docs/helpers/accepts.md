@@ -1,8 +1,8 @@
-# Accepts Helper
+# Accepts ヘッダ
 
-Accepts Helper helps to handle Accept headers in the Requests.
+Accepts ヘルパーはリクエストの Accept ヘッダを処理するのに役立ちます。
 
-## Import
+## インポート
 
 ```ts
 import { Hono } from 'hono'
@@ -11,7 +11,7 @@ import { accepts } from 'hono/accepts'
 
 ## `accepts()`
 
-The `accepts()` function looks at the Accept header, such as Accept-Encoding and Accept-Language, and returns the proper value.
+`accepts()` 関数は Accept-Encoding や Accept-Language 等の Accept をヘッダ調べ、適切な値を返します。
 
 ```ts
 import { accepts } from 'hono/accepts'
@@ -26,9 +26,9 @@ app.get('/', (c) => {
 })
 ```
 
-### `AcceptHeader` type
+### `AcceptHeader` 型
 
-The definition of the `AcceptHeader` type is as follows.
+`AcceptHeader` 型の定義は以下のとおりです。
 
 ```ts
 export type AcceptHeader =
@@ -41,20 +41,20 @@ export type AcceptHeader =
   | 'Accept-Ranges'
 ```
 
-## Options
+## オプション
 
 ### <Badge type="danger" text="required" /> header: `AcceptHeader`
 
-The target accept header.
+調べる accept ヘッダの名前。
 
 ### <Badge type="danger" text="required" /> supports: `string[]`
 
-The header values which your application supports.
+アプリケーションがサポートするヘッダの値。
 
 ### <Badge type="danger" text="required" /> default: `string`
 
-The default values.
+デフォルトの値。
 
 ### <Badge type="info" text="optional" /> match: `(accepts: Accept[], config: acceptsConfig) => string`
 
-The custom match function.
+マッチを行うカスタム関数。

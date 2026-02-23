@@ -1,19 +1,19 @@
 ---
-title: Hono - Web framework built on Web Standards
+title: Hono - Web 標準に基づいた Web フレームワーク
 titleTemplate: ':title'
 head:
   - [
       'meta',
       {
         property: 'og:description',
-        content: 'Hono is a small, simple, and ultrafast web framework built on Web Standards. It works on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js. Fast, but not only fast.',
+        content: 'Hono は、Web 標準に基づいた、小さく、シンプルで、爆速な Web フレームワークです。 Cloudflare Workers 、 Fastly Compute 、 Deno 、 Bun 、 Vercel 、 Netlify 、 AWS Lambda 、 Lambda@Edge そして Node.js で動作します。 速いですが、それだけではありません。',
       },
     ]
 layout: home
 hero:
   name: Hono
-  text: Web application framework
-  tagline: Fast, lightweight, built on Web Standards. Support for any JavaScript runtime.
+  text: Webアプリケーションフレームワーク
+  tagline: 高速、 軽量、 Web 標準。 あらゆる JavaScript ランタイムをサポートします。
   image:
     src: /images/code.webp
     alt: "An example of code for Hono. \
@@ -27,21 +27,21 @@ hero:
       text: Get Started
       link: /docs/
     - theme: alt
-      text: View on GitHub
+      text: GitHub
       link: https://github.com/honojs/hono
 features:
   - icon: 🚀
-    title: Ultrafast & Lightweight
-    details: The router RegExpRouter is really fast. The hono/tiny preset is under 14kB. Using only Web Standard APIs.
+    title: 爆速 & 軽量
+    details: RegExpRouter は超高速なルーターです。 hono/tiny プリセットはわずか 14kB。 Web 標準 API のみを使用します。
   - icon: 🌍
-    title: Multi-runtime
-    details: Works on Cloudflare, Fastly, Deno, Bun, AWS, or Node.js. The same code runs on all platforms.
+    title: マルチランタイム
+    details: Cloudflare 、 Fastly 、 Deno 、 Bun 、 AWS また Node.js で動作します。 同じコードが全てのプライベートで使用できます。
   - icon: 🔋
-    title: Batteries Included
-    details: Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
+    title: バッテリー同梱
+    details: Hono にはビルドインミドルウェア、カスタムミドルウェア、サードパーティーミドルウェアそしてヘルパーがあります。 バッテリー同梱。
   - icon: 😃
-    title: Delightful DX
-    details: Super clean APIs. First-class TypeScript support. Now, we've got "Types".
+    title: 楽しい開発体験
+    details: 超クリーンな API。 最高級の TypeScript サポート。 Now, we've got "Types".
 ---
 
 <script setup>
