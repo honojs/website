@@ -24,7 +24,7 @@ Vite brings its own CORS protection. [Disable it](https://hono.dev/docs/middlewa
 
 ### Dev Server
 
-The [Dev Server plugin](https://github.com/honojs/vite-plugins/blob/main/packages/dev-server) is an adapter for Hono's fetch-based API. It makes key features (e.g., hot module replacement on the client) available, and includes adapters for Node and Bun. *If you are using Cloudflare, [`@cloudflare/vite-plugin`](https://developers.cloudflare.com/workers/vite-plugin/) is recommended instead.*
+The [Dev Server plugin](https://github.com/honojs/vite-plugins/blob/main/packages/dev-server) is an adapter for Hono's fetch-based API. It makes key features (e.g., hot module replacement on the client) available, and includes adapters for Node and Bun. _If you are using Cloudflare, [`@cloudflare/vite-plugin`](https://developers.cloudflare.com/workers/vite-plugin/) is recommended instead._
 
 ::: info
 Vite will take over serving static files. You can override this behavior to [serve static files from a Hono app](https://github.com/honojs/vite-plugins/tree/main/packages/dev-server#importing-asset-as-url-is-not-working).
@@ -32,7 +32,7 @@ Vite will take over serving static files. You can override this behavior to [ser
 
 ### Build
 
-To build your app for production, use the [Build plugin](https://github.com/honojs/vite-plugins/tree/main/packages/build). 
+To build your app for production, use the [Build plugin](https://github.com/honojs/vite-plugins/tree/main/packages/build).
 
 ### SSG
 
@@ -51,6 +51,7 @@ Cloudflare provides a test environment and database mocking through [`@cloudflar
 :::
 
 ## Examples
+
 - [With Hono JSX/DOM](https://github.com/honojs/examples/tree/main/hono-vite-jsx) for a pure Hono stack
 - [With React](https://github.com/yusukebe/hono-vite-react-stack-example)
 - [Vitest + Cloudflare](https://github.com/yusukebe/vitest-pool-workers-hono)
