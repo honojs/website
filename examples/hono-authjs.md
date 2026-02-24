@@ -120,7 +120,10 @@ export const verificationTokens = sqliteTable(
   },
   (verificationToken) => [
     primaryKey({
-      columns: [verificationToken.identifier, verificationToken.token],
+      columns: [
+        verificationToken.identifier,
+        verificationToken.token,
+      ],
     }),
   ]
 )
