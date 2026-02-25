@@ -111,7 +111,7 @@ If you want to adjust CORS configuration according to the execution environment,
 ```ts
 app.use('*', async (c, next) => {
   const corsMiddlewareHandler = cors({
-    origin: c.env.CORS_ORIGIN,
+    origin: [c.env.CORS_ORIGIN],
   })
   return corsMiddlewareHandler(c, next)
 })
