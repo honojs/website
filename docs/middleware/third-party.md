@@ -76,6 +76,7 @@ Most of this middleware leverages external libraries.
 - [Event Emitter](https://github.com/honojs/middleware/tree/main/packages/event-emitter)
 - [Geo](https://github.com/ktkongtong/hono-geo-middleware/tree/main/packages/middleware)
 - [Hono Rate Limiter](https://github.com/rhinobase/hono-rate-limiter)
+- [Hono Problem Details (RFC 9457)](https://github.com/paveg/hono-problem-details)
 - [Hono Simple DI](https://github.com/maou-shonen/hono-simple-DI)
 - [jsonv-ts (Validator, OpenAPI, MCP)](https://github.com/dswbx/jsonv-ts)
 - [MCP](https://github.com/honojs/middleware/tree/main/packages/mcp)
