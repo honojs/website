@@ -119,8 +119,8 @@ The `nbf` (not before) claim will be verified if present and this is set to `tru
 
 #### <Badge type="info" text="optional" /> verifyOptions.iat: `boolean`
 
-The `iat` (not before) claim will be verified if present and this is set to `true`. The default is `true`.
+The `iat` (issued at) claim will be verified if present and this is set to `true`. The default is `true`.
 
 #### <Badge type="info" text="optional" /> verifyOptions.exp: `boolean`
 
-The `exp` (not before) claim will be verified if present and this is set to `true`. The default is `true`.
+The `exp` (expiration time) claim will be verified if present and this is set to `true`. The default is `true`.
