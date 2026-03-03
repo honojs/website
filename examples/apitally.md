@@ -10,9 +10,6 @@ With Apitally, you can:
 - Capture application logs and traces, correlated with requests
 - Set up uptime monitoring and custom alerts
 
-> [!IMPORTANT]
-> Running Hono on Cloudflare Workers? Follow [this guide](https://docs.apitally.io/setup-guides/hono-cloudflare-workers) instead.
-
 ## Installation
 
 Install the [Apitally SDK](https://www.npmjs.com/package/apitally) in your project:
@@ -89,4 +86,5 @@ The Consumers dashboard in Apitally will now show all consumers and you can filt
 
 - [Apitally](https://apitally.io/hono) - Official website
 - [Apitally SDK](https://github.com/apitally/apitally-js) - GitHub repository
-- [Apitally documentation](https://docs.apitally.io/setup-guides/hono) - Complete setup guide
+- [Official setup guide](https://docs.apitally.io/setup-guides/hono)
+- [Official setup guide for Cloudflare Workers](https://docs.apitally.io/setup-guides/hono-cloudflare-workers)
