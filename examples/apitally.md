@@ -6,12 +6,9 @@ With Apitally, you can:
 
 - Monitor API usage, performance, and errors
 - Track API adoption by individual consumers
-- Log and inspect requests and responses
-- Capture application logs, correlated with requests
+- Log and inspect API requests and responses
+- Capture application logs and traces, correlated with requests
 - Set up uptime monitoring and custom alerts
-
-> [!IMPORTANT]
-> Apitally currently doesn't work on serverless platforms like AWS Lambda or Cloudflare Workers.
 
 ## Installation
 
@@ -89,4 +86,5 @@ The Consumers dashboard in Apitally will now show all consumers and you can filt
 
 - [Apitally](https://apitally.io/hono) - Official website
 - [Apitally SDK](https://github.com/apitally/apitally-js) - GitHub repository
-- [Apitally documentation](https://docs.apitally.io/frameworks/hono) - Complete setup guide
+- [Official setup guide](https://docs.apitally.io/setup-guides/hono)
+- [Official setup guide for Cloudflare Workers](https://docs.apitally.io/setup-guides/hono-cloudflare-workers)
