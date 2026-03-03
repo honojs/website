@@ -64,7 +64,7 @@ export type AppType = typeof yourRoutesVariable
 ```ts
 // src/routes/userRoutes.ts
 import { Hono } from 'hono'
-import { z } from 'zod'
+import * as z from 'zod'
 
 export const userRoutes = new Hono()
   .get('/u/:id', (c) => {

@@ -13,13 +13,12 @@ If you have a simple Hono application like the following:
 const app = new Hono()
 
 app.get('/', (c) => c.html('Hello, World!'))
+
 app.use('/about', async (c, next) => {
-  c.setRenderer((content, head) => {
+  c.setRenderer((content) => {
     return c.html(
       <html>
-        <head>
-          <title>{head.title ?? ''}</title>
-        </head>
+        <head />
         <body>
           <p>{content}</p>
         </body>
@@ -28,8 +27,13 @@ app.use('/about', async (c, next) => {
   })
   await next()
 })
+
 app.get('/about', (c) => {
-  return c.render('Hello!', { title: 'Hono SSG Page' })
+  return c.render(
+    <>
+      <title>Hono SSG Page</title>Hello!
+    </>
+  )
 })
 
 export default app
@@ -252,6 +256,29 @@ toSSG(app, fs, {
   plugins: [defaultPlugin, myCustomPlugin],
 })
 ```
+
+### Redirect Plugin
+
+The `redirectPlugin` generates HTML redirect pages for routes that return HTTP redirect responses (301, 302, 303, 307, 308). The generated HTML includes a `<meta http-equiv="refresh">` tag and a canonical link.
+
+```ts
+import { toSSG, redirectPlugin, defaultPlugin } from 'hono/ssg'
+
+toSSG(app, fs, {
+  plugins: [redirectPlugin(), defaultPlugin()],
+})
+```
+
+For example, if your app has:
+
+```ts
+app.get('/old', (c) => c.redirect('/new'))
+```
+
+The `redirectPlugin` will generate an HTML file at `/old.html` with a meta refresh redirect to `/new`.
+
+> [!NOTE]
+> When used with `defaultPlugin`, place `redirectPlugin` **before** `defaultPlugin`. Since `defaultPlugin` skips non-200 responses, placing it first would prevent `redirectPlugin` from processing redirect responses.
 
 ### Hook Types
 

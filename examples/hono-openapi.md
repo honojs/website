@@ -10,6 +10,14 @@ Install the package along with your preferred validation library and its depende
 npm install hono-openapi @hono/standard-validator
 ```
 
+In this guide, we will use `valibot`
+
+```bash
+npm install valibot @valibot/to-json-schema
+```
+
+You can learn more about the installation here - <https://honohub.dev/docs/openapi#installation>
+
 ---
 
 ## 🚀 Getting Started

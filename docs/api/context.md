@@ -164,7 +164,7 @@ app.get('/redirect-permanently', (c) => {
 
 ## res
 
-You can access the Response object that will be returned.
+You can access the [Response] object that will be returned.
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -176,6 +176,8 @@ app.use('/', async (c, next) => {
   c.res.headers.append('X-Debug', 'Debug message')
 })
 ```
+
+[Response]: https://developer.mozilla.org/en-US/docs/Web/API/Response
 
 ## set() / get()
 
@@ -379,6 +381,18 @@ app.get('/foo', async (c) => {
   c.executionCtx.waitUntil(c.env.KV.put(key, data))
   // ...
 })
+```
+
+The `ExecutionContext` also has an [`exports`](https://developers.cloudflare.com/workers/runtime-apis/context/#exports) field. To get autocomplete with Wrangler's generated types, you can use module augmentation:
+
+```ts
+import 'hono'
+
+declare module 'hono' {
+  interface ExecutionContext {
+    readonly exports: Cloudflare.Exports
+  }
+}
 ```
 
 ## event

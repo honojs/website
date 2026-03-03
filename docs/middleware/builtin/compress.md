@@ -4,8 +4,6 @@ This middleware compresses the response body, according to `Accept-Encoding` req
 
 ::: info
 **Note**: On Cloudflare Workers and Deno Deploy, the response body will be compressed automatically, so there is no need to use this middleware.
-
-**Bun**: This middleware uses `CompressionStream` which is not yet supported in bun.
 :::
 
 ## Import

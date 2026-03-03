@@ -67,7 +67,7 @@ onMounted(() => {
     try {
       localStorage.setItem('kawaii', true)
     } catch (err) {}
-    console.log('kawaii mode enabled. logo credits to @sawaratsuki1004 via https://github.com/SAWARATSUKI/ServiceLogos');
+    console.log('kawaii mode enabled. logo credits to @sawaratsuki1004 via https://github.com/SAWARATSUKI/KawaiiLogos');
     setKawaii()
   } else if (kawaii === 'false') {
     try {

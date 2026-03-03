@@ -158,6 +158,53 @@ type ResponseType200 = InferResponseType<
 >
 ```
 
+## Global Response
+
+Hono RPC client doesn't automatically infer response types from global error handlers like `app.onError()` or global middleware. You can use the `ApplyGlobalResponse` type helper to merge global error response types into all routes.
+
+```ts
+import type { ApplyGlobalResponse } from 'hono/client'
+
+const app = new Hono()
+  .get('/api/users', (c) => c.json({ users: ['alice', 'bob'] }, 200))
+  .onError((err, c) => c.json({ error: err.message }, 500))
+
+type AppWithErrors = ApplyGlobalResponse<
+  typeof app,
+  {
+    500: { json: { error: string } }
+  }
+>
+
+const client = hc<AppWithErrors>('http://localhost')
+```
+
+Now the client knows about both success and error responses:
+
+```ts
+const res = await client.api.users.$get()
+
+if (res.ok) {
+  const data = await res.json() // { users: string[] }
+}
+
+// InferResponseType includes the global error type
+type ResType = InferResponseType<typeof client.api.users.$get>
+// { users: string[] } | { error: string }
+```
+
+You can also define multiple global error status codes at once:
+
+```ts
+type AppWithErrors = ApplyGlobalResponse<
+  typeof app,
+  {
+    401: { json: { error: string; message: string } }
+    500: { json: { error: string; message: string } }
+  }
+>
+```
+
 ## Not Found
 
 If you want to use a client, you should not use `c.notFound()` for the Not Found response. The data that the client gets from the server cannot be inferred correctly.
@@ -211,9 +258,9 @@ export const routes = new Hono().get(
   ),
   async (c) => {
     const { id } = c.req.valid('query')
-    const post: Post | undefined = await getPost(id)
+    const post = await getPost(id)
 
-    if (post === undefined) {
+    if (!post) {
       return c.json({ error: 'not found' }, 404) // Specify 404
     }
 
@@ -221,6 +268,33 @@ export const routes = new Hono().get(
   }
 )
 ```
+
+Alternatively, you can use module augmentation to extend `NotFoundResponse` interface. This allows `c.notFound()` to return a typed response:
+
+```ts
+// server.ts
+import { Hono, TypedResponse } from 'hono'
+
+declare module 'hono' {
+  interface NotFoundResponse
+    extends Response,
+      TypedResponse<{ error: string }, 404, 'json'> {}
+}
+
+const app = new Hono()
+  .get('/posts/:id', async (c) => {
+    const post = await getPost(c.req.param('id'))
+    if (!post) {
+      return c.notFound()
+    }
+    return c.json({ post }, 200)
+  })
+  .notFound((c) => c.json({ error: 'not found' }, 404))
+
+export type AppType = typeof app
+```
+
+Now the client can correctly infer the 404 response type.
 
 ## Path parameters
 
@@ -257,6 +331,41 @@ const res = await client.posts[':id'].$get({
   query: {
     page: '1', // `string`, converted by the validator to `number`
   },
+})
+```
+
+### Multiple parameters
+
+Handle routes with multiple parameters.
+
+```ts
+const route = app.get(
+  '/posts/:postId/:authorId',
+  zValidator(
+    'query',
+    z.object({
+      page: z.string().optional(),
+    })
+  ),
+  (c) => {
+    // ...
+    return c.json({
+      title: 'Night',
+      body: 'Time to sleep',
+    })
+  }
+)
+```
+
+Add multiple `['']` to specify params in path.
+
+```ts
+const res = await client.posts[':postId'][':authorId'].$get({
+  param: {
+    postId: '123',
+    authorId: '456',
+  },
+  query: {},
 })
 ```
 
@@ -394,6 +503,56 @@ url = client.api.posts[':id'].$url({
 console.log(url.pathname) // `/api/posts/123`
 ```
 
+### Typed URL
+
+You can pass the base URL as the second type parameter to `hc` to get more precise URL types:
+
+```ts
+const client = hc<typeof route, 'http://localhost:8787'>(
+  'http://localhost:8787/'
+)
+
+const url = client.api.posts.$url()
+// url is TypedURL with precise type information
+// including protocol, host, and path
+```
+
+This is useful when you want to use the URL as a type-safe key for libraries like SWR.
+
+## `$path()`
+
+`$path()` is similar to `$url()`, but returns a path string instead of a `URL` object. Unlike `$url()`, it does not include the base URL origin, so it works regardless of the base URL you pass to `hc`.
+
+```ts
+const route = app
+  .get('/api/posts', (c) => c.json({ posts }))
+  .get('/api/posts/:id', (c) => c.json({ post }))
+
+const client = hc<typeof route>('http://localhost:8787/')
+
+let path = client.api.posts.$path()
+console.log(path) // `/api/posts`
+
+path = client.api.posts[':id'].$path({
+  param: {
+    id: '123',
+  },
+})
+console.log(path) // `/api/posts/123`
+```
+
+You can also pass query parameters:
+
+```ts
+const path = client.api.posts.$path({
+  query: {
+    page: '1',
+    limit: '10',
+  },
+})
+console.log(path) // `/api/posts?page=1&limit=10`
+```
+
 ## File Uploads
 
 You can upload files using a form body:
@@ -440,6 +599,29 @@ services = [
 // src/client.ts
 const client = hc<CreateProfileType>('http://localhost', {
   fetch: c.env.AUTH.fetch.bind(c.env.AUTH),
+})
+```
+
+## Custom query serializer
+
+You can customize how query parameters are serialized using the `buildSearchParams` option. This is useful when you need bracket notation for arrays or other custom formats:
+
+```ts
+const client = hc<AppType>('http://localhost', {
+  buildSearchParams: (query) => {
+    const searchParams = new URLSearchParams()
+    for (const [k, v] of Object.entries(query)) {
+      if (v === undefined) {
+        continue
+      }
+      if (Array.isArray(v)) {
+        v.forEach((item) => searchParams.append(`${k}[]`, item))
+      } else {
+        searchParams.set(k, v)
+      }
+    }
+    return searchParams
+  },
 })
 ```
 

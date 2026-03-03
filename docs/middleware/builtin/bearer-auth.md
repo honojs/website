@@ -114,14 +114,25 @@ A function to handle hashing for safe comparison of authentication tokens.
 
 The function to verify the token.
 
-### <Badge type="info" text="optional" /> noAuthenticationHeaderMessage: `string | object | MessageFunction`
+### <Badge type="info" text="optional" /> noAuthenticationHeader: `object`
 
-`MessageFunction` is `(c: Context) => string | object | Promise<string | object>`. The custom message if it does not have an authentication header.
+Customizes the error response when the request does not have an authentication header.
 
-### <Badge type="info" text="optional" /> invalidAuthenticationHeaderMessage: `string | object | MessageFunction`
+- `wwwAuthenticateHeader`: `string | object | MessageFunction` - Customizes the WWW-Authenticate header value.
+- `message`: `string | object | MessageFunction` - The custom message for the response body.
 
-The custom message if the authentication header is invalid.
+`MessageFunction` is `(c: Context) => string | object | Promise<string | object>`.
 
-### <Badge type="info" text="optional" /> invalidTokenMessage: `string | object | MessageFunction`
+### <Badge type="info" text="optional" /> invalidAuthenticationHeader: `object`
 
-The custom message if the token is invalid.
+Customizes the error response when the authentication header format is invalid.
+
+- `wwwAuthenticateHeader`: `string | object | MessageFunction` - Customizes the WWW-Authenticate header value.
+- `message`: `string | object | MessageFunction` - The custom message for the response body.
+
+### <Badge type="info" text="optional" /> invalidToken: `object`
+
+Customizes the error response when the token is invalid.
+
+- `wwwAuthenticateHeader`: `string | object | MessageFunction` - Customizes the WWW-Authenticate header value.
+- `message`: `string | object | MessageFunction` - The custom message for the response body.

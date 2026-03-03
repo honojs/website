@@ -43,7 +43,7 @@ Validate with Zod to receive the value of the query parameter.
 
 ```ts
 import { zValidator } from '@hono/zod-validator'
-import { z } from 'zod'
+import * as z from 'zod'
 
 app.get(
   '/hello',
@@ -135,7 +135,7 @@ The API server.
 // functions/api/[[route]].ts
 import { Hono } from 'hono'
 import { handle } from 'hono/cloudflare-pages'
-import { z } from 'zod'
+import * as z from 'zod'
 import { zValidator } from '@hono/zod-validator'
 
 const app = new Hono()

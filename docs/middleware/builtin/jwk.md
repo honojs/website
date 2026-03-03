@@ -25,6 +25,7 @@ app.use(
   '/auth/*',
   jwk({
     jwks_uri: `https://${backendServer}/.well-known/jwks.json`,
+    alg: ['RS256'],
   })
 )
 
@@ -42,6 +43,7 @@ app.use(
   '/auth/*',
   jwk({
     jwks_uri: `https://${backendServer}/.well-known/jwks.json`,
+    alg: ['RS256'],
   })
 )
 
@@ -61,6 +63,7 @@ app.use(
   jwk({
     jwks_uri: (c) =>
       `https://${c.env.authServer}/.well-known/jwks.json`,
+    alg: ['RS256'],
     allow_anon: true,
   })
 )
@@ -80,6 +83,7 @@ const id_payload = await verifyWithJwks(
   id_token,
   {
     jwks_uri: 'https://your-auth-server/.well-known/jwks.json',
+    allowedAlgorithms: ['RS256'],
   },
   {
     cf: { cacheEverything: true, cacheTtl: 3600 },
@@ -87,7 +91,38 @@ const id_payload = await verifyWithJwks(
 )
 ```
 
+## Configuring JWKS fetch request options
+
+To configure how JWKS is retrieved from `jwks_uri`, pass fetch request options as the second argument of `jwk()`.
+
+This argument is `RequestInit` and is used only for the JWKS fetch request.
+
+```ts
+const app = new Hono()
+
+app.use(
+  '/auth/*',
+  jwk(
+    {
+      jwks_uri: `https://${backendServer}/.well-known/jwks.json`,
+      alg: ['RS256'],
+    },
+    {
+      headers: {
+        Authorization: 'Bearer TOKEN',
+      },
+    }
+  )
+)
+```
+
 ## Options
+
+### <Badge type="danger" text="required" /> alg: `AsymmetricAlgorithm[]`
+
+An array of allowed asymmetric algorithms used for token verification.
+
+Available types are `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`.
 
 ### <Badge type="info" text="optional" /> keys: `HonoJsonWebKey[] | (c: Context) => Promise<HonoJsonWebKey[]>`
 
@@ -108,3 +143,7 @@ If this value is set, then the value is retrieved from the cookie header using t
 ### <Badge type="info" text="optional" /> headerName: `string`
 
 The name of the header to look for the JWT token. The default is `Authorization`.
+
+### <Badge type="info" text="optional" /> verification: `VerifyOptions`
+
+If this option is set, you can specify validation rules for claims in the JWT payload (`iss` / `aud` / `exp` / `nbf` / `iat`), in addition to signature verification.

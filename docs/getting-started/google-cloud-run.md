@@ -13,7 +13,7 @@ When working with Google Cloud Platform it is easiest to work with the [gcloud C
 For example, on MacOS using Homebrew:
 
 ```sh
-brew install --cask google-cloud-sdk
+brew install --cask gcloud-cli
 ```
 
 Authenticate with the CLI.
