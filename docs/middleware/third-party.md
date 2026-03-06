@@ -69,6 +69,10 @@ Most of this middleware leverages external libraries.
 - [React Compatibility](https://github.com/honojs/middleware/tree/main/packages/react-compat)
 - [React Renderer](https://github.com/honojs/middleware/tree/main/packages/react-renderer)
 
+### Queue / Job Processing
+
+- [GlideMQ (Message Queue REST API + SSE)](https://github.com/avifenesh/glidemq-hono)
+
 ### Utilities
 
 - [Bun Compress](https://github.com/honojs/middleware/tree/main/packages/bun-compress)
