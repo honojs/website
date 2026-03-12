@@ -1,5 +1,5 @@
 {
-  "name": "hono-website",
+  "name": "hono",
   "compatibility_date": "2025-04-01",
   "observability": {
     "enabled": true,
