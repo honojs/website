@@ -219,6 +219,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: '3rd-party Middleware',
         link: '/docs/middleware/third-party',
       },
+      {
+        text: 'Universal Cache (3rd-party)',
+        link: '/docs/middleware/third-party/universal-cache',
+      },
     ],
   },
   {
