@@ -1,4 +1,5 @@
 cache
+.wrangler
 
 node_modules
 yarn-error.log
