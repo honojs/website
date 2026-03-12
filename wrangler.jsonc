@@ -1,0 +1,12 @@
+{
+  "name": "hono-dev",
+  "compatibility_date": "2025-04-01",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./.vitepress/dist",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
