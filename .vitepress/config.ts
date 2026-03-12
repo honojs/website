@@ -440,6 +440,33 @@ export default defineConfig({
     ],
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
   ],
+  transformHead(context) {
+    const relativePath = context.pageData.relativePath
+    const head: Array<[string, Record<string, string>]> = []
+    if (relativePath === 'index.md') {
+      head.push([
+        'link',
+        {
+          rel: 'alternate',
+          type: 'text/plain',
+          title: 'LLM docs',
+          href: 'https://hono.dev/llms.txt',
+        },
+      ])
+    }
+    if (relativePath.startsWith('docs/') || relativePath.startsWith('examples/')) {
+      head.push([
+        'link',
+        {
+          rel: 'alternate',
+          type: 'text/markdown',
+          title: 'Markdown source',
+          href: `https://raw.githubusercontent.com/honojs/website/refs/heads/main/${relativePath}`,
+        },
+      ])
+    }
+    return head
+  },
   titleTemplate: ':title - Hono',
   vite: {
     plugins: [
