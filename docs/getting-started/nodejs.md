@@ -180,6 +180,20 @@ import { serveStatic } from '@hono/node-server/serve-static'
 app.use('/static/*', serveStatic({ root: './' }))
 ```
 
+::: warning
+The `root` option resolves paths relative to the current working directory (`process.cwd()`). This means the behavior depends on **where you run your Node.js process from**, not where your source file is located. If you start your server from a different directory, file resolution may fail.
+
+For reliable path resolution that always points to the same directory as your source file, use `import.meta.url`:
+
+```ts
+import { fileURLToPath } from 'node:url'
+import { serveStatic } from '@hono/node-server/serve-static'
+
+app.use('/static/*', serveStatic({ root: fileURLToPath(new URL('./', import.meta.url)) }))
+```
+:::
+
+
 Use the `path` option to serve `favicon.ico` in the directory root:
 
 ```ts
