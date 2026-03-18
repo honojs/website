@@ -99,7 +99,7 @@ const res = await client.posts.$get({
 
 ## Status code
 
-If you explicitly specify the status code, such as `200` or `404`, in `c.json()`. It will be added as a type for passing to the client.
+If you explicitly specify the status code, such as `200` or `404`, in `c.json()`, it will be added as a type for passing to the client.
 
 ```ts
 // server.ts
@@ -774,7 +774,7 @@ However, we have some tips to mitigate this issue.
 
 #### Hono version mismatch
 
-If your backend is separate from the frontend and lives in a different directory, you need to ensure that the Hono versions match. If you use one Hono version on the backend and another on the frontend, you'll run into issues such as "_Type instantiation is excessively deep and possibly infinite_".
+If your backend is separated from the frontend and lives in a different directory, you need to ensure that the Hono versions match. If you use one Hono version on the backend and another on the frontend, you'll run into issues such as "_Type instantiation is excessively deep and possibly infinite_".
 
 ![](https://github.com/user-attachments/assets/e4393c80-29dd-408d-93ab-d55c11ccca05)
 
@@ -825,7 +825,7 @@ const app = new Hono().get<'foo/:id'>('foo/:id', (c) =>
 )
 ```
 
-Specifying just single type argument make a difference in performance, while it may take you a lot of time and effort if you have a lot of routes.
+Specifying just a single type argument makes a difference in performance, while it may take you a lot of time and effort if you have a lot of routes.
 
 #### Split your app and client into multiple files
 
