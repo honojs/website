@@ -3,7 +3,7 @@
 [Cloudflare Workers](https://workers.cloudflare.com) is a JavaScript edge runtime on Cloudflare CDN.
 
 You can develop the application locally and publish it with a few commands using [Wrangler](https://developers.cloudflare.com/workers/wrangler/).
-Wrangler includes trans compiler, so we can write the code with TypeScript.
+Wrangler includes transcompiler, so we can write the code with TypeScript.
 
 Let’s make your first application for Cloudflare Workers with Hono.
 
@@ -273,7 +273,7 @@ The same is applied to Bearer Authentication Middleware, JWT Authentication, or 
 
 Before deploying code to Cloudflare via CI, you need a Cloudflare token. You can manage it from [User API Tokens](https://dash.cloudflare.com/profile/api-tokens).
 
-If it's a newly created token, select the **Edit Cloudflare Workers** template, if you already have another token, make sure the token has the corresponding permissions(No, token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
+If it's a newly created token, select the **Edit Cloudflare Workers** template. If you already have another token, make sure the token has the corresponding permissions. (Note: token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
 
 then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
 
