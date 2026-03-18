@@ -135,7 +135,7 @@ export const renderer = jsxRenderer(({ children, title }) => {
 
 ## `keyframes` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
 
-You can use `keyframes` to write the contents of `@keyframes`. In this case, `fadeInAnimation` will be the name of the animation
+You can use `keyframes` to write the contents of `@keyframes`. In this case, `fadeInAnimation` will be the name of the animation.
 
 ```tsx
 const fadeInAnimation = keyframes`
@@ -214,6 +214,6 @@ app.get('/', (c) => {
 
 ## Tips
 
-If you use VS Code, you can use [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) for Syntax highlighting and IntelliSense for css tagged literals.
+If you use VS Code, you can use [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) for Syntax highlighting and IntelliSense for CSS tagged literals.
 
 ![](/images/css-ss.png)
