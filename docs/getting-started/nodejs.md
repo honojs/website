@@ -189,10 +189,13 @@ For reliable path resolution that always points to the same directory as your so
 import { fileURLToPath } from 'node:url'
 import { serveStatic } from '@hono/node-server/serve-static'
 
-app.use('/static/*', serveStatic({ root: fileURLToPath(new URL('./', import.meta.url)) }))
+app.use(
+  '/static/*',
+  serveStatic({ root: fileURLToPath(new URL('./', import.meta.url)) })
+)
 ```
-:::
 
+:::
 
 Use the `path` option to serve `favicon.ico` in the directory root:
 
