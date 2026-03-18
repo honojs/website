@@ -2,7 +2,7 @@
 
 [Azure Functions](https://azure.microsoft.com/en-us/products/functions) is a serverless platform from Microsoft Azure. You can run your code in response to events, and it automatically manages the underlying compute resources for you.
 
-Hono was not designed for Azure Functions at first. But with [Azure Functions Adapter](https://github.com/Marplex/hono-azurefunc-adapter) it can run on it as well.
+Hono was not designed for Azure Functions at first, but with [Azure Functions Adapter](https://github.com/Marplex/hono-azurefunc-adapter), it can run on it as well.
 
 It works with Azure Functions **V4** running on Node.js 18 or above.
 

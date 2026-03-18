@@ -8,7 +8,7 @@ Hono has five routers.
 
 **RegExpRouter** is the fastest router in the JavaScript world.
 
-Although this is called "RegExp" it is not an Express-like implementation using [path-to-regexp](https://github.com/pillarjs/path-to-regexp).
+Although this is called "RegExp", it is not an Express-like implementation using [path-to-regexp](https://github.com/pillarjs/path-to-regexp).
 They are using linear loops.
 Therefore, regular expression matching will be performed for all routes and the performance will be degraded as you have more routes.
 
@@ -53,7 +53,7 @@ RegExpRouter is fast, but the route registration phase can be slightly slow.
 So, it's not suitable for an environment that initializes with every request.
 
 **LinearRouter** is optimized for "one shot" situations.
-Route registration is significantly faster than with RegExpRouter because it adds the route without compiling strings, using a linear approach.
+Route registration is significantly faster than RegExpRouter because it adds the route without compiling strings, using a linear approach.
 
 The following is one of the benchmark results, which includes the route registration phase.
 
