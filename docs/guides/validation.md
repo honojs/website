@@ -33,7 +33,7 @@ app.post(
   //...
 ```
 
-Within the handler you can get the validated value with `c.req.valid('form')`.
+Within the handler, you can get the validated value with `c.req.valid('form')`.
 
 ```ts
 , (c) => {
