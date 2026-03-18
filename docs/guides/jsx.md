@@ -386,8 +386,8 @@ The `scriptNonce` value will be automatically added to any `<script>` tags gener
 
 ## Integration with html Middleware
 
-Combine the JSX and html middlewares for powerful templating.
-For in-depth details, consult the [html middleware documentation](/docs/helpers/html).
+Combine the JSX and HTML middlewares for powerful templating.
+For in-depth details, consult the [HTML middleware documentation](/docs/helpers/html).
 
 ```tsx
 import { Hono } from 'hono'
