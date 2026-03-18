@@ -136,7 +136,7 @@ const List = () => (
 )
 ```
 
-Or you can write it with `<></>` if it set up properly.
+Or you can write it with `<></>` if it sets up properly.
 
 ```tsx
 const List = () => (
