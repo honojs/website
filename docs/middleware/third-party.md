@@ -73,6 +73,10 @@ Most of this middleware leverages external libraries.
 
 - [GlideMQ (Message Queue REST API + SSE)](https://github.com/avifenesh/glidemq-hono)
 
+### Internationalization
+
+- [Intlayer i18n](https://intlayer.org/doc/environment/hono)
+
 ### Utilities
 
 - [Bun Compress](https://github.com/honojs/middleware/tree/main/packages/bun-compress)
