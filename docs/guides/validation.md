@@ -1,7 +1,7 @@
 # Validation
 
 Hono provides only a very thin Validator.
-But, it can be powerful when combined with a third-party Validator.
+However, it can be powerful when combined with a third-party Validator.
 In addition, the RPC feature allows you to share API specifications with your clients through types.
 
 ## Manual validator
