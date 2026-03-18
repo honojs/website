@@ -45,7 +45,7 @@ const app = new Hono()
 app.get('/', (c) => {
   // Set headers
   c.header('X-Message', 'My custom message')
-  return c.text('HellO!')
+  return c.text('Hello!')
 })
 ```
 
@@ -96,7 +96,7 @@ new Response('Thank you for coming', {
 
 ## text()
 
-Render text as `Content-Type:text/plain`.
+Render text as `Content-Type: text/plain`.
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -109,7 +109,7 @@ app.get('/say', (c) => {
 
 ## json()
 
-Render JSON as `Content-Type:application/json`.
+Render JSON as `Content-Type: application/json`.
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -122,7 +122,7 @@ app.get('/api', (c) => {
 
 ## html()
 
-Render HTML as `Content-Type:text/html`.
+Render HTML as `Content-Type: text/html`.
 
 ```ts twoslash
 import { Hono } from 'hono'
