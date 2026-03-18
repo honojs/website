@@ -13,8 +13,7 @@ Cloudflare recommends using [Vitest] with [@cloudflare/vitest-pool-workers](http
 
 ## Request and Response
 
-All you do is create a Request and pass it to the Hono application to validate the Response.
-And, you can use `app.request` the useful method.
+All you need to do is create a Request and pass it to the Hono application to validate the Response. You can then use the useful `app.request` method.
 
 ::: tip
 For a typed test client see the [testing helper](/docs/helpers/testing).
