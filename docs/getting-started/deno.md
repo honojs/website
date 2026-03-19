@@ -212,7 +212,7 @@ Hono is available on both [npm](https://www.npmjs.com/package/hono) and [JSR](ht
 }
 ```
 
-To use middleware you need to use the [Deno directory](https://docs.deno.com/runtime/fundamentals/configuration/#custom-path-mappings) syntaxt in the import
+To use middleware you need to use the [Deno directory](https://docs.deno.com/runtime/fundamentals/configuration/#custom-path-mappings) syntax in the import.
 
 ```json
 {

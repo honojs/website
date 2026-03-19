@@ -86,7 +86,7 @@ addEventListener('fetch', (event: FetchEventLike): void => {
 
 ## fetch()
 
-`app.fetch` will be entry point of your application.
+`app.fetch` will be the entry point of your application.
 
 For Cloudflare Workers, you can use the following:
 

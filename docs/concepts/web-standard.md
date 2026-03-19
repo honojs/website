@@ -4,7 +4,7 @@ Hono uses only **Web Standards** like Fetch.
 They were originally used in the `fetch` function and consist of basic objects that handle HTTP requests and responses.
 In addition to `Requests` and `Responses`, there are `URL`, `URLSearchParam`, `Headers` and others.
 
-Cloudflare Workers, Deno, and Bun also build upon Web Standards.
+Cloudflare Workers, Deno, and Bun also are built upon Web Standards.
 For example, a server that returns "Hello World" could be written as below. This could run on Cloudflare Workers and Bun.
 
 ```ts twoslash

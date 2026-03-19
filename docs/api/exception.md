@@ -8,7 +8,7 @@ You can throw your own HTTPExceptions by specifying a status code, and either a 
 
 ### Custom Message
 
-For basic `text` responses, just set a the error `message`.
+For basic `text` responses, just set the error `message`.
 
 ```ts twoslash
 import { HTTPException } from 'hono/http-exception'

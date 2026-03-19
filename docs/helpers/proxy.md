@@ -13,7 +13,7 @@ import { proxy } from 'hono/proxy'
 
 `proxy()` is a `fetch()` API wrapper for proxy. The parameters and return value are the same as for `fetch()` (except for the proxy-specific options).
 
-The `Accept-Encoding` header is replaced with an encoding that the current runtime can handle. Unnecessary response headers are deleted, and a `Response` object is returned that you can return as a response from the handler.
+The `Accept-Encoding` header is replaced with an encoding that the current runtime can handle. Unnecessary response headers are removed, and a `Response` object is returned that can be sent from the handler.
 
 ### Examples
 
