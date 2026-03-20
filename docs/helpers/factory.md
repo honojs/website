@@ -31,6 +31,20 @@ type Env = {
 const factory = createFactory<Env>()
 ```
 
+### Options
+
+### <Badge type="info" text="optional" /> defaultAppOptions: `HonoOptions`
+
+The default options to pass to the Hono application created by `createApp()`.
+
+```ts
+const factory = createFactory({
+  defaultAppOptions: { strict: false },
+})
+
+const app = factory.createApp() // `strict: false` is applied
+```
+
 ## `createMiddleware()`
 
 `createMiddleware()` is shortcut of `factory.createMiddleware()`.
@@ -80,7 +94,7 @@ const handlers = factory.createHandlers(logger(), middleware, (c) => {
 app.get('/api', ...handlers)
 ```
 
-## `factory.createApp()` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+## `factory.createApp()`
 
 `createApp()` helps to create an instance of Hono with the proper types. If you use this method with `createFactory()`, you can avoid redundancy in the definition of the `Env` type.
 

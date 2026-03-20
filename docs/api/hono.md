@@ -44,9 +44,13 @@ app.notFound((c) => {
 })
 ```
 
+:::warning
+The `notFound` method is only called from the top-level app. For more information, see this [issue](https://github.com/honojs/hono/issues/3465#issuecomment-2381210165).
+:::
+
 ## Error Handling
 
-`app.onError` handles an error and returns a customized Response.
+`app.onError` allows you to handle uncaught errors and return a custom Response.
 
 ```ts twoslash
 import { Hono } from 'hono'
@@ -58,7 +62,15 @@ app.onError((err, c) => {
 })
 ```
 
+::: info
+If both a parent app and its routes have `onError` handlers, the route-level handlers get priority.
+:::
+
 ## fire()
+
+::: warning
+**`app.fire()` is deprecated**. Use `fire()` from `hono/service-worker` instead. See the [Service Worker documentation](/docs/getting-started/service-worker) for details.
+:::
 
 `app.fire()` automatically adds a global `fetch` event listener.
 
@@ -74,7 +86,7 @@ addEventListener('fetch', (event: FetchEventLike): void => {
 
 ## fetch()
 
-`app.fetch` will be entry point of your application.
+`app.fetch` will be the entry point of your application.
 
 For Cloudflare Workers, you can use the following:
 
@@ -187,7 +199,7 @@ const app = new Hono({ strict: false })
 
 ## router option
 
-The `router` option specifices which router to use. The default router is `SmartRouter`. If you want to use `RegExpRouter`, pass it to a new `Hono` instance:
+The `router` option specifies which router to use. The default router is `SmartRouter`. If you want to use `RegExpRouter`, pass it to a new `Hono` instance:
 
 ```ts twoslash
 import { Hono } from 'hono'

@@ -1,4 +1,5 @@
 cache
+.wrangler
 
 node_modules
 yarn-error.log
@@ -24,3 +25,10 @@ $RECYCLE.BIN/
 
 # IDE-specific settings
 .idea
+
+# Docs for LLM
+public/llms.txt
+public/llms-full.txt
+public/llms-small.txt
+
+.claude/settings.local.json

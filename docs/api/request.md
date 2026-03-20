@@ -138,7 +138,9 @@ body['foo[]']
 
 `[]` postfix is required.
 
-### Multiple files with same name
+### Multiple files or fields with same name
+
+If you have an input field that allows multiple `<input type="file" multiple />` or multiple checkboxes with the same name `<input type="checkbox" name="favorites" value="Hono"/>`.
 
 ```ts twoslash
 import { Context } from 'hono'
@@ -267,7 +269,11 @@ Available targets are below.
 
 See the [Validation section](/docs/guides/validation) for usage examples.
 
-## routePath()
+## routePath
+
+::: warning
+**Deprecated in v4.8.0**: This property is deprecated. Use `routePath()` from [Route Helper](/docs/helpers/route) instead.
+:::
 
 You can retrieve the registered path within the handler like this:
 
@@ -286,7 +292,11 @@ If you access `/posts/123`, it will return `/posts/:id`:
 { "path": "/posts/:id" }
 ```
 
-## matchedRoutes()
+## matchedRoutes
+
+::: warning
+**Deprecated in v4.8.0**: This property is deprecated. Use `matchedRoutes()` from [Route Helper](/docs/helpers/route) instead.
+:::
 
 It returns matched routes within the handler, which is useful for debugging.
 
@@ -364,4 +374,28 @@ app.post('/', async (c) => {
   const metadata = c.req.raw.cf?.hostMetadata?
   // ...
 })
+```
+
+## cloneRawRequest()
+
+Clones the raw Request object from a HonoRequest. Works even after the request body has been consumed by validators or HonoRequest methods.
+
+```ts twoslash
+import { Hono } from 'hono'
+const app = new Hono()
+
+import { cloneRawRequest } from 'hono/request'
+import { validator } from 'hono/validator'
+
+app.post(
+  '/forward',
+  validator('json', (data) => data),
+  async (c) => {
+    // Clone after validation
+    const clonedReq = await cloneRawRequest(c.req)
+    // Does not throw the error
+    await clonedReq.json()
+    // ...
+  }
+)
 ```

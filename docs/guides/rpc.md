@@ -2,9 +2,11 @@
 
 The RPC feature allows sharing of the API specifications between the server and the client.
 
-You can export the types of input type specified by the Validator and the output type emitted by `json()`. And Hono Client will be able to import it.
+First, export the `typeof` your Hono app (commonly called `AppType`)—or just the routes you want available to the client—from your server code.
 
-> [!NOTE]  
+By accepting `AppType` as a generic parameter, the Hono Client can infer both the input type(s) specified by the Validator, and the output type(s) emitted by handlers returning `c.json()`.
+
+> [!NOTE]
 > For the RPC types to work properly in a monorepo, in both the Client's and Server's tsconfig.json files, set `"strict": true` in `compilerOptions`. [Read more.](https://github.com/honojs/hono/issues/2270#issuecomment-2143745118)
 
 ## Server
@@ -45,7 +47,7 @@ export type AppType = typeof route
 On the Client side, import `hc` and `AppType` first.
 
 ```ts
-import { AppType } from '.'
+import type { AppType } from '.'
 import { hc } from 'hono/client'
 ```
 
@@ -75,15 +77,29 @@ if (res.ok) {
 }
 ```
 
-::: warning File Upload
+### Cookies
 
-Currently, the client does not support file uploading.
+To make the client send cookies with every request, add `{ 'init': { 'credentials": 'include' } }` to the options when you're creating the client.
 
-:::
+```ts
+// client.ts
+const client = hc<AppType>('http://localhost:8787/', {
+  init: {
+    credentials: 'include',
+  },
+})
+
+// This request will now include any cookies you might have set
+const res = await client.posts.$get({
+  query: {
+    id: '123',
+  },
+})
+```
 
 ## Status code
 
-If you explicitly specify the status code, such as `200` or `404`, in `c.json()`. It will be added as a type for passing to the client.
+If you explicitly specify the status code, such as `200` or `404`, in `c.json()`, it will be added as a type for passing to the client.
 
 ```ts
 // server.ts
@@ -142,6 +158,53 @@ type ResponseType200 = InferResponseType<
 >
 ```
 
+## Global Response
+
+Hono RPC client doesn't automatically infer response types from global error handlers like `app.onError()` or global middleware. You can use the `ApplyGlobalResponse` type helper to merge global error response types into all routes.
+
+```ts
+import type { ApplyGlobalResponse } from 'hono/client'
+
+const app = new Hono()
+  .get('/api/users', (c) => c.json({ users: ['alice', 'bob'] }, 200))
+  .onError((err, c) => c.json({ error: err.message }, 500))
+
+type AppWithErrors = ApplyGlobalResponse<
+  typeof app,
+  {
+    500: { json: { error: string } }
+  }
+>
+
+const client = hc<AppWithErrors>('http://localhost')
+```
+
+Now the client knows about both success and error responses:
+
+```ts
+const res = await client.api.users.$get()
+
+if (res.ok) {
+  const data = await res.json() // { users: string[] }
+}
+
+// InferResponseType includes the global error type
+type ResType = InferResponseType<typeof client.api.users.$get>
+// { users: string[] } | { error: string }
+```
+
+You can also define multiple global error status codes at once:
+
+```ts
+type AppWithErrors = ApplyGlobalResponse<
+  typeof app,
+  {
+    401: { json: { error: string; message: string } }
+    500: { json: { error: string; message: string } }
+  }
+>
+```
+
 ## Not Found
 
 If you want to use a client, you should not use `c.notFound()` for the Not Found response. The data that the client gets from the server cannot be inferred correctly.
@@ -195,9 +258,9 @@ export const routes = new Hono().get(
   ),
   async (c) => {
     const { id } = c.req.valid('query')
-    const post: Post | undefined = await getPost(id)
+    const post = await getPost(id)
 
-    if (post === undefined) {
+    if (!post) {
       return c.json({ error: 'not found' }, 404) // Specify 404
     }
 
@@ -206,13 +269,78 @@ export const routes = new Hono().get(
 )
 ```
 
+Alternatively, you can use module augmentation to extend `NotFoundResponse` interface. This allows `c.notFound()` to return a typed response:
+
+```ts
+// server.ts
+import { Hono, TypedResponse } from 'hono'
+
+declare module 'hono' {
+  interface NotFoundResponse
+    extends Response,
+      TypedResponse<{ error: string }, 404, 'json'> {}
+}
+
+const app = new Hono()
+  .get('/posts/:id', async (c) => {
+    const post = await getPost(c.req.param('id'))
+    if (!post) {
+      return c.notFound()
+    }
+    return c.json({ post }, 200)
+  })
+  .notFound((c) => c.json({ error: 'not found' }, 404))
+
+export type AppType = typeof app
+```
+
+Now the client can correctly infer the 404 response type.
+
 ## Path parameters
 
-You can also handle routes that include path parameters.
+You can also handle routes that include path parameters or query values.
 
 ```ts
 const route = app.get(
   '/posts/:id',
+  zValidator(
+    'query',
+    z.object({
+      page: z.coerce.number().optional(), // coerce to convert to number
+    })
+  ),
+  (c) => {
+    // ...
+    return c.json({
+      title: 'Night',
+      body: 'Time to sleep',
+    })
+  }
+)
+```
+
+Both path parameters and query values **must** be passed as `string`, even if the underlying value is of a different type.
+
+Specify the string you want to include in the path with `param`, and any query values with `query`.
+
+```ts
+const res = await client.posts[':id'].$get({
+  param: {
+    id: '123',
+  },
+  query: {
+    page: '1', // `string`, converted by the validator to `number`
+  },
+})
+```
+
+### Multiple parameters
+
+Handle routes with multiple parameters.
+
+```ts
+const route = app.get(
+  '/posts/:postId/:authorId',
   zValidator(
     'query',
     z.object({
@@ -229,16 +357,51 @@ const route = app.get(
 )
 ```
 
-Specify the string you want to include in the path with `param`.
+Add multiple `['']` to specify params in path.
 
 ```ts
-const res = await client.posts[':id'].$get({
+const res = await client.posts[':postId'][':authorId'].$get({
   param: {
-    id: '123',
+    postId: '123',
+    authorId: '456',
   },
   query: {},
 })
 ```
+
+### Include slashes
+
+`hc` function does not URL-encode the values of `param`. To include slashes in parameters, use [regular expressions](/docs/api/routing#regexp).
+
+```ts
+// client.ts
+
+// Requests /posts/123/456
+const res = await client.posts[':id'].$get({
+  param: {
+    id: '123/456',
+  },
+})
+
+// server.ts
+const route = app.get(
+  '/posts/:id{.+}',
+  zValidator(
+    'param',
+    z.object({
+      id: z.string(),
+    })
+  ),
+  (c) => {
+    // id: 123/456
+    const { id } = c.req.valid('param')
+    // ...
+  }
+)
+```
+
+> [!NOTE]
+> Basic path parameters without regular expressions do not match slashes. If you pass a `param` containing slashes using the hc function, the server might not route as intended. Encoding the parameters using `encodeURIComponent` is the recommended approach to ensure correct routing.
 
 ## Headers
 
@@ -340,6 +503,85 @@ url = client.api.posts[':id'].$url({
 console.log(url.pathname) // `/api/posts/123`
 ```
 
+### Typed URL
+
+You can pass the base URL as the second type parameter to `hc` to get more precise URL types:
+
+```ts
+const client = hc<typeof route, 'http://localhost:8787'>(
+  'http://localhost:8787/'
+)
+
+const url = client.api.posts.$url()
+// url is TypedURL with precise type information
+// including protocol, host, and path
+```
+
+This is useful when you want to use the URL as a type-safe key for libraries like SWR.
+
+## `$path()`
+
+`$path()` is similar to `$url()`, but returns a path string instead of a `URL` object. Unlike `$url()`, it does not include the base URL origin, so it works regardless of the base URL you pass to `hc`.
+
+```ts
+const route = app
+  .get('/api/posts', (c) => c.json({ posts }))
+  .get('/api/posts/:id', (c) => c.json({ post }))
+
+const client = hc<typeof route>('http://localhost:8787/')
+
+let path = client.api.posts.$path()
+console.log(path) // `/api/posts`
+
+path = client.api.posts[':id'].$path({
+  param: {
+    id: '123',
+  },
+})
+console.log(path) // `/api/posts/123`
+```
+
+You can also pass query parameters:
+
+```ts
+const path = client.api.posts.$path({
+  query: {
+    page: '1',
+    limit: '10',
+  },
+})
+console.log(path) // `/api/posts?page=1&limit=10`
+```
+
+## File Uploads
+
+You can upload files using a form body:
+
+```ts
+// client
+const res = await client.user.picture.$put({
+  form: {
+    file: new File([fileToUpload], filename, {
+      type: fileToUpload.type,
+    }),
+  },
+})
+```
+
+```ts
+// server
+const route = app.put(
+  '/user/picture',
+  zValidator(
+    'form',
+    z.object({
+      file: z.instanceof(File),
+    })
+  )
+  // ...
+)
+```
+
 ## Custom `fetch` method
 
 You can set the custom `fetch` method.
@@ -355,8 +597,31 @@ services = [
 
 ```ts
 // src/client.ts
-const client = hc<CreateProfileType>('/', {
+const client = hc<CreateProfileType>('http://localhost', {
   fetch: c.env.AUTH.fetch.bind(c.env.AUTH),
+})
+```
+
+## Custom query serializer
+
+You can customize how query parameters are serialized using the `buildSearchParams` option. This is useful when you need bracket notation for arrays or other custom formats:
+
+```ts
+const client = hc<AppType>('http://localhost', {
+  buildSearchParams: (query) => {
+    const searchParams = new URLSearchParams()
+    for (const [k, v] of Object.entries(query)) {
+      if (v === undefined) {
+        continue
+      }
+      if (Array.isArray(v)) {
+        v.forEach((item) => searchParams.append(`${k}[]`, item))
+      } else {
+        searchParams.set(k, v)
+      }
+    }
+    return searchParams
+  },
 })
 ```
 
@@ -375,6 +640,22 @@ type ReqType = InferRequestType<typeof $post>['form']
 type ResType = InferResponseType<typeof $post>
 ```
 
+## Parsing a Response with type-safety helper
+
+You can use `parseResponse()` helper to easily parse a Response from `hc` with type-safety.
+
+```ts
+import { parseResponse, DetailedError } from 'hono/client'
+
+// result contains the parsed response body (automatically parsed based on Content-Type)
+const result = await parseResponse(client.hello.$get()).catch(
+  (e: DetailedError) => {
+    console.error(e)
+  }
+)
+// parseResponse automatically throws an error if response is not ok
+```
+
 ## Using SWR
 
 You can also use a React Hook library such as [SWR](https://swr.vercel.app).
@@ -383,7 +664,7 @@ You can also use a React Hook library such as [SWR](https://swr.vercel.app).
 import useSWR from 'swr'
 import { hc } from 'hono/client'
 import type { InferRequestType } from 'hono/client'
-import { AppType } from '../functions/api/[[route]]'
+import type { AppType } from '../functions/api/[[route]]'
 
 const App = () => {
   const client = hc<AppType>('/api')
@@ -491,6 +772,16 @@ This is a type instantiation for a single route. While the user doesn't need to 
 
 However, we have some tips to mitigate this issue.
 
+#### Hono version mismatch
+
+If your backend is separated from the frontend and lives in a different directory, you need to ensure that the Hono versions match. If you use one Hono version on the backend and another on the frontend, you'll run into issues such as "_Type instantiation is excessively deep and possibly infinite_".
+
+![](https://github.com/user-attachments/assets/e4393c80-29dd-408d-93ab-d55c11ccca05)
+
+#### TypeScript project references
+
+Like in the case of [Hono version mismatch](#hono-version-mismatch), you'll run into issues if your backend and frontend are separate. If you want to access code from the backend (`AppType`, for example) on the frontend, you need to use [project references](https://www.typescriptlang.org/docs/handbook/project-references.html). TypeScript's project references allow one TypeScript codebase to access and use code from another TypeScript codebase. _(source: [Hono RPC And TypeScript Project References](https://catalins.tech/hono-rpc-in-monorepos/))_.
+
 #### Compile your code before using it (recommended)
 
 `tsc` can do heavy tasks like type instantiation at compile time! Then, `tsserver` doesn't need to instantiate all the type arguments every time you use it. It will make your IDE a lot faster!
@@ -502,8 +793,7 @@ import { app } from './app'
 import { hc } from 'hono/client'
 
 // this is a trick to calculate the type when compiling
-const client = hc<typeof app>('')
-export type Client = typeof client
+export type Client = ReturnType<typeof hc<typeof app>>
 
 export const hcWithType = (...args: Parameters<typeof hc>): Client =>
   hc<typeof app>(...args)
@@ -523,8 +813,6 @@ const res = await client.posts.$post({
 
 If your project is a monorepo, this solution does fit well. Using a tool like [`turborepo`](https://turbo.build/repo/docs), you can easily separate the server project and the client project and get better integration managing dependencies between them. Here is [a working example](https://github.com/m-shaka/hono-rpc-perf-tips-example).
 
-If your client and server are in a single project, [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) of `tsc` is a good option.
-
 You can also coordinate your build process manually with tools like `concurrently` or `npm-run-all`.
 
 #### Specify type arguments manually
@@ -537,7 +825,7 @@ const app = new Hono().get<'foo/:id'>('foo/:id', (c) =>
 )
 ```
 
-Specifying just single type argument make a difference in performance, while it may take you a lot of time and effort if you have a lot of routes.
+Specifying just a single type argument makes a difference in performance, while it may take you a lot of time and effort if you have a lot of routes.
 
 #### Split your app and client into multiple files
 

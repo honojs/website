@@ -18,6 +18,9 @@ import { bearerAuth } from 'hono/bearer-auth'
 
 ## Usage
 
+> [!NOTE]
+> Your `token` must match the regex `/[A-Za-z0-9._~+/-]+=*/`, otherwise a 400 error will be returned. Notably, this regex accommodates both URL-safe Base64- and standard Base64-encoded JWTs. This middleware does not require the bearer token to be a JWT, just that it matches the above regex.
+
 ```ts
 const app = new Hono()
 
@@ -111,14 +114,25 @@ A function to handle hashing for safe comparison of authentication tokens.
 
 The function to verify the token.
 
-### <Badge type="info" text="optional" /> noAuthenticationHeaderMessage: `string | object | MessageFunction`
+### <Badge type="info" text="optional" /> noAuthenticationHeader: `object`
 
-`MessageFunction` is `(c: Context) => string | object | Promise<string | object>`. The custom message if it does not have an authentication header.
+Customizes the error response when the request does not have an authentication header.
 
-### <Badge type="info" text="optional" /> invalidAuthenticationHeaderMessage: `string | object | MessageFunction`
+- `wwwAuthenticateHeader`: `string | object | MessageFunction` - Customizes the WWW-Authenticate header value.
+- `message`: `string | object | MessageFunction` - The custom message for the response body.
 
-The custom message if the authentication header is invalid.
+`MessageFunction` is `(c: Context) => string | object | Promise<string | object>`.
 
-### <Badge type="info" text="optional" /> invalidTokenMessage: `string | object | MessageFunction`
+### <Badge type="info" text="optional" /> invalidAuthenticationHeader: `object`
 
-The custom message if the token is invalid.
+Customizes the error response when the authentication header format is invalid.
+
+- `wwwAuthenticateHeader`: `string | object | MessageFunction` - Customizes the WWW-Authenticate header value.
+- `message`: `string | object | MessageFunction` - The custom message for the response body.
+
+### <Badge type="info" text="optional" /> invalidToken: `object`
+
+Customizes the error response when the token is invalid.
+
+- `wwwAuthenticateHeader`: `string | object | MessageFunction` - Customizes the WWW-Authenticate header value.
+- `message`: `string | object | MessageFunction` - The custom message for the response body.

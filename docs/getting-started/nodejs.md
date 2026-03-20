@@ -2,7 +2,7 @@
 
 [Node.js](https://nodejs.org/) is an open-source, cross-platform JavaScript runtime environment.
 
-Hono was not designed for Node.js at first. But with a [Node.js Adapter](https://github.com/honojs/node-server) it can run on Node.js as well.
+Hono was not designed for Node.js at first, but with a [Node.js Adapter](https://github.com/honojs/node-server), it can run on Node.js as well.
 
 ::: info
 It works on Node.js versions greater than 18.x. The specific required Node.js versions are as follows:
@@ -35,7 +35,7 @@ pnpm create hono my-app
 ```
 
 ```sh [bun]
-bunx create-hono my-app
+bun create hono@latest my-app
 ```
 
 ```sh [deno]
@@ -81,6 +81,27 @@ const app = new Hono()
 app.get('/', (c) => c.text('Hello Node.js!'))
 
 serve(app)
+```
+
+If you want to gracefully shut down the server, write it like this:
+
+```ts
+const server = serve(app)
+
+// graceful shutdown
+process.on('SIGINT', () => {
+  server.close()
+  process.exit(0)
+})
+process.on('SIGTERM', () => {
+  server.close((err) => {
+    if (err) {
+      console.error(err)
+      process.exit(1)
+    }
+    process.exit(0)
+  })
+})
 ```
 
 ## 3. Run
@@ -151,7 +172,7 @@ You can use `serveStatic` to serve static files from the local file system. For 
     └── image.png
 ```
 
-If access to the path `/static/*` comes in and returns a file under `./static`, you can write the following:
+If a request to the path `/static/*` comes in and you want to return a file under `./static`, you can write the following:
 
 ```ts
 import { serveStatic } from '@hono/node-server/serve-static'
@@ -159,13 +180,30 @@ import { serveStatic } from '@hono/node-server/serve-static'
 app.use('/static/*', serveStatic({ root: './' }))
 ```
 
+::: warning
+The `root` option resolves paths relative to the current working directory (`process.cwd()`). This means the behavior depends on **where you run your Node.js process from**, not where your source file is located. If you start your server from a different directory, file resolution may fail.
+
+For reliable path resolution that always points to the same directory as your source file, use `import.meta.url`:
+
+```ts
+import { fileURLToPath } from 'node:url'
+import { serveStatic } from '@hono/node-server/serve-static'
+
+app.use(
+  '/static/*',
+  serveStatic({ root: fileURLToPath(new URL('./', import.meta.url)) })
+)
+```
+
+:::
+
 Use the `path` option to serve `favicon.ico` in the directory root:
 
 ```ts
 app.use('/favicon.ico', serveStatic({ path: './favicon.ico' }))
 ```
 
-If access comes to the path `/hello.txt` or `/image.png` and returns a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
+If a request to the path `/hello.txt` or `/image.png` comes in and you want to return a file named `./static/hello.txt` or `./static/image.png`, you can use the following:
 
 ```ts
 app.use('*', serveStatic({ root: './static' }))
@@ -217,12 +255,36 @@ const server = serve({
 })
 ```
 
-## Dockerfile
+## Building & Deployment
 
-Here is an example of a Dockerfile.
+::: code-group
+
+```sh [npm]
+npm run build
+```
+
+```sh [yarn]
+yarn run build
+```
+
+```sh [pnpm]
+pnpm run build
+```
+
+```sh [bun]
+bun run build
+```
+
+::: info
+Apps with a front-end framework may need to use [Hono's Vite plugins](https://github.com/honojs/vite-plugins).
+:::
+
+### Dockerfile
+
+Here is an example of a Node.js Dockerfile.
 
 ```Dockerfile
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 FROM base AS builder
 
@@ -250,11 +312,3 @@ EXPOSE 3000
 
 CMD ["node", "/app/dist/index.js"]
 ```
-
-The following steps shall be taken in advance.
-
-1. Add `"outDir": "./dist"` to the `compilerOptions` section `tsconfig.json`.
-2. Add `"exclude": ["node_modules"]` to `tsconfig.json`.
-3. Add `"build": "tsc"` to `script` section of `package.json`.
-4. Run `npm install typescript --save-dev`.
-5. Add `"type": "module"` to `package.json`.

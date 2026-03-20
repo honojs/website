@@ -19,7 +19,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Middleware', link: '/docs/concepts/middleware' },
       {
         text: 'Developer Experience',
-        link: '/docs/concepts/developer-experience.md',
+        link: '/docs/concepts/developer-experience',
       },
       { text: 'Hono Stacks', link: '/docs/concepts/stacks' },
     ],
@@ -44,6 +44,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/fastly',
       },
       { text: 'Vercel', link: '/docs/getting-started/vercel' },
+      { text: 'Next.js', link: '/docs/getting-started/nextjs' },
       { text: 'Netlify', link: '/docs/getting-started/netlify' },
       {
         text: 'AWS Lambda',
@@ -58,12 +59,20 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/azure-functions',
       },
       {
+        text: 'Google Cloud Run',
+        link: '/docs/getting-started/google-cloud-run',
+      },
+      {
         text: 'Supabase Functions',
         link: '/docs/getting-started/supabase-functions',
       },
       {
         text: 'Ali Function Compute',
         link: '/docs/getting-started/ali-function-compute',
+      },
+      {
+        text: 'WebAssembly',
+        link: '/docs/getting-started/webassembly-wasi',
       },
       {
         text: 'Service Worker',
@@ -88,6 +97,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'Guides',
     collapsed: true,
     items: [
+      { text: 'create-hono', link: '/docs/guides/create-hono' },
       { text: 'Middleware', link: '/docs/guides/middleware' },
       { text: 'Helpers', link: '/docs/guides/helpers' },
       {
@@ -134,6 +144,8 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Factory', link: '/docs/helpers/factory' },
       { text: 'html', link: '/docs/helpers/html' },
       { text: 'JWT', link: '/docs/helpers/jwt' },
+      { text: 'Proxy', link: '/docs/helpers/proxy' },
+      { text: 'Route', link: '/docs/helpers/route' },
       { text: 'SSG', link: '/docs/helpers/ssg' },
       { text: 'Streaming', link: '/docs/helpers/streaming' },
       { text: 'Testing', link: '/docs/helpers/testing' },
@@ -177,8 +189,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'JSX Renderer',
         link: '/docs/middleware/builtin/jsx-renderer',
       },
+      { text: 'JWK', link: '/docs/middleware/builtin/jwk' },
       { text: 'JWT', link: '/docs/middleware/builtin/jwt' },
       { text: 'Logger', link: '/docs/middleware/builtin/logger' },
+      { text: 'Language', link: '/docs/middleware/builtin/language' },
       {
         text: 'Method Override',
         link: '/docs/middleware/builtin/method-override',
@@ -207,6 +221,24 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       },
     ],
   },
+  {
+    text: 'LLM',
+    collapsed: true,
+    items: [
+      {
+        text: 'Docs List',
+        link: '/llms.txt',
+      },
+      {
+        text: 'Full Docs',
+        link: '/llms-full.txt',
+      },
+      {
+        text: 'Tiny Docs',
+        link: '/llms-small.txt',
+      },
+    ],
+  },
 ]
 
 export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
@@ -224,6 +256,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
       {
         text: 'File upload',
         link: '/examples/file-upload',
+      },
+      {
+        text: 'Bind a reverse proxy',
+        link: '/examples/behind-reverse-proxy',
       },
       {
         text: 'Error handling in Validator',
@@ -247,12 +283,20 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/zod-openapi',
       },
       {
+        text: 'Hono OpenAPI',
+        link: '/examples/hono-openapi',
+      },
+      {
         text: 'Swagger UI',
         link: '/examples/swagger-ui',
       },
       {
-        text: 'Hono OpenAPI',
-        link: '/examples/hono-openapi',
+        text: 'Scalar',
+        link: '/examples/scalar',
+      },
+      {
+        text: 'Hono Docs Generator',
+        link: '/examples/hono-docs',
       },
     ],
   },
@@ -288,8 +332,28 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         link: '/examples/prisma',
       },
       {
+        text: 'Better Auth',
+        link: '/examples/better-auth',
+      },
+      {
+        text: 'Better Auth on Cloudflare',
+        link: '/examples/better-auth-on-cloudflare',
+      },
+      {
         text: 'Pylon (GraphQL)',
         link: '/examples/pylon',
+      },
+      {
+        text: 'Stytch Authentication',
+        link: '/examples/stytch-auth',
+      },
+      {
+        text: 'Auth.js',
+        link: '/examples/hono-authjs',
+      },
+      {
+        text: 'Apitally (Monitoring)',
+        link: '/examples/apitally',
       },
     ],
   },
@@ -318,11 +382,11 @@ export default defineConfig({
     ],
   },
   themeConfig: {
-    logo: '/images/logo-small.png',
+    logo: '/images/logo.svg',
     siteTitle: 'Hono',
     algolia: {
       appId: '1GIFSU1REV',
-      apiKey: '6a9bb2036e456356e224ece74546ca14',
+      apiKey: 'c6a0f86b9a9f8551654600f28317a9e9',
       indexName: 'hono',
     },
     socialLinks: [
@@ -376,6 +440,33 @@ export default defineConfig({
     ],
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
   ],
+  transformHead(context) {
+    const relativePath = context.pageData.relativePath
+    const head: Array<[string, Record<string, string>]> = []
+    if (relativePath === 'index.md') {
+      head.push([
+        'link',
+        {
+          rel: 'alternate',
+          type: 'text/plain',
+          title: 'LLM docs',
+          href: 'https://hono.dev/llms.txt',
+        },
+      ])
+    }
+    if (relativePath.startsWith('docs/') || relativePath.startsWith('examples/')) {
+      head.push([
+        'link',
+        {
+          rel: 'alternate',
+          type: 'text/markdown',
+          title: 'Markdown source',
+          href: `https://raw.githubusercontent.com/honojs/website/refs/heads/main/${relativePath}`,
+        },
+      ])
+    }
+    return head
+  },
   titleTemplate: ':title - Hono',
   vite: {
     plugins: [
@@ -385,5 +476,8 @@ export default defineConfig({
         },
       }),
     ],
+    server: {
+      allowedHosts: true,
+    },
   },
 })

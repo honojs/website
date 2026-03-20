@@ -16,7 +16,12 @@ hero:
   tagline: Fast, lightweight, built on Web Standards. Support for any JavaScript runtime.
   image:
     src: /images/code.webp
-    alt: Hono
+    alt: "An example of code for Hono. \
+      import { Hono } from 'hono' \
+      const app = new Hono() \
+      app.get('/', (c) => c.text('Hello Hono!')) \
+
+      export default app"
   actions:
     - theme: brand
       text: Get Started
@@ -54,6 +59,7 @@ onMounted(() => {
     const images = document.querySelectorAll('.VPImage.image-src')
     images.forEach((img) => {
       img.src = '/images/hono-kawaii.png'
+      img.alt = 'A Kawai Version of the Hono Logo. The first "o" is replaced with a flame, with japanese characters in the bottom right, and a JSX fragment closing tag above the flame.'
       img.classList.add("kawaii")
     })
   }
@@ -61,7 +67,7 @@ onMounted(() => {
     try {
       localStorage.setItem('kawaii', true)
     } catch (err) {}
-    console.log('kawaii mode enabled. logo credits to @sawaratsuki1004 via https://github.com/SAWARATSUKI/ServiceLogos');
+    console.log('kawaii mode enabled. logo credits to @sawaratsuki1004 via https://github.com/SAWARATSUKI/KawaiiLogos');
     setKawaii()
   } else if (kawaii === 'false') {
     try {

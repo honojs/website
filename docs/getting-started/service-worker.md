@@ -126,6 +126,20 @@ app.get('/', (c) => c.text('Hello World'))
 self.addEventListener('fetch', handle(app))
 ```
 
+### Using `fire()`
+
+The `fire()` function automatically calls `addEventListener('fetch', handle(app))` for you, making the code more concise.
+
+```ts
+import { Hono } from 'hono'
+import { fire } from 'hono/service-worker'
+
+const app = new Hono().basePath('/sw')
+app.get('/', (c) => c.text('Hello World'))
+
+fire(app)
+```
+
 ## 3. Run
 
 Start the development server.

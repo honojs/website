@@ -27,7 +27,7 @@ pnpm create hono my-app
 ```
 
 ```sh [bun]
-bunx create-hono my-app
+bun create hono@latest my-app
 ```
 
 ```sh [deno]
@@ -393,7 +393,7 @@ type Env = {
   }
 }
 
-const app = new Hono<Env>()
+const app = new Hono<Env>().basePath('/api')
 
 app.get('/hello', (c) => {
   return c.json({

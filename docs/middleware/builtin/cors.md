@@ -15,6 +15,7 @@ import { cors } from 'hono/cors'
 ```ts
 const app = new Hono()
 
+// CORS should be called before the route
 app.use('/api/*', cors())
 app.use(
   '/api2/*',
@@ -60,15 +61,32 @@ app.use(
 )
 ```
 
+Dynamic allowed methods based on origin:
+
+```ts
+app.use(
+  '/api5/*',
+  cors({
+    origin: (origin) =>
+      origin === 'https://example.com' ? origin : '*',
+    // `c` is a `Context` object
+    allowMethods: (origin, c) =>
+      origin === 'https://example.com'
+        ? ['GET', 'HEAD', 'POST', 'PATCH', 'DELETE']
+        : ['GET', 'HEAD'],
+  })
+)
+```
+
 ## Options
 
 ### <Badge type="info" text="optional" /> origin: `string` | `string[]` | `(origin:string, c:Context) => string`
 
 The value of "_Access-Control-Allow-Origin_" CORS header. You can also pass the callback function like `origin: (origin) => (origin.endsWith('.example.com') ? origin : 'http://example.com')`. The default is `*`.
 
-### <Badge type="info" text="optional" /> allowMethods: `string[]`
+### <Badge type="info" text="optional" /> allowMethods: `string[]` | `(origin:string, c:Context) => string[]`
 
-The value of "_Access-Control-Allow-Methods_" CORS header. The default is `['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH']`.
+The value of "_Access-Control-Allow-Methods_" CORS header. You can also pass a callback function to dynamically determine allowed methods based on the origin. The default is `['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH']`.
 
 ### <Badge type="info" text="optional" /> allowHeaders: `string[]`
 
@@ -96,5 +114,22 @@ app.use('*', async (c, next) => {
     origin: c.env.CORS_ORIGIN,
   })
   return corsMiddlewareHandler(c, next)
+})
+```
+
+## Using with Vite
+
+When using Hono with Vite, you should disable Vite's built-in CORS feature by setting `server.cors` to `false` in your `vite.config.ts`. This prevents conflicts with Hono's CORS middleware.
+
+```ts
+// vite.config.ts
+import { cloudflare } from '@cloudflare/vite-plugin'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  server: {
+    cors: false, // disable Vite's built-in CORS setting
+  },
+  plugins: [cloudflare()],
 })
 ```

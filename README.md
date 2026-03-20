@@ -5,7 +5,7 @@ This is a repository for the Hono website "_[hono.dev](https://hono.dev)_".
 ## Features
 
 - Built with [VitePress](https://vitepress.vuejs.org)
-- Deploy to Cloudflare Pages
+- Deploy to Cloudflare Workers
 - Not using Hono :)
 
 ## Contribution

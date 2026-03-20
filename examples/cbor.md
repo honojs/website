@@ -54,7 +54,7 @@ A1                           # map(1)
 ```
 
 ```json
-{"message": "hello CBOR!"}
+{ "message": "hello CBOR!" }
 ```
 
 ## See also

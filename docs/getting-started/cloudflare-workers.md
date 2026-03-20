@@ -3,7 +3,7 @@
 [Cloudflare Workers](https://workers.cloudflare.com) is a JavaScript edge runtime on Cloudflare CDN.
 
 You can develop the application locally and publish it with a few commands using [Wrangler](https://developers.cloudflare.com/workers/wrangler/).
-Wrangler includes trans compiler, so we can write the code with TypeScript.
+Wrangler includes transcompiler, so we can write the code with TypeScript.
 
 Let’s make your first application for Cloudflare Workers with Hono.
 
@@ -28,7 +28,7 @@ pnpm create hono my-app
 ```
 
 ```sh [bun]
-bunx create-hono my-app
+bun create hono@latest my-app
 ```
 
 ```sh [deno]
@@ -100,6 +100,14 @@ bun run dev
 
 :::
 
+### Change port number
+
+If you need to change the port number you can follow the instructions here to update `wrangler.toml` / `wrangler.json` / `wrangler.jsonc` files:
+[Wrangler Configuration](https://developers.cloudflare.com/workers/wrangler/configuration/#local-development-settings)
+
+Or, you can follow the instructions here to set CLI options:
+[Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/commands/#dev)
+
 ## 4. Deploy
 
 If you have a Cloudflare account, you can deploy to Cloudflare. In `package.json`, `$npm_execpath` needs to be changed to your package manager of choice.
@@ -125,20 +133,6 @@ bun run deploy
 :::
 
 That's all!
-
-## Service Worker mode or Module Worker mode
-
-There are two syntaxes for writing the Cloudflare Workers. _Module Worker mode_ and _Service Worker mode_. Using Hono, you can write with both syntax, but we recommend using Module Worker mode so that binding variables are localized.
-
-```ts
-// Module Worker
-export default app
-```
-
-```ts
-// Service Worker
-app.fire()
-```
 
 ## Using Hono with other event handlers
 
@@ -228,7 +222,7 @@ describe('Test the application', () => {
 
 ## Bindings
 
-In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "_type struct_" for the bindings to the `Hono` as generics.
+In the Cloudflare Workers, we can bind the environment values, KV namespace, R2 bucket, or Durable Object. You can access them in `c.env`. It will have the types if you pass the "_type definition_" for the bindings to the `Hono` as generics.
 
 ```ts
 type Bindings = {
@@ -275,15 +269,15 @@ app.use('/auth/*', async (c, next) => {
 
 The same is applied to Bearer Authentication Middleware, JWT Authentication, or others.
 
-## Deploy from Github Action
+## Deploy from GitHub Actions
 
-Before deploying code to Cloudflare via CI, you need a cloudflare token. you can manager from here: https://dash.cloudflare.com/profile/api-tokens
+Before deploying code to Cloudflare via CI, you need a Cloudflare token. You can manage it from [User API Tokens](https://dash.cloudflare.com/profile/api-tokens).
 
-If it's a newly created token, select the **Edit Cloudflare Workers** template, if you have already another token, make sure the token has the corresponding permissions(No, token permissions are not shared between cloudflare page and cloudflare worker).
+If it's a newly created token, select the **Edit Cloudflare Workers** template. If you already have another token, make sure the token has the corresponding permissions. (Note: token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
 
-then go to your Github repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
+then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
 
-then create `.github/workflows/deploy.yml` in your hono project root folder,paste the following code:
+then create `.github/workflows/deploy.yml` in your Hono project root folder, paste the following code:
 
 ```yml
 name: Deploy
@@ -316,8 +310,8 @@ Everything is ready! Now push the code and enjoy it.
 
 ## Load env when local development
 
-To configure the environment variables for local development, create the `.dev.vars` file in the root directory of the project.
-Then configure your environment variables as you would with a normal env file.
+To configure the environment variables for local development, create a `.dev.vars` file or a `.env` file in the root directory of the project.
+These files should be formatted using the [dotenv](https://hexdocs.pm/dotenvy/dotenv-file-format.html) syntax. For example:
 
 ```
 SECRET_KEY=value
@@ -327,8 +321,11 @@ API_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 > For more about this section you can find in the Cloudflare documentation:
 > https://developers.cloudflare.com/workers/wrangler/configuration/#secrets
 
-Then we use the `c.env.*` to get the environment variables in our code.  
-**For Cloudflare Workers, environment variables must be obtained via `c`, not via `process.env`.**
+Then we use the `c.env.*` to get the environment variables in our code.
+
+::: info
+By default, `process.env` is not available in Cloudflare Workers, so it is recommended to get environment variables from `c.env`. If you want to use it, you need to enable [`nodejs_compat_populate_process_env`](https://developers.cloudflare.com/workers/configuration/compatibility-flags/#enable-auto-populating-processenv) flag. You can also import `env` from `cloudflare:workers`. For details, please see [How to access `env` on Cloudflare docs](https://developers.cloudflare.com/workers/runtime-apis/bindings/#how-to-access-env)
+:::
 
 ```ts
 type Bindings = {
@@ -343,7 +340,7 @@ app.get('/env', (c) => {
 })
 ```
 
-Before you deploy your project to cloudflare, remember to set the environment variable/secrets in the Cloudflare Worker project's configuration.
+Before you deploy your project to Cloudflare, remember to set the environment variable/secrets in the Cloudflare Workers project's configuration.
 
 > For more about this section you can find in the Cloudflare documentation:
 > https://developers.cloudflare.com/workers/configuration/environment-variables/#add-environment-variables-via-the-dashboard

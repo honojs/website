@@ -28,11 +28,12 @@ Supported Runtimes, Serverless Platforms and Cloud Services:
 
 - Cloudflare Workers
   - `wrangler.toml`
+  - `wrangler.jsonc`
 - Deno
   - [`Deno.env`](https://docs.deno.com/runtime/manual/basics/env_variables)
   - `.env` file
 - Bun
-  - [`Bun.env`](https://bun.sh/guides/runtime/set-env)
+  - [`Bun.env`](https://bun.com/guides/runtime/set-env)
   - `process.env`
 - Node.js
   - `process.env`

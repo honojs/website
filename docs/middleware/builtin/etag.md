@@ -48,3 +48,7 @@ Define using or not using a [weak validation](https://developer.mozilla.org/en-U
 ### <Badge type="info" text="optional" /> retainedHeaders: `string[]`
 
 The headers that you want to retain in the 304 Response.
+
+### <Badge type="info" text="optional" /> generateDigest: `(body: Uint8Array) => ArrayBuffer | Promise<ArrayBuffer>`
+
+A custom digest generation function. By default, it uses `SHA-1`. This function is called with the response body as a `Uint8Array` and should return a hash as an `ArrayBuffer` or a Promise of one.

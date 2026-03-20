@@ -1,11 +1,11 @@
 # Bun
 
-[Bun](https://bun.sh) is another JavaScript runtime. It's not Node.js or Deno. Bun includes a trans compiler, we can write the code with TypeScript.
+[Bun](https://bun.com) is another JavaScript runtime. It's not Node.js or Deno. Bun includes a transcompiler, we can write the code with TypeScript.
 Hono also works on Bun.
 
 ## 1. Install Bun
 
-To install `bun` command, follow the instruction in [the official web site](https://bun.sh).
+To install `bun` command, follow the instruction in [the official web site](https://bun.com).
 
 ## 2. Setup
 
@@ -15,7 +15,7 @@ A starter for Bun is available. Start your project with "bun create" command.
 Select `bun` template for this example.
 
 ```sh
-bun create hono my-app
+bun create hono@latest my-app
 ```
 
 Move into my-app and install the dependencies.
@@ -33,6 +33,18 @@ On an existing Bun project, we only need to install `hono` dependencies on the p
 bun add hono
 ```
 
+Then add the `dev` command to your existing `package.json`.
+
+```json
+{
+  "scripts": {
+    "dev": "bun run --hot src/index.ts"
+  }
+}
+```
+
+See the [Bun starter template](https://github.com/honojs/starter/tree/main/templates/bun) for a minimal example setup. This is the output of running `bun create hono@latest`.
+
 ## 3. Hello World
 
 "Hello World" script is below. Almost the same as writing on other platforms.
@@ -45,6 +57,8 @@ app.get('/', (c) => c.text('Hello Bun!'))
 
 export default app
 ```
+
+If you are setting up Hono on an existing project, the `bun run dev` command expects the "Hello World" script to be placed in `src/index.tx`
 
 ## 4. Run
 
@@ -76,7 +90,7 @@ export default { // [!code ++]
 
 ## Serve static files
 
-To serve static files, use `serveStatic` imported from `hono/bun`.
+To serve static files, use `serveStatic` which is imported from `hono/bun`.
 
 ```ts
 import { serveStatic } from 'hono/bun'

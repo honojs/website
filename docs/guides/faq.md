@@ -4,7 +4,7 @@ This guide is a collection of frequently asked questions (FAQ) about Hono and ho
 
 ## Is there an official Renovate config for Hono?
 
-The Hono teams does not currently maintain [Renovate](https://github.com/renovatebot/renovate) Configuration.
+The Hono team does not currently maintain [Renovate](https://github.com/renovatebot/renovate) Configuration.
 Therefore, please use third-party renovate-config as follows.
 
 In your `renovate.json` :

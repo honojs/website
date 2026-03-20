@@ -1,11 +1,11 @@
 # Middleware
 
-Middleware works after/before Handler. We can get `Request` before dispatching or manipulate `Response` after dispatching.
+Middleware works before/after the endpoint `Handler`. We can get the `Request` before dispatching or manipulate the `Response` after dispatching.
 
 ## Definition of Middleware
 
 - Handler - should return `Response` object. Only one handler will be called.
-- Middleware - should return nothing, will be proceeded to next middleware with `await next()`
+- Middleware - should `await next()` and return nothing to call the next Middleware, **or** return a `Response` to early-exit.
 
 The user can register middleware using `app.use` or using `app.HTTP_METHOD` as well as the handlers. For this feature, it's easy to specify the path and the method.
 
@@ -20,7 +20,7 @@ app.use('/posts/*', cors())
 app.post('/posts/*', basicAuth())
 ```
 
-If the handler returns `Response`, it will be used for the end-user, and stopping the processing.
+If the handler returns `Response`, it will be used for the end-user and will stop processing.
 
 ```ts
 app.post('/posts', (c) => c.text('Created!', 201))
@@ -73,6 +73,8 @@ middleware 1 start
   middleware 2 end
 middleware 1 end
 ```
+
+Note that if the handler or any middleware throws, hono will catch it and either pass it to [your app.onError() callback](/docs/api/hono#error-handling) or automatically convert it to a 500 response before returning it up the chain of middleware. This means that next() will never throw, so there is no need to wrap it in a try/catch/finally.
 
 ## Built-in Middleware
 
@@ -138,11 +140,9 @@ app.use('/message/*', async (c, next) => {
 app.get('/message/hello', (c) => c.text('Hello Middleware!'))
 ```
 
-However, embedding middleware directly within `app.use()` can limit its reusability. Therefore, we can separate our
-middleware into different files.
+However, embedding middleware directly within `app.use()` can limit its reusability. Therefore, we can separate our middleware into different files.
 
-To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use
-[`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory.
+To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use [`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory. This also allows us to type-safely [access data we've `set` in `Context`](https://hono.dev/docs/api/context#set-get) from downstream handlers.
 
 ```ts
 import { createMiddleware } from 'hono/factory'
@@ -212,7 +212,7 @@ app.get('/echo', echoMiddleware, (c) => {
 
 ## Third-party Middleware
 
-Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries.
-So with them, we may make a more complex application.
+Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries. So with them, we may make a more complex application.
 
+We can explore a variety of [third-party middleware](https://hono.dev/docs/middleware/third-party).
 For example, we have GraphQL Server Middleware, Sentry Middleware, Firebase Auth Middleware, and others.

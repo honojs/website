@@ -2,7 +2,7 @@
 
 `hono/jsx` supports not only server side but also client side. This means that it is possible to create an interactive UI that runs in the browser. We call it Client Components or `hono/jsx/dom`.
 
-It is fast and very small. The counter program in `hono/jsx/dom` is only 2.8KB with Brotli compression. But, 47.8KB for React.
+It is fast and very small. The counter program in `hono/jsx/dom` is only 2.8KB with Brotli compression, but 47.8KB for React.
 
 This section introduces Client Components-specific features.
 
@@ -45,6 +45,8 @@ You can use `render()` to insert JSX components within a specified HTML element.
 ```tsx
 render(<Component />, container)
 ```
+
+You can see full example code here: [Counter example](https://github.com/honojs/examples/tree/main/hono-vite-jsx).
 
 ## Hooks compatible with React
 
@@ -270,7 +272,7 @@ export default function App() {
 
 ## The `hono/jsx/dom` runtime
 
-There is a small JSX Runtime for Client Components. Using this will result in smaller bundled results than using `hono/jsx`. Specify `hono/jsx/dom` in `tsconfig.json`.
+There is a small JSX Runtime for Client Components. Using this will result in smaller bundled results than using `hono/jsx`. Specify `hono/jsx/dom` in `tsconfig.json`. For Deno, modify the deno.json.
 
 ```json
 {
@@ -279,4 +281,16 @@ There is a small JSX Runtime for Client Components. Using this will result in sm
     "jsxImportSource": "hono/jsx/dom"
   }
 }
+```
+
+Alternatively, you can specify `hono/jsx/dom` in the esbuild transform options in `vite.config.ts`.
+
+```ts
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  esbuild: {
+    jsxImportSource: 'hono/jsx/dom',
+  },
+})
 ```
