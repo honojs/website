@@ -51,6 +51,7 @@ Most of this middleware leverages external libraries.
 - [OpenTelemetry](https://github.com/honojs/middleware/tree/main/packages/otel)
 - [Prometheus Metrics](https://github.com/honojs/middleware/tree/main/packages/prometheus)
 - [Sentry](https://github.com/honojs/middleware/tree/main/packages/sentry)
+- [Pino logger](https://github.com/maou-shonen/hono-pino)
 
 ### Server / Adapter
 
