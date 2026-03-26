@@ -227,7 +227,11 @@ const authMiddleware = createMiddleware<{
 const dbMiddleware = createMiddleware<{
   Variables: { db: { query: (sql: string) => Promise<unknown> } }
 }>(async (c, next) => {
-  c.set('db', { query: async (sql) => { /* ... */ } })
+  c.set('db', {
+    query: async (sql) => {
+      /* ... */
+    },
+  })
   await next()
 })
 
@@ -236,8 +240,8 @@ const app = new Hono()
   .use(dbMiddleware)
   .get('/', (c) => {
     // Both `user` and `db` are available and type-safe
-    const user = c.var.user  // { id: string; name: string }
-    const db = c.var.db      // { query: (sql: string) => Promise<unknown> }
+    const user = c.var.user // { id: string; name: string }
+    const db = c.var.db // { query: (sql: string) => Promise<unknown> }
     return c.json({ user })
   })
 ```
