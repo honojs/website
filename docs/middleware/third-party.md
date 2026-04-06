@@ -88,6 +88,7 @@ Most of this middleware leverages external libraries.
 - [Hono Problem Details (RFC 9457)](https://github.com/paveg/hono-problem-details)
 - [Hono Simple DI](https://github.com/maou-shonen/hono-simple-DI)
 - [Idempotency (Stripe-style idempotency keys)](https://github.com/paveg/hono-idempotency)
+- [idempot-js](https://js.idempot.dev) - spec-compliant middleware, supporting multiple storage backends (redis, postgres, mysql, sqlite)
 - [jsonv-ts (Validator, OpenAPI, MCP)](https://github.com/dswbx/jsonv-ts)
 - [MCP](https://github.com/honojs/middleware/tree/main/packages/mcp)
 - [RONIN (Database)](https://github.com/ronin-co/hono-client)
