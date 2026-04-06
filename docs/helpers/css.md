@@ -8,7 +8,7 @@ You can write CSS in JSX in a JavaScript template literal named `css`. The retur
 
 ```ts
 import { Hono } from 'hono'
-import { css, cx, keyframes, Style } from 'hono/css'
+import { css, cx, keyframes, Style, createCssContext } from 'hono/css'
 ```
 
 ## `css` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
@@ -209,6 +209,55 @@ app.get('/', (c) => {
       </body>
     </html>
   )
+})
+```
+
+## `createCssContext` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+
+`createCssContext` creates CSS helper functions (`css`, `cx`, `keyframes`, `viewTransition`, `Style`) with a custom context. You can use it to customize the style element ID and the generated class names.
+
+```ts
+import { createCssContext } from 'hono/css'
+
+const { css, cx, keyframes, Style } = createCssContext({
+  id: 'my-app',
+})
+```
+
+### `classNameSlug`
+
+By default, CSS class names are generated in the format `css-1234567890`. You can customize this by passing a `classNameSlug` function.
+
+The function receives three arguments:
+
+- `hash` - the default generated class name (e.g. `css-1234567890`)
+- `label` - extracted from a `/* comment */` at the start of the CSS template (empty string if none)
+- `css` - the minified CSS string
+
+```ts
+const { css, Style } = createCssContext({
+  id: 'my-styles',
+  classNameSlug: (hash, label) => (label ? `h-${label}` : hash),
+})
+
+const heroClass = css`
+  /* hero-section */
+  background: blue;
+`
+// Generated class name: "h-hero-section"
+```
+
+### `onInvalidSlug`
+
+If the `classNameSlug` function returns an invalid CSS class name, a warning is logged by default. You can customize this behavior with `onInvalidSlug`.
+
+```ts
+const { css, Style } = createCssContext({
+  id: 'my-styles',
+  classNameSlug: (hash, label) => label || hash,
+  onInvalidSlug: (slug) => {
+    throw new Error(`Invalid CSS class name: ${slug}`)
+  },
 })
 ```
 
