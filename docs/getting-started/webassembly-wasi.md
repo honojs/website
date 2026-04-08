@@ -264,7 +264,7 @@ bun run jco componentize -w wit -o dist/component.wasm dist/component.js
 
 :::
 
-## 3. Run
+## 5. Run
 
 To run your Hono WebAssembly HTTP server, you can use any WASI-enabled WebAssembly runtime:
 
