@@ -100,7 +100,7 @@ Then, magically, completion works and the endpoint path and request type are sug
 ![](/images/sc03.gif)
 
 ```ts
-import { AppType } from './server'
+import type { AppType } from './server.js'
 import { hc } from 'hono/client'
 
 const client = hc<AppType>('/api')
@@ -177,7 +177,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
-import { AppType } from '../functions/api/[[route]]'
+import type { AppType } from '../functions/api/[[route]]'
 import { hc, InferResponseType, InferRequestType } from 'hono/client'
 
 const queryClient = new QueryClient()

@@ -85,7 +85,7 @@ Create `src/functions/httpTrigger.ts`:
 // src/functions/httpTrigger.ts
 import { app } from '@azure/functions'
 import { azureHonoHandler } from '@marplex/hono-azurefunc-adapter'
-import honoApp from '../app'
+import honoApp from '../app.js'
 
 app.http('httpTrigger', {
   methods: [

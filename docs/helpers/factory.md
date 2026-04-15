@@ -164,7 +164,7 @@ export default createFactory<Env>({
 
 ```ts
 // crud.ts
-import factoryWithDB from './factory-with-db'
+import factoryWithDB from './factory-with-db.js'
 
 const app = factoryWithDB.createApp()
 

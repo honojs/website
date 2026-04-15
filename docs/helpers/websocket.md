@@ -119,7 +119,7 @@ export default app
 ```ts
 // client.ts
 import { hc } from 'hono/client'
-import type app from './server'
+import type app from './server.js'
 
 const client = hc<typeof app>('http://localhost:8787')
 const ws = client.ws.$ws(0)

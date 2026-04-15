@@ -43,7 +43,7 @@ For Node.js, create a build script like this:
 
 ```ts
 // build.ts
-import app from './index'
+import app from './index.js'
 import { toSSG } from 'hono/ssg'
 import fs from 'fs/promises'
 
@@ -391,9 +391,9 @@ ${urls.map((url) => `<url><loc>${url}</loc></url>`).join('\n')}
 Applying plugins:
 
 ```ts
-import app from './index'
+import app from './index.js'
 import { toSSG } from 'hono/ssg'
-import { sitemapPlugin } from './plugins'
+import { sitemapPlugin } from './plugins.js'
 
 toSSG(app, fs, {
   plugins: [

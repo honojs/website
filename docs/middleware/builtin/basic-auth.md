@@ -150,7 +150,7 @@ app.use(
 Or less hardcoded:
 
 ```ts
-import { users } from '../config/users'
+import { users } from '../config/users.js'
 
 app.use(
   '/auth/*',

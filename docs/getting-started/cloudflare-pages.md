@@ -83,7 +83,7 @@ Edit `src/index.tsx` like the following:
 
 ```tsx
 import { Hono } from 'hono'
-import { renderer } from './renderer'
+import { renderer } from './renderer.js'
 
 const app = new Hono()
 

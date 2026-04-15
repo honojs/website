@@ -71,7 +71,7 @@ Edit `bin/my-app.ts`.
 #!/usr/bin/env node
 import 'source-map-support/register'
 import * as cdk from 'aws-cdk-lib'
-import { MyAppStack } from '../lib/my-app-stack'
+import { MyAppStack } from '../lib/my-app-stack.js'
 
 const app = new cdk.App()
 new MyAppStack(app, 'MyAppStack', {
