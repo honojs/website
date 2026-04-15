@@ -728,8 +728,8 @@ You can then import the sub-routers as you usually would, and make sure you chai
 ```ts
 // index.ts
 import { Hono } from 'hono'
-import authors from './authors'
-import books from './books'
+import authors from './authors.js'
+import books from './books.js'
 
 const app = new Hono()
 
@@ -789,7 +789,7 @@ Like in the case of [Hono version mismatch](#hono-version-mismatch), you'll run 
 Compiling your client including the server app gives you the best performance. Put the following code in your project:
 
 ```ts
-import { app } from './app'
+import { app } from './app.js'
 import { hc } from 'hono/client'
 
 // this is a trick to calculate the type when compiling
@@ -833,13 +833,13 @@ As described in [Using RPC with larger applications](#using-rpc-with-larger-appl
 
 ```ts
 // authors-cli.ts
-import { app as authorsApp } from './authors'
+import { app as authorsApp } from './authors.js'
 import { hc } from 'hono/client'
 
 const authorsClient = hc<typeof authorsApp>('/authors')
 
 // books-cli.ts
-import { app as booksApp } from './books'
+import { app as booksApp } from './books.js'
 import { hc } from 'hono/client'
 
 const booksClient = hc<typeof booksApp>('/books')

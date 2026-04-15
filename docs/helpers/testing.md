@@ -38,7 +38,7 @@ export default app
 import { Hono } from 'hono'
 import { testClient } from 'hono/testing'
 import { describe, it, expect } from 'vitest' // Or your preferred test runner
-import app from './app'
+import app from './app.js'
 
 describe('Search Endpoint', () => {
   // Create the test client from the app instance
@@ -69,7 +69,7 @@ To include headers in your test, pass them as the second parameter in the call. 
 import { Hono } from 'hono'
 import { testClient } from 'hono/testing'
 import { describe, it, expect } from 'vitest' // Or your preferred test runner
-import app from './app'
+import app from './app.js'
 
 describe('Search Endpoint', () => {
   // Create the test client from the app instance

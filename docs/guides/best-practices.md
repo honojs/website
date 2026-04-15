@@ -100,8 +100,8 @@ Then, import them and mount on the paths `/authors` and `/books` with `app.route
 ```ts
 // index.ts
 import { Hono } from 'hono'
-import authors from './authors'
-import books from './books'
+import authors from './authors.js'
+import books from './books.js'
 
 const app = new Hono()
 
@@ -133,7 +133,7 @@ export type AppType = typeof app
 If you pass the type of the `app` to `hc`, it will get the correct type.
 
 ```ts
-import type { AppType } from './authors'
+import type { AppType } from './authors.js'
 import { hc } from 'hono/client'
 
 // 😃
