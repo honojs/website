@@ -461,7 +461,43 @@ app.use(async (c, next) => {
 
 ## ContextVariableMap
 
-For instance, if you wish to add type definitions to variables when a specific middleware is used, you can extend `ContextVariableMap`. For example:
+::: warning
+In most cases you should prefer passing a generic type argument to `createMiddleware`, as it scopes the variable types to only the routes where the middleware is explicitly used. See [Extending the Context in Middleware](/docs/guides/middleware#extending-the-context-in-middleware) and [Type Inference Across Chained Middleware](/docs/guides/middleware#type-inference-across-chained-middleware).
+
+`ContextVariableMap` adds types **globally** to all contexts, regardless of whether the middleware that sets the variable has actually run. This means `c.get('result')` will appear type-safe even in handlers where your middleware was never registered, potentially hiding `undefined` bugs at runtime.
+
+Take a look at the following example:
+
+```ts
+declare module 'hono' {
+  interface ContextVariableMap {
+    result: string
+  }
+}
+
+const mw = createMiddleware(async (c, next) => {
+  c.set('result', 'some values')
+  await next()
+})
+
+const app = new Hono()
+
+// handler uses the middleware 
+app.get('/foo', mw, (c) => {
+  const val = c.get('result') // ✅ val is a string and typed as such, as expected
+})
+
+// handler doesn't use the middleware
+app.get('/bar', (c) => {
+  const val = c.get('result') // ❌ val is undefined but typed as a string, which can lead to runtime errors
+})
+```
+
+:::
+
+You can augment the `ContextVariableMap` interface to define types for context variables globally across your entire application. This is appropriate when a variable is set by middleware that is applied app-wide and is guaranteed to exist in the context.
+
+For example:
 
 ```ts
 declare module 'hono' {
