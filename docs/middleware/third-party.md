@@ -94,4 +94,6 @@ Most of this middleware leverages external libraries.
 - [RONIN (Database)](https://github.com/ronin-co/hono-client)
 - [Session](https://github.com/honojs/middleware/tree/main/packages/session)
 - [tsyringe](https://github.com/honojs/middleware/tree/main/packages/tsyringe)
+- [Universal Cache](https://github.com/honojs/middleware/tree/main/packages/universal-cache)
+- [Universal Cache Guide](/docs/middleware/third-party/universal-cache)
 - [User Agent based Blocker](https://github.com/honojs/middleware/tree/main/packages/ua-blocker)
