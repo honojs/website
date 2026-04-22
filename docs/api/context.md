@@ -482,7 +482,7 @@ const mw = createMiddleware(async (c, next) => {
 
 const app = new Hono()
 
-// handler uses the middleware 
+// handler uses the middleware
 app.get('/foo', mw, (c) => {
   const val = c.get('result') // ✅ val is a string and typed as such, as expected
 })
