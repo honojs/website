@@ -462,8 +462,6 @@ app.use(async (c, next) => {
 ## ContextVariableMap
 
 ::: warning
-In most cases you should prefer passing a generic type argument to `createMiddleware`, as it scopes the variable types to only the routes where the middleware is explicitly used. See [Extending the Context in Middleware](/docs/guides/middleware#extending-the-context-in-middleware) and [Type Inference Across Chained Middleware](/docs/guides/middleware#type-inference-across-chained-middleware).
-
 `ContextVariableMap` adds types **globally** to all contexts, regardless of whether the middleware that sets the variable has actually run. This means `c.get('result')` will appear type-safe even in handlers where your middleware was never registered, potentially hiding `undefined` bugs at runtime.
 
 Take a look at the following example:
