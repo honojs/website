@@ -1,0 +1,47 @@
+{
+  "name": "stocksim-jp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@supabase/supabase-js": "^2.45.4",
+    "@supabase/ssr": "^0.5.1",
+    "yahoo-finance2": "^3.3.0",
+    "recharts": "^2.13.3",
+    "zod": "^3.24.2",
+    "date-fns": "^3.6.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.4",
+    "class-variance-authority": "^0.7.1",
+    "lucide-react": "^0.454.0",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-select": "^2.1.2",
+    "@radix-ui/react-tabs": "^1.1.1",
+    "@radix-ui/react-separator": "^1.1.0",
+    "@radix-ui/react-toast": "^1.2.2",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-dropdown-menu": "^2.1.2",
+    "@radix-ui/react-avatar": "^1.1.1",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.2",
+    "@types/node": "^22.7.5",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.14",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.35"
+  }
+}
