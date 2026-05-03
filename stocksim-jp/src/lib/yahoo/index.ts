@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import yahooFinance from 'yahoo-finance2'
+import YahooFinance from 'yahoo-finance2'
 import type { StockQuote, ChartDataPoint, StockInfo, SearchResult } from '@/types/stock'
+
+const yahooFinance = new YahooFinance()
 
 export async function fetchQuote(ticker: string): Promise<StockQuote | null> {
   try {
