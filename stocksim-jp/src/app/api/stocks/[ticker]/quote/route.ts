@@ -4,9 +4,10 @@ export const dynamic = 'force-dynamic'
 
 export async function GET(
   _req: Request,
-  { params }: { params: { ticker: string } }
+  { params }: { params: Promise<{ ticker: string }> }
 ) {
-  const quote = await fetchQuote(params.ticker.toUpperCase())
+  const { ticker } = await params
+  const quote = await fetchQuote(ticker.toUpperCase())
   if (!quote) {
     return Response.json({ error: 'この銘柄は見つかりませんでした' }, { status: 404 })
   }

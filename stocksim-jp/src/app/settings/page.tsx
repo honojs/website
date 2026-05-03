@@ -5,6 +5,7 @@ import { usePortfolio } from '@/context/PortfolioContext'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog'
+import { PageWrapper, StaggerList, StaggerItem } from '@/components/ui/motion'
 import { formatUSD } from '@/lib/format'
 
 export default function SettingsPage() {
@@ -17,12 +18,15 @@ export default function SettingsPage() {
   }
 
   return (
+    <PageWrapper>
     <div className='space-y-6 max-w-lg'>
       <div>
         <h1 className='text-2xl font-bold'>設定</h1>
         <p className='text-muted-foreground text-sm'>ポートフォリオの管理</p>
       </div>
 
+      <StaggerList>
+      <StaggerItem>
       <Card>
         <CardHeader>
           <CardTitle className='text-base'>現在の状況</CardTitle>
@@ -34,7 +38,9 @@ export default function SettingsPage() {
           <p className='text-xs text-muted-foreground pt-2'>データはこのブラウザのlocalStorageに保存されています。</p>
         </CardContent>
       </Card>
+      </StaggerItem>
 
+      <StaggerItem>
       <Card className='border-loss/30'>
         <CardHeader>
           <CardTitle className='text-base text-loss'>ポートフォリオのリセット</CardTitle>
@@ -44,6 +50,8 @@ export default function SettingsPage() {
           <Button variant='destructive' onClick={() => setConfirmOpen(true)}>リセットする</Button>
         </CardContent>
       </Card>
+      </StaggerItem>
+      </StaggerList>
 
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <DialogContent>
@@ -58,5 +66,6 @@ export default function SettingsPage() {
         </DialogContent>
       </Dialog>
     </div>
+    </PageWrapper>
   )
 }

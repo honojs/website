@@ -4,8 +4,9 @@ export const dynamic = 'force-dynamic'
 
 export async function GET(
   _req: Request,
-  { params }: { params: { ticker: string } }
+  { params }: { params: Promise<{ ticker: string }> }
 ) {
-  const news = await fetchStockNews(params.ticker.toUpperCase())
+  const { ticker } = await params
+  const news = await fetchStockNews(ticker.toUpperCase())
   return Response.json(news)
 }

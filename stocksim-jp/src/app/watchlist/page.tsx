@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { PageWrapper, StaggerList, StaggerItem } from '@/components/ui/motion'
 import { formatUSD, formatPercent } from '@/lib/format'
 
 interface QuoteInfo { price: number; change: number; changePercent: number; name: string }
@@ -48,6 +49,7 @@ export default function WatchlistPage() {
   if (!loaded) return <Skeleton className='h-64 w-full' />
 
   return (
+    <PageWrapper>
     <div className='space-y-6'>
       <div>
         <h1 className='text-2xl font-bold'>ウォッチリスト</h1>
@@ -73,11 +75,11 @@ export default function WatchlistPage() {
               <p>ウォッチリストに銘柄を追加してみましょう</p>
             </div>
           ) : (
-            <div className='divide-y rounded-lg border'>
+            <StaggerList className='divide-y rounded-lg border'>
               {watchlist.map(({ ticker: t, company_name }) => {
                 const q = quotes[t]
                 return (
-                  <div key={t} className='flex items-center justify-between p-4'>
+                  <StaggerItem key={t} className='flex items-center justify-between p-4'>
                     <Link href={`/stocks/${t}`} className='flex-1 hover:opacity-80'>
                       <div className='font-mono font-semibold'>{t}</div>
                       <div className='text-sm text-muted-foreground'>{company_name}</div>
@@ -95,13 +97,14 @@ export default function WatchlistPage() {
                         <Trash2 className='h-4 w-4 text-muted-foreground' />
                       </Button>
                     </div>
-                  </div>
+                  </StaggerItem>
                 )
               })}
-            </div>
+            </StaggerList>
           )}
         </CardContent>
       </Card>
     </div>
+    </PageWrapper>
   )
 }

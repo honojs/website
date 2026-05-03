@@ -7,9 +7,11 @@ import { TradeInterface } from '@/components/trade/TradeInterface'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ExternalLink } from 'lucide-react'
+import { PageWrapper, FadeIn } from '@/components/ui/motion'
 
-export default async function StockDetailPage({ params }: { params: { ticker: string } }) {
-  const ticker = params.ticker.toUpperCase()
+export default async function StockDetailPage({ params }: { params: Promise<{ ticker: string }> }) {
+  const { ticker: rawTicker } = await params
+  const ticker = rawTicker.toUpperCase()
   const [quote, info, news] = await Promise.all([
     fetchQuote(ticker),
     fetchStockInfo(ticker),
@@ -20,6 +22,7 @@ export default async function StockDetailPage({ params }: { params: { ticker: st
   const isGain = quote.change >= 0
 
   return (
+    <PageWrapper>
     <div className='space-y-6'>
       <div className='space-y-1'>
         <div className='flex items-center gap-3 flex-wrap'>
@@ -38,7 +41,7 @@ export default async function StockDetailPage({ params }: { params: { ticker: st
       </div>
 
       <div className='grid gap-6 lg:grid-cols-3'>
-        <div className='lg:col-span-2 space-y-6'>
+        <FadeIn delay={0.1} className='lg:col-span-2 space-y-6'>
           <Card>
             <CardContent className='pt-6'>
               <StockChart ticker={ticker} />
@@ -105,10 +108,11 @@ export default async function StockDetailPage({ params }: { params: { ticker: st
               </CardContent>
             </Card>
           )}
-        </div>
+        </FadeIn>
 
-        <div><TradeInterface preselectedTicker={ticker} /></div>
+        <FadeIn delay={0.2}><TradeInterface preselectedTicker={ticker} /></FadeIn>
       </div>
     </div>
+    </PageWrapper>
   )
 }

@@ -2,6 +2,7 @@ import { fetchQuote } from '@/lib/yahoo'
 import { formatUSD, formatPercent, formatVolume } from '@/lib/format'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { PageWrapper, StaggerList, StaggerItem, FadeIn } from '@/components/ui/motion'
 
 const INDICES = [
   { ticker: '^GSPC', name: 'S&P 500', description: '米国代表500社の株価指数' },
@@ -23,6 +24,7 @@ export default async function MarketPage() {
   ])
 
   return (
+    <PageWrapper>
     <div className='space-y-6'>
       <div>
         <h1 className='text-2xl font-bold'>市場概況</h1>
@@ -32,28 +34,31 @@ export default async function MarketPage() {
       <Card>
         <CardHeader><CardTitle className='text-base'>主要インデックス</CardTitle></CardHeader>
         <CardContent>
-          <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+          <StaggerList className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
             {indicesData.map(({ ticker, name, description, quote }) => (
-              <div key={ticker} className='rounded-lg border p-4'>
-                <div className='text-xs text-muted-foreground mb-0.5'>{description}</div>
-                <div className='font-semibold'>{name}</div>
-                <div className='text-2xl font-bold mt-2'>{quote ? formatUSD(quote.price, 2) : 'N/A'}</div>
-                {quote && (
-                  <>
-                    <Badge variant={quote.change >= 0 ? 'gain' : 'loss'} className='mt-1.5'>{formatPercent(quote.changePercent)}</Badge>
-                    {ticker === '^VIX' && (
-                      <p className='text-xs text-muted-foreground mt-1'>
-                        {quote.price >= 30 ? 'パニック水準' : quote.price >= 20 ? '警戒水準' : '安定水準'}
-                      </p>
-                    )}
-                  </>
-                )}
-              </div>
+              <StaggerItem key={ticker}>
+                <div className='rounded-lg border p-4 h-full'>
+                  <div className='text-xs text-muted-foreground mb-0.5'>{description}</div>
+                  <div className='font-semibold'>{name}</div>
+                  <div className='text-2xl font-bold mt-2'>{quote ? formatUSD(quote.price, 2) : 'N/A'}</div>
+                  {quote && (
+                    <>
+                      <Badge variant={quote.change >= 0 ? 'gain' : 'loss'} className='mt-1.5'>{formatPercent(quote.changePercent)}</Badge>
+                      {ticker === '^VIX' && (
+                        <p className='text-xs text-muted-foreground mt-1'>
+                          {quote.price >= 30 ? 'パニック水準' : quote.price >= 20 ? '警戒水準' : '安定水準'}
+                        </p>
+                      )}
+                    </>
+                  )}
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerList>
         </CardContent>
       </Card>
 
+      <FadeIn delay={0.2}>
       <Card>
         <CardHeader><CardTitle className='text-base'>人気銘柄</CardTitle></CardHeader>
         <CardContent>
@@ -78,6 +83,8 @@ export default async function MarketPage() {
           </div>
         </CardContent>
       </Card>
+      </FadeIn>
     </div>
+    </PageWrapper>
   )
 }

@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { AllocationPieChart } from '@/components/portfolio/AllocationPieChart'
+import { PageWrapper, FadeIn, StaggerList, StaggerItem } from '@/components/ui/motion'
 import { formatUSD, formatPercent, formatShares } from '@/lib/format'
 import type { StockQuote } from '@/types/stock'
 import type { HoldingWithValue } from '@/types/trade'
@@ -61,33 +62,41 @@ export default function PortfolioPage() {
   const isGain = totalGainLoss >= 0
 
   return (
+    <PageWrapper>
     <div className='space-y-6'>
       <div>
         <h1 className='text-2xl font-bold'>ポートフォリオ</h1>
         <p className='text-muted-foreground text-sm'>保有銘柄と資産状況</p>
       </div>
 
-      <div className='grid gap-4 sm:grid-cols-3'>
-        <Card>
-          <CardHeader className='pb-2'><CardTitle className='text-sm font-medium text-muted-foreground'>総資産</CardTitle></CardHeader>
-          <CardContent>
-            <div className='text-2xl font-bold'>{formatUSD(totalValue)}</div>
-            <div className={`flex items-center gap-1 mt-1 text-sm font-medium ${isGain ? 'text-gain' : 'text-loss'}`}>
-              {isGain ? <TrendingUp className='h-4 w-4' /> : <TrendingDown className='h-4 w-4' />}
-              {formatUSD(Math.abs(totalGainLoss))} ({formatPercent(totalGainLossPct)})
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className='pb-2'><CardTitle className='text-sm font-medium text-muted-foreground'>現金残高</CardTitle></CardHeader>
-          <CardContent><div className='text-2xl font-bold'>{formatUSD(cash_balance)}</div></CardContent>
-        </Card>
-        <Card>
-          <CardHeader className='pb-2'><CardTitle className='text-sm font-medium text-muted-foreground'>株式評価額</CardTitle></CardHeader>
-          <CardContent><div className='text-2xl font-bold'>{formatUSD(totalStockValue)}</div></CardContent>
-        </Card>
-      </div>
+      <StaggerList className='grid gap-4 sm:grid-cols-3'>
+        <StaggerItem>
+          <Card>
+            <CardHeader className='pb-2'><CardTitle className='text-sm font-medium text-muted-foreground'>総資産</CardTitle></CardHeader>
+            <CardContent>
+              <div className='text-2xl font-bold'>{formatUSD(totalValue)}</div>
+              <div className={`flex items-center gap-1 mt-1 text-sm font-medium ${isGain ? 'text-gain' : 'text-loss'}`}>
+                {isGain ? <TrendingUp className='h-4 w-4' /> : <TrendingDown className='h-4 w-4' />}
+                {formatUSD(Math.abs(totalGainLoss))} ({formatPercent(totalGainLossPct)})
+              </div>
+            </CardContent>
+          </Card>
+        </StaggerItem>
+        <StaggerItem>
+          <Card>
+            <CardHeader className='pb-2'><CardTitle className='text-sm font-medium text-muted-foreground'>現金残高</CardTitle></CardHeader>
+            <CardContent><div className='text-2xl font-bold'>{formatUSD(cash_balance)}</div></CardContent>
+          </Card>
+        </StaggerItem>
+        <StaggerItem>
+          <Card>
+            <CardHeader className='pb-2'><CardTitle className='text-sm font-medium text-muted-foreground'>株式評価額</CardTitle></CardHeader>
+            <CardContent><div className='text-2xl font-bold'>{formatUSD(totalStockValue)}</div></CardContent>
+          </Card>
+        </StaggerItem>
+      </StaggerList>
 
+      <FadeIn delay={0.2}>
       <div className='grid gap-6 lg:grid-cols-2'>
         {holdingsWithValue.length > 0 && (
           <Card>
@@ -147,6 +156,8 @@ export default function PortfolioPage() {
           </CardContent>
         </Card>
       </div>
+      </FadeIn>
     </div>
+    </PageWrapper>
   )
 }

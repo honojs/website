@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { PageWrapper } from '@/components/ui/motion'
 import { formatUSD, formatDate, formatShares } from '@/lib/format'
 
 export default function HistoryPage() {
@@ -14,6 +15,7 @@ export default function HistoryPage() {
   if (!loaded) return <Skeleton className='h-64 w-full' />
 
   return (
+    <PageWrapper>
     <div className='space-y-6'>
       <div>
         <h1 className='text-2xl font-bold'>取引履歴</h1>
@@ -63,5 +65,6 @@ export default function HistoryPage() {
         </CardContent>
       </Card>
     </div>
+    </PageWrapper>
   )
 }

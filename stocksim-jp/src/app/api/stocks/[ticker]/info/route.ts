@@ -4,9 +4,10 @@ export const dynamic = 'force-dynamic'
 
 export async function GET(
   _req: Request,
-  { params }: { params: { ticker: string } }
+  { params }: { params: Promise<{ ticker: string }> }
 ) {
-  const info = await fetchStockInfo(params.ticker.toUpperCase())
+  const { ticker } = await params
+  const info = await fetchStockInfo(ticker.toUpperCase())
   if (!info) {
     return Response.json({ error: 'データを取得できませんでした' }, { status: 404 })
   }
