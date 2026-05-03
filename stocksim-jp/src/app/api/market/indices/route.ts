@@ -1,6 +1,7 @@
 import { fetchQuote } from '@/lib/yahoo'
 
 export const dynamic = 'force-dynamic'
+export const maxDuration = 30
 
 const INDICES = [
   { ticker: '^GSPC', name: 'S&P 500' },
