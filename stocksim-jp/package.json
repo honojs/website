@@ -12,8 +12,6 @@
     "next": "14.2.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "@supabase/supabase-js": "^2.45.4",
-    "@supabase/ssr": "^0.5.1",
     "yahoo-finance2": "^3.3.0",
     "recharts": "^2.13.3",
     "zod": "^3.24.2",

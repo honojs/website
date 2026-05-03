@@ -1,23 +1,17 @@
-import { createServerSupabaseClient } from '@/lib/supabase/server'
-import { formatUSD, formatDate, formatShares } from '@/lib/format'
+'use client'
+
+import Link from 'next/link'
+import { usePortfolio } from '@/context/PortfolioContext'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import {
-  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from '@/components/ui/table'
-import type { Transaction } from '@/types/database'
-import Link from 'next/link'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { formatUSD, formatDate, formatShares } from '@/lib/format'
 
-export default async function HistoryPage() {
-  const supabase = createServerSupabaseClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  const { data: portfolio } = await supabase.from('portfolios').select('id').eq('user_id', user!.id).single()
+export default function HistoryPage() {
+  const { transactions, loaded } = usePortfolio()
 
-  const { data: transactions } = await supabase
-    .from('transactions')
-    .select('*')
-    .eq('portfolio_id', portfolio?.id ?? '')
-    .order('executed_at', { ascending: false })
+  if (!loaded) return <Skeleton className='h-64 w-full' />
 
   return (
     <div className='space-y-6'>
@@ -27,11 +21,9 @@ export default async function HistoryPage() {
       </div>
 
       <Card>
-        <CardHeader>
-          <CardTitle className='text-base'>{transactions?.length ?? 0} 件の取引</CardTitle>
-        </CardHeader>
+        <CardHeader><CardTitle className='text-base'>{transactions.length} 件の取引</CardTitle></CardHeader>
         <CardContent>
-          {!transactions || transactions.length === 0 ? (
+          {transactions.length === 0 ? (
             <div className='py-8 text-center text-muted-foreground'>
               <p>まだ取引履歴がありません。</p>
               <Link href='/trade' className='text-primary underline text-sm'>最初の取引をしてみよう →</Link>
@@ -49,15 +41,11 @@ export default async function HistoryPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {(transactions as Transaction[]).map((t) => (
+                {transactions.map((t) => (
                   <TableRow key={t.id}>
-                    <TableCell className='text-xs text-muted-foreground whitespace-nowrap'>
-                      {formatDate(t.executed_at)}
-                    </TableCell>
+                    <TableCell className='text-xs text-muted-foreground whitespace-nowrap'>{formatDate(t.executed_at)}</TableCell>
                     <TableCell>
-                      <Link href={`/stocks/${t.ticker}`} className='hover:underline'>
-                        <span className='font-mono font-semibold'>{t.ticker}</span>
-                      </Link>
+                      <Link href={`/stocks/${t.ticker}`} className='hover:underline font-mono font-semibold'>{t.ticker}</Link>
                     </TableCell>
                     <TableCell>
                       <Badge variant={t.transaction_type === 'buy' ? 'gain' : 'loss'}>
