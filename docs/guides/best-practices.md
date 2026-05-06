@@ -112,10 +112,6 @@ app.route('/books', books)
 export default app
 ```
 
-Based on my analysis of Hono's HEAD request handling, here's what I would add to the best practices guide:
-
----
-
 ## HEAD Request Best Practices
 
 ### Understanding Hono's HEAD Handling
