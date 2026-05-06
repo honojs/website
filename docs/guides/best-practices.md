@@ -144,7 +144,7 @@ app.get('/api/users', async (c) => {
 // GOOD: Use middleware when HEAD needs different behavior
 app.use('/api/resource', async (c, next) => {
   await next()
-  
+
   // Add HEAD-specific headers after the handler
   if (c.req.method === 'HEAD') {
     c.header('X-HEAD-Processed', 'true')
@@ -174,7 +174,7 @@ app.on('HEAD', '/api/users', (c) => {
 
 - **Avoid expensive operations in GET handlers if you expect many HEAD requests**: Use middleware to detect HEAD and skip body generation
 - **Cache headers work identically**: HEAD responses respect the same caching rules as GET
-- **Middleware compatibility**: Most middleware works with HEAD, but body-processing middleware (like compression) automatically skips HEAD requests [2](#2-1) 
+- **Middleware compatibility**: Most middleware works with HEAD, but body-processing middleware (like compression) automatically skips HEAD requests [2](#2-1)
 
 ### Testing HEAD Requests
 
@@ -183,9 +183,11 @@ app.on('HEAD', '/api/users', (c) => {
 it('handles HEAD requests correctly', async () => {
   const getRes = await app.request('/api/users')
   const headRes = await app.request('/api/users', { method: 'HEAD' })
-  
+
   expect(headRes.status).toBe(getRes.status)
-  expect(headRes.headers.get('X-Total-Count')).toBe(getRes.headers.get('X-Total-Count'))
+  expect(headRes.headers.get('X-Total-Count')).toBe(
+    getRes.headers.get('X-Total-Count')
+  )
   expect(headRes.body).toBe(null)
 })
 ```
@@ -203,29 +205,35 @@ If you're upgrading from Hono v3, remove any `app.head()` routes as they're no l
 - If you need completely different logic for HEAD vs GET, consider using different endpoints rather than trying to override the framework's HEAD handling
 
 Wiki pages you might want to explore:
+
 - [Hono Application Class and HonoBase (honojs/hono)](/wiki/honojs/hono#2.1)
 
 ### Citations
 
 **File:** src/hono-base.ts (L406-410)
+
 ```typescript
-    // Handle HEAD method
-    if (method === 'HEAD') {
-      return (async () =>
-        new Response(null, await this.#dispatch(request, executionCtx, env, 'GET')))()
-    }
+// Handle HEAD method
+if (method === 'HEAD') {
+  return (async () =>
+    new Response(
+      null,
+      await this.#dispatch(request, executionCtx, env, 'GET')
+    ))()
+}
 ```
 
 **File:** src/middleware/compress/index.ts (L46-46)
+
 ```typescript
       ctx.req.method === 'HEAD' || // HEAD request
 ```
 
 **File:** docs/MIGRATION.md (L34-34)
+
 ```markdown
 - Hono - `app.head()` is no longer used. `app.get()` implicitly handles the HEAD method.
 ```
-
 
 ### If you want to use RPC features
 
