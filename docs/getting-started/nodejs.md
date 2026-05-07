@@ -135,6 +135,36 @@ serve({
 })
 ```
 
+## WebSocket
+
+WebSocket support is built into `@hono/node-server`. Install `ws` and, if you use TypeScript, `@types/ws`. Then create a `WebSocketServer` with `{ noServer: true }` and pass it to `serve()` with the `websocket` option.
+
+`@hono/node-ws` is deprecated.
+
+```ts
+import { serve, upgradeWebSocket } from '@hono/node-server'
+import { Hono } from 'hono'
+import { WebSocketServer } from 'ws'
+
+const app = new Hono()
+
+app.get(
+  '/ws',
+  upgradeWebSocket(() => ({
+    onMessage(event, ws) {
+      ws.send(event.data)
+    },
+  }))
+)
+
+const wss = new WebSocketServer({ noServer: true })
+
+serve({
+  fetch: app.fetch,
+  websocket: { server: wss },
+})
+```
+
 ## Access the raw Node.js APIs
 
 You can access the Node.js APIs from `c.env.incoming` and `c.env.outgoing`.
