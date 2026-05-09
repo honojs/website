@@ -112,11 +112,41 @@ app.route('/books', books)
 export default app
 ```
 
+### If you want to use RPC features
+
+The code above works well for normal use cases.
+However, if you want to use the `RPC` feature, you can get the correct type by chaining as follows.
+
+```ts
+// authors.ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+  .get('/', (c) => c.json('list authors'))
+  .post('/', (c) => c.json('create an author', 201))
+  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+
+export default app
+export type AppType = typeof app
+```
+
+If you pass the type of the `app` to `hc`, it will get the correct type.
+
+```ts
+import type { AppType } from './authors'
+import { hc } from 'hono/client'
+
+// 😃
+const client = hc<AppType>('http://localhost') // Typed correctly
+```
+
+For more detailed information, please see [the RPC page](/docs/guides/rpc#using-rpc-with-larger-applications).
+
 ## HEAD Request Best Practices
 
 ### Understanding Hono's HEAD Handling
 
-Hono automatically handles HEAD requests by converting them to GET requests and stripping the response body [1](#2-0) . This behavior is built into the framework's dispatch layer and happens before route matching occurs.
+Hono automatically handles HEAD requests by converting them to GET requests and stripping the response body. This behavior is built into the framework's dispatch layer and happens before route matching occurs.
 
 ### ✅ Do: Use GET Routes for HEAD Requests
 
@@ -170,7 +200,7 @@ app.on('HEAD', '/api/users', (c) => {
 
 - **Avoid expensive operations in GET handlers if you expect many HEAD requests**: Use middleware to detect HEAD and skip body generation
 - **Cache headers work identically**: HEAD responses respect the same caching rules as GET
-- **Middleware compatibility**: Most middleware works with HEAD, but body-processing middleware (like compression) automatically skips HEAD requests [2](#2-1)
+- **Middleware compatibility**: Most middleware works with HEAD, but body-processing middleware (like compression) automatically skips HEAD requests
 
 ### Testing HEAD Requests
 
@@ -188,75 +218,8 @@ it('handles HEAD requests correctly', async () => {
 })
 ```
 
-### Migration Note
-
-If you're upgrading from Hono v3, remove any `app.head()` routes as they're no longer needed [3](#2-2) . Your existing GET routes will automatically handle HEAD requests.
-
----
-
-## Notes
+### Notes
 
 - The automatic HEAD conversion ensures consistent headers between GET and HEAD responses
 - This behavior is consistent across all Hono runtimes (Cloudflare Workers, Deno, Bun, Node.js)
 - If you need completely different logic for HEAD vs GET, consider using different endpoints rather than trying to override the framework's HEAD handling
-
-Wiki pages you might want to explore:
-
-- [Hono Application Class and HonoBase (honojs/hono)](/wiki/honojs/hono#2.1)
-
-### Citations
-
-**File:** src/hono-base.ts (L406-410)
-
-```typescript
-// Handle HEAD method
-if (method === 'HEAD') {
-  return (async () =>
-    new Response(
-      null,
-      await this.#dispatch(request, executionCtx, env, 'GET')
-    ))()
-}
-```
-
-**File:** src/middleware/compress/index.ts (L46-46)
-
-```typescript
-      ctx.req.method === 'HEAD' || // HEAD request
-```
-
-**File:** docs/MIGRATION.md (L34-34)
-
-```markdown
-- Hono - `app.head()` is no longer used. `app.get()` implicitly handles the HEAD method.
-```
-
-### If you want to use RPC features
-
-The code above works well for normal use cases.
-However, if you want to use the `RPC` feature, you can get the correct type by chaining as follows.
-
-```ts
-// authors.ts
-import { Hono } from 'hono'
-
-const app = new Hono()
-  .get('/', (c) => c.json('list authors'))
-  .post('/', (c) => c.json('create an author', 201))
-  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
-
-export default app
-export type AppType = typeof app
-```
-
-If you pass the type of the `app` to `hc`, it will get the correct type.
-
-```ts
-import type { AppType } from './authors'
-import { hc } from 'hono/client'
-
-// 😃
-const client = hc<AppType>('http://localhost') // Typed correctly
-```
-
-For more detailed information, please see [the RPC page](/docs/guides/rpc#using-rpc-with-larger-applications).
