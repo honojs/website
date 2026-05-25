@@ -70,7 +70,7 @@ let id = 0
 
 app.get('/sse', async (c) => {
   return streamSSE(c, async (stream) => {
-    while (true) {
+    while (!stream.aborted) {
       const message = `It is ${new Date().toISOString()}`
       await stream.writeSSE({
         data: message,
