@@ -1,6 +1,6 @@
 # Bun
 
-[Bun](https://bun.com) is another JavaScript runtime. It's not Node.js or Deno. Bun includes a transcompiler, we can write the code with TypeScript.
+[Bun](https://bun.com) is another JavaScript runtime. It's not Node.js or Deno. Bun includes a transcompiler, so we can write the code in TypeScript or plain JavaScript.
 Hono also works on Bun.
 
 ## 1. Install Bun
