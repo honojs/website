@@ -58,7 +58,7 @@ app.get('/', (c) => c.text('Hello Bun!'))
 export default app
 ```
 
-If you are setting up Hono on an existing project, the `bun run dev` command expects the "Hello World" script to be placed in `src/index.tx`
+If you are setting up Hono on an existing project, the `bun run dev` command expects the "Hello World" script to be placed in `src/index.ts`
 
 ## 4. Run
 
