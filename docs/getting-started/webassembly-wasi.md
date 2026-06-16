@@ -13,7 +13,7 @@ steps in to enable defining a platform under WebAssembly workloads.
 This means that _with_ WASI, WebAssembly can operate on files, sockets, and much more.
 
 ::: info
-Want to peek at the WASI interface yourself? check out [`wasi:http`][wasi-http]
+Want to peek at the WASI interface yourself? Check out [`wasi:http`][wasi-http]
 :::
 
 Support for WebAssembly w/ WASI in JS is powered by [StarlingMonkey][sm], and thanks to the focus on Web standards in
