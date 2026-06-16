@@ -168,7 +168,7 @@ const deletedCookie = deleteCookie(c, 'delicious_cookie')
 
 ## `__Secure-` and `__Host-` prefix
 
-The Cookie helper supports `__Secure-` and `__Host-` prefix for cookies names.
+The Cookie helper supports `__Secure-` and `__Host-` prefixes for cookie names.
 
 If you want to verify if the cookie name has a prefix, specify the prefix option.
 
