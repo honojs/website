@@ -8,7 +8,7 @@ In practice:
 - WebAssembly runtimes (like [`wasmtime`][wasmtime] or [`jco`][jco]) enable _running_ WebAssembly binaries
 
 While core WebAssembly has _no_ access to things like the local filesystem or sockets, the [WebAssembly System Interface][wasi]
-steps in to enable defining a platform under WebAssebly workloads.
+steps in to enable defining a platform under WebAssembly workloads.
 
 This means that _with_ WASI, WebAssembly can operate on files, sockets, and much more.
 
@@ -52,14 +52,14 @@ npm i -D @bytecodealliance/jco @bytecodealliance/componentize-js @bytecodeallian
 npm i -D rolldown
 ```
 
-````sh [yarn]
+```sh [yarn]
 mkdir my-app
 cd my-app
 npm init
 yarn add hono
 yarn add -D @bytecodealliance/jco @bytecodealliance/componentize-js @bytecodealliance/jco-std
 yarn add -D rolldown
-G```
+```
 
 ```sh [pnpm]
 mkdir my-app
@@ -68,7 +68,7 @@ pnpm init --init-type module
 pnpm add hono
 pnpm add -D @bytecodealliance/jco @bytecodealliance/componentize-js @bytecodealliance/jco-std
 pnpm add -D rolldown
-````
+```
 
 ```sh [bun]
 mkdir my-app
@@ -100,7 +100,7 @@ yarn tsc --init
 
 ```sh [pnpm]
 pnpm i
-pnpm exec --init
+pnpm exec tsc --init
 ```
 
 ```sh [bun]
@@ -142,9 +142,9 @@ Feel free to use any other bundlers that you're more comfortable with (`rolldown
 
 ## 2. Set up WIT interface & dependencies
 
-[WebAssembly Inteface Types (WIT)][wit] is an Interface Definition Language ("IDL") that governs what functionality a WebAssembly component uses ("imports"), and what it provides ("exports").
+[WebAssembly Interface Types (WIT)][wit] is an Interface Definition Language ("IDL") that governs what functionality a WebAssembly component uses ("imports"), and what it provides ("exports").
 
-Amongst the standardized WIT interfaces, [`wasi:http`][wasi-http] is for dealing with HTTP requests (whether it's receiving them or sending them out), and since we intend to make a web server, our component must declare the use of `wasi:http/incoming-handler` in it's [WIT world][wit-world]:
+Amongst the standardized WIT interfaces, [`wasi:http`][wasi-http] is for dealing with HTTP requests (whether it's receiving them or sending them out), and since we intend to make a web server, our component must declare the use of `wasi:http/incoming-handler` in its [WIT world][wit-world]:
 
 First, let's set up the component's WIT world in a file called `wit/component.wit`:
 
@@ -156,11 +156,11 @@ world component {
 }
 ```
 
-Put simply, the WIT file above means that our component "providers" the functionality of "receiving"/"handling incoming" HTTP requests.
+Put simply, the WIT file above means that our component "provides" the functionality of "receiving"/"handling incoming" HTTP requests.
 
 The `wasi:http/incoming-handler` interface relies on upstream standardized WIT interfaces (specifications on how requests are structured, etc).
 
-To pull those third party (Bytecode Alliance maintained) WIT interaces, one tool we can use is [`wkg`][wkg]:
+To pull those third party (Bytecode Alliance maintained) WIT interfaces, one tool we can use is [`wkg`][wkg]:
 
 ```sh
 wkg wit fetch
@@ -190,7 +190,7 @@ wit
 
 ## 3. Hello Wasm
 
-To build a HTTP server in WebAssembly, we can make use of the [`jco-std`][jco-std] project, which contains helpers that make the experience very similar to the standard Hono experience.
+To build an HTTP server in WebAssembly, we can make use of the [`jco-std`][jco-std] project, which contains helpers that make the experience very similar to the standard Hono experience.
 
 Let's fulfill our `component` world with a basic Hono application as a WebAssembly component in a file called `src/component.ts`:
 
@@ -317,7 +317,7 @@ You should see output like the following:
 ::: info
 `jco serve` works by converting the WebAssembly component into a basic WebAssembly coremodule, so that it can be run in runtimes like Node.js and the browser.
 
-This process is normally run via `jco transpile`, and is the way we can use JS engines like Node.js and the browser (which may use V8 or other Javascript engines) as WebAssembly Component runtimes.
+This process is normally run via `jco transpile`, and is the way we can use JS engines like Node.js and the browser (which may use V8 or other JavaScript engines) as WebAssembly Component runtimes.
 
 How `jco transpile` is outside the scope of this guide, you can read more about it in [the Jco book][jco-book]
 :::
