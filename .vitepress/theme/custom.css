@@ -201,8 +201,12 @@ body {
   max-width: 640px;
 }
 
+html.kawaii-mode .VPImage.image-src {
+  content: url('/images/hono-kawaii.png');
+}
+
 @media screen and (max-width: 960px) {
-  .VPHero.has-image .image:not(:has(.kawaii)) {
+  html:not(.kawaii-mode) .VPHero.has-image .image:not(:has(.kawaii)) {
     display: none;
   }
 }
