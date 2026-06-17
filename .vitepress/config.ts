@@ -359,6 +359,75 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
   },
 ]
 
+const kawaiiModeScript = `;(() => {
+  const defaultImage = '/images/code.webp'
+  const kawaiiImage = '/images/hono-kawaii.png'
+  const kawaiiAlt =
+    'A Kawaii Version of the Hono Logo. The first "o" is replaced with a flame, with japanese characters in the bottom right, and a JSX fragment closing tag above the flame.'
+
+  const getQueryMode = () =>
+    new URLSearchParams(window.location.search).get('kawaii')
+
+  const getStoredMode = () => {
+    try {
+      return localStorage.getItem('kawaii') === 'true'
+    } catch (err) {
+      return false
+    }
+  }
+
+  const persistQueryMode = (mode) => {
+    try {
+      if (mode === 'true') {
+        localStorage.setItem('kawaii', 'true')
+      } else if (mode === 'false') {
+        localStorage.removeItem('kawaii')
+      }
+    } catch (err) {}
+  }
+
+  const isKawaiiMode = () => {
+    const mode = getQueryMode()
+    persistQueryMode(mode)
+    return mode === 'true' || (mode !== 'false' && getStoredMode())
+  }
+
+  const setDocumentMode = (enabled) => {
+    document.documentElement.classList.toggle('kawaii-mode', enabled)
+  }
+
+  const syncHeroImage = (enabled) => {
+    document.querySelectorAll('.VPImage.image-src').forEach((img) => {
+      if (!(img instanceof HTMLImageElement)) {
+        return
+      }
+
+      img.src = enabled ? kawaiiImage : defaultImage
+      img.classList.toggle('kawaii', enabled)
+
+      if (enabled) {
+        img.alt = kawaiiAlt
+      }
+    })
+  }
+
+  const sync = () => {
+    const enabled = isKawaiiMode()
+    setDocumentMode(enabled)
+    syncHeroImage(enabled)
+  }
+
+  try {
+    setDocumentMode(isKawaiiMode())
+  } catch (err) {}
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', sync)
+  } else {
+    sync()
+  }
+})()`
+
 export default defineConfig({
   lang: 'en-US',
   title: 'Hono',
@@ -439,6 +508,7 @@ export default defineConfig({
       { property: 'twitter:card', content: 'summary_large_image' },
     ],
     ['link', { rel: 'shortcut icon', href: '/favicon.ico' }],
+    ['script', {}, kawaiiModeScript],
   ],
   transformHead(context) {
     const relativePath = context.pageData.relativePath
