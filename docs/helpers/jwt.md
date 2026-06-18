@@ -67,6 +67,7 @@ verify(
   secret: string,
   alg: 'HS256';
   issuer?: string | RegExp;
+  aud?: string | string[] | RegExp;
 ): Promise<any>;
 
 ```
@@ -102,6 +103,10 @@ The algorithm used for JWT signing or verification.
 #### <Badge type="info" text="optional" /> issuer: `string | RegExp`
 
 The expected issuer used for JWT verification.
+
+#### <Badge type="info" text="optional" /> aud: `string | string[] | RegExp`
+
+The expected audience used for JWT verification. If this is set, the token must include an `aud` claim and at least one audience value must match.
 
 ## `decode()`
 
@@ -144,6 +149,7 @@ When verifying a JWT token, the following payload validations are performed:
 - `nbf`: The token is checked to ensure it is not being used before a specified time.
 - `iat`: The token is checked to ensure it is not issued in the future.
 - `iss`: The token is checked to ensure it has been issued by a trusted issuer.
+- `aud`: The token is checked to ensure it is intended for an accepted audience when the `aud` verification parameter is set.
 
 Please ensure that your JWT payload includes these fields, as an object, if you intend to perform these checks during verification.
 
@@ -157,6 +163,8 @@ The module also defines custom error types to handle JWT-related errors.
 - `JwtTokenExpired`: Indicates that the token has expired.
 - `JwtTokenIssuedAt`: Indicates that the "iat" claim in the token is incorrect.
 - `JwtTokenIssuer`: Indicates that the "iss" claim in the token is incorrect.
+- `JwtPayloadRequiresAud`: Indicates that an `aud` claim is required when `aud` verification is configured.
+- `JwtTokenAudience`: Indicates that the token's `aud` claim does not match the expected audience.
 - `JwtTokenSignatureMismatched`: Indicates a signature mismatch in the token.
 
 ## Supported AlgorithmTypes

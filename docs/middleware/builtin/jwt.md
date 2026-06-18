@@ -48,7 +48,10 @@ app.use(
   jwt({
     secret: 'it-is-very-secret',
     alg: 'HS256',
-    issuer: 'my-trusted-issuer',
+    verifyOptions: {
+      iss: 'my-trusted-issuer',
+      aud: 'my-api',
+    },
   })
 )
 
@@ -112,6 +115,10 @@ Options controlling verification of the token.
 #### <Badge type="info" text="optional" /> verifyOptions.iss: `string | RexExp`
 
 The expected issuer used for token verification. The `iss` claim will **not** be checked if this isn't set.
+
+#### <Badge type="info" text="optional" /> verifyOptions.aud: `string | string[] | RegExp`
+
+The expected audience used for token verification. If this is set, the token must include an `aud` claim and at least one audience value must match.
 
 #### <Badge type="info" text="optional" /> verifyOptions.nbf: `boolean`
 
