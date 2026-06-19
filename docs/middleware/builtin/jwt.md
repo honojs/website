@@ -48,7 +48,7 @@ app.use(
   jwt({
     secret: 'it-is-very-secret',
     alg: 'HS256',
-    verifyOptions: {
+    verification: {
       iss: 'my-trusted-issuer',
       aud: 'my-api',
     },
@@ -108,7 +108,7 @@ app.use(
 )
 ```
 
-### <Badge type="info" text="optional" /> verifyOptions: `VerifyOptions`
+### <Badge type="info" text="optional" /> verfication: `VerifyOptions`
 
 Options controlling verification of the token.
 
