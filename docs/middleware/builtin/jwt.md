@@ -112,22 +112,26 @@ app.use(
 
 Options controlling verification of the token.
 
-#### <Badge type="info" text="optional" /> verifyOptions.iss: `string | RexExp`
+[Keep in sync with jwk.md]: #
+
+## VerifyOptions
+
+##### <Badge type="info" text="optional" /> VerifyOptions.iss: `string | RexExp`
 
 The expected issuer used for token verification. The `iss` claim will **not** be checked if this isn't set.
 
-#### <Badge type="info" text="optional" /> verifyOptions.aud: `string | string[] | RegExp`
+##### <Badge type="info" text="optional" /> VerifyOptions.aud: `string | string[] | RegExp`
 
 The expected audience used for token verification. If this is set, the token must include an `aud` claim and at least one audience value must match.
 
-#### <Badge type="info" text="optional" /> verifyOptions.nbf: `boolean`
+##### <Badge type="info" text="optional" /> VerifyOptions.nbf: `boolean`
 
 The `nbf` (not before) claim will be verified if present and this is set to `true`. The default is `true`.
 
-#### <Badge type="info" text="optional" /> verifyOptions.iat: `boolean`
+##### <Badge type="info" text="optional" /> VerifyOptions.iat: `boolean`
 
 The `iat` (issued at) claim will be verified if present and this is set to `true`. The default is `true`.
 
-#### <Badge type="info" text="optional" /> verifyOptions.exp: `boolean`
+##### <Badge type="info" text="optional" /> VerifyOptions.exp: `boolean`
 
 The `exp` (expiration time) claim will be verified if present and this is set to `true`. The default is `true`.
