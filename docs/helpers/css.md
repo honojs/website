@@ -261,6 +261,23 @@ const { css, Style } = createCssContext({
 })
 ```
 
+## Security
+
+The CSS helpers are CSS-authoring APIs: like other CSS-in-JS libraries, interpolated values are inserted as **raw CSS**. They block breaking out into HTML (quotes, backslashes, and `</`), but `{`, `}`, and `;` pass through since they are valid CSS.
+
+::: warning
+Treat the CSS helpers like other raw sinks (`html`, `raw`, `rawCssString`): **don't pass untrusted input into them directly.** Doing so allows CSS injection. Validate against an allowlist first.
+
+```tsx
+const ALLOWED_COLORS = ['red', 'green', 'blue']
+const color = ALLOWED_COLORS.includes(input) ? input : 'black'
+const headerClass = css`
+  color: ${color};
+`
+```
+
+:::
+
 ## Tips
 
 If you use VS Code, you can use [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) for Syntax highlighting and IntelliSense for CSS tagged literals.
