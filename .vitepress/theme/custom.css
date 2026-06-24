@@ -99,6 +99,10 @@
   --vp-c-brand-3: var(--vp-c-orange-lighter);
   --vp-c-brand-soft: var(--vp-c-orange-soft);
   --vp-code-color: var(--vp-c-text-light-2);
+
+  --vp-button-brand-text: var(--vp-c-black);
+  --vp-button-brand-hover-text: var(--vp-c-black);
+  --vp-button-brand-active-text: var(--vp-c-black);
 }
 
 /**
