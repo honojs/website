@@ -298,6 +298,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Hono Docs Generator',
         link: '/examples/hono-docs',
       },
+      {
+        text: 'Method Override',
+        link: '/examples/hono-method-override',
+      },
     ],
   },
   {
