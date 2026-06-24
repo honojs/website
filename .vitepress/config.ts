@@ -79,6 +79,8 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/service-worker',
       },
       { text: 'Node.js', link: '/docs/getting-started/nodejs' },
+      { text: 'Vite', link: '/docs/getting-started/vite' },
+      { text: 'Vike', link: '/docs/getting-started/vike' },
     ],
   },
   {
