@@ -5,9 +5,11 @@ import 'virtual:group-icons.css'
 import '@shikijs/vitepress-twoslash/style.css'
 import ThoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 import { useSyncedPackageManagerCodeGroups } from './use-synced-package-manager-code-groups'
+import Layout from './Layout.vue'
 
 export default {
   extends: DefaultTheme,
+  Layout,
   setup() {
     const setup = (DefaultTheme as { setup?: () => void }).setup
     setup?.()
