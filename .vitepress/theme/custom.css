@@ -286,12 +286,30 @@ html.dark .hero-code-body .shiki span {
   color: var(--shiki-dark);
 }
 
-/* Kawaii mode swaps the code window for the kawaii logo (class toggled in config.ts). */
+/* Kawaii mode swaps the code window for the kawaii logo (class toggled in config.ts).
+   Centered and sized to match the original hero image: absolute, with max-height (not
+   max-width) as the size limit so it doesn't shrink on narrow image columns. */
 .hero-kawaii {
   display: none;
-  max-width: 100%;
-  max-height: 320px;
-  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 640px;
+  max-height: 192px;
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+@media (min-width: 640px) {
+  .hero-kawaii {
+    max-height: 256px;
+  }
+}
+
+@media (min-width: 960px) {
+  .hero-kawaii {
+    max-height: 320px;
+  }
 }
 
 html.kawaii-mode .hero-code-window {
