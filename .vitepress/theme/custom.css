@@ -225,6 +225,15 @@ body {
   border-radius: 0.75cqw;
   overflow: hidden;
   background-color: var(--vp-code-block-bg);
+  box-shadow: var(--vp-shadow-3);
+}
+
+html:not(.dark) .hero-code-window {
+  background-color: #eff2f5;
+}
+
+.dark .hero-code-window {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.45);
 }
 
 .hero-code-titlebar {
