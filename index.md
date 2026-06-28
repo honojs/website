@@ -14,14 +14,6 @@ hero:
   name: Hono
   text: Web application framework
   tagline: Fast, lightweight, built on Web Standards. Support for any JavaScript runtime.
-  image:
-    src: /images/code.webp
-    alt: "An example of code for Hono. \
-      import { Hono } from 'hono' \
-      const app = new Hono() \
-      app.get('/', (c) => c.text('Hello Hono!')) \
-
-      export default app"
   actions:
     - theme: brand
       text: Get Started

@@ -201,16 +201,132 @@ body {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
-.VPImage.image-src {
+/**
+ * Hero code window
+ * -------------------------------------------------------------------------- */
+/* Lift the image column above the hero info column (.main has z-index:10), or the
+   code window's left edge sits under it and loses pointer events / text selection. */
+.VPHero .image {
+  position: relative;
+  z-index: 11;
+}
+
+.hero-image-slot {
+  margin-top: 25px;
+  width: 100%;
   max-width: 640px;
 }
 
-html.kawaii-mode .VPImage.image-src {
-  content: url('/images/hono-kawaii.png');
+.hero-code-window {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 0.75cqw;
+  overflow: hidden;
+  background-color: var(--vp-code-block-bg);
+  box-shadow: var(--vp-shadow-3);
+}
+
+html:not(.dark) .hero-code-window {
+  background-color: #eff2f5;
+}
+
+.dark .hero-code-window {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+.hero-code-titlebar {
+  display: flex;
+  gap: 1.5cqw;
+  padding: 3.4cqw 3.75cqw;
+  user-select: none;
+}
+
+.hero-code-dot {
+  width: 2.5cqw;
+  height: 2.5cqw;
+  border-radius: 50%;
+  background-color: var(--vp-c-divider);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.hero-code-dot--red {
+  background-color: #ff5f56;
+}
+
+.hero-code-dot--yellow {
+  background-color: #ffbd2e;
+}
+
+.hero-code-dot--green {
+  background-color: #27c93f;
+}
+
+.hero-code-body {
+  overflow: hidden;
+}
+
+.hero-code-body .shiki {
+  margin: 0;
+  /* Padding lives on the <pre> itself so the whole padded area is selectable text. */
+  padding: 2.75cqw 3.75cqw 6cqw;
+  cursor: text;
+  background-color: transparent !important;
+  font-family: var(--vp-font-family-mono);
+  font-size: 3.6cqw;
+  line-height: 1.6;
+}
+
+.hero-code-body .shiki span {
+  color: var(--shiki-light);
+}
+
+html.dark .hero-code-body .shiki span {
+  color: var(--shiki-dark);
+}
+
+/* Kawaii mode swaps the code window for the kawaii logo (class toggled in config.ts).
+   Centered and sized to match the original hero image: absolute, with max-height (not
+   max-width) as the size limit so it doesn't shrink on narrow image columns. */
+.hero-kawaii {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 640px;
+  max-height: 192px;
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+@media (min-width: 640px) {
+  .hero-kawaii {
+    max-height: 256px;
+  }
+}
+
+@media (min-width: 960px) {
+  .hero-kawaii {
+    max-height: 320px;
+  }
+}
+
+html.kawaii-mode .hero-code-window {
+  display: none;
+}
+
+html.kawaii-mode .hero-kawaii {
+  display: block;
+}
+
+/* The slot's margin-top positions the code window; the kawaii logo doesn't want it. */
+html.kawaii-mode .hero-image-slot {
+  margin-top: 0;
 }
 
 @media screen and (max-width: 960px) {
-  html:not(.kawaii-mode) .VPHero.has-image .image:not(:has(.kawaii)) {
+  html:not(.kawaii-mode) .VPHero.has-image .image {
     display: none;
   }
 }
