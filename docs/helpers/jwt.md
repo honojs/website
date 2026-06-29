@@ -22,7 +22,7 @@ This function generates a JWT token by encoding a payload and signing it using t
 sign(
   payload: unknown,
   secret: string,
-  alg?: 'HS256';
+  alg: 'HS256';
 
 ): Promise<string>;
 ```
@@ -53,9 +53,9 @@ The JWT payload to be signed. You can include other claims like in [Payload Vali
 
 The secret key used for JWT verification or signing.
 
-#### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
+#### <Badge type="info" text="required" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
 
-The algorithm used for JWT signing or verification. The default is HS256.
+The algorithm used for JWT signing or verification.
 
 ## `verify()`
 
