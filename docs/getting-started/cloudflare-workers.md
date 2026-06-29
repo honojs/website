@@ -241,6 +241,26 @@ app.put('/upload/:key', async (c, next) => {
 })
 ```
 
+### Generating Bindings Types Automatically
+
+Instead of defining bindings types by hand, you can auto-generate them from your `wrangler.toml` using the `wrangler types` command. Use the `--env-interface` flag to avoid a naming collision with Hono's built-in `Env` type:
+
+```sh
+wrangler types --env-interface CloudflareBindings
+```
+
+This generates a `worker-configuration.d.ts` file with the interface name you specify. Then pass it to Hono:
+
+```ts
+const app = new Hono<{ Bindings: CloudflareBindings }>()
+
+app.put('/upload/:key', async (c, next) => {
+  const key = c.req.param('key')
+  await c.env.MY_BUCKET.put(key, c.req.body)
+  return c.text(`Put ${key} successfully!`)
+})
+```
+
 ## Using Variables in Middleware
 
 This is the only case for Module Worker mode.
