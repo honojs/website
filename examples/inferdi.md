@@ -10,10 +10,8 @@ The graph _is_ the type: a misordered dependency, a missing key, or a request-sc
 npm install @inferdi/inferdi @inferdi/hono
 ```
 
-> **Note:**  
+> [!NOTE]
 > InferDI ships on both npm and JSR. On Deno install it with `deno add jsr:@inferdi/inferdi jsr:@inferdi/hono npm:hono`.
-
----
 
 ## 🚀 Getting Started
 
@@ -42,10 +40,8 @@ export function buildRootContainer() {
 }
 ```
 
-> **Note:**  
+> [!NOTE]
 > A `singleton` cannot depend on a `scoped` or `transient` service — that would leak a short-lived value into a long-lived one, and InferDI rejects it at compile time. Keep request-bound services `scoped`.
-
----
 
 ### 2. Add the middleware
 
@@ -64,8 +60,6 @@ app.use('*', inferdiHono({ container: root }))
 export default app
 ```
 
----
-
 ### 3. Hydrate the request scope
 
 Use `setupScope` to fill request-scoped services with per-request data (request id, authenticated user, …) before any handler sees the scope. It runs once per request and may be async.
@@ -83,8 +77,6 @@ app.use(
   })
 )
 ```
-
----
 
 ### 4. Resolve services in handlers
 
@@ -110,8 +102,6 @@ app.get('/users/:id', (c) =>
 )
 ```
 
----
-
 ## ⚙️ Options
 
 `inferdiHono` accepts the following options:
@@ -125,8 +115,6 @@ app.get('/users/:id', (c) =>
 | `disposeScope`   | `scope.dispose()`    | Overrides request-scope disposal. May be async.                           |
 | `autoDispose`    | `true`               | Set to `false` (or return `false`) when application code owns disposal.   |
 | `onDisposeError` | `console.error`      | Sink for post-response disposal failures.                                 |
-
----
 
 ## 🌊 Streaming
 
@@ -152,8 +140,6 @@ app.get('/events', (c) => {
   })
 })
 ```
-
----
 
 ## See also
 
