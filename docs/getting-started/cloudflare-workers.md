@@ -151,10 +151,10 @@ export default {
 
 ## Serve static files
 
-If you want to serve static files, you can use [the Static Assets feature](https://developers.cloudflare.com/workers/static-assets/) of Cloudflare Workers. Specify the directory for the files in `wrangler.toml`:
+If you want to serve static files, you can use [the Static Assets feature](https://developers.cloudflare.com/workers/static-assets/) of Cloudflare Workers. Specify the directory for the files in `wrangler.jsonc`:
 
-```toml
-assets = { directory = "public" }
+```jsonc
+"assets": { "directory": "public" }
 ```
 
 Then create the `public` directory and place the files there. For instance, `./public/static/hello.txt` will be served as `/static/hello.txt`.
@@ -168,7 +168,7 @@ Then create the `public` directory and place the files there. For instance, `.
 │       └── hello.txt
 ├── src
 │   └── index.ts
-└── wrangler.toml
+└── wrangler.jsonc
 ```
 
 ## Types
@@ -319,11 +319,11 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 ```
 
-then edit `wrangler.toml`, and add this code after `compatibility_date` line.
+then edit `wrangler.jsonc`, and add this code after the `compatibility_date` line.
 
-```toml
-main = "src/index.ts"
-minify = true
+```jsonc
+"main": "src/index.ts",
+"minify": true
 ```
 
 Everything is ready! Now push the code and enjoy it.
