@@ -3,7 +3,7 @@
 You can build a full-stack application on [Cloudflare Workers](https://workers.cloudflare.com) with [Vite](https://vite.dev) using the [`@cloudflare/vite-plugin`](https://developers.cloudflare.com/workers/vite-plugin/).
 This setup gives you a fast Vite dev server, server-side rendering with Hono's JSX renderer, and client-side scripts bundled by Vite — all running on Cloudflare Workers.
 
-This is the recommended way to start a new full-stack project on Cloudflare. If you were previously using [Cloudflare Pages](/docs/getting-started/cloudflare-pages), this is its successor.
+This is the recommended way to start a new full-stack project on Cloudflare.
 
 ## 1. Setup
 
