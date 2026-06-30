@@ -34,8 +34,8 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/cloudflare-workers',
       },
       {
-        text: 'Cloudflare Pages',
-        link: '/docs/getting-started/cloudflare-pages',
+        text: 'Cloudflare Workers + Vite',
+        link: '/docs/getting-started/cloudflare-workers-vite',
       },
       { text: 'Deno', link: '/docs/getting-started/deno' },
       { text: 'Bun', link: '/docs/getting-started/bun' },
