@@ -32,7 +32,12 @@ export function buildRootContainer() {
       // `request` is scoped: a fresh instance per request scope.
       .registerClass('request', RequestContext, [], 'scoped')
       // `users` is scoped too — it depends on the scoped `request`.
-      .registerClass('users', UserService, ['logger', 'request'], 'scoped')
+      .registerClass(
+        'users',
+        UserService,
+        ['logger', 'request'],
+        'scoped'
+      )
   )
 }
 ```
@@ -66,14 +71,17 @@ export default app
 Use `setupScope` to fill request-scoped services with per-request data (request id, authenticated user, …) before any handler sees the scope. It runs once per request and may be async.
 
 ```ts
-app.use('*', inferdiHono({
-  container: root,
-  setupScope: (scope, c) => {
-    const request = scope.get('request')
-    request.requestId = crypto.randomUUID()
-    request.userId = c.req.header('x-user-id')
-  }
-}))
+app.use(
+  '*',
+  inferdiHono({
+    container: root,
+    setupScope: (scope, c) => {
+      const request = scope.get('request')
+      request.requestId = crypto.randomUUID()
+      request.userId = c.req.header('x-user-id')
+    },
+  })
+)
 ```
 
 ---
