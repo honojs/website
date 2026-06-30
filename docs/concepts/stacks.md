@@ -126,18 +126,15 @@ Sharing API specifications means that you can be aware of server-side changes.
 
 ## With React
 
-You can create applications on Cloudflare Pages using React.
+You can create applications on Cloudflare Workers using React.
 
 The API server.
 
 ```ts
-// functions/api/[[route]].ts
+// src/index.ts
 import { Hono } from 'hono'
-import { handle } from 'hono/cloudflare-pages'
 import * as z from 'zod'
 import { zValidator } from '@hono/zod-validator'
-
-const app = new Hono()
 
 const schema = z.object({
   id: z.string(),
@@ -148,7 +145,7 @@ type Todo = z.infer<typeof schema>
 
 const todos: Todo[] = []
 
-const route = app
+const api = new Hono()
   .post('/todo', zValidator('form', schema), (c) => {
     const todo = c.req.valid('form')
     todos.push(todo)
@@ -156,15 +153,18 @@ const route = app
       message: 'created!',
     })
   })
-  .get((c) => {
+  .get('/todo', (c) => {
     return c.json({
       todos,
     })
   })
 
-export type AppType = typeof route
+export type AppType = typeof api
 
-export const onRequest = handle(app, '/api')
+const app = new Hono()
+app.route('/api', api)
+
+export default app
 ```
 
 The client with React and React Query.
