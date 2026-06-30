@@ -298,6 +298,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Hono Docs Generator',
         link: '/examples/hono-docs',
       },
+      {
+        text: 'InferDI (Dependency Injection)',
+        link: '/examples/inferdi',
+      },
     ],
   },
   {
