@@ -55,7 +55,8 @@ const functionDefaults = {
 
 Default key strategy:
 
-- `cacheMiddleware()`: hash of `pathname + search`, plus hashed `varies` header values
+- `cacheMiddleware()`: hash of the method, origin, path, and query; explicitly enabled non-`GET`/`HEAD` methods also include the request body
+- middleware keys include configured `varies` headers and automatically vary by `authorization` and `cookie` when present
 - `cacheFunction()`: hash of serialized function arguments
 - middleware name default: normalized request path (e.g. `/api/items` -> `api:items`)
 - function name default: `fn.name` (fallback: `_`)
@@ -140,18 +141,20 @@ const getStats = cacheFunction(
 
 ## Revalidation and Invalidation
 
-Manual route revalidation is disabled by default.
-
-To allow it, set `revalidateHeader` explicitly and optionally gate it with `shouldRevalidate`:
+Manual revalidation is disabled by default. Enable it with a private header name and authorize it with `shouldRevalidate`:
 
 ```ts
 cacheMiddleware({
-  revalidateHeader: 'x-cache-revalidate',
-  shouldRevalidate: (c) => c.req.header('x-admin-token') === '1',
+  revalidateHeader: 'x-my-cache-revalidate',
+  shouldRevalidate: (c) =>
+    c.req.header('authorization') ===
+    `Bearer ${process.env.CACHE_TOKEN}`,
 })
 ```
 
-Other useful hooks:
+A request containing `x-my-cache-revalidate: 1` refreshes the entry only when `shouldRevalidate` allows it. Do not expose an ungated revalidation header on public endpoints.
+
+You can also use:
 
 - `shouldBypassCache`
 - `shouldInvalidateCache`
@@ -171,7 +174,7 @@ Base options (`cacheMiddleware` + `cacheFunction`):
 - `staleMaxAge`: stale max age in seconds, `-1` means unlimited stale (default: `0`)
 - `swr`: enable stale-while-revalidate (default: `true`)
 - `keepPreviousOn5xx`: keep previous entry when refresh fails in invalidation paths (default: `true`)
-- `revalidateHeader`: revalidation header name (disabled by default)
+- `revalidateHeader`: private header used to request revalidation (default: disabled)
 
 Middleware-only:
 
@@ -183,7 +186,7 @@ Middleware-only:
 - `validate`: validate cached response entries
 - `shouldBypassCache`: skip cache for matching requests
 - `shouldInvalidateCache`: invalidate entry before refresh
-- `shouldRevalidate`: allow manual revalidation for matching requests
+- `shouldRevalidate`: authorize manual revalidation requests
 
 Function-only:
 
@@ -216,7 +219,9 @@ Wraps a function with caching behavior.
 ## Notes
 
 - Cached route responses drop `set-cookie` and hop-by-hop headers.
-- Responses with `cache-control: no-store` or `no-cache` are not cached.
+- Responses outside the 2xx range, HTTP 206 responses, and responses containing `set-cookie` are not cached.
+- Responses with `cache-control: private`, `no-store`, or `no-cache`, or `Vary: *`, are not cached.
+- A custom middleware `getKey` replaces the complete default key. Include every relevant tenant, authorization, cookie, method, body, and variation value.
 - On `workerd`, stale route entries refresh synchronously instead of using background self-fetch.
 - Cached function values should be serializable for your selected storage driver.
 
