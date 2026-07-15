@@ -220,6 +220,7 @@ Wraps a function with caching behavior.
 ## Notes
 
 - Cached route responses drop `set-cookie` and hop-by-hop headers.
+- `Content-Length` is preserved, including for cached `HEAD` responses.
 - Cache hits include an `Age` header based on the stored age and resident time.
 - Responses outside the 2xx range, HTTP 206 responses, and responses containing `set-cookie` are not cached.
 - Responses with `cache-control: private`, `no-store`, or `no-cache`, streaming content types, or an unsafe `Vary` value are not cached.
@@ -229,9 +230,11 @@ Wraps a function with caching behavior.
 - Stale route entries refresh synchronously on every runtime and are served only as fallback when refresh throws or returns 5xx.
 - The default response serializer stops after 3 MiB or one second without delaying response delivery. Custom serializers must set equivalent limits.
 - Custom streaming response types should set `Cache-Control: no-store`.
-- Cached function values should be serializable for your selected storage driver.
+- Default function serialization caches only JSON-safe values that round-trip without changing meaning. Values such as `NaN`, `Infinity`, negative zero, `Date`, `Map`, `Set`, class instances, and `BigInt` need custom `serialize` and `deserialize` functions.
+- Default function keys distinguish typed values, including negative zero. `Map` and `Set` insertion order is part of their key identity.
 - Set an explicit, unique function `name` for persistent or distributed caching across processes.
-- Custom storage drivers should bound operation latency.
+- Cache reads and removals fail open after five seconds. Same-key mutations are ordered only for callers sharing one `Storage` object in the same process or isolate.
+- Separate clients or distributed writers need backend atomic writes, compare-and-set, or locking. Custom serializers and storage drivers should still bound operation latency.
 
 ## Links
 
