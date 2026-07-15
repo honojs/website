@@ -7,7 +7,8 @@ It supports:
 - response caching with `cacheMiddleware()`
 - request-scoped defaults with `cacheDefaults()`
 - function result caching with `cacheFunction()`
-- stale-while-revalidate and in-flight deduplication for cached functions
+- in-flight deduplication for response and function cache fills
+- stale-while-revalidate for cached functions
 - custom keying, serialization, and cache invalidation hooks
 
 ## Install
@@ -60,7 +61,7 @@ Default key strategy:
 - requests containing `authorization` or `cookie` bypass caching unless the header is explicitly included in `varies` or a custom `getKey` is provided
 - `cacheFunction()`: hash of serialized function arguments
 - middleware name default: normalized request path (e.g. `/api/items` -> `api:items`)
-- function name default: `fn.name` (fallback: `_`)
+- function name default: a process-local identity derived from `fn.name`
 - integrity default: auto-derived hash (middleware by cache namespace, function by function source)
 
 ## Usage
@@ -132,6 +133,7 @@ const getStats = cacheFunction(
     return { id, ts: Date.now() }
   },
   {
+    name: 'get-stats',
     maxAge: 60,
     getKey: (id) => id,
     swr: true,
@@ -147,12 +149,12 @@ Manual revalidation is disabled by default. Enable it with a private header name
 cacheMiddleware({
   revalidateHeader: 'x-my-cache-revalidate',
   shouldRevalidate: (c) =>
-    c.req.header('authorization') ===
-    `Bearer ${process.env.CACHE_TOKEN}`,
+    c.req.header('x-cache-token') === process.env.CACHE_TOKEN,
 })
 ```
 
 A request containing `x-my-cache-revalidate: 1` refreshes the entry only when `shouldRevalidate` allows it. Do not expose an ungated revalidation header on public endpoints.
+Use a dedicated gate header when possible. Credentialed requests still bypass a public cache key, including manual revalidation requests.
 
 You can also use:
 
@@ -218,14 +220,18 @@ Wraps a function with caching behavior.
 ## Notes
 
 - Cached route responses drop `set-cookie` and hop-by-hop headers.
+- Cache hits include an `Age` header based on the stored age and resident time.
 - Responses outside the 2xx range, HTTP 206 responses, and responses containing `set-cookie` are not cached.
 - Responses with `cache-control: private`, `no-store`, or `no-cache`, streaming content types, or an unsafe `Vary` value are not cached.
 - Range, conditional, and client no-cache requests bypass cache reads and writes.
 - Every response `Vary` field must be listed in `varies`; otherwise the response is not cached.
 - A custom middleware `getKey` replaces the complete default key and opts credentialed requests into caching. Include every relevant tenant, authorization, cookie, method, body, and variation value.
 - Stale route entries refresh synchronously on every runtime and are served only as fallback when refresh throws or returns 5xx.
+- The default response serializer stops after 3 MiB or one second without delaying response delivery. Custom serializers must set equivalent limits.
 - Custom streaming response types should set `Cache-Control: no-store`.
 - Cached function values should be serializable for your selected storage driver.
+- Set an explicit, unique function `name` for persistent or distributed caching across processes.
+- Custom storage drivers should bound operation latency.
 
 ## Links
 
