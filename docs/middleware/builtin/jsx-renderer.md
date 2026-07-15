@@ -146,6 +146,28 @@ app.use(
 )
 ```
 
+As a concrete example, you can use this to disable streaming when generating static sites (SSG) with `<Suspense>`, by using the [`isSSGContext`](/docs/helpers/ssg#isssgcontext) helper:
+
+```tsx
+app.use(
+  '*',
+  jsxRenderer(
+    ({ children }) => {
+      return (
+        <div>
+          <Suspense fallback={'loading...'}>
+            <Component />
+          </Suspense>
+        </div>
+      )
+    },
+    (c) => ({
+      stream: !isSSGContext(c),
+    })
+  )
+)
+```
+
 ## Nested Layouts
 
 The `Layout` component enables nesting the layouts.

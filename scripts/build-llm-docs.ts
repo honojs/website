@@ -14,7 +14,7 @@ const extractLabel = (file: string) => {
   return sliceExt(file.split('/').pop() || '')
 }
 
-function capitalizeDelimiter(str) {
+function capitalizeDelimiter(str: string) {
   return str
     .split('-')
     .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
@@ -44,7 +44,7 @@ async function generateLLMDocs() {
       '## Docs',
       '',
       '- [Full Docs](https://hono.dev/llms-full.txt) Full documentation of Hono. (without examples)',
-      '- [Tiny Docs](https://hono.dev/llms-small.txt): Tiny documentation of Hono. (includes only desciption of core)',
+      '- [Tiny Docs](https://hono.dev/llms-small.txt): Tiny documentation of Hono. (includes only description of core)',
       '',
       '## Examples',
       '',

@@ -31,11 +31,6 @@ import { Hono } from 'hono'
 import { getConnInfo } from 'hono/aws-lambda'
 ```
 
-```ts [Cloudflare Pages]
-import { Hono } from 'hono'
-import { getConnInfo } from 'hono/cloudflare-pages'
-```
-
 ```ts [Netlify]
 import { Hono } from 'hono'
 import { getConnInfo } from 'hono/netlify'

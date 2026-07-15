@@ -20,7 +20,7 @@ app.use('/posts/*', cors())
 app.post('/posts/*', basicAuth())
 ```
 
-If the handler returns `Response`, it will be used for the end-user, and stopping the processing.
+If the handler returns `Response`, it will be used for the end-user and will stop processing.
 
 ```ts
 app.post('/posts', (c) => c.text('Created!', 201))
@@ -140,11 +140,9 @@ app.use('/message/*', async (c, next) => {
 app.get('/message/hello', (c) => c.text('Hello Middleware!'))
 ```
 
-However, embedding middleware directly within `app.use()` can limit its reusability. Therefore, we can separate our
-middleware into different files.
+However, embedding middleware directly within `app.use()` can limit its reusability. Therefore, we can separate our middleware into different files.
 
-To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use
-[`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory. This also allows us to type-safely [access data we've `set` in `Context`](https://hono.dev/docs/api/context#set-get) from downstream handlers.
+To ensure we don't lose type definitions for `context` and `next`, when separating middleware, we can use [`createMiddleware()`](/docs/helpers/factory#createmiddleware) from Hono's factory. This also allows us to type-safely [access data we've `set` in `Context`](https://hono.dev/docs/api/context#set-get) from downstream handlers.
 
 ```ts
 import { createMiddleware } from 'hono/factory'
@@ -212,10 +210,47 @@ app.get('/echo', echoMiddleware, (c) => {
 })
 ```
 
+### Type Inference Across Chained Middleware
+
+When you chain multiple middleware using `.use()`, Hono automatically accumulates the `Variables` types. Route handlers that follow the middleware chain can access all variables from every preceding middleware in a type-safe way:
+
+```ts
+import { createMiddleware } from 'hono/factory'
+
+const authMiddleware = createMiddleware<{
+  Variables: { user: { id: string; name: string } }
+}>(async (c, next) => {
+  c.set('user', { id: '123', name: 'Alice' })
+  await next()
+})
+
+const dbMiddleware = createMiddleware<{
+  Variables: { db: { query: (sql: string) => Promise<unknown> } }
+}>(async (c, next) => {
+  c.set('db', {
+    query: async (sql) => {
+      /* ... */
+    },
+  })
+  await next()
+})
+
+const app = new Hono()
+  .use(authMiddleware)
+  .use(dbMiddleware)
+  .get('/', (c) => {
+    // Both `user` and `db` are available and type-safe
+    const user = c.var.user // { id: string; name: string }
+    const db = c.var.db // { query: (sql: string) => Promise<unknown> }
+    return c.json({ user })
+  })
+```
+
+This works because each `.use()` call returns a new Hono instance with the merged type, so the type grows as middleware is chained. This eliminates the need to manually declare a combined `Env` type upfront for most use cases.
+
 ## Third-party Middleware
 
-Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries.
-So with them, we may make a more complex application.
+Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries. So with them, we may make a more complex application.
 
 We can explore a variety of [third-party middleware](https://hono.dev/docs/middleware/third-party).
 For example, we have GraphQL Server Middleware, Sentry Middleware, Firebase Auth Middleware, and others.

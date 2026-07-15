@@ -1,12 +1,8 @@
 cache
+.wrangler
 
 node_modules
 yarn-error.log
-pnpm-lock.yaml
-yarn.lock
-package-lock.json
-deno.lock
-bun.lockb
 
 # Windows
 Thumbs.db

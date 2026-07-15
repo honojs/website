@@ -79,3 +79,29 @@ app.get(
   })
 )
 ```
+
+### <Badge type="info" text="optional" /> onCacheNotAvailable: `(() => void | Promise<void>)` | `false`
+
+A callback function or `false` that controls the behavior when the Cache API is not available in the global scope. By default, a message is logged with `console.log`. You can provide a custom function to customize the behavior, or set it to `false` to suppress the log entirely.
+
+```ts
+// Custom logging
+app.use(
+  cache({
+    cacheName: 'my-app-v1',
+    onCacheNotAvailable: () => {
+      console.log('Custom log: Cache API is not available.')
+    },
+  })
+)
+```
+
+```ts
+// Suppress logging
+app.use(
+  cache({
+    cacheName: 'my-app-v1',
+    onCacheNotAvailable: false,
+  })
+)
+```

@@ -2,7 +2,7 @@
 
 [Node.js](https://nodejs.org/) is an open-source, cross-platform JavaScript runtime environment.
 
-Hono was not designed for Node.js at first. But with a [Node.js Adapter](https://github.com/honojs/node-server) it can run on Node.js as well.
+Hono was not designed for Node.js at first, but with a [Node.js Adapter](https://github.com/honojs/node-server), it can run on Node.js as well.
 
 ::: info
 It works on Node.js versions greater than 18.x. The specific required Node.js versions are as follows:
@@ -135,6 +135,36 @@ serve({
 })
 ```
 
+## WebSocket
+
+WebSocket support is built into `@hono/node-server`. Install `ws` and, if you use TypeScript, `@types/ws`. Then create a `WebSocketServer` with `{ noServer: true }` and pass it to `serve()` with the `websocket` option.
+
+`@hono/node-ws` is deprecated.
+
+```ts
+import { serve, upgradeWebSocket } from '@hono/node-server'
+import { Hono } from 'hono'
+import { WebSocketServer } from 'ws'
+
+const app = new Hono()
+
+app.get(
+  '/ws',
+  upgradeWebSocket(() => ({
+    onMessage(event, ws) {
+      ws.send(event.data)
+    },
+  }))
+)
+
+const wss = new WebSocketServer({ noServer: true })
+
+serve({
+  fetch: app.fetch,
+  websocket: { server: wss },
+})
+```
+
 ## Access the raw Node.js APIs
 
 You can access the Node.js APIs from `c.env.incoming` and `c.env.outgoing`.
@@ -179,6 +209,23 @@ import { serveStatic } from '@hono/node-server/serve-static'
 
 app.use('/static/*', serveStatic({ root: './' }))
 ```
+
+::: warning
+The `root` option resolves paths relative to the current working directory (`process.cwd()`). This means the behavior depends on **where you run your Node.js process from**, not where your source file is located. If you start your server from a different directory, file resolution may fail.
+
+For reliable path resolution that always points to the same directory as your source file, use `import.meta.url`:
+
+```ts
+import { fileURLToPath } from 'node:url'
+import { serveStatic } from '@hono/node-server/serve-static'
+
+app.use(
+  '/static/*',
+  serveStatic({ root: fileURLToPath(new URL('./', import.meta.url)) })
+)
+```
+
+:::
 
 Use the `path` option to serve `favicon.ico` in the directory root:
 
@@ -264,7 +311,7 @@ Apps with a front-end framework may need to use [Hono's Vite plugins](https://gi
 
 ### Dockerfile
 
-Here is an example of a nodejs Dockerfile.
+Here is an example of a Node.js Dockerfile.
 
 ```Dockerfile
 FROM node:22-alpine AS base

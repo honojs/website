@@ -3,7 +3,7 @@
 [Cloudflare Workers](https://workers.cloudflare.com) is a JavaScript edge runtime on Cloudflare CDN.
 
 You can develop the application locally and publish it with a few commands using [Wrangler](https://developers.cloudflare.com/workers/wrangler/).
-Wrangler includes trans compiler, so we can write the code with TypeScript.
+Wrangler includes transcompiler, so we can write the code with TypeScript.
 
 Let’s make your first application for Cloudflare Workers with Hono.
 
@@ -151,10 +151,10 @@ export default {
 
 ## Serve static files
 
-If you want to serve static files, you can use [the Static Assets feature](https://developers.cloudflare.com/workers/static-assets/) of Cloudflare Workers. Specify the directory for the files in `wrangler.toml`:
+If you want to serve static files, you can use [the Static Assets feature](https://developers.cloudflare.com/workers/static-assets/) of Cloudflare Workers. Specify the directory for the files in `wrangler.jsonc`:
 
-```toml
-assets = { directory = "public" }
+```jsonc
+"assets": { "directory": "public" }
 ```
 
 Then create the `public` directory and place the files there. For instance, `./public/static/hello.txt` will be served as `/static/hello.txt`.
@@ -168,7 +168,7 @@ Then create the `public` directory and place the files there. For instance, `.
 │       └── hello.txt
 ├── src
 │   └── index.ts
-└── wrangler.toml
+└── wrangler.jsonc
 ```
 
 ## Types
@@ -241,6 +241,26 @@ app.put('/upload/:key', async (c, next) => {
 })
 ```
 
+### Generating Bindings Types Automatically
+
+Instead of defining bindings types by hand, you can auto-generate them from your `wrangler.toml` using the `wrangler types` command. Use the `--env-interface` flag to avoid a naming collision with Hono's built-in `Env` type:
+
+```sh
+wrangler types --env-interface CloudflareBindings
+```
+
+This generates a `worker-configuration.d.ts` file with the interface name you specify. Then pass it to Hono:
+
+```ts
+const app = new Hono<{ Bindings: CloudflareBindings }>()
+
+app.put('/upload/:key', async (c, next) => {
+  const key = c.req.param('key')
+  await c.env.MY_BUCKET.put(key, c.req.body)
+  return c.text(`Put ${key} successfully!`)
+})
+```
+
 ## Using Variables in Middleware
 
 This is the only case for Module Worker mode.
@@ -273,7 +293,7 @@ The same is applied to Bearer Authentication Middleware, JWT Authentication, or 
 
 Before deploying code to Cloudflare via CI, you need a Cloudflare token. You can manage it from [User API Tokens](https://dash.cloudflare.com/profile/api-tokens).
 
-If it's a newly created token, select the **Edit Cloudflare Workers** template, if you already have another token, make sure the token has the corresponding permissions(No, token permissions are not shared between Cloudflare Pages and Cloudflare Workers).
+If it's a newly created token, select the **Edit Cloudflare Workers** template. If you already have another token, make sure the token has the corresponding permissions.
 
 then go to your GitHub repository settings dashboard: `Settings->Secrets and variables->Actions->Repository secrets`, and add a new secret with the name `CLOUDFLARE_API_TOKEN`.
 
@@ -299,11 +319,11 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 ```
 
-then edit `wrangler.toml`, and add this code after `compatibility_date` line.
+then edit `wrangler.jsonc`, and add this code after the `compatibility_date` line.
 
-```toml
-main = "src/index.ts"
-minify = true
+```jsonc
+"main": "src/index.ts",
+"minify": true
 ```
 
 Everything is ready! Now push the code and enjoy it.

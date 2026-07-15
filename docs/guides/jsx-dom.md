@@ -2,7 +2,7 @@
 
 `hono/jsx` supports not only server side but also client side. This means that it is possible to create an interactive UI that runs in the browser. We call it Client Components or `hono/jsx/dom`.
 
-It is fast and very small. The counter program in `hono/jsx/dom` is only 2.8KB with Brotli compression. But, 47.8KB for React.
+It is fast and very small. The counter program in `hono/jsx/dom` is only 2.8KB with Brotli compression, but 47.8KB for React.
 
 This section introduces Client Components-specific features.
 
@@ -79,9 +79,9 @@ hono/jsx/dom has Hooks that are compatible or partially compatible with React. Y
 
 ## `startViewTransition()` family
 
-The `startViewTransition()` family contains original hooks and functions to handle [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) easily. The followings are examples of how to use them.
+The `startViewTransition()` family contains original hooks and functions to handle [View Transitions API](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) easily. The examples below demonstrate how to use them.
 
-### 1. An easiest example
+### 1. A very simple example
 
 You can write a transition using the `document.startViewTransition` shortly with the `startViewTransition()`.
 

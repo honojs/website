@@ -140,7 +140,7 @@ body['foo[]']
 
 ### Multiple files or fields with same name
 
-If you have a input field that allows multiple `<input type="file" multiple />` or multiple checkboxes with the same name `<input type="checkbox" name="favorites" value="Hono"/>`.
+If you have an input field that allows multiple `<input type="file" multiple />` or multiple checkboxes with the same name `<input type="checkbox" name="favorites" value="Hono"/>`.
 
 ```ts twoslash
 import { Context } from 'hono'

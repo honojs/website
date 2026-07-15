@@ -2,13 +2,13 @@
 
 [Google Cloud Run](https://cloud.google.com/run) is a serverless platform built by Google Cloud. You can run your code in response to events and Google automatically manages the underlying compute resources for you.
 
-Google Cloud Run uses containers to run your service. This means you can use any runtime you like (E.g., Deno or Bun) by providing a Dockerfile. If no Dockerfile is provided Google Cloud Run will use the default Nodejs buildpack.
+Google Cloud Run uses containers to run your service. This means you can use any runtime you like (E.g., Deno or Bun) by providing a Dockerfile. If no Dockerfile is provided Google Cloud Run will use the default Node.js buildpack.
 
 This guide assumes you already have a Google Cloud account and a billing account.
 
 ## 1. Install the CLI
 
-When working with Google Cloud Platform it is easiest to work with the [gcloud CLI](https://cloud.google.com/sdk/docs/install).
+When working with Google Cloud Platform, it is easiest to work with the [gcloud CLI](https://cloud.google.com/sdk/docs/install).
 
 For example, on MacOS using Homebrew:
 
@@ -127,8 +127,8 @@ gcloud run deploy my-app --source . --allow-unauthenticated
 
 If you want to deploy using Deno or Bun runtimes (or a customised Nodejs container), add a `Dockerfile` (and optionally `.dockerignore`) with your desired environment.
 
-For information on containerizing please refer to:
+For information on containerizing, please refer to:
 
-- [Nodejs](/docs/getting-started/nodejs#building-deployment)
+- [Node.js](/docs/getting-started/nodejs#building-deployment)
 - [Bun](https://bun.com/guides/ecosystem/docker)
 - [Deno](https://docs.deno.com/examples/google_cloud_run_tutorial)

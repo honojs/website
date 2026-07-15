@@ -1,6 +1,6 @@
 # css Helper
 
-The css helper - `hono/css` - is Hono's built-in CSS in JS(X).
+The CSS helper - `hono/css` - is Hono's built-in CSS in JS(X).
 
 You can write CSS in JSX in a JavaScript template literal named `css`. The return value of `css` will be the class name, which is set to the value of the class attribute. The `<Style />` component will then contain the value of the CSS.
 
@@ -8,7 +8,7 @@ You can write CSS in JSX in a JavaScript template literal named `css`. The retur
 
 ```ts
 import { Hono } from 'hono'
-import { css, cx, keyframes, Style } from 'hono/css'
+import { css, cx, keyframes, Style, createCssContext } from 'hono/css'
 ```
 
 ## `css` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
@@ -135,7 +135,7 @@ export const renderer = jsxRenderer(({ children, title }) => {
 
 ## `keyframes` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
 
-You can use `keyframes` to write the contents of `@keyframes`. In this case, `fadeInAnimation` will be the name of the animation
+You can use `keyframes` to write the contents of `@keyframes`. In this case, `fadeInAnimation` will be the name of the animation.
 
 ```tsx
 const fadeInAnimation = keyframes`
@@ -177,7 +177,7 @@ const Header = () => <a class={cx('h1', primaryClass)}>Hi</a>
 
 ## Usage in combination with [Secure Headers](/docs/middleware/builtin/secure-headers) middleware
 
-If you want to use the css helpers in combination with the [Secure Headers](/docs/middleware/builtin/secure-headers) middleware, you can add the [`nonce` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) to the `<Style nonce={c.get('secureHeadersNonce')} />` to avoid Content-Security-Policy caused by the css helpers.
+If you want to use the CSS helpers in combination with the [Secure Headers](/docs/middleware/builtin/secure-headers) middleware, you can add the [`nonce` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) to the `<Style nonce={c.get('secureHeadersNonce')} />` to avoid Content-Security-Policy caused by the CSS helpers.
 
 ```tsx{8,23}
 import { secureHeaders, NONCE } from 'hono/secure-headers'
@@ -201,7 +201,7 @@ app.get('/', (c) => {
   return c.html(
     <html>
       <head>
-        {/* Set the `nonce` attribute on the css helpers `style` and `script` elements */}
+        {/* Set the `nonce` attribute on the CSS helpers `style` and `script` elements */}
         <Style nonce={c.get('secureHeadersNonce')} />
       </head>
       <body>
@@ -212,8 +212,74 @@ app.get('/', (c) => {
 })
 ```
 
+## `createCssContext` <Badge style="vertical-align: middle;" type="warning" text="Experimental" />
+
+`createCssContext` creates CSS helper functions (`css`, `cx`, `keyframes`, `viewTransition`, `Style`) with a custom context. You can use it to customize the style element ID and the generated class names.
+
+```ts
+import { createCssContext } from 'hono/css'
+
+const { css, cx, keyframes, Style } = createCssContext({
+  id: 'my-app',
+})
+```
+
+### `classNameSlug`
+
+By default, CSS class names are generated in the format `css-1234567890`. You can customize this by passing a `classNameSlug` function.
+
+The function receives three arguments:
+
+- `hash` - the default generated class name (e.g. `css-1234567890`)
+- `label` - extracted from a `/* comment */` at the start of the CSS template (empty string if none)
+- `css` - the minified CSS string
+
+```ts
+const { css, Style } = createCssContext({
+  id: 'my-styles',
+  classNameSlug: (hash, label) => (label ? `h-${label}` : hash),
+})
+
+const heroClass = css`
+  /* hero-section */
+  background: blue;
+`
+// Generated class name: "h-hero-section"
+```
+
+### `onInvalidSlug`
+
+If the `classNameSlug` function returns an invalid CSS class name, a warning is logged by default. You can customize this behavior with `onInvalidSlug`.
+
+```ts
+const { css, Style } = createCssContext({
+  id: 'my-styles',
+  classNameSlug: (hash, label) => label || hash,
+  onInvalidSlug: (slug) => {
+    throw new Error(`Invalid CSS class name: ${slug}`)
+  },
+})
+```
+
+## Security
+
+The CSS helpers are CSS-authoring APIs: like other CSS-in-JS libraries, interpolated values are inserted as **raw CSS**. They block breaking out into HTML (quotes, backslashes, and `</`), but `{`, `}`, and `;` pass through since they are valid CSS.
+
+::: warning
+Treat the CSS helpers like other raw sinks (`html`, `raw`, `rawCssString`): **don't pass untrusted input into them directly.** Doing so allows CSS injection. Validate against an allowlist first.
+
+```tsx
+const ALLOWED_COLORS = ['red', 'green', 'blue']
+const color = ALLOWED_COLORS.includes(input) ? input : 'black'
+const headerClass = css`
+  color: ${color};
+`
+```
+
+:::
+
 ## Tips
 
-If you use VS Code, you can use [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) for Syntax highlighting and IntelliSense for css tagged literals.
+If you use VS Code, you can use [vscode-styled-components](https://marketplace.visualstudio.com/items?itemName=styled-components.vscode-styled-components) for Syntax highlighting and IntelliSense for CSS tagged literals.
 
 ![](/images/css-ss.png)

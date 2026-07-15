@@ -138,7 +138,6 @@ See [more information about routes](/docs/concepts/routers).
 Thanks to the use of the **Web Standards**, Hono works on a lot of platforms.
 
 - Cloudflare Workers
-- Cloudflare Pages
 - Fastly Compute
 - Deno
 - Bun
