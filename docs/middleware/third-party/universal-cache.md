@@ -7,7 +7,7 @@ It supports:
 - response caching with `cacheMiddleware()`
 - request-scoped defaults with `cacheDefaults()`
 - function result caching with `cacheFunction()`
-- stale-while-revalidate (SWR)
+- stale-while-revalidate and in-flight deduplication for cached functions
 - custom keying, serialization, and cache invalidation hooks
 
 ## Install
@@ -29,14 +29,13 @@ import {
 
 ## Default Behavior
 
-Universal Cache uses an in-memory `unstorage` driver by default, with these defaults:
+Universal Cache uses bounded, TTL-aware in-memory storage by default (1,000 entries, 50 MiB total, 5 MiB per entry), with these defaults:
 
 ```ts
 const baseDefaults = {
   base: 'cache',
   maxAge: 60,
   staleMaxAge: 0,
-  swr: true,
   keepPreviousOn5xx: true,
 }
 
@@ -50,13 +49,15 @@ const middlewareDefaults = {
 const functionDefaults = {
   ...baseDefaults,
   group: 'hono/functions',
+  swr: true,
 }
 ```
 
 Default key strategy:
 
 - `cacheMiddleware()`: hash of the method, origin, path, and query; explicitly enabled non-`GET`/`HEAD` methods also include the request body
-- middleware keys include configured `varies` headers and automatically vary by `authorization` and `cookie` when present
+- middleware keys include configured `varies` headers
+- requests containing `authorization` or `cookie` bypass caching unless the header is explicitly included in `varies` or a custom `getKey` is provided
 - `cacheFunction()`: hash of serialized function arguments
 - middleware name default: normalized request path (e.g. `/api/items` -> `api:items`)
 - function name default: `fn.name` (fallback: `_`)
@@ -74,7 +75,6 @@ app.get(
   cacheMiddleware({
     maxAge: 60,
     staleMaxAge: 30,
-    swr: true,
   }),
   (c) => c.json({ items: ['a', 'b'] })
 )
@@ -88,7 +88,6 @@ app.use(
   cacheDefaults({
     maxAge: 60,
     staleMaxAge: 30,
-    swr: true,
   })
 )
 ```
@@ -107,7 +106,6 @@ app.use(
     }),
     maxAge: 60,
     staleMaxAge: 30,
-    swr: true,
   })
 )
 ```
@@ -118,7 +116,8 @@ app.use(
 app.get(
   '/api/slow/items',
   cacheMiddleware({
-    config: { maxAge: 300, staleMaxAge: 120 },
+    maxAge: 300,
+    staleMaxAge: 120,
     varies: ['accept-language'],
   }),
   (c) => c.json({ ok: true })
@@ -135,6 +134,7 @@ const getStats = cacheFunction(
   {
     maxAge: 60,
     getKey: (id) => id,
+    swr: true,
   }
 )
 ```
@@ -172,15 +172,13 @@ Base options (`cacheMiddleware` + `cacheFunction`):
 - `integrity`: manual integrity value for cache busting
 - `maxAge`: max age in seconds (default: `60`)
 - `staleMaxAge`: stale max age in seconds, `-1` means unlimited stale (default: `0`)
-- `swr`: enable stale-while-revalidate (default: `true`)
 - `keepPreviousOn5xx`: keep previous entry when refresh fails in invalidation paths (default: `true`)
-- `revalidateHeader`: private header used to request revalidation (default: disabled)
 
 Middleware-only:
 
-- `config`: request-scoped defaults to apply before route options
 - `methods`: cacheable methods (default: `GET`, `HEAD`)
 - `varies`: request headers to include in key
+- `revalidateHeader`: private header used to request revalidation (default: disabled)
 - `getKey`: custom request key builder
 - `serialize` / `deserialize`: custom response cache format
 - `validate`: validate cached response entries
@@ -190,6 +188,7 @@ Middleware-only:
 
 Function-only:
 
+- `swr`: enable stale-while-revalidate (default: `true`)
 - `getKey`: custom key builder from function args
 - `serialize` / `deserialize`: custom function entry format
 - `validate`: validate cached function entries
@@ -212,7 +211,7 @@ Wraps a function with caching behavior.
 
 ### Storage/default helpers
 
-- `createCacheStorage()`
+- `createCacheStorage({ maxEntries?, maxSize?, maxEntrySize? })`
 - `setCacheStorage()` / `getCacheStorage()`
 - `setCacheDefaults()` / `getCacheDefaults()`
 
@@ -220,9 +219,12 @@ Wraps a function with caching behavior.
 
 - Cached route responses drop `set-cookie` and hop-by-hop headers.
 - Responses outside the 2xx range, HTTP 206 responses, and responses containing `set-cookie` are not cached.
-- Responses with `cache-control: private`, `no-store`, or `no-cache`, or `Vary: *`, are not cached.
-- A custom middleware `getKey` replaces the complete default key. Include every relevant tenant, authorization, cookie, method, body, and variation value.
-- On `workerd`, stale route entries refresh synchronously instead of using background self-fetch.
+- Responses with `cache-control: private`, `no-store`, or `no-cache`, streaming content types, or an unsafe `Vary` value are not cached.
+- Range, conditional, and client no-cache requests bypass cache reads and writes.
+- Every response `Vary` field must be listed in `varies`; otherwise the response is not cached.
+- A custom middleware `getKey` replaces the complete default key and opts credentialed requests into caching. Include every relevant tenant, authorization, cookie, method, body, and variation value.
+- Stale route entries refresh synchronously on every runtime and are served only as fallback when refresh throws or returns 5xx.
+- Custom streaming response types should set `Cache-Control: no-store`.
 - Cached function values should be serializable for your selected storage driver.
 
 ## Links
