@@ -18,7 +18,7 @@ Get authentication running in 5 minutes:
 ## Installation
 
 ```bash
-npm install hono @hono/auth-js @auth/core
+npm install hono @hono/auth-js @auth/core @auth/drizzle-adapter
 ```
 
 ## Setup
@@ -166,9 +166,10 @@ import {
   initAuthConfig,
   verifyAuth,
   authHandler,
-  DrizzleAdapter,
 } from '@hono/auth-js'
-import { GitHub, Google } from '@auth/core/providers'
+import { DrizzleAdapter } from '@auth/drizzle-adapter'
+import Google from '@auth/core/providers/google'
+import GitHub from '@auth/core/providers/github'
 import { db } from './db'
 import {
   users,
