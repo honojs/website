@@ -1,0 +1,19 @@
+.vitepress/config.ts
+  s_05e9464fab980a::t_f58f77eb594f03 196-199
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "02157018b5c2cfcc1934436da01f30ded53a3f11",
+  "prompts": {},
+  "sessions": {
+    "s_05e9464fab980a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cbb0cafb-0385-40cf-b1f9-725e7065e27b",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Yusuke Wada <yusuke@kamawada.com>"
+    }
+  }
+}
