@@ -163,6 +163,10 @@ If this value is set, then the value is retrieved from the cookie header using t
 
 The name of the header to look for the JWT token. The default is `Authorization`.
 
+### <Badge type="info" text="optional" /> realm: `string`
+
+The protection space described by the `realm` parameter of the `WWW-Authenticate` challenge header returned on `401` responses. The default is the request URL.
+
 ### <Badge type="info" text="optional" /> verification: `VerifyOptions`
 
 Configure claim validation behavior in addition to signature verification:

@@ -2,3 +2,8 @@ allowBuilds:
   esbuild: false
   sharp: false
   workerd: false
+
+# hono is our own package and is bumped right after each release,
+# so exempt it from pnpm's minimum-release-age supply-chain check
+minimumReleaseAgeExclude:
+  - hono
