@@ -43,6 +43,16 @@ app.get(
 
 :::
 
+## Caching QUERY requests
+
+The Cache middleware also caches responses to [QUERY](https://www.rfc-editor.org/rfc/rfc10008.html) requests. As required by RFC 10008, the cache key for a QUERY request incorporates a digest of the request content and its representation metadata, so requests with different bodies are cached separately.
+
+QUERY requests with a body larger than `maxQueryBodySize` (64 KiB by default) bypass the cache.
+
+::: info
+To support this, cached entries are stored under an internal key of the form `/.hono/cache?__hono_cache_key=...` instead of the request URL itself. If you purge cache entries directly through the Cache API — for example, calling `caches.delete()` with the original request URL — you will need to update that logic. This applies to all methods, including GET.
+:::
+
 ## Options
 
 ### <Badge type="danger" text="required" /> cacheName: `string` | `(c: Context) => string` | `Promise<string>`
@@ -63,7 +73,11 @@ Sets the `Vary` header in the response. If the original response header already 
 
 ### <Badge type="info" text="optional" /> keyGenerator: `(c: Context) => string | Promise<string>`
 
-Generates keys for every request in the `cacheName` store. This can be used to cache data based on request parameters or context parameters. The default is `c.req.url`.
+Generates keys for every request in the `cacheName` store. This can be used to cache data based on request parameters or context parameters. The default is `c.req.url`. For QUERY requests, the key additionally includes a digest of the request content and its representation metadata.
+
+### <Badge type="info" text="optional" /> maxQueryBodySize: `number`
+
+The maximum QUERY request body size in bytes that can be cached. QUERY requests with a larger body bypass the cache. The default is `65536` (64 KiB).
 
 ### <Badge type="info" text="optional" /> cacheableStatusCodes: `number[]`
 
@@ -80,9 +94,9 @@ app.get(
 )
 ```
 
-### <Badge type="info" text="optional" /> onCacheNotAvailable: `(() => void | Promise<void>)` | `false`
+### <Badge type="info" text="optional" /> onCacheNotAvailable: `((reason: string) => void | Promise<void>)` | `false`
 
-A callback function or `false` that controls the behavior when the Cache API is not available in the global scope. By default, a message is logged with `console.log`. You can provide a custom function to customize the behavior, or set it to `false` to suppress the log entirely.
+A callback function or `false` that controls the behavior when the Cache API is not available in the global scope, or when QUERY caching cannot use Web Crypto. The callback is invoked with the reason. By default, the reason is logged with `console.log`. You can provide a custom function to customize the behavior, or set it to `false` to suppress the log entirely.
 
 ```ts
 // Custom logging

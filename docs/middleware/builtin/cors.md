@@ -86,7 +86,7 @@ The value of "_Access-Control-Allow-Origin_" CORS header. You can also pass the 
 
 ### <Badge type="info" text="optional" /> allowMethods: `string[]` | `(origin:string, c:Context) => string[]`
 
-The value of "_Access-Control-Allow-Methods_" CORS header. You can also pass a callback function to dynamically determine allowed methods based on the origin. The default is `['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH']`.
+The value of "_Access-Control-Allow-Methods_" CORS header. You can also pass a callback function to dynamically determine allowed methods based on the origin. The default is `['GET', 'HEAD', 'PUT', 'POST', 'DELETE', 'PATCH', 'QUERY']`.
 
 ### <Badge type="info" text="optional" /> allowHeaders: `string[]`
 

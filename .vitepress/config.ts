@@ -194,6 +194,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
       { text: 'Logger', link: '/docs/middleware/builtin/logger' },
       { text: 'Language', link: '/docs/middleware/builtin/language' },
       {
+        text: 'Method Not Allowed',
+        link: '/docs/middleware/builtin/method-not-allowed',
+      },
+      {
         text: 'Method Override',
         link: '/docs/middleware/builtin/method-override',
       },
