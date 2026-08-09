@@ -52,7 +52,8 @@ app.get('/signed-cookie', (c) => {
 })
 ```
 
-**NOTE**: `getSignedCookie` distinguishes two cases. A cookie that has a signature but fails verification returns `false`. A cookie that does not have a valid signature format is treated as not being a signed cookie at all and returns `undefined` — the same as when the cookie is not present. This rule applies both when retrieving a single cookie by name and when retrieving all signed cookies. Since both `false` and `undefined` are falsy, `if (!value)` handles both cases.
+> [!NOTE]
+> `getSignedCookie` distinguishes two cases. A cookie that has a signature but fails verification returns `false`. A cookie that does not have a valid signature format is treated as not being a signed cookie at all and returns `undefined` — the same as when the cookie is not present. This rule applies both when retrieving a single cookie by name and when retrieving all signed cookies. Since both `false` and `undefined` are falsy, `if (!value)` handles both cases.
 
 ### Cookie Generation
 
