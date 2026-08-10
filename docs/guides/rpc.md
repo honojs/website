@@ -36,6 +36,9 @@ const route = app.post(
 )
 ```
 
+> [!TIP]
+> The [Standard Schema Validator](https://github.com/honojs/middleware/tree/main/packages/standard-validator) works as well, so you can use any Standard Schema library such as Valibot.
+
 Then, export the type to share the API spec with the Client.
 
 ```ts
