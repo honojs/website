@@ -39,7 +39,7 @@ export interface RequestContext {
 }
 
 const config = {
-  dsn: 'postgres://localhost/app'
+  dsn: 'postgres://localhost/app',
 } satisfies { readonly dsn: string }
 
 export const root = new Container()
@@ -63,7 +63,8 @@ input. `users` is scoped because a singleton cannot depend on request-scoped dat
 Use a function to create the concrete scope required by the application:
 
 ```ts
-const openRequestScope = (request: RequestContext) => root.createScope({ request })
+const openRequestScope = (request: RequestContext) =>
+  root.createScope({ request })
 
 type RequestScope = ReturnType<typeof openRequestScope>
 ```
@@ -74,10 +75,7 @@ type RequestScope = ReturnType<typeof openRequestScope>
 
 ```ts
 import { Hono } from 'hono'
-import {
-  inferdiHono,
-  type InferdiHonoScopeEnv,
-} from '@inferdi/hono'
+import { inferdiHono, type InferdiHonoScopeEnv } from '@inferdi/hono'
 
 type AppEnv = InferdiHonoScopeEnv<RequestScope>
 
@@ -86,14 +84,15 @@ const app = new Hono<AppEnv>()
 const createRequestScope = (userId: string | undefined) =>
   openRequestScope({
     requestId: crypto.randomUUID(),
-    userId
+    userId,
   })
 
 app.use(
   '*',
   inferdiHono({
     container: root,
-    createScope: (_root, c) => createRequestScope(c.req.header('x-user-id'))
+    createScope: (_root, c) =>
+      createRequestScope(c.req.header('x-user-id')),
   })
 )
 ```
@@ -151,7 +150,8 @@ customKeyApp.use(
   inferdiHono({
     container: root,
     key: 'container',
-    createScope: (_root, c) => createRequestScope(c.req.header('x-user-id'))
+    createScope: (_root, c) =>
+      createRequestScope(c.req.header('x-user-id')),
   })
 )
 
@@ -166,7 +166,7 @@ customKeyApp.get('/users/:id', async (c) => {
 `inferdiHono` accepts these options:
 
 | Option           | Default              | Description                                                                     |
-|------------------|----------------------|---------------------------------------------------------------------------------|
+| ---------------- | -------------------- | ------------------------------------------------------------------------------- |
 | `container`      | Required             | Root container. The middleware never disposes it.                               |
 | `key`            | `'di'`               | Context variable used by `c.var[key]` and `c.get(key)`.                         |
 | `createScope`    | `root.createScope()` | Creates the request scope. Use it to pass typed inputs from Hono. May be async. |
