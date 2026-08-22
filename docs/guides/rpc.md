@@ -852,8 +852,7 @@ This way, `tsserver` doesn't need to instantiate types for all routes at once.
 
 ### Handlers that return a promise chain
 
-A handler that returns a `.then()` chain directly loses its response type, so
-the client infers `unknown`:
+A handler that returns a `.then()` chain directly loses its response type, so the client infers `unknown`:
 
 ```ts
 const app = new Hono().get('/', (c) =>
@@ -865,13 +864,7 @@ const res = await client.index.$get()
 const data = await res.json() // unknown
 ```
 
-Inside the callback, the type of `c` depends on the handler's return type,
-which is what the callback is being used to infer. TypeScript cannot resolve
-that cycle, so it falls back to the constraint of the return type: a union of
-every shape a handler may return. The route schema is built from that union,
-and the response type is lost.
-
-Await the promise instead of chaining, and the response type is preserved:
+This is a TypeScript inference limitation — the response type cannot be inferred through a `.then()` chain. Use `async`/`await` instead:
 
 ```ts
 const app = new Hono().get('/', async (c) => {
@@ -884,7 +877,7 @@ const res = await client.index.$get()
 const data = await res.json() // { hello: string }
 ```
 
-Annotating `then()` works as well, though it is more verbose:
+If you cannot avoid the chain, annotating `then()` also works:
 
 ```ts
 import type { TypedResponse } from 'hono/types'
