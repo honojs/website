@@ -15,6 +15,7 @@ Most of this middleware leverages external libraries.
 - [Verify RSA JWT (JWKS)](https://github.com/wataruoguchi/verify-rsa-jwt-cloudflare-worker)
 - [SSOJet Auth](https://github.com/ssojet/ssojet-hono)
 - [Stytch Auth](https://github.com/honojs/middleware/tree/main/packages/stytch-auth)
+- [Shopify Auth](https://github.com/besart-k/hono-shopify-auth)
 
 ### Validators
 
