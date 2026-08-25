@@ -40,7 +40,7 @@ export default app
 
 ### Themes
 
-The middleware comes with a custom theme for Hono. You can use one of [the other predefined themes](https://github.com/scalar/scalar/blob/main/packages/themes/src/index.ts#L15) (`alternate`, `default`, `moon`, `purple`, `solarized`) or overwrite it with `none`. All themes come with a light and dark color scheme.
+The middleware applies a custom Hono theme by default. To use a different look, set `theme` to one of [the predefined themes](https://scalar.com/products/api-references/themes) — `alternate`, `default`, `moon`, `purple`, `solarized`, `bluePlanet`, `deepSpace`, `saturn`, `kepler`, `mars`, or `laserwave` — or `none` to start from a blank slate. All themes come with a light and dark color scheme.
 
 ```ts
 import { Scalar } from '@scalar/hono-api-reference'
