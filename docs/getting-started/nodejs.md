@@ -83,8 +83,6 @@ app.get('/', (c) => c.text('Hello Node.js!'))
 serve(app)
 ```
 
-Node.js's native `http` module predates the Fetch API, so `@hono/node-server` wraps it and hands you the resulting server instance to manage yourself. This is why graceful shutdown needs to be handled explicitly here, unlike on Bun or Deno, where the runtime implements the Fetch API natively and owns the server lifecycle.
-
 If you want to gracefully shut down the server, write it like this:
 
 ```ts
@@ -105,6 +103,10 @@ process.on('SIGTERM', () => {
   })
 })
 ```
+
+::: info
+On Node.js, `serve()` wraps the `node:http` module and returns the underlying server instance, so closing it is up to you. Bun and Deno serve Fetch handlers natively and manage the server themselves, which is why their guides don't include this step.
+:::
 
 ## 3. Run
 
