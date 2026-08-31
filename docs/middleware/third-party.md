@@ -60,6 +60,7 @@ Most of this middleware leverages external libraries.
 - [GraphQL Server](https://github.com/honojs/middleware/tree/main/packages/graphql-server)
 - [oRPC](https://orpc.dev/docs/adapters/hono)
 - [tRPC Server](https://github.com/honojs/middleware/tree/main/packages/trpc-server)
+- [mcp-use (MCP Server)](https://github.com/mcp-use/mcp-use)
 
 ### Transpiler
 
