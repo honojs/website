@@ -71,6 +71,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/ali-function-compute',
       },
       {
+        text: 'Tencent CloudBase',
+        link: '/docs/getting-started/cloudbase',
+      },
+      {
         text: 'WebAssembly',
         link: '/docs/getting-started/webassembly-wasi',
       },
