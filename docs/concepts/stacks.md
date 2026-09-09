@@ -32,6 +32,7 @@ app.get('/hello', (c) => {
     message: `Hello!`,
   })
 })
+export default app
 ```
 
 ## Validation with Zod
