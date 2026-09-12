@@ -248,6 +248,149 @@ const app = new Hono()
 
 This works because each `.use()` call returns a new Hono instance with the merged type, so the type grows as middleware is chained. This eliminates the need to manually declare a combined `Env` type upfront for most use cases.
 
+## Middleware Composition
+
+In production applications, multiple middleware functions are often composed together to handle cross-cutting concerns such as logging, CORS headers, authentication, and error handling.
+
+### Composing Multiple Middlewares on a Route
+
+You can pass multiple middlewares directly as arguments into any route method (`app.get()`, `app.post()`, etc.) or `app.use()` before the final handler:
+
+```ts
+import { Hono } from 'hono'
+import { bearerAuth } from 'hono/bearer-auth'
+import { cors } from 'hono/cors'
+import { logger } from 'hono/logger'
+
+const app = new Hono()
+
+// Compose logger, CORS, and authentication on a single route
+app.post(
+  '/api/posts',
+  logger(),
+  cors(),
+  bearerAuth({ token: 'secret-token' }),
+  async (c) => {
+    const body = await c.req.json()
+    return c.json({ message: 'Post created', data: body }, 201)
+  }
+)
+```
+
+You can also compose middleware across routes by grouping common middleware at the application level or on sub-routers using `app.route()`:
+
+```ts
+const api = new Hono()
+
+// Applied to all routes within this sub-router
+api.use(logger())
+api.use(cors())
+
+// Applied only to admin endpoints
+api.use('/admin/*', bearerAuth({ token: 'secret-token' }))
+
+api.get('/admin/stats', (c) => c.json({ status: 'ok' }))
+api.get('/public/feed', (c) => c.json({ feed: [] }))
+
+app.route('/api', api)
+```
+
+### Execution Flow and Early Exit
+
+When composing multiple middlewares, they execute according to the **onion model**: each middleware runs its logic before `await next()`, delegates to the next middleware or handler, and then runs its logic after `await next()` in reverse order.
+
+Consider the route with `logger()`, `cors()`, and `bearerAuth()`:
+
+```
+Request
+  │
+  ▼
+[logger]       ── (before next: records request start time)
+  │
+  ▼
+[cors]         ── (before next: checks origin and preflight headers)
+  │
+  ▼
+[bearerAuth]   ── (before next: validates bearer token)
+  │
+  ├─► [Invalid Token] ── early exit: returns 401 Response directly
+  │
+  ▼  [Valid Token]
+[Handler]      ── (executes route logic and returns Response)
+  │
+  ▼
+[bearerAuth]   ── (after next: passes response through)
+  │
+  ▼
+[cors]         ── (after next: appends CORS headers to response)
+  │
+  ▼
+[logger]       ── (after next: logs HTTP status code and response time)
+  │
+  ▼
+Response to Client
+```
+
+#### Early Exit
+
+If any middleware returns a `Response` without calling `next()`, execution halts for downstream middlewares and the handler. For example, if an unauthorized request arrives at `/api/posts`:
+
+1. `logger` records the start time and calls `await next()`.
+2. `cors` inspects the request and calls `await next()`.
+3. `bearerAuth` detects an invalid token and returns a `401 Unauthorized` response without calling `next()`.
+4. The route handler is never executed.
+5. Execution unwinds: `cors` can still attach necessary headers to the 401 response, and `logger` logs the 401 status and elapsed time.
+
+### Error Handling Middleware
+
+By default, unhandled exceptions in any middleware or handler are caught by Hono and passed to [`app.onError()`](/docs/api/hono#error-handling).
+
+However, you can also write an outer middleware that wraps downstream execution to monitor errors, log telemetry, or customize error responses. When an exception occurs downstream, Hono catches it, attaches the error to `c.error`, and continues unwinding the middleware chain:
+
+```ts
+import { Hono } from 'hono'
+import { createMiddleware } from 'hono/factory'
+
+const app = new Hono()
+
+// Outer error monitoring and wrapping middleware
+const errorTracker = createMiddleware(async (c, next) => {
+  await next()
+
+  // Downstream errors caught by Hono are accessible via c.error
+  if (c.error) {
+    console.error(
+      `[Error] ${c.req.method} ${c.req.url}:`,
+      c.error.message
+    )
+
+    // Optionally customize or override the response
+    c.res = c.json(
+      {
+        success: false,
+        error: c.error.message || 'Internal Server Error',
+      },
+      c.res.status || 500
+    )
+  }
+})
+
+app.use(errorTracker)
+
+app.get('/crash', () => {
+  throw new Error('Database connection failed')
+})
+```
+
+::: tip
+Use `app.onError()` for global, application-wide error handling. Use wrapping middleware when you need route-scoped error tracking, custom telemetry, or need to transform error responses within a specific sub-router.
+:::
+
+### Reusable Chains and Utilities
+
+- **[`factory.createHandlers()`](/docs/helpers/factory#factory-createhandlers)**: Define a reusable array of middlewares and a handler with complete type safety.
+- **[`hono/combine`](/docs/middleware/builtin/combine)**: Combine multiple middlewares conditionally into a single middleware using `every()`, `some()`, or `except()`.
+
 ## Third-party Middleware
 
 Built-in middleware does not depend on external modules, but third-party middleware can depend on third-party libraries. So with them, we may make a more complex application.
