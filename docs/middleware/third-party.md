@@ -43,6 +43,7 @@ Most of this middleware leverages external libraries.
 ### Development
 
 - [ESLint Config](https://github.com/honojs/middleware/tree/main/packages/eslint-config)
+- [hono-testkit](https://github.com/md-sagban/hono-testkit)
 - [SSG Plugin Essential](https://github.com/honojs/middleware/tree/main/packages/ssg-plugins-essential)
 
 ### Monitoring / Tracing
