@@ -83,7 +83,7 @@ Show the total response time. The default is `true`.
 
 Whether timings should be added to the headers or not. The default is `true`.
 
-### <Badge type="info" text="optional" /> totalDescription: `boolean`
+### <Badge type="info" text="optional" /> totalDescription: `string`
 
 Description for the total response time. The default is `Total Response Time`.
 
