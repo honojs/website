@@ -1,0 +1,47 @@
+docs/api/hono.md
+  s_a34d594424e4c1::t_767eb55291e850 72
+docs/getting-started/aws-lambda.md
+  s_a34d594424e4c1::t_77be26e1e8e2fe 22,32,42,52,66,131-132,157-158,180-181,212
+docs/getting-started/basic.md
+  s_a34d594424e4c1::t_67dcf67098bc33 235,238
+docs/getting-started/bun.md
+  s_a34d594424e4c1::t_1735b67cee2a18 93-97,100
+docs/getting-started/cloudflare-pages.md
+  s_a34d594424e4c1::t_2e5b27adad5569 4
+docs/getting-started/deno.md
+  s_a34d594424e4c1::t_3384fb17d3929b 61-65,69
+docs/getting-started/lambda-edge.md
+  s_a34d594424e4c1::t_df28557a183b58 21,29,37,45,57,138-139
+docs/getting-started/netlify.md
+  s_a34d594424e4c1::t_fa004a7558b5ef 45,78
+docs/getting-started/nextjs.md
+  s_a34d594424e4c1::t_070403a6e53982 70,81-82
+docs/getting-started/service-worker.md
+  s_a34d594424e4c1::t_65fc7f2bbe4803 49,54,59,64,121,135
+docs/helpers/conninfo.md
+  s_a34d594424e4c1::t_a2dd4f618be8a9 7-8,13,18,23,28,33,38,43
+docs/helpers/ssg.md
+  s_a34d594424e4c1::t_f8a69fd581d1de 101,106,114
+docs/helpers/websocket.md
+  s_a34d594424e4c1::t_a2cb0a461f1b36 8-9,14,19,24,113,148
+docs/middleware/builtin/combine.md
+  s_a34d594424e4c1::t_8caeb60e076e78 23
+docs/middleware/builtin/ip-restriction.md
+  s_a34d594424e4c1::t_3806352aa2ab05 18,37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0b8cb6000cbbe403f5f49410eb51e743b9e90cb4",
+  "prompts": {},
+  "sessions": {
+    "s_a34d594424e4c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "40b51bf0-7dd6-4b41-93e4-88614937ab4a",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Yusuke Wada <yusuke@kamawada.com>"
+    }
+  }
+}
