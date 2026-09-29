@@ -69,7 +69,7 @@ If both a parent app and its routes have `onError` handlers, the route-level han
 ## fire()
 
 ::: warning
-**`app.fire()` is deprecated**. Use `fire()` from `hono/service-worker` instead. See the [Service Worker documentation](/docs/getting-started/service-worker) for details.
+**`app.fire()` is deprecated**. Use `fire()` from `@hono/service-worker` instead. See the [Service Worker documentation](/docs/getting-started/service-worker) for details.
 :::
 
 `app.fire()` automatically adds a global `fetch` event listener.

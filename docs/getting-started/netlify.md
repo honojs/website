@@ -42,7 +42,7 @@ Edit `netlify/edge-functions/index.ts`:
 
 ```ts
 import { Hono } from 'jsr:@hono/hono'
-import { handle } from 'jsr:@hono/hono/netlify'
+import { handle } from 'jsr:@hono/netlify'
 
 const app = new Hono()
 
@@ -75,7 +75,7 @@ You can access the Netlify's `Context` through `c.env`:
 
 ```ts
 import { Hono } from 'jsr:@hono/hono'
-import { handle } from 'jsr:@hono/hono/netlify'
+import { handle } from 'jsr:@hono/netlify'
 
 // Import the type definition
 import type { Context } from 'https://edge.netlify.com/'

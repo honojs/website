@@ -58,11 +58,15 @@ Deno.serve({ port: 8787 }, app.fetch) // [!code ++]
 
 ## Serve static files
 
-To serve static files, use `serveStatic` imported from `hono/deno`.
+To serve static files, use `serveStatic` from the `@hono/deno` package.
+
+```sh
+deno add jsr:@hono/deno
+```
 
 ```ts
 import { Hono } from 'hono'
-import { serveStatic } from 'hono/deno'
+import { serveStatic } from '@hono/deno'
 
 const app = new Hono()
 

@@ -4,41 +4,43 @@ The ConnInfo Helper helps you to get the connection information. For example, yo
 
 ## Import
 
+The adapter for each runtime is a separate package (`@hono/cloudflare-workers`, `@hono/deno`, `@hono/bun`, ...). Install the one for your runtime.
+
 ::: code-group
 
 ```ts [Cloudflare Workers]
 import { Hono } from 'hono'
-import { getConnInfo } from 'hono/cloudflare-workers'
+import { getConnInfo } from '@hono/cloudflare-workers'
 ```
 
 ```ts [Deno]
 import { Hono } from 'hono'
-import { getConnInfo } from 'hono/deno'
+import { getConnInfo } from '@hono/deno'
 ```
 
 ```ts [Bun]
 import { Hono } from 'hono'
-import { getConnInfo } from 'hono/bun'
+import { getConnInfo } from '@hono/bun'
 ```
 
 ```ts [Vercel]
 import { Hono } from 'hono'
-import { getConnInfo } from 'hono/vercel'
+import { getConnInfo } from '@hono/vercel'
 ```
 
 ```ts [AWS Lambda]
 import { Hono } from 'hono'
-import { getConnInfo } from 'hono/aws-lambda'
+import { getConnInfo } from '@hono/aws-lambda'
 ```
 
 ```ts [Netlify]
 import { Hono } from 'hono'
-import { getConnInfo } from 'hono/netlify'
+import { getConnInfo } from '@hono/netlify'
 ```
 
 ```ts [Lambda@Edge]
 import { Hono } from 'hono'
-import { getConnInfo } from 'hono/lambda-edge'
+import { getConnInfo } from '@hono/lambda-edge'
 ```
 
 ```ts [Node.js]

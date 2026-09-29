@@ -18,7 +18,7 @@ Initialize your project with the `cdk` CLI.
 mkdir my-app
 cd my-app
 cdk init app -l typescript
-npm i hono
+npm i hono @hono/lambda-edge
 mkdir lambda
 ```
 
@@ -26,7 +26,7 @@ mkdir lambda
 mkdir my-app
 cd my-app
 cdk init app -l typescript
-yarn add hono
+yarn add hono @hono/lambda-edge
 mkdir lambda
 ```
 
@@ -34,7 +34,7 @@ mkdir lambda
 mkdir my-app
 cd my-app
 cdk init app -l typescript
-pnpm add hono
+pnpm add hono @hono/lambda-edge
 mkdir lambda
 ```
 
@@ -42,7 +42,7 @@ mkdir lambda
 mkdir my-app
 cd my-app
 cdk init app -l typescript
-bun add hono
+bun add hono @hono/lambda-edge
 mkdir lambda
 ```
 
@@ -54,7 +54,7 @@ Edit `lambda/index_edge.ts`.
 
 ```ts
 import { Hono } from 'hono'
-import { handle } from 'hono/lambda-edge'
+import { handle } from '@hono/lambda-edge'
 
 const app = new Hono()
 
@@ -135,8 +135,8 @@ If you want to add Basic Auth and continue with request processing after verific
 ```ts
 import { Hono } from 'hono'
 import { basicAuth } from 'hono/basic-auth'
-import type { Callback, CloudFrontRequest } from 'hono/lambda-edge'
-import { handle } from 'hono/lambda-edge'
+import type { Callback, CloudFrontRequest } from '@hono/lambda-edge'
+import { handle } from '@hono/lambda-edge'
 
 type Bindings = {
   callback: Callback
