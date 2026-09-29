@@ -15,7 +15,7 @@ For your application running on Bun, if you want to allow access only from local
 
 ```ts
 import { Hono } from 'hono'
-import { getConnInfo } from 'hono/bun'
+import { getConnInfo } from '@hono/bun'
 import { ipRestriction } from 'hono/ip-restriction'
 
 const app = new Hono()
@@ -34,7 +34,7 @@ app.get('/', (c) => c.text('Hello Hono!'))
 Pass the `getConninfo` from the [ConnInfo helper](/docs/helpers/conninfo) appropriate for your environment as the first argument of `ipRestriction`. For example, for Deno, it would look like this:
 
 ```ts
-import { getConnInfo } from 'hono/deno'
+import { getConnInfo } from '@hono/deno'
 import { ipRestriction } from 'hono/ip-restriction'
 
 //...

@@ -98,12 +98,12 @@ export interface FileSystemModule {
 
 ### Using adapters for Deno and Bun
 
-If you want to use SSG on Deno or Bun, a `toSSG` function is provided for each file system.
+If you want to use SSG on Deno or Bun, a `toSSG` function is provided by the `@hono/deno` and `@hono/bun` packages.
 
 For Deno:
 
 ```ts
-import { toSSG } from 'hono/deno'
+import { toSSG } from '@hono/deno'
 
 toSSG(app) // The second argument is an option typed `ToSSGOptions`.
 ```
@@ -111,7 +111,7 @@ toSSG(app) // The second argument is an option typed `ToSSGOptions`.
 For Bun:
 
 ```ts
-import { toSSG } from 'hono/bun'
+import { toSSG } from '@hono/bun'
 
 toSSG(app) // The second argument is an option typed `ToSSGOptions`.
 ```

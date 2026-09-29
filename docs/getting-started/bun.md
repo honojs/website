@@ -90,10 +90,14 @@ export default { // [!code ++]
 
 ## Serve static files
 
-To serve static files, use `serveStatic` which is imported from `hono/bun`.
+To serve static files, use `serveStatic` from the `@hono/bun` package.
+
+```sh
+bun add @hono/bun
+```
 
 ```ts
-import { serveStatic } from 'hono/bun'
+import { serveStatic } from '@hono/bun'
 
 const app = new Hono()
 

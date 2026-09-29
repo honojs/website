@@ -232,10 +232,10 @@ And, you can make your own middleware.
 ## Adapter
 
 There are Adapters for platform-dependent functions, e.g., handling static files or WebSocket.
-For example, to handle WebSocket in Cloudflare Workers, import `hono/cloudflare-workers`.
+They are published as separate packages. For example, to handle WebSocket in Cloudflare Workers, install and import `@hono/cloudflare-workers`.
 
 ```ts
-import { upgradeWebSocket } from 'hono/cloudflare-workers'
+import { upgradeWebSocket } from '@hono/cloudflare-workers'
 
 app.get(
   '/ws',
