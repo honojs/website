@@ -161,6 +161,10 @@ test('POST /message is ok', async () => {
 
 ## mount()
 
+::: warning
+**`app.mount()` is deprecated**. Use the [Mount Middleware](/docs/middleware/builtin/mount) instead.
+:::
+
 The `mount()` allows you to mount applications built with other frameworks into your Hono application.
 
 ```ts

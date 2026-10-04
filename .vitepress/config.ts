@@ -205,6 +205,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         text: 'Method Override',
         link: '/docs/middleware/builtin/method-override',
       },
+      { text: 'Mount', link: '/docs/middleware/builtin/mount' },
       {
         text: 'Pretty JSON',
         link: '/docs/middleware/builtin/pretty-json',
