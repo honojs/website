@@ -1,0 +1,19 @@
+docs/guides/best-practices.md
+  s_bda862631ab984::t_b681c876e087cd 8,20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "487b0a200e37b4adaeca08570fa4520d2f9eb49d",
+  "prompts": {},
+  "sessions": {
+    "s_bda862631ab984": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c887ba2d-b9bc-43dd-97e0-e1b6f4184df9",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Yusuke Wada <yusuke@kamawada.com>"
+    }
+  }
+}
