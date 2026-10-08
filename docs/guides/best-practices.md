@@ -5,7 +5,7 @@ However, there are best practices that are better to follow.
 
 ## Use `defineHandler()`
 
-Write handlers with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. A value from the request should be validated, so validate it there: pass a [Standard Schema](https://standardschema.dev/), such as a Zod schema, for each target of the request, like `param`, `query`, or `json`. The validated values come as the second argument with the types, and the request is rejected with `400 Bad Request` before the handler runs. The returned value is converted to a Response, so you can return a plain object.
+Write handlers with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. A value from the request should be validated, so validate it there: pass a [Standard Schema](https://standardschema.dev/), such as a Zod or Valibot schema, for each target of the request, like `param`, `query`, or `json`. The validated values come as the second argument with the types, and the request is rejected with `400 Bad Request` before the handler runs. The returned value is converted to a Response, so you can return a plain object.
 
 ```ts
 import { defineHandler } from 'hono/factory'
