@@ -32,16 +32,22 @@ app.get(
 )
 ```
 
-To define the handler somewhere else, give it what it needs instead of the path. Validate `param`, and the parameter is typed in any file. Create the handler from a factory, and it has the `Env`.
+To define the handler somewhere else, pass the `Env` as a type argument when the handler needs it.
 
 ```ts
-import { createFactory } from 'hono/factory'
+// 😃
+const me = defineHandler<Env>((c) => c.get('user'))
+
+app.get('/me', me)
+```
+
+For the path parameter, validate `param`. The parameter is typed in any file.
+
+```ts
 import * as z from 'zod'
 
-const factory = createFactory<Env>()
-
 // 😃
-const bookPermalink = factory.defineHandler({
+const bookPermalink = defineHandler({
   param: z.object({ id: z.string() }),
 })(async (c, { param }) => {
   return await db.books.find(param.id) // `param.id` is `string`
@@ -50,7 +56,7 @@ const bookPermalink = factory.defineHandler({
 app.get('/books/:id', bookPermalink)
 ```
 
-If you need the types without validation or a factory, `defineHandler()` also takes the `Env` and the path as type arguments. See [Typing the Context](/docs/helpers/factory#typing-the-context).
+Pass the path as the second type argument, `defineHandler<Env, '/books/:id'>`, only when you need the path type without validation. In a large application where many handlers share the `Env`, create them from a factory instead of writing the `Env` each time. See [`factory.defineHandler()`](/docs/helpers/factory#factory-definehandler).
 
 ## Validate in `defineHandler()`
 
