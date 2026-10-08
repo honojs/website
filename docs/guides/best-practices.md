@@ -51,7 +51,18 @@ const me = defineHandler<Env>((c) => c.get('user'))
 app.get('/me', me)
 ```
 
-Pass the path as the second type argument, `defineHandler<Env, '/books/:id'>`, only when you need the path type without validation. In a large application where many handlers share the `Env`, create them from a factory instead of writing the `Env` each time. See [`factory.defineHandler()`](/docs/helpers/factory#factory-definehandler).
+In a large application where many handlers share the `Env`, create them from a factory and write the `Env` once. See [`factory.defineHandler()`](/docs/helpers/factory#factory-definehandler).
+
+```ts
+import { createFactory } from 'hono/factory'
+
+const factory = createFactory<Env>()
+
+// 😃
+const me = factory.defineHandler((c) => c.get('user'))
+```
+
+Pass the path as the second type argument, `defineHandler<Env, '/books/:id'>`, only when you need the path type without validation.
 
 Inline handlers can use `defineHandler()` too, to return a plain value, to validate the request, or to put middleware next to the handler. The next sections show these.
 
