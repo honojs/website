@@ -17,32 +17,40 @@ const bookPermalink = (c: Context) => {
 app.get('/books/:id', bookPermalink)
 ```
 
-Define it with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory` instead. Pass the `Env` and the path as type arguments, and the handler is typed wherever you write it. The returned value is converted to a Response, so you can return a plain object.
+Write it inline with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. The path is inferred from `app.get()`, and the returned value is converted to a Response, so you can return a plain object.
 
 ```ts
 import { defineHandler } from 'hono/factory'
 
 // 😃
-const bookPermalink = defineHandler<Env, '/books/:id'>((c) => {
-  const id = c.req.param('id') // Can infer the path param
-  return { id }
+app.get(
+  '/books/:id',
+  defineHandler((c) => {
+    const id = c.req.param('id') // Can infer the path param
+    return { id }
+  })
+)
+```
+
+To define the handler somewhere else, give it what it needs instead of the path. Validate `param`, and the parameter is typed in any file. Create the handler from a factory, and it has the `Env`.
+
+```ts
+import { createFactory } from 'hono/factory'
+import * as z from 'zod'
+
+const factory = createFactory<Env>()
+
+// 😃
+const bookPermalink = factory.defineHandler({
+  param: z.object({ id: z.string() }),
+})(async (c, { param }) => {
+  return await db.books.find(param.id) // `param.id` is `string`
 })
 
 app.get('/books/:id', bookPermalink)
 ```
 
-Writing the handler inline is fine too. The path is inferred from `app.get()`, and the return value is still converted.
-
-```ts
-// 😃
-app.get(
-  '/books/:id',
-  defineHandler((c) => {
-    const id = c.req.param('id')
-    return { id }
-  })
-)
-```
+If you need the types without validation or a factory, `defineHandler()` also takes the `Env` and the path as type arguments. See [Typing the Context](/docs/helpers/factory#typing-the-context).
 
 ## Validate in `defineHandler()`
 
@@ -61,19 +69,6 @@ const createBook = defineHandler({
 })
 
 app.post('/books', createBook)
-```
-
-With `param`, the path parameter is typed without the path type argument.
-
-```ts
-// 😃
-const bookPermalink = defineHandler({
-  param: z.object({ id: z.string() }),
-})(async (c, { param }) => {
-  return await db.books.find(param.id)
-})
-
-app.get('/books/:id', bookPermalink)
 ```
 
 Add `response` when the shape of the response matters, for example when it is a public API. The returned value is validated, and extra fields are stripped by the schema.
