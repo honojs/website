@@ -17,11 +17,25 @@ const bookPermalink = (c: Context) => {
 app.get('/books/:id', bookPermalink)
 ```
 
-Define it with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. The types stay, and the returned value is converted to a Response, so you can return a plain object.
+Define it with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. The path is not known there either, so validate `param` and the parameter is typed. The returned value is converted to a Response, so you can return a plain object.
 
 ```ts
 import { defineHandler } from 'hono/factory'
+import * as z from 'zod'
 
+// 😃
+const bookPermalink = defineHandler({
+  param: z.object({ id: z.string() }),
+})(async (c, { param }) => {
+  return await db.books.find(param.id) // `param.id` is `string`
+})
+
+app.get('/books/:id', bookPermalink)
+```
+
+With nothing to validate, `defineHandler()` alone is enough.
+
+```ts
 // 😃
 const listBooks = defineHandler(async () => await db.books.list())
 
@@ -35,21 +49,6 @@ Pass the `Env` as a type argument when the handler needs it.
 const me = defineHandler<Env>((c) => c.get('user'))
 
 app.get('/me', me)
-```
-
-The path is not known there, so validate `param` to type the parameter.
-
-```ts
-import * as z from 'zod'
-
-// 😃
-const bookPermalink = defineHandler({
-  param: z.object({ id: z.string() }),
-})(async (c, { param }) => {
-  return await db.books.find(param.id) // `param.id` is `string`
-})
-
-app.get('/books/:id', bookPermalink)
 ```
 
 Pass the path as the second type argument, `defineHandler<Env, '/books/:id'>`, only when you need the path type without validation. In a large application where many handlers share the `Env`, create them from a factory instead of writing the `Env` each time. See [`factory.defineHandler()`](/docs/helpers/factory#factory-definehandler).
