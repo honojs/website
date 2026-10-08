@@ -5,7 +5,7 @@ However, there are best practices that are better to follow.
 
 ## Define handlers with `defineHandler()`
 
-A handler written inline is typed by `app.get()`. Once you move it to a variable, a plain function loses the types. The `Env` is unknown, and the path parameter cannot be inferred.
+A handler written inline is typed by `app.get()`. Once you move it to a variable, the common way is to type the argument as `Context`. That loses the types: the `Env` is unknown, and the path parameter cannot be inferred.
 
 ```ts
 // 🙁
@@ -17,7 +17,7 @@ const bookPermalink = (c: Context) => {
 app.get('/books/:id', bookPermalink)
 ```
 
-Define it with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. The path is not known there either, so validate `param` and the parameter is typed. The returned value is converted to a Response, so you can return a plain object.
+A value from the request should be validated anyway. Define the handler with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory` and validate `param` there. The parameter is checked at runtime and typed in the handler. The returned value is converted to a Response, so you can return a plain object.
 
 ```ts
 import { defineHandler } from 'hono/factory'
