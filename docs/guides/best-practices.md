@@ -16,7 +16,8 @@ app.post(
   defineHandler({
     json: z.object({ title: z.string(), author: z.string() }),
   })(async (c, { json }) => {
-    const book = await db.books.create(json) // `{ title: string; author: string }`
+    // `json` is `{ title: string; author: string }`
+    const book = await db.books.create(json)
     c.status(201)
     return book
   })
@@ -43,7 +44,8 @@ app.get(
     param: z.object({ id: z.string() }),
     response: BookSchema,
   })(async (c, { param }) => {
-    return await db.books.find(param.id) // Only `id` and `title` are sent
+    // Only `id` and `title` are sent
+    return await db.books.find(param.id)
   })
 )
 ```
