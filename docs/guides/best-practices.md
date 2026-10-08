@@ -5,7 +5,7 @@ However, there are best practices that are better to follow.
 
 ## Define handlers with `defineHandler()`
 
-A handler written as a plain function loses the types. The path parameter cannot be inferred, the `Env` is unknown, and the response type does not reach the [RPC](/docs/guides/rpc) client.
+A handler written inline is typed by `app.get()`. Once you move it to a variable, a plain function loses the types. The `Env` is unknown, and the path parameter cannot be inferred.
 
 ```ts
 // 🙁
@@ -17,24 +17,11 @@ const bookPermalink = (c: Context) => {
 app.get('/books/:id', bookPermalink)
 ```
 
-Write it inline with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. The path is inferred from `app.get()`. The returned value is converted to a Response, so you can return a plain object, and its type reaches the RPC client.
+Define it with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. The types stay, and the returned value is converted to a Response, so you can return a plain object.
 
 ```ts
 import { defineHandler } from 'hono/factory'
 
-// 😃
-app.get(
-  '/books/:id',
-  defineHandler((c) => {
-    const id = c.req.param('id') // Can infer the path param
-    return { id }
-  })
-)
-```
-
-Defining the handler somewhere else is fine too. The types stay, and no type argument is needed.
-
-```ts
 // 😃
 const listBooks = defineHandler(async () => await db.books.list())
 
@@ -66,6 +53,8 @@ app.get('/books/:id', bookPermalink)
 ```
 
 Pass the path as the second type argument, `defineHandler<Env, '/books/:id'>`, only when you need the path type without validation. In a large application where many handlers share the `Env`, create them from a factory instead of writing the `Env` each time. See [`factory.defineHandler()`](/docs/helpers/factory#factory-definehandler).
+
+Inline handlers can use `defineHandler()` too, to return a plain value, to validate the request, or to put middleware next to the handler. The next sections show these.
 
 ## Validate in `defineHandler()`
 
