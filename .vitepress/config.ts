@@ -231,9 +231,11 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     ],
   },
   {
-    text: 'LLM',
+    text: 'Coding Agents',
     collapsed: true,
     items: [
+      { text: 'Overview', link: '/docs/agents/' },
+      { text: 'Hono CLI', link: '/docs/agents/cli' },
       {
         text: 'Docs List',
         link: '/llms.txt',
