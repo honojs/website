@@ -3,77 +3,14 @@
 Hono is very flexible. You can write your app as you like.
 However, there are best practices that are better to follow.
 
-## Define handlers with `defineHandler()`
+## Use `defineHandler()`
 
-A handler written inline is typed by `app.get()`. Once you move it to a variable, the common way is to type the argument as `Context`. That loses the types: the `Env` is unknown, and the path parameter cannot be inferred.
-
-```ts
-// 🙁
-const bookPermalink = (c: Context) => {
-  const id = c.req.param('id') // Can't infer the path param
-  return c.json(`get ${id}`)
-}
-
-app.get('/books/:id', bookPermalink)
-```
-
-A value from the request should be validated anyway. Define the handler with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory` and validate `param` there. The parameter is checked at runtime and typed in the handler. The returned value is converted to a Response, so you can return a plain object.
+Write handlers with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. A value from the request should be validated, so validate it there: pass a [Standard Schema](https://standardschema.dev/), such as a Zod schema, for each target of the request, like `param`, `query`, or `json`. The validated values come as the second argument with the types, and the request is rejected with `400 Bad Request` before the handler runs. The returned value is converted to a Response, so you can return a plain object.
 
 ```ts
 import { defineHandler } from 'hono/factory'
 import * as z from 'zod'
 
-// 😃
-const bookPermalink = defineHandler({
-  param: z.object({ id: z.string() }),
-})(async (c, { param }) => {
-  return await db.books.find(param.id) // `param.id` is `string`
-})
-
-app.get('/books/:id', bookPermalink)
-```
-
-With nothing to validate, `defineHandler()` alone is enough.
-
-```ts
-// 😃
-const listBooks = defineHandler(async () => await db.books.list())
-
-app.get('/books', listBooks)
-```
-
-Pass the `Env` as a type argument when the handler needs it.
-
-```ts
-// 😃
-const me = defineHandler<Env>((c) => c.get('user'))
-
-app.get('/me', me)
-```
-
-In a large application where many handlers share the `Env`, create them from a factory and write the `Env` once. See [`factory.defineHandler()`](/docs/helpers/factory#factory-definehandler).
-
-```ts
-import { createFactory } from 'hono/factory'
-
-const factory = createFactory<Env>()
-
-// 😃
-const me = factory.defineHandler((c) => c.get('user'))
-```
-
-Pass the path as the second type argument, `defineHandler<Env, '/books/:id'>`, only when you need the path type without validation.
-
-Inline handlers can use `defineHandler()` too, to return a plain value, to validate the request, or to put middleware next to the handler. The next sections show these.
-
-## Validate in `defineHandler()`
-
-Put the validation in `defineHandler()` instead of a validator middleware. Pass a [Standard Schema](https://standardschema.dev/), such as a Zod schema, for each target of the request. The validated values come as the second argument with the types, and the request is rejected with `400 Bad Request` before the handler runs.
-
-```ts
-import * as z from 'zod'
-
-// 😃
 app.post(
   '/books',
   defineHandler({
@@ -86,12 +23,20 @@ app.post(
 )
 ```
 
+With nothing to validate, `defineHandler()` alone is enough.
+
+```ts
+app.get(
+  '/books',
+  defineHandler(async () => await db.books.list())
+)
+```
+
 Add `response` when the shape of the response matters, for example when it is a public API. The returned value is validated, and extra fields are stripped by the schema.
 
 ```ts
 const BookSchema = z.object({ id: z.string(), title: z.string() })
 
-// 😃
 app.get(
   '/books/:id',
   defineHandler({
@@ -117,7 +62,6 @@ const auth = defineMiddleware<{ Variables: { user: User } }>(
   }
 )
 
-// 😃
 app.post(
   '/books',
   defineHandler({
@@ -213,19 +157,23 @@ app.route('/books', books)
 export default app
 ```
 
-When the handlers grow, move them out of the route file. A handler defined with `defineHandler()` keeps its types in any file.
+When the handlers grow, move them out of the route file. A handler defined with `defineHandler()` keeps its types in any file, so do not type the argument as `Context`. Outside `app.get()`, the handler does not know the `Env` of the app. Pass it as a type argument, `defineHandler<Env>()`, or create the handlers from a factory to write the `Env` once.
 
 ```ts
 // books/handlers.ts
-export const listBooks = defineHandler(
+import { createFactory } from 'hono/factory'
+
+const factory = createFactory<Env>()
+
+export const listBooks = factory.defineHandler(
   async () => await db.books.list()
 )
 
-export const createBook = defineHandler({
+export const createBook = factory.defineHandler({
   json: z.object({ title: z.string() }),
 })(async (c, { json }) => {
   c.status(201)
-  return await db.books.create(json)
+  return await db.books.create({ ...json, owner: c.get('user').id })
 })
 ```
 
