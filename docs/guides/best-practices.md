@@ -32,7 +32,16 @@ app.get(
 )
 ```
 
-To define the handler somewhere else, pass the `Env` as a type argument when the handler needs it.
+Defining the handler somewhere else is fine too. The types stay, and no type argument is needed.
+
+```ts
+// 😃
+const listBooks = defineHandler(async () => await db.books.list())
+
+app.get('/books', listBooks)
+```
+
+Pass the `Env` as a type argument when the handler needs it.
 
 ```ts
 // 😃
@@ -41,7 +50,7 @@ const me = defineHandler<Env>((c) => c.get('user'))
 app.get('/me', me)
 ```
 
-For the path parameter, validate `param`. The parameter is typed in any file.
+The path is not known there, so validate `param` to type the parameter.
 
 ```ts
 import * as z from 'zod'
