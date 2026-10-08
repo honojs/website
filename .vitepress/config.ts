@@ -101,6 +101,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'Guides',
     collapsed: true,
     items: [
+      { text: 'Migrating to v5', link: '/docs/guides/migrating-to-v5' },
       { text: 'create-hono', link: '/docs/guides/create-hono' },
       { text: 'Middleware', link: '/docs/guides/middleware' },
       { text: 'Helpers', link: '/docs/guides/helpers' },
