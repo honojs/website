@@ -50,10 +50,10 @@ A non-Error value thrown from a handler or middleware, such as a string or a pla
 `getColorEnabledAsync()` from `hono/utils/color` is removed. Use `getColorEnabled()` and pass the bindings on Cloudflare Workers. The `logger()` middleware does this by itself, so it needs no change.
 
 ```ts
-// From
+// Before
 const enabled = await getColorEnabledAsync()
 
-// To
+// After
 const enabled = getColorEnabled(c.env)
 ```
 
@@ -151,15 +151,3 @@ toSSG(app, fs, { plugins: [{ beforeRequestHook }, defaultPlugin()] })
 - `timingSafeEqual()` in `hono/utils/buffer` only accepts strings. The `hashFunction` option of the Basic Auth and Bearer Auth middleware is typed as `(input: string) => string | null | Promise<string | null>` accordingly.
 - `getQueryStrings()` in `hono/utils/url` is removed. Use the `URL` API instead.
 - `UnOfficalStatusCode` in `hono/utils/http-status` is removed. Use `UnofficialStatusCode` instead.
-
-## `deno.land/x` is no longer published
-
-This is not a breaking change, but Hono is no longer published to `deno.land/x`. On Deno, use [JSR](/docs/getting-started/deno) instead.
-
-```ts
-// From
-import { Hono } from 'https://deno.land/x/hono/mod.ts'
-
-// To
-import { Hono } from 'jsr:@hono/hono'
-```
