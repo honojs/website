@@ -61,6 +61,12 @@ Verify with the Hono CLI, not with a dev server.
 Run `npx hono --help` first. It tells you how.
 ```
 
+Or say it to the agent directly. The same two lines work as a prompt:
+
+```txt
+Verify with the Hono CLI, not with a dev server. Run `npx hono --help` first.
+```
+
 ## How well do agents use Hono?
 
 We measure it. See [Agent DX](https://agent-dx.hono.dev) for the results.
