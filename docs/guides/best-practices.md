@@ -74,15 +74,16 @@ Put the validation in `defineHandler()` instead of a validator middleware. Pass 
 import * as z from 'zod'
 
 // 😃
-const createBook = defineHandler({
-  json: z.object({ title: z.string(), author: z.string() }),
-})(async (c, { json }) => {
-  const book = await db.books.create(json) // `{ title: string; author: string }`
-  c.status(201)
-  return book
-})
-
-app.post('/books', createBook)
+app.post(
+  '/books',
+  defineHandler({
+    json: z.object({ title: z.string(), author: z.string() }),
+  })(async (c, { json }) => {
+    const book = await db.books.create(json) // `{ title: string; author: string }`
+    c.status(201)
+    return book
+  })
+)
 ```
 
 Add `response` when the shape of the response matters, for example when it is a public API. The returned value is validated, and extra fields are stripped by the schema.
@@ -91,12 +92,15 @@ Add `response` when the shape of the response matters, for example when it is a 
 const BookSchema = z.object({ id: z.string(), title: z.string() })
 
 // 😃
-const bookPermalink = defineHandler({
-  param: z.object({ id: z.string() }),
-  response: BookSchema,
-})(async (c, { param }) => {
-  return await db.books.find(param.id) // Only `id` and `title` are sent
-})
+app.get(
+  '/books/:id',
+  defineHandler({
+    param: z.object({ id: z.string() }),
+    response: BookSchema,
+  })(async (c, { param }) => {
+    return await db.books.find(param.id) // Only `id` and `title` are sent
+  })
+)
 ```
 
 ## Put middleware next to the handler
@@ -114,13 +118,14 @@ const auth = defineMiddleware<{ Variables: { user: User } }>(
 )
 
 // 😃
-const createBook = defineHandler({
-  json: z.object({ title: z.string() }),
-})(auth, async (c, { json }) => {
-  return await db.books.create({ ...json, owner: c.get('user').id })
-})
-
-app.post('/books', createBook)
+app.post(
+  '/books',
+  defineHandler({
+    json: z.object({ title: z.string() }),
+  })(auth, async (c, { json }) => {
+    return await db.books.create({ ...json, owner: c.get('user').id })
+  })
+)
 ```
 
 ## Building a larger application
