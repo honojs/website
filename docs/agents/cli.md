@@ -1,6 +1,6 @@
 # Hono CLI
 
-Hono CLI (`hono`) is a command-line tool for Hono, made for coding agents. It loads your Hono app directly, so an agent can inspect, test, and build the app without starting a server. Commands print JSON by default. `routes`, `request`, `benchmark`, `optimize`, and `ssg` take `--plain` when a human reads the output.
+Hono CLI (`hono`) is a command-line tool for Hono, made for coding agents. It loads your Hono app directly, so an agent can inspect and test the app without starting a server. Commands print JSON by default. `routes`, `request`, `benchmark`, and `ssg` take `--plain` when a human reads the output.
 
 ## Installation
 
@@ -36,7 +36,6 @@ On failure, `error.suggestions` says what to try next, and `error.docs` points t
 | `hono batch <source> [file]` | Run multiple requests from JSONL using `app.request()` |
 | `hono snapshot [file]`       | Print the current behavior as batch JSONL lines        |
 | `hono benchmark [file]`      | Measure the performance of your Hono app               |
-| `hono optimize [entry]`      | Build an optimized Hono app                            |
 | `hono ssg [file]`            | Generate static files from your Hono app               |
 
 `file` is the path to your app file. When omitted, the app is found in `src/index.ts`, `src/index.tsx`, `src/index.js`, or `src/index.jsx`. TypeScript and JSX are supported.
@@ -125,7 +124,7 @@ echo 'app.get("/hello", (c) => c.json({ ok: true }))' | hono request /hello -
 
 #### Cloudflare bindings
 
-In a project with a wrangler config, `c.env` carries the real local bindings (KV, D1, R2, vars) automatically, while the app runs on Node.js. This works in `request`, `batch`, and `snapshot`. Skip it with `--no-bindings`. It needs [wrangler](https://developers.cloudflare.com/workers/wrangler/) installed in the project.
+In a project with a wrangler config, `c.env` carries the real local bindings (KV, D1, R2, vars) automatically, while the app runs on Node.js. This works in `request`, `batch`, `snapshot`, and `ssg`. Skip it with `--no-bindings`. It needs [wrangler](https://developers.cloudflare.com/workers/wrangler/) installed in the project.
 
 `--runtime workerd` runs the whole app inside workerd instead, with the wrangler config. It is heavier, but it is the full runtime. The entry is `main` in the wrangler config, so pass no file argument.
 
@@ -193,22 +192,6 @@ hono benchmark --hono ../hono
 
 A few percent of difference is noise. To compare, run it more than once and check that the difference repeats.
 
-### optimize
-
-Build an optimized Hono app. The router is replaced with a prepared one, and unused Hono APIs are removed. For a plain bundle, use your normal build tool. This command exists for the Hono-specific optimizations.
-
-```sh
-hono optimize
-hono optimize -m -o dist/app.js
-```
-
-- `-o, --outfile <outfile>` - output file (default: `dist/index.js`)
-- `-m, --minify` - minify the output
-- `-t, --target <target>` - environment target, such as `node24`, `deno2`, or `es2024` (default: `node20`)
-- `--request-body-api-removal <mode>` - `auto` (default), `force`, or `disable`. Request body APIs are removed only when every route method is strictly GET, HEAD, or OPTIONS.
-- `--no-hono-api-removal` - keep unused Hono APIs
-- `--no-context-response-api-removal` - keep unused response methods of `Context`
-
 ### ssg
 
 Generate static files from your Hono app, like the [SSG helper](/docs/helpers/ssg).
@@ -221,3 +204,17 @@ hono ssg --exclude '/api/*'
 
 - `-o, --outdir <dir>` - output directory (default: `static`)
 - `--include <path>` / `--exclude <path>` - select routes by path. `*` matches anything
+- `--no-bindings` - skip loading the local Cloudflare bindings
+
+A page that does not answer 200 is not written. It is listed in `skipped` with its status, so check it with `hono request <path>`.
+
+```json
+{
+  "ok": true,
+  "data": {
+    "output": "static",
+    "files": ["static/index.html", "static/about.html"],
+    "skipped": [{ "path": "/counter", "status": 500 }]
+  }
+}
+```
