@@ -26,13 +26,15 @@ To find the right page, start from [`/llms.txt`](/llms.txt). It lists every page
 
 [Hono Skills](https://github.com/honojs/skills) are [Agent Skills](https://agentskills.io) for Hono. The `hono` skill gives an agent an inline API reference and the way to test requests with Hono CLI. The `hono-jsx` skill covers UI with `hono/jsx`.
 
-```sh
-# Claude Code
-/plugin marketplace add honojs/skills
-/plugin install hono@hono
+Install them with [skills.sh](https://skills.sh) or [GitHub CLI](https://cli.github.com). Both put the skills where your agent reads them.
 
-# Other agents, via skills.sh
+```sh
+# skills.sh
 npx skills add honojs/skills
+
+# GitHub CLI
+gh skill install honojs/skills hono
+gh skill install honojs/skills hono-jsx
 ```
 
 ## Hono CLI
