@@ -5,7 +5,7 @@ However, there are best practices that are better to follow.
 
 ## Define handlers with `defineHandler()`
 
-A handler written as a plain function loses the types. The path parameter cannot be inferred, and the `Env` is unknown.
+A handler written as a plain function loses the types. The path parameter cannot be inferred, the `Env` is unknown, and the response type does not reach the [RPC](/docs/guides/rpc) client.
 
 ```ts
 // 🙁
@@ -17,7 +17,7 @@ const bookPermalink = (c: Context) => {
 app.get('/books/:id', bookPermalink)
 ```
 
-Write it inline with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. The path is inferred from `app.get()`, and the returned value is converted to a Response, so you can return a plain object.
+Write it inline with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory`. The path is inferred from `app.get()`. The returned value is converted to a Response, so you can return a plain object, and its type reaches the RPC client.
 
 ```ts
 import { defineHandler } from 'hono/factory'
