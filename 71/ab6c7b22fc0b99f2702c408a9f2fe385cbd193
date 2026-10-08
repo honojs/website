@@ -1,0 +1,19 @@
+docs/agents/index.md
+  s_bda862631ab984::t_3454fffedd9886 29,31-32,34-37
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "71ab6c7b22fc0b99f2702c408a9f2fe385cbd193",
+  "prompts": {},
+  "sessions": {
+    "s_bda862631ab984": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c887ba2d-b9bc-43dd-97e0-e1b6f4184df9",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Yusuke Wada <yusuke@kamawada.com>"
+    }
+  }
+}
