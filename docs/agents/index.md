@@ -52,20 +52,15 @@ hono snapshot        # the current behavior, as batch lines
 
 ## AGENTS.md
 
-Agents follow the way your project says to run and verify things. Two lines in `AGENTS.md` are enough to make them use Hono CLI instead of a dev server. The agent learns the rest from `hono --help`. The create-hono templates already have them.
+Agents follow the way your project says to run and check things. One line in `AGENTS.md` is enough to make them use Hono CLI instead of a dev server. The agent learns the rest from `hono --help`. The create-hono templates already have it.
 
 ```md
-## Verify
+## Hono CLI
 
-Verify with the Hono CLI, not with a dev server.
-Run `npx hono --help` first. It tells you how.
+Run `npx hono --help` first, and use the CLI instead of a dev server.
 ```
 
-Or say it to the agent directly. The same two lines work as a prompt:
-
-```txt
-Verify with the Hono CLI, not with a dev server. Run `npx hono --help` first.
-```
+Or say it to the agent directly. The same line works as a prompt.
 
 ## How well do agents use Hono?
 
