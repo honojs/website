@@ -52,10 +52,18 @@ hono snapshot        # the current behavior, as batch lines
 
 ## AGENTS.md
 
-Agents follow the way your project says to run and verify things. One line in `AGENTS.md` makes them use Hono CLI instead of starting a dev server:
+Agents follow the way your project says to run and verify things. A few lines in `AGENTS.md` make them use Hono CLI instead of a dev server. The create-hono templates already have them.
 
 ```md
-To check requests, run `npx hono batch - --compact` (heredoc) until the summary shows "failed": 0.
+## Verify
+
+Verify with the Hono CLI, not with a dev server.
+It loads the app in-process and prints JSON.
+
+- `npx hono routes` lists the routes.
+- `npx hono request /` sends one request.
+- To check requests, run `npx hono batch - --compact` (heredoc)
+  until the summary shows "failed": 0.
 ```
 
 ## How well do agents use Hono?
