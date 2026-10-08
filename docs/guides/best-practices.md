@@ -3,81 +3,150 @@
 Hono is very flexible. You can write your app as you like.
 However, there are best practices that are better to follow.
 
-## Don't make "Controllers" when possible
+## Define handlers with `defineHandler()`
 
-When possible, you should not create "Ruby on Rails-like Controllers".
-
-```ts
-// 🙁
-// A RoR-like Controller
-const booksList = (c: Context) => {
-  return c.json('list books')
-}
-
-app.get('/books', booksList)
-```
-
-The issue is related to types. For example, the path parameter cannot be inferred in the Controller without writing complex generics.
+A handler written as a plain function loses the types. The path parameter cannot be inferred, and the `Env` is unknown.
 
 ```ts
 // 🙁
-// A RoR-like Controller
 const bookPermalink = (c: Context) => {
   const id = c.req.param('id') // Can't infer the path param
   return c.json(`get ${id}`)
 }
+
+app.get('/books/:id', bookPermalink)
 ```
 
-Therefore, you don't need to create RoR-like controllers and should write handlers directly after path definitions.
+Define it with [`defineHandler()`](/docs/helpers/factory#definehandler) from `hono/factory` instead. Pass the `Env` and the path as type arguments, and the handler is typed wherever you write it. The returned value is converted to a Response, so you can return a plain object.
 
 ```ts
+import { defineHandler } from 'hono/factory'
+
 // 😃
-app.get('/books/:id', (c) => {
+const bookPermalink = defineHandler<Env, '/books/:id'>((c) => {
   const id = c.req.param('id') // Can infer the path param
-  return c.json(`get ${id}`)
+  return { id }
+})
+
+app.get('/books/:id', bookPermalink)
+```
+
+Writing the handler inline is fine too. The path is inferred from `app.get()`, and the return value is still converted.
+
+```ts
+// 😃
+app.get(
+  '/books/:id',
+  defineHandler((c) => {
+    const id = c.req.param('id')
+    return { id }
+  })
+)
+```
+
+## Validate in `defineHandler()`
+
+Put the validation in `defineHandler()` instead of a validator middleware. Pass a [Standard Schema](https://standardschema.dev/), such as a Zod schema, for each target of the request. The validated values come as the second argument with the types, and the request is rejected with `400 Bad Request` before the handler runs.
+
+```ts
+import * as z from 'zod'
+
+// 😃
+const createBook = defineHandler({
+  json: z.object({ title: z.string(), author: z.string() }),
+})(async (c, { json }) => {
+  const book = await db.books.create(json) // `{ title: string; author: string }`
+  c.status(201)
+  return book
+})
+
+app.post('/books', createBook)
+```
+
+With `param`, the path parameter is typed without the path type argument.
+
+```ts
+// 😃
+const bookPermalink = defineHandler({
+  param: z.object({ id: z.string() }),
+})(async (c, { param }) => {
+  return await db.books.find(param.id)
+})
+
+app.get('/books/:id', bookPermalink)
+```
+
+Add `response` when the shape of the response matters, for example when it is a public API. The returned value is validated, and extra fields are stripped by the schema.
+
+```ts
+const BookSchema = z.object({ id: z.string(), title: z.string() })
+
+// 😃
+const bookPermalink = defineHandler({
+  param: z.object({ id: z.string() }),
+  response: BookSchema,
+})(async (c, { param }) => {
+  return await db.books.find(param.id) // Only `id` and `title` are sent
 })
 ```
 
-## `factory.createHandlers()` in `hono/factory`
+## Put middleware next to the handler
 
-If you still want to create a RoR-like Controller, use `factory.createHandlers()` in [`hono/factory`](/docs/helpers/factory). If you use this, type inference will work correctly.
+Middleware that belongs to one handler, such as authentication, goes before the handler in `defineHandler()`. The `Env` of the middleware flows into the handler, so `c.get()` is typed. Middleware for many routes still goes in `app.use()`.
 
 ```ts
-import { createFactory } from 'hono/factory'
-import { logger } from 'hono/logger'
+import { defineHandler, defineMiddleware } from 'hono/factory'
 
-// ...
+const auth = defineMiddleware<{ Variables: { user: User } }>(
+  async (c, next) => {
+    c.set('user', await getUser(c))
+    await next()
+  }
+)
 
 // 😃
-const factory = createFactory()
-
-const middleware = factory.createMiddleware(async (c, next) => {
-  c.set('foo', 'bar')
-  await next()
+const createBook = defineHandler({
+  json: z.object({ title: z.string() }),
+})(auth, async (c, { json }) => {
+  return await db.books.create({ ...json, owner: c.get('user').id })
 })
 
-const handlers = factory.createHandlers(logger(), middleware, (c) => {
-  return c.json(c.var.foo)
-})
-
-app.get('/api', ...handlers)
+app.post('/books', createBook)
 ```
 
 ## Building a larger application
 
-Use `app.route()` to build a larger application without creating "Ruby on Rails-like Controllers".
+Use `app.route()` to build a larger application. Each resource gets its own file with a Hono instance and its handlers.
 
 If your application has `/authors` and `/books` endpoints and you wish to separate files from `index.ts`, create `authors.ts` and `books.ts`.
 
 ```ts
 // authors.ts
 import { Hono } from 'hono'
+import { defineHandler } from 'hono/factory'
+import * as z from 'zod'
 
 const app = new Hono()
 
-app.get('/', (c) => c.json('list authors'))
-app.post('/', (c) => c.json('create an author', 201))
-app.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+app.get(
+  '/',
+  defineHandler(async () => await db.authors.list())
+)
+app.post(
+  '/',
+  defineHandler({ json: z.object({ name: z.string() }) })(
+    async (c, { json }) => {
+      c.status(201)
+      return await db.authors.create(json)
+    }
+  )
+)
+app.get(
+  '/:id',
+  defineHandler({ param: z.object({ id: z.string() }) })(
+    async (c, { param }) => await db.authors.find(param.id)
+  )
+)
 
 export default app
 ```
@@ -85,12 +154,30 @@ export default app
 ```ts
 // books.ts
 import { Hono } from 'hono'
+import { defineHandler } from 'hono/factory'
+import * as z from 'zod'
 
 const app = new Hono()
 
-app.get('/', (c) => c.json('list books'))
-app.post('/', (c) => c.json('create a book', 201))
-app.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+app.get(
+  '/',
+  defineHandler(async () => await db.books.list())
+)
+app.post(
+  '/',
+  defineHandler({ json: z.object({ title: z.string() }) })(
+    async (c, { json }) => {
+      c.status(201)
+      return await db.books.create(json)
+    }
+  )
+)
+app.get(
+  '/:id',
+  defineHandler({ param: z.object({ id: z.string() }) })(
+    async (c, { param }) => await db.books.find(param.id)
+  )
+)
 
 export default app
 ```
@@ -112,19 +199,65 @@ app.route('/books', books)
 export default app
 ```
 
+When the handlers grow, move them out of the route file. A handler defined with `defineHandler()` keeps its types in any file.
+
+```ts
+// books/handlers.ts
+export const listBooks = defineHandler(
+  async () => await db.books.list()
+)
+
+export const createBook = defineHandler({
+  json: z.object({ title: z.string() }),
+})(async (c, { json }) => {
+  c.status(201)
+  return await db.books.create(json)
+})
+```
+
+```ts
+// books/index.ts
+import { createBook, listBooks } from './handlers'
+
+const app = new Hono()
+
+app.get('/', listBooks)
+app.post('/', createBook)
+
+export default app
+```
+
 ### If you want to use RPC features
 
 The code above works well for normal use cases.
-However, if you want to use the `RPC` feature, you can get the correct type by chaining as follows.
+However, if you want to use the `RPC` feature, you can get the correct type by chaining as follows. `defineHandler()` gives the client the validated input and the returned value.
 
 ```ts
 // authors.ts
 import { Hono } from 'hono'
+import { defineHandler } from 'hono/factory'
+import * as z from 'zod'
 
 const app = new Hono()
-  .get('/', (c) => c.json('list authors'))
-  .post('/', (c) => c.json('create an author', 201))
-  .get('/:id', (c) => c.json(`get ${c.req.param('id')}`))
+  .get(
+    '/',
+    defineHandler(async () => await db.authors.list())
+  )
+  .post(
+    '/',
+    defineHandler({ json: z.object({ name: z.string() }) })(
+      async (c, { json }) => {
+        c.status(201)
+        return await db.authors.create(json)
+      }
+    )
+  )
+  .get(
+    '/:id',
+    defineHandler({ param: z.object({ id: z.string() }) })(
+      async (c, { param }) => await db.authors.find(param.id)
+    )
+  )
 
 export default app
 export type AppType = typeof app
@@ -138,6 +271,9 @@ import { hc } from 'hono/client'
 
 // 😃
 const client = hc<AppType>('http://localhost') // Typed correctly
+
+const res = await client.index.$post({ json: { name: 'Yusuke' } })
+const author = await res.json() // The type of `db.authors.create()`
 ```
 
 For more detailed information, please see [the RPC page](/docs/guides/rpc#using-rpc-with-larger-applications).
@@ -152,11 +288,14 @@ Hono automatically handles HEAD requests by converting them to GET requests and 
 
 ```typescript
 // GOOD: This GET route automatically handles HEAD requests
-app.get('/api/users', async (c) => {
-  const users = await getUsers()
-  c.header('X-Total-Count', users.length.toString())
-  return c.json(users)
-})
+app.get(
+  '/api/users',
+  defineHandler(async (c) => {
+    const users = await getUsers()
+    c.header('X-Total-Count', users.length.toString())
+    return users
+  })
+)
 
 // HEAD /api/users will return:
 // - Same headers as GET (including X-Total-Count)
