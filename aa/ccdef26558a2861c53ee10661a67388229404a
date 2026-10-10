@@ -1,0 +1,27 @@
+docs/agents/index.md
+  s_bda862631ab984::t_87c735473c7f61 10
+docs/guides/best-practices.md
+  s_bda862631ab984::t_536c908f3da5fd 6,8,11-24,27,30-33,36,39-50,53,55,58-74,79,86-87,91-109,117-118,122-140,162-193,197,202-203,206-224,238-240,255-262
+docs/helpers/factory.md
+  s_bda862631ab984::t_0bbf05c553f07b 3,9-13,16,18,21,23-26,29-38,41-58,60-116,118,120-132,135,137-150,152,155-170,172-173,175-193,196-198,200,203-205,215,224,226,232,234-254,257-268,271-284,294,305-306,325-326,366-399
+docs/index.md
+  s_bda862631ab984::t_ef61d49bae5a15 50-51,58
+index.md
+  s_bda862631ab984::t_fe30da8cdb954c 36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "aaccdef26558a2861c53ee10661a67388229404a",
+  "prompts": {},
+  "sessions": {
+    "s_bda862631ab984": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c887ba2d-b9bc-43dd-97e0-e1b6f4184df9",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Yusuke Wada <yusuke@kamawada.com>"
+    }
+  }
+}
