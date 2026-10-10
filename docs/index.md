@@ -47,15 +47,13 @@ deno init --npm hono@latest
 
 :::
 
-The project comes with an `AGENTS.md` and [Hono CLI](/docs/agents/cli), so your coding agent is ready to go. See [Hono for Coding Agents](/docs/agents/).
-
 ## Features
 
 - **Ultrafast** 🚀 - The router `RegExpRouter` is really fast. Not using linear loops. Fast.
 - **Lightweight** 🪶 - The `hono/tiny` preset is under 14kB. Hono has zero dependencies and uses only the Web Standards.
 - **Multi-runtime** 🌍 - Works on Cloudflare Workers, Fastly Compute, Deno, Bun, AWS Lambda, or Node.js. The same code runs on all platforms.
 - **Batteries Included** 🔋 - Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
-- **Delightful DX** 😃 - Super clean APIs and first-class TypeScript support. Create a project with create-hono and your coding agent is ready to go.
+- **Delightful DX** 😃 - Super clean APIs. First-class TypeScript support. Now, we've got "Types".
 
 ## Use-cases
 

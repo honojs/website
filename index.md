@@ -33,5 +33,5 @@ features:
     details: Hono has built-in middleware, custom middleware, third-party middleware, and helpers. Batteries included.
   - icon: 😃
     title: Delightful DX
-    details: Super clean APIs and first-class TypeScript support. Create a project with create-hono and your coding agent is ready to go.
+    details: Super clean APIs. First-class TypeScript support. Now, we've got "Types".
 ---
