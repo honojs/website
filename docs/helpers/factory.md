@@ -119,10 +119,11 @@ When the request fails validation, the handler does not run and the response is 
 
 When the returned value fails validation, the response is `500 Internal Server Error` with `{ "error": "Response validation failed" }` and without the issues.
 
-Both are thrown as an [`HTTPException`](/docs/api/exception), so you can customize the response in `app.onError()`. The raw issues are in `err.cause.issues`.
+Both are thrown as an [`HTTPException`](/docs/api/exception), so you can customize the response in `app.onError()`. The raw issues are in `c.error.cause.issues`.
 
 ```ts
-app.onError((err, c) => {
+app.onError((c) => {
+  const err = c.error
   if (err instanceof HTTPException && err.status === 400) {
     console.log(err.cause) // { issues: [{ slot: 'json', issues: [...] }] }
     return c.json({ message: 'Bad Request' }, 400)
