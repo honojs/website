@@ -7,7 +7,7 @@ Hono is a good fit for coding agents. The API is small and built on Web Standard
 Create a project, then run your agent in it.
 
 ```sh
-npm create hono@next my-app
+npm create hono@latest my-app
 ```
 
 The templates come with what an agent needs: an `AGENTS.md` that tells the agent how to check the app, and [Hono CLI](/docs/agents/cli) as a dev dependency. Nothing else to set up.
