@@ -130,7 +130,7 @@ In a project with a wrangler config, `c.env` carries the real local bindings (KV
 
 #### Vite
 
-`--runtime vite` sends the requests through the Vite dev server of the project, for an app that a Vite plugin builds. The app comes from the Vite config, so pass no file argument. In a project with `cloudflare.config.ts` and a Vite config, as `cf init` makes, it is the default, and `c.env` has the bindings. This works in `request`, `batch`, and `snapshot`. A file argument, `--no-bindings`, `--trace`, or `--watch` runs the app on Node.js instead.
+`--runtime vite` sends the requests through the Vite dev server of the project, for an app that a Vite plugin builds. The app comes from the Vite config, so pass no file argument. In a project with `cloudflare.config.ts` and a Vite config, it is the default, and `c.env` has the bindings. This works in `request`, `batch`, and `snapshot`. A file argument, `--no-bindings`, `--trace`, or `--watch` runs the app on Node.js instead.
 
 ### batch
 
