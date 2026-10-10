@@ -94,7 +94,7 @@ hono request / --runtime bun
 - `-d, --data <data>` - request body (`@file` reads a file, `@-` reads stdin)
 - `-H, --header <header>` - custom header (can be used multiple times)
 - `--trace` - include the matched routes in the output
-- `--runtime <runtime>` - run the app on `node` (default), `bun`, `deno`, or `workerd`
+- `--runtime <runtime>` - run the app on `node` (default), `bun`, `deno`, `workerd`, or `vite`
 - `--compact` - one-line JSON without the headers
 - `--no-bindings` - skip loading the local Cloudflare bindings
 - `-w, --watch` - watch for changes and resend the request
@@ -128,6 +128,10 @@ In a project with a wrangler config, `c.env` carries the real local bindings (KV
 
 `--runtime workerd` runs the whole app inside workerd instead, with the wrangler config. It is heavier, but it is the full runtime. The entry is `main` in the wrangler config, so pass no file argument.
 
+#### Vite
+
+`--runtime vite` sends the requests through the Vite dev server of the project, for an app that a Vite plugin builds. The app comes from the Vite config, so pass no file argument. In a project with `cloudflare.config.ts` and a Vite config, as `cf init` makes, it is the default, and `c.env` has the bindings. This works in `request`, `batch`, and `snapshot`. A file argument, `--no-bindings`, `--trace`, or `--watch` runs the app on Node.js instead.
+
 ### batch
 
 Run multiple requests from JSONL in one call, in order, against one app instance. In-memory state carries between steps.
@@ -152,7 +156,7 @@ The output has the actual `status` and `body` of each step, `pass` per step, and
 
 - `-H, --header <header>` - a shared header for every step
 - `--compact` - print only the failed steps and the summary
-- `--runtime <runtime>` - `node` (default) or `workerd`
+- `--runtime <runtime>` - `node` (default), `workerd`, or `vite`
 - `--no-bindings` - skip loading the local Cloudflare bindings
 
 ### snapshot
@@ -169,7 +173,7 @@ Paramless GET routes are executed, and their actual status and body become the `
 Capture before a refactor, then rerun the lines with `hono batch` until `failed` is 0.
 
 - `--status-only` - capture only the status codes, not the bodies
-- `--runtime <runtime>` - `node` (default) or `workerd`
+- `--runtime <runtime>` - `node` (default), `workerd`, or `vite`
 - `--no-bindings` - skip loading the local Cloudflare bindings
 
 ### benchmark
