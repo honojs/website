@@ -2,12 +2,6 @@
 
 Hono v5 keeps the core small and moves the rest around it. This page lists the breaking changes from v4 and how to update your code.
 
-## Try the release candidate
-
-```sh
-npm install hono@next
-```
-
 ## ESM only
 
 `hono` is published as ESM only. The CommonJS build is removed.
