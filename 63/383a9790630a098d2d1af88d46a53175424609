@@ -1,0 +1,25 @@
+docs/guides/best-practices.md
+  s_bda862631ab984::t_9f34ad63559cc5 6,8,11-17,20,23-28,31,34-38,41,43,46-63,68,78-80,91-93,118,125-127,155-159
+docs/helpers/factory.md
+  s_bda862631ab984::t_a3907e1f4ae21d 3,9,12,14,17,19,22,25-27,31,34,36,38,41-42,45,48,50-51,54,64,73,75,79,81,83,85-87,90-91,94,104,115-116,135-136
+docs/index.md
+  s_bda862631ab984::t_2f175e79bcc450 56
+index.md
+  s_bda862631ab984::t_ea827f2db737bc 36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "63383a9790630a098d2d1af88d46a53175424609",
+  "prompts": {},
+  "sessions": {
+    "s_bda862631ab984": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c887ba2d-b9bc-43dd-97e0-e1b6f4184df9",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Yusuke Wada <yusuke@kamawada.com>"
+    }
+  }
+}
