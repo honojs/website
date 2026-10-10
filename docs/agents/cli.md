@@ -239,7 +239,7 @@ npx hono request /
 
 Without `--template`, the template comes from the files in the directory: `wrangler.jsonc` or `cloudflare.config.ts` means `cloudflare-workers`, `deno.json` means `deno`, `bun.lock` means `bun`, and so on. With no hint, the error lists the templates.
 
-A file that already exists is never overwritten. It is listed in `skipped`. `package.json` is merged, and its existing values win. With a wrangler config in place, the template does not add `cloudflare.config.ts`, and the other way around. The dependencies are not installed, so run your package manager next.
+A file that already exists is never overwritten. It is listed in `skipped`. `package.json` is merged, and its existing values win, except `type`, which the template sets to `module`. With a wrangler config in place, the template does not add `cloudflare.config.ts`, and the other way around. The dependencies are not installed, so run your package manager next.
 
 ```json
 {
