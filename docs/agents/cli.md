@@ -37,6 +37,7 @@ On failure, `error.suggestions` says what to try next, and `error.docs` points t
 | `hono snapshot [file]`       | Print the current behavior as batch JSONL lines        |
 | `hono benchmark [file]`      | Measure the performance of your Hono app               |
 | `hono ssg [file]`            | Generate static files from your Hono app               |
+| `hono init`                  | Add a Hono app to the current directory                |
 
 `file` is the path to your app file. When omitted, the app is found in `src/index.ts`, `src/index.tsx`, `src/index.js`, or `src/index.jsx`. TypeScript and JSX are supported.
 
@@ -130,7 +131,7 @@ In a project with a wrangler config, `c.env` carries the real local bindings (KV
 
 #### Vite
 
-`--runtime vite` sends the requests through the Vite dev server of the project, for an app that a Vite plugin builds. The app comes from the Vite config, so pass no file argument. In a project with `cloudflare.config.ts` and a Vite config, it is the default, and `c.env` has the bindings. This works in `request`, `batch`, and `snapshot`. A file argument, `--no-bindings`, `--trace`, or `--watch` runs the app on Node.js instead.
+`--runtime vite` sends the requests through the Vite dev server of the project, for an app that a Vite plugin builds. The app comes from the Vite config, so pass no file argument. It is the default in a project with `cloudflare.config.ts` and a Vite config, where `c.env` has the bindings, and in a Vite project with no `src/index.ts`. A Vite project with an entry file stays on Node.js. This works in `request`, `batch`, and `snapshot`. A file argument, `--no-bindings`, `--trace`, or `--watch` runs the app on Node.js instead.
 
 ### batch
 
@@ -219,6 +220,35 @@ A page that does not answer 200 is not written. It is listed in `skipped` with i
     "output": "static",
     "files": ["static/index.html", "static/about.html"],
     "skipped": [{ "path": "/counter", "status": 500 }]
+  }
+}
+```
+
+### init
+
+Add a Hono app from a [create-hono](/docs/guides/create-hono) template to the current directory. Use it in a project that already exists, where `npm create hono` cannot.
+
+```sh
+npm install -D @hono/cli
+npx hono init --template cloudflare-workers
+npm install
+npx hono request /
+```
+
+- `-t, --template <template>` - the template, one of `aws-lambda`, `bun`, `cloudflare-workers`, `deno`, `fastly`, `lambda-edge`, `netlify`, `nextjs`, `nodejs`, `vercel`, or `x-basic`
+
+Without `--template`, the template comes from the files in the directory: `wrangler.jsonc` or `cloudflare.config.ts` means `cloudflare-workers`, `deno.json` means `deno`, `bun.lock` means `bun`, and so on. With no hint, the error lists the templates.
+
+A file that already exists is never overwritten. It is listed in `skipped`. `package.json` is merged, and its existing values win, except `type`, which the template sets to `module`. With a wrangler config in place, the template does not add `cloudflare.config.ts`, and the other way around. The dependencies are not installed, so run your package manager next.
+
+```json
+{
+  "ok": true,
+  "data": {
+    "template": "cloudflare-workers",
+    "detectedFrom": "wrangler.jsonc",
+    "written": ["src/index.ts"],
+    "skipped": ["wrangler.jsonc"]
   }
 }
 ```
