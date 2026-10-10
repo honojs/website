@@ -330,3 +330,55 @@ html.kawaii-mode .hero-image-slot {
     display: none;
   }
 }
+
+/* The create command under the hero buttons. Follows the hero's text-align, so it is
+   centered on narrow screens and left-aligned next to the code window. */
+.hero-command {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 20px;
+  padding: 0 6px 0 16px;
+  height: 40px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 20px;
+  background-color: var(--vp-c-bg-soft);
+}
+
+.hero-command-text {
+  font-family: var(--vp-font-family-mono);
+  font-size: 14px;
+  color: var(--vp-c-text-1);
+  white-space: nowrap;
+}
+
+.hero-command-prompt {
+  color: var(--vp-c-text-3);
+  user-select: none;
+}
+
+.hero-command-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  color: var(--vp-c-text-2);
+  transition: color 0.25s, background-color 0.25s;
+}
+
+.hero-command-copy:hover {
+  color: var(--vp-c-text-1);
+  background-color: var(--vp-c-default-soft);
+}
+
+.hero-command-copy.copied {
+  color: var(--vp-c-brand-1);
+}
+
+@media (min-width: 640px) {
+  .hero-command {
+    margin-top: 24px;
+  }
+}

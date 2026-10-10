@@ -101,6 +101,7 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     text: 'Guides',
     collapsed: true,
     items: [
+      { text: 'Migrating to v5', link: '/docs/guides/migrating-to-v5' },
       { text: 'create-hono', link: '/docs/guides/create-hono' },
       { text: 'Middleware', link: '/docs/guides/middleware' },
       { text: 'Helpers', link: '/docs/guides/helpers' },
@@ -231,9 +232,11 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
     ],
   },
   {
-    text: 'LLM',
+    text: 'Coding Agents',
     collapsed: true,
     items: [
+      { text: 'Overview', link: '/docs/agents/' },
+      { text: 'Hono CLI', link: '/docs/agents/cli' },
       {
         text: 'Docs List',
         link: '/llms.txt',
