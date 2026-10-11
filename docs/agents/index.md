@@ -46,6 +46,7 @@ hono routes          # all routes, without reading the source
 hono request /users  # one request, through app.request()
 hono batch -         # many requests with expectations, until "failed": 0
 hono snapshot        # the current behavior, as batch lines
+hono diff            # what changed vs the last commit
 ```
 
 `hono --help` starts with a note for the agent, and `hono <command> --help` has examples. No other setup.
