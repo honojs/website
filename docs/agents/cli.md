@@ -35,6 +35,7 @@ On failure, `error.suggestions` says what to try next, and `error.docs` points t
 | `hono request [path] [file]` | Send a request to your app using `app.request()`       |
 | `hono batch <source> [file]` | Run multiple requests from JSONL using `app.request()` |
 | `hono snapshot [file]`       | Print the current behavior as batch JSONL lines        |
+| `hono diff`                  | Show what your uncommitted changes change              |
 | `hono benchmark [file]`      | Measure the performance of your Hono app               |
 | `hono ssg [file]`            | Generate static files from your Hono app               |
 | `hono init`                  | Add a Hono app to the current directory                |
@@ -85,6 +86,7 @@ Send a request to your app through `app.request()`. No server is needed. `path` 
 hono request /
 hono request /users/123
 hono request /api/users -X POST -d '{"name":"Alice"}'
+hono request /todos -X POST -d 'title=milk'
 hono request /api/protected -H 'Authorization: Bearer token'
 cat payload.json | hono request /api/users -X POST -d @-
 hono request /api/users/123 --trace
@@ -92,7 +94,7 @@ hono request / --runtime bun
 ```
 
 - `-X, --method <method>` - HTTP method (default: `GET`)
-- `-d, --data <data>` - request body (`@file` reads a file, `@-` reads stdin)
+- `-d, --data <data>` - request body (`@file` reads a file, `@-` reads stdin). A JSON object or array is sent as JSON, anything else as a form, unless `-H` sets `Content-Type`
 - `-H, --header <header>` - custom header (can be used multiple times)
 - `--trace` - include the matched routes in the output
 - `--runtime <runtime>` - run the app on `node` (default), `bun`, `deno`, `workerd`, or `vite`
@@ -131,7 +133,7 @@ In a project with a wrangler config, `c.env` carries the real local bindings (KV
 
 #### Vite
 
-`--runtime vite` sends the requests through the Vite dev server of the project, for an app that a Vite plugin builds. The app comes from the Vite config, so pass no file argument. It is the default in a project with `cloudflare.config.ts` and a Vite config, where `c.env` has the bindings, and in a Vite project with no `src/index.ts`. A Vite project with an entry file stays on Node.js. This works in `request`, `batch`, and `snapshot`. A file argument, `--no-bindings`, `--trace`, or `--watch` runs the app on Node.js instead.
+`--runtime vite` sends the requests through the Vite dev server of the project, for an app that a Vite plugin builds. The app comes from the Vite config, so pass no file argument. It is the default in a project with `cloudflare.config.ts` and a Vite config, where `c.env` has the bindings, and in a Vite project with no `src/index.ts`. This works in `request`, `batch`, and `snapshot`. A file argument, `--no-bindings`, `--trace`, or `--watch` runs the app on Node.js instead.
 
 ### batch
 
@@ -150,6 +152,8 @@ One JSON object per line: `method`, `path`, `body`, `headers`, `expect`, and `sa
 
 - `expect` declares the acceptance criteria. `status` matches exactly. `body` is a deep partial match: declared fields must match, and extra fields in the response are ignored.
 - `save` stores a value from the response body by dot path, and later steps use it as `{{id}}`.
+- A string `body` is sent as a form, or as JSON when it is a JSON object or array, unless `headers` sets the content type. An object `body` is sent as JSON.
+- Cookies carry over like in a browser. A login step that sets a cookie signs in the steps after it. A `cookie` header in a step wins.
 - A step without `expect` passes on any 2xx or 3xx and fails on a 4xx or 5xx. To accept a 4xx on purpose, declare it with `expect.status`.
 - A failed step carries `diff`, one line per mismatch.
 
@@ -169,13 +173,45 @@ hono snapshot
 hono snapshot --status-only src/app.ts
 ```
 
-Paramless GET routes are executed, and their actual status and body become the `expect`. Routes with params and non-GET routes are printed without one, for you to fill in. One probe line records the response for a path that matches no route.
+Paramless GET routes are executed, and their actual status and body become the `expect`. A GET route with a param is executed too when the app already showed a path for it, in a link or in a JSON field with the param's name. Other param routes and non-GET routes are printed without an `expect`, for you to fill in. One probe line records the response for a path that matches no route.
+
+Unlike `routes`, this command sends real requests, so middleware runs.
 
 Capture before a refactor, then rerun the lines with `hono batch` until `failed` is 0.
 
 - `--status-only` - capture only the status codes, not the bodies
 - `--runtime <runtime>` - `node` (default), `workerd`, or `vite`
 - `--no-bindings` - skip loading the local Cloudflare bindings
+
+### diff
+
+Show what your uncommitted changes do to the app. It runs the app at the last commit and as it is now, and compares the answers. Nothing to capture first.
+
+```sh
+hono diff
+hono diff --base main
+```
+
+- `--base <ref>` - the commit to compare with (default: `HEAD`)
+
+The GET routes that `hono snapshot` runs and a 404 probe are run on both sides. `changed` lists each one that answers differently, with the status and body differences. Routes that appear or disappear are in `added` and `removed`. Other param routes and non-GET routes are not run, so check them with `hono batch`.
+
+Each side runs in a temporary git worktree with fresh local data, so data you wrote while testing does not count. `node_modules` is shared, and `.dev.vars` is copied. An empty `changed` after a refactor means the GET routes answer as before.
+
+```json
+{
+  "ok": true,
+  "data": {
+    "base": "HEAD",
+    "compared": 6,
+    "changed": [
+      { "route": "GET /api/posts", "status": "200 -> 401" }
+    ],
+    "added": ["POST /login"],
+    "removed": []
+  }
+}
+```
 
 ### benchmark
 
@@ -230,16 +266,16 @@ Add a Hono app from a [create-hono](/docs/guides/create-hono) template to the cu
 
 ```sh
 npm install -D @hono/cli
-npx hono init --template cloudflare-workers
-npm install
+npx hono init --template cloudflare-workers --install
 npx hono request /
 ```
 
 - `-t, --template <template>` - the template, one of `aws-lambda`, `bun`, `cloudflare-workers`, `deno`, `fastly`, `lambda-edge`, `netlify`, `nextjs`, `nodejs`, `vercel`, or `x-basic`
+- `-i, --install` - install the dependencies with the package manager from the lockfile, or from the command that started `hono`
 
-Without `--template`, the template comes from the files in the directory: `wrangler.jsonc` or `cloudflare.config.ts` means `cloudflare-workers`, `deno.json` means `deno`, `bun.lock` means `bun`, and so on. With no hint, the error lists the templates.
+Without `--template`, the template comes from the files in the directory: `wrangler.jsonc` or `cloudflare.config.ts` means `cloudflare-workers`, `deno.json` means `deno`, `bun.lock` means `bun`, and so on. With no hint, a terminal shows a list to pick from. Without a terminal, the error lists the templates.
 
-A file that already exists is never overwritten. It is listed in `skipped`. `package.json` is merged, and its existing values win, except `type`, which the template sets to `module`. With a wrangler config in place, the template does not add `cloudflare.config.ts`, and the other way around. The dependencies are not installed, so run your package manager next.
+A file that already exists is never overwritten. It is listed in `skipped`. `package.json` is merged, and its existing values win, except `type`, which the template sets to `module`. With a wrangler config in place, the template does not add `cloudflare.config.ts`, and the other way around. Without `--install`, run your package manager next.
 
 ```json
 {
