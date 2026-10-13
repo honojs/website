@@ -54,7 +54,7 @@ Validation targets include `json`, `query`, `header`, `param` and `cookie` in ad
 When you validate `json` or `form`, the request _must_ contain a matching `content-type` header (e.g. `Content-Type: application/json` for `json`). Otherwise, the request body will not be parsed and you will receive an empty object (`{}`) as value in the callback.
 
 It is important to set the `content-type` header when testing using
-[`app.request()`](../api/request.md).
+[`app.request()`](../api/request).
 
 Given an application like this.
 
