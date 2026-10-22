@@ -89,6 +89,7 @@ Most of this middleware leverages external libraries.
 - [Cap Checkpoint](https://capjs.js.org/guide/middleware/hono.html)
 - [Event Emitter](https://github.com/honojs/middleware/tree/main/packages/event-emitter)
 - [Geo](https://github.com/ktkongtong/hono-geo-middleware/tree/main/packages/middleware)
+- [Guard Core (IP filtering, rate limiting, attack detection)](https://github.com/Guard-Core/guard-core-ts/tree/master/packages/hono)
 - [Hono Rate Limiter](https://github.com/rhinobase/hono-rate-limiter)
 - [Hono Problem Details (RFC 9457)](https://github.com/paveg/hono-problem-details)
 - [Hono Simple DI](https://github.com/maou-shonen/hono-simple-DI)
