@@ -43,6 +43,26 @@ app.get(
 
 :::
 
+## Caching authenticated responses
+
+The cache is shared by all clients, and it stores any cacheable response, including one for a signed-in user. The middleware does not look at the `Cookie` header of the request. To keep per-user responses out of the shared cache:
+
+- Register `cache()` after your authentication middleware, so unauthenticated requests never reach it.
+- Set `Cache-Control: private` (or `no-store`) on per-user responses. The middleware does not store them.
+- Or use the `vary` option, for example `vary: 'Cookie'`, to cache a separate response per cookie value.
+
+```ts
+app.use('/api/*', auth)
+app.get(
+  '/api/*',
+  cache({
+    cacheName: 'my-app',
+    cacheControl: 'max-age=60',
+    vary: 'Cookie',
+  })
+)
+```
+
 ## Caching QUERY requests
 
 The Cache middleware also caches responses to [QUERY](https://www.rfc-editor.org/rfc/rfc10008.html) requests. As required by RFC 10008, the cache key for a QUERY request incorporates a digest of the request content and its representation metadata, so requests with different bodies are cached separately.
