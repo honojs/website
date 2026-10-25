@@ -40,7 +40,7 @@ const apiApp = new Hono()
 
 apiApp.get('/posts/:id', (c) => {
   return c.json({
-    routePath: routePath(c), // '/posts/:id'
+    routePath: routePath(c), // '/api/posts/:id'
     baseRoutePath: baseRoutePath(c), // '/api'
     basePath: basePath(c), // '/api' (with actual params)
   })

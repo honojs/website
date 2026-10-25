@@ -19,7 +19,7 @@ Default Settings:
 const app = new Hono()
 
 // Applying a 5-second timeout
-app.use('/api', timeout(5000))
+app.use('/api/*', timeout(5000))
 
 // Handling a route
 app.get('/api/data', async (c) => {
@@ -36,7 +36,7 @@ import { HTTPException } from 'hono/http-exception'
 // Custom exception factory function
 const customTimeoutException = (context) =>
   new HTTPException(408, {
-    message: `Request timeout after waiting ${context.req.headers.get(
+    message: `Request timeout after waiting ${context.req.header(
       'Duration'
     )} seconds. Please try again later.`,
   })

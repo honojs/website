@@ -71,10 +71,10 @@ The instance of `Hono` is used in your application.
 Form key with a value containing the method name.
 The default is `_method`.
 
-### <Badge type="info" text="optional" /> header: `boolean`
+### <Badge type="info" text="optional" /> header: `string`
 
 Header name with a value containing the method name.
 
-### <Badge type="info" text="optional" /> query: `boolean`
+### <Badge type="info" text="optional" /> query: `string`
 
 Query parameter key with a value containing the method name.
