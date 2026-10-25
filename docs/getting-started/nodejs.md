@@ -243,6 +243,10 @@ If a request to the path `/hello.txt` or `/image.png` comes in and you want to r
 app.use('*', serveStatic({ root: './static' }))
 ```
 
+::: warning
+Route matching is case-sensitive, but the file system may not be. On Windows and macOS, `/ADMIN/secret.txt` resolves to the same file as `/admin/secret.txt`, and Windows also accepts 8.3 short names such as `/PROTEC~1`. Path-scoped middleware such as `app.use('/admin/*', auth)` does not match those spellings, so do not rely on it to protect files under a static root. Keep protected files outside the directory you serve, or apply the middleware to every path that `serveStatic` handles.
+:::
+
 ### `rewriteRequestPath`
 
 If you want to map `http://localhost:3000/static/*` to `./statics`, you can use the `rewriteRequestPath` option:
