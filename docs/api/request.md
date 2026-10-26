@@ -371,7 +371,7 @@ The raw [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) ob
 ```ts
 // For Cloudflare Workers
 app.post('/', async (c) => {
-  const metadata = c.req.raw.cf?.hostMetadata?
+  const metadata = c.req.raw.cf?.hostMetadata
   // ...
 })
 ```
