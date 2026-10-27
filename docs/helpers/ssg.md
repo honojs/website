@@ -259,14 +259,14 @@ import { toSSG, defaultPlugin } from 'hono/ssg'
 toSSG(app, fs)
 
 // Equivalent to:
-toSSG(app, fs, { plugins: [defaultPlugin] })
+toSSG(app, fs, { plugins: [defaultPlugin()] })
 ```
 
 If you specify custom plugins, `defaultPlugin` is **not** automatically included. To keep the default behavior while adding custom plugins, explicitly include it:
 
 ```ts
 toSSG(app, fs, {
-  plugins: [defaultPlugin, myCustomPlugin],
+  plugins: [defaultPlugin(), myCustomPlugin],
 })
 ```
 
