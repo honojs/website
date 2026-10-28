@@ -63,6 +63,7 @@ Most of this middleware leverages external libraries.
 - [tRPC Server](https://github.com/honojs/middleware/tree/main/packages/trpc-server)
 - [mcp-use (MCP Server)](https://github.com/mcp-use/mcp-use)
 - [hono-mcp-bridge (Expose routes as MCP tools)](https://github.com/serikshaikamalov/hono-mcp-bridge)
+- [chanx-js (Typed WebSockets with AsyncAPI docs)](https://js.chanx.dev/server/integrations/hono)
 
 ### Transpiler
 
