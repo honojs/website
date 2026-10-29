@@ -38,3 +38,36 @@ app.get('/', async (_c) => {
 
 The headers of `Response` returned by `fetch` are immutable. So, an error will occur if you modify it.
 :::
+
+## Simple Reverse Proxy
+
+```ts
+import { Hono } from 'hono'
+
+const app = new Hono()
+
+app.all('*', async (c) => {
+  // replace the origin `https://example.com` to your real upstream
+  const api = new URL('https://www.example.com')
+  const url = new URL(c.req.url)
+  url.protocol = api.protocol
+  url.host = api.host
+  url.port = api.port
+  const upstream = url.toString()
+  return await fetch(upstream, {
+    method: c.req.raw.method,
+    body: c.req.raw.body,
+    credentials: c.req.raw.credentials,
+    cache: c.req.raw.cache,
+    headers: c.req.raw.headers,
+    referrer: c.req.raw.referrer,
+    referrerPolicy: c.req.raw.referrerPolicy,
+    integrity: c.req.raw.integrity,
+    keepalive: false,
+    mode: c.req.raw.mode,
+    redirect: 'manual'
+  })
+})
+
+export default app
+```
