@@ -49,8 +49,11 @@ When this application starts running, the routes will be shown in your console a
 
 ```txt
 GET   /v1/posts
+        [handler]
 GET   /v1/posts/:id
+        [handler]
 POST  /v1/posts
+        [handler]
 ```
 
 ## Options

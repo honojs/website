@@ -71,7 +71,7 @@ Each option corresponds to the following Header Key-Value pairs.
 | xFrameOptions                   | [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)                                                   | SAMEORIGIN                                                                 | True       |
 | xPermittedCrossDomainPolicies   | [X-Permitted-Cross-Domain-Policies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Permitted-Cross-Domain-Policies)               | none                                                                       | True       |
 | xXssProtection                  | [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)                                                 | 0                                                                          | True       |
-| permissionPolicy                | [Permissions-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy)                                             | Usage: [Setting Permission-Policy](#setting-permission-policy)             | No Setting |
+| permissionsPolicy               | [Permissions-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy)                                             | Usage: [Setting Permission-Policy](#setting-permission-policy)             | No Setting |
 
 ## Middleware Conflict
 
@@ -228,10 +228,10 @@ app.use(
   secureHeaders({
     permissionsPolicy: {
       fullscreen: ['self'], // fullscreen=(self)
-      bluetooth: ['none'], // bluetooth=(none)
+      bluetooth: ['none'], // bluetooth=()
       payment: ['self', 'https://example.com'], // payment=(self "https://example.com")
       syncXhr: [], // sync-xhr=()
-      camera: false, // camera=none
+      camera: false, // camera=()
       microphone: true, // microphone=*
       geolocation: ['*'], // geolocation=*
       usb: ['self', 'https://a.example.com', 'https://b.example.com'], // usb=(self "https://a.example.com" "https://b.example.com")

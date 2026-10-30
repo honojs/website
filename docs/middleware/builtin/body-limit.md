@@ -39,7 +39,7 @@ app.post(
 
 ### <Badge type="danger" text="required" /> maxSize: `number`
 
-The maximum file size of the file you want to limit. The default is `100 * 1024` - `100kb`.
+The maximum file size of the file you want to limit.
 
 ### <Badge type="info" text="optional" /> onError: `OnError`
 
