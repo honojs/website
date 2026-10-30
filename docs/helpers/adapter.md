@@ -76,7 +76,7 @@ app.get('/', (c) => {
 
 ### Available Runtimes Keys
 
-Here are the available runtimes keys, unavailable runtime key runtimes may be supported and labeled as `other`, with some being inspired by [WinterCG's Runtime Keys](https://runtime-keys.proposal.wintercg.org/):
+Here are the available runtimes keys, unavailable runtime key runtimes may be supported and labeled as `other`, with some being inspired by [WinterTC's Runtime Keys](https://runtime-keys.proposal.wintertc.org/):
 
 - `workerd` - Cloudflare Workers
 - `deno`
