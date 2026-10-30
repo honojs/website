@@ -56,6 +56,21 @@ app.get('/api/long-process', async (c) => {
 })
 ```
 
+::: tip Fresh error stacks
+
+Use a factory when timeout errors are reported to an observability service:
+
+```ts
+timeout(
+  5000,
+  () => new HTTPException(504, { message: 'Gateway Timeout' })
+)
+```
+
+Passing an exception instance reuses its construction-time stack for every timeout, which can affect stack attribution and error fingerprinting.
+
+:::
+
 ## Notes
 
 - The duration for the timeout can be specified in milliseconds. The middleware will automatically reject the promise and potentially throw an error if the specified duration is exceeded.
