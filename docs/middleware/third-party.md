@@ -72,6 +72,7 @@ Most of this middleware leverages external libraries.
 
 ### UI / Renderer
 
+- [Asyntai AI Chatbot](https://asyntai.com/documentation/integrations/hono/)
 - [Qwik City](https://github.com/honojs/middleware/tree/main/packages/qwik-city)
 - [React Compatibility](https://github.com/honojs/middleware/tree/main/packages/react-compat)
 - [React Renderer](https://github.com/honojs/middleware/tree/main/packages/react-renderer)
