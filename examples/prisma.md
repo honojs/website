@@ -113,8 +113,11 @@ Create one Prisma client per request and close it after the response. Cloudflare
 ```ts [src/index.ts]
 import { Hono } from 'hono'
 import postgres from '@prisma/orm-postgres/runtime'
+import { contractFromJson } from '@prisma/orm-postgres/static'
 import type { Contract } from './prisma/contract.d'
 import contractJson from './prisma/contract.json' with { type: 'json' }
+
+const contract = contractFromJson<Contract>(contractJson)
 
 type Env = {
   Bindings: CloudflareBindings
@@ -124,10 +127,7 @@ type Env = {
 const app = new Hono<Env>()
 
 app.use(async (c, next) => {
-  const db = postgres<Contract>({
-    contractJson,
-    url: c.env.DATABASE_URL,
-  })
+  const db = postgres({ contract, url: c.env.DATABASE_URL })
   c.set('db', db)
   await next()
   c.executionCtx.waitUntil(db.close())
@@ -152,7 +152,7 @@ export default app
 
 :::
 
-Models are namespace-qualified on PostgreSQL, so the `User` model is `db.orm.public.User`. `.create(...)` returns the inserted row, database defaults included.
+The client does not take the emitted JSON directly, so `contractFromJson` converts it once at module level and every request reuses the result. Models are namespace-qualified on PostgreSQL, so the `User` model is `db.orm.public.User`. `.create(...)` returns the inserted row, database defaults included.
 
 Generate the `CloudflareBindings` type so it includes `DATABASE_URL`, then start the dev server:
 
