@@ -1,11 +1,11 @@
 # Using Prisma on Cloudflare Workers
 
-[Prisma ORM](https://www.prisma.io/docs/orm?utm_source=hono&utm_medium=website&utm_campaign=workers) provides a modern, robust toolkit for interacting with databases. When paired with Hono and Cloudflare Workers, it enables you to deploy high-performance, serverless applications at the edge.
+[Prisma ORM](https://www.prisma.io/docs/orm?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=intro_prisma_orm) provides a modern, robust toolkit for interacting with databases. When paired with Hono and Cloudflare Workers, it enables you to deploy high-performance, serverless applications at the edge.
 
 In this guide, we’ll cover two distinct approaches for using Prisma ORM in Hono:
 
 - [**Prisma Postgres**](#using-prisma-postgres):
-  Connect to a managed PostgreSQL database with Prisma ORM 8 and the `@prisma/orm-postgres` package. This approach is good for a production-ready setup as Prisma Postgres has built-in connection pooling that mitigates [scaling issues in serverless and edge environments](https://www.prisma.io/docs/orm/v7/prisma-client/setup-and-configuration/databases-connections?utm_source=hono&utm_medium=website&utm_campaign=workers#the-serverless-challenge).
+  Connect to a managed PostgreSQL database with Prisma ORM 8 and the `@prisma/orm-postgres` package. This approach is good for a production-ready setup as Prisma Postgres has built-in connection pooling that mitigates [scaling issues in serverless and edge environments](https://www.prisma.io/docs/orm/v7/prisma-client/setup-and-configuration/databases-connections?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=intro_serverless_challenge#the-serverless-challenge).
 
 - [**Cloudflare D1**](#using-prisma-driver-adapters):
   Connect to a D1 database with Prisma ORM 7 and the `@prisma/adapter-d1` driver adapter.
@@ -13,12 +13,12 @@ In this guide, we’ll cover two distinct approaches for using Prisma ORM in Hon
 Both approaches have their own advantages, allowing you to choose the one that best fits your project's needs.
 
 ::: tip
-The two sections use different Prisma ORM versions on purpose. Prisma ORM 8 is a [release candidate](https://www.prisma.io/docs/orm/release-status?utm_source=hono&utm_medium=website&utm_campaign=workers) and `npx prisma` now installs it, but it has no D1 package yet, so the D1 section pins `prisma@7` and `@prisma/client@7`.
+The two sections use different Prisma ORM versions on purpose. Prisma ORM 8 is a [release candidate](https://www.prisma.io/docs/orm/release-status?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=intro_release_status) and `npx prisma` now installs it, but it has no D1 package yet, so the D1 section pins `prisma@7` and `@prisma/client@7`.
 :::
 
 ## Using Prisma Postgres
 
-[Prisma Postgres](https://www.prisma.io/postgres?utm_source=hono&utm_medium=website&utm_campaign=workers) is a managed PostgreSQL database with built-in connection pooling and a free plan. It is a regular PostgreSQL database behind a connection string, so the steps below also work with any other PostgreSQL server that accepts TLS connections.
+[Prisma Postgres](https://www.prisma.io/postgres?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=postgres_prisma_postgres) is a managed PostgreSQL database with built-in connection pooling and a free plan. It is a regular PostgreSQL database behind a connection string, so the steps below also work with any other PostgreSQL server that accepts TLS connections.
 
 ### 1. Add Prisma ORM to your project
 
@@ -49,7 +49,7 @@ Create a Prisma Postgres database:
 npx create-db@latest
 ```
 
-The command prints a connection string and a claim URL. Open the claim URL to keep the database in your [Prisma Console](https://console.prisma.io/?utm_source=hono&utm_medium=website&utm_campaign=workers) account. Store the connection string in a `.env` file:
+The command prints a connection string and a claim URL. Open the claim URL to keep the database in your [Prisma Console](https://console.prisma.io/?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=postgres_console_claim) account. Store the connection string in a `.env` file:
 
 ::: code-group
 
@@ -347,11 +347,11 @@ This will return all users in the `/` route, using Postman or Thunder Client to 
 
 ## Running Hono on Prisma Compute
 
-Hono also runs on [Prisma Compute](https://www.prisma.io/docs/compute?utm_source=hono&utm_medium=website&utm_campaign=workers), which hosts Node.js and Bun services next to Prisma Postgres. Because that is a long-running Node.js process rather than a Worker, the app uses `@hono/node-server` and a single shared Prisma client instead of one client per request. The [Hono guide in the Prisma docs](https://www.prisma.io/docs/guides/frameworks/hono?utm_source=hono&utm_medium=website&utm_campaign=workers) walks through it, and the [Hono example it is based on](https://github.com/prisma/prisma-examples/tree/latest/compute/hono) is open source.
+Hono also runs on [Prisma Compute](https://www.prisma.io/docs/compute?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=compute_docs), which hosts Node.js and Bun services next to Prisma Postgres. Because that is a long-running Node.js process rather than a Worker, the app uses `@hono/node-server` and a single shared Prisma client instead of one client per request. The [Hono guide in the Prisma docs](https://www.prisma.io/docs/guides/frameworks/hono?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=compute_hono_guide) walks through it, and the [Hono example it is based on](https://github.com/prisma/prisma-examples/tree/latest/compute/hono) is open source.
 
 ## Resources
 
 You can use the following resources to enhance your application further:
 
-- Explore the [Prisma Postgres documentation](https://www.prisma.io/docs/postgres?utm_source=hono&utm_medium=website&utm_campaign=workers).
-- Follow the full [Cloudflare Workers](https://www.prisma.io/docs/guides/deployment/cloudflare-workers?utm_source=hono&utm_medium=website&utm_campaign=workers) guide for Prisma ORM 8 and the [Cloudflare D1](https://www.prisma.io/docs/guides/v7/deployment/cloudflare-d1?utm_source=hono&utm_medium=website&utm_campaign=workers) guide for Prisma ORM 7 in the Prisma docs.
+- Explore the [Prisma Postgres documentation](https://www.prisma.io/docs/postgres?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=next_steps_postgres_docs).
+- Follow the full [Cloudflare Workers](https://www.prisma.io/docs/guides/deployment/cloudflare-workers?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=next_steps_workers_guide) guide for Prisma ORM 8 and the [Cloudflare D1](https://www.prisma.io/docs/guides/v7/deployment/cloudflare-d1?utm_source=hono&utm_medium=docs&utm_campaign=hono_prisma_example&utm_content=next_steps_d1_guide) guide for Prisma ORM 7 in the Prisma docs.
