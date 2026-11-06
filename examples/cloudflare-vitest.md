@@ -1,34 +1,37 @@
 # Cloudflare Testing
 
-You can implement the Cloudflare testing easily with `@cloudflare/vitest-pool-workers` for which some configuration has to be made priorly more on that can be found over in [Cloudflare Docs about testing](https://developers.cloudflare.com/workers/testing/vitest-integration/get-started/write-your-first-test/).
+You can test Cloudflare Workers applications with `@cloudflare/vitest-plugin`, which runs your tests inside the Workers runtime. For setup details, see [Write your first test](https://developers.cloudflare.com/workers/testing/vitest-integration/write-your-first-test/) in the Cloudflare docs.
 
-Cloudflare Testing with vitest pool workers provide a `cloudflare:test` module at runtime which exposes the env passed in as the second argument during testing more on it in the [Cloudflare Test APIs section](https://developers.cloudflare.com/workers/testing/vitest-integration/test-apis/).
+Inside the tests, `import { env } from 'cloudflare:workers'` gives you the bindings defined in your Wrangler configuration. The `cloudflare:test` module provides helpers such as `createExecutionContext()`; see the [Cloudflare Test APIs section](https://developers.cloudflare.com/workers/testing/vitest-integration/test-apis/).
 
 Below is an example of the configuration one can make:
 
 :::code-group
 
 ```ts [vitest.config.ts]
-import { defineWorkersProject } from '@cloudflare/vitest-pool-workers/config'
+import { cloudflareTest } from '@cloudflare/vitest-plugin'
+import { defineConfig } from 'vitest/config'
 
-export default defineWorkersProject(() => {
-  return {
-    test: {
-      globals: true,
-      poolOptions: {
-        workers: { wrangler: { configPath: './wrangler.toml' } },
-      },
-    },
-  }
+export default defineConfig({
+  plugins: [
+    cloudflareTest({
+      wrangler: { configPath: './wrangler.jsonc' },
+    }),
+  ],
 })
 ```
 
-```toml [wrangler.toml]
-compatibility_date = "2024-09-09"
-compatibility_flags = [ "nodejs_compat" ]
-
-[vars]
-MY_VAR = "my variable"
+```jsonc [wrangler.jsonc]
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "my-app",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-09-09",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "MY_VAR": "my variable",
+  },
+}
 ```
 
 :::
@@ -52,11 +55,12 @@ app.get('/hello', (c) => {
 export default app
 ```
 
-You can test the application with Cloudflare Bindings by passing in the `env` exposed from the module `cloudflare:test` to `app.request()`:
+You can test the application with Cloudflare Bindings by passing the `env` from `cloudflare:workers` to `app.request()`:
 
 ```ts
 // src/index.test.ts
-import { env } from 'cloudflare:test'
+import { env } from 'cloudflare:workers'
+import { describe, expect, it } from 'vitest'
 import app from './index'
 
 describe('Example', () => {
@@ -72,7 +76,10 @@ describe('Example', () => {
 })
 ```
 
+For TypeScript support of the `cloudflare:workers` and `cloudflare:test` modules, see [Define types](https://developers.cloudflare.com/workers/testing/vitest-integration/write-your-first-test/#define-types) in the Cloudflare docs.
+
 ## See Also
 
-`@cloudflare/vitest-pool-workers` [Github Repository examples](https://github.com/cloudflare/workers-sdk/tree/main/fixtures/vitest-pool-workers-examples)\
-[Migrate from old testing system](https://developers.cloudflare.com/workers/testing/vitest-integration/get-started/migrate-from-miniflare-2/)
+`@cloudflare/vitest-plugin` [GitHub repository examples](https://github.com/cloudflare/workers-sdk/tree/main/fixtures/vitest-plugin-examples)\
+[Migrate from `@cloudflare/vitest-pool-workers`](https://developers.cloudflare.com/workers/testing/vitest-integration/migration-guides/migrate-to-vitest-plugin/)\
+[Migrate from Vitest 3 to Vitest 4](https://developers.cloudflare.com/workers/testing/vitest-integration/migration-guides/migrate-from-vitest-3-to-vitest-4/)

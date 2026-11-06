@@ -197,8 +197,8 @@ bun add --dev @cloudflare/workers-types
 
 ## Testing
 
-For testing, we recommend using `@cloudflare/vitest-pool-workers`.
-Refer to [examples](https://github.com/honojs/examples) for setting it up.
+For testing, we recommend using `@cloudflare/vitest-plugin`.
+Refer to [Cloudflare Testing](/examples/cloudflare-vitest) for setting it up.
 
 If there is the application below.
 
