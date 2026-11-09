@@ -134,7 +134,7 @@ app.use(
       scriptSrcAttr: ["'none'"],
       scriptSrcElem: ["'self'"],
       styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
-      styleSrcAttr: ['none'],
+      styleSrcAttr: ["'none'"],
       styleSrcElem: ["'self'", 'https:', "'unsafe-inline'"],
       upgradeInsecureRequests: [],
       workerSrc: ["'self'"],
