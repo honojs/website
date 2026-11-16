@@ -192,3 +192,7 @@ The `iat` (issued at) claim will be verified if present and this is set to `true
 #### <Badge type="info" text="optional" /> VerifyOptions.exp: `boolean`
 
 The `exp` (expiration time) claim will be verified if present and this is set to `true`. The default is `true`.
+
+#### <Badge type="info" text="optional" /> VerifyOptions.typ: `string | string[]`
+
+The expected `typ` header of the token, for example `at+jwt` for OAuth 2.0 access tokens ([RFC 9068](https://www.rfc-editor.org/rfc/rfc9068)). If this is set, the token must have one of these values, and a token without `typ` is rejected. If this is not set, only `JWT` or no `typ` is accepted, so one kind of token is not taken for another.
