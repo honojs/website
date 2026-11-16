@@ -19,7 +19,7 @@ Install the [Apitally SDK](https://www.npmjs.com/package/apitally) in your proje
 npm install apitally
 
 # yarn
-yarn add apitally
+yarn add apitally @opentelemetry/api
 
 # pnpm
 pnpm add apitally
@@ -30,47 +30,41 @@ bun add apitally
 
 ## Setup
 
-First, create an app in the [Apitally dashboard](https://app.apitally.io) to get your client ID. Then add the middleware to your Hono application using the `useApitally` function:
+First, create an app in the [Apitally dashboard](https://app.apitally.io) to get your write token. Then call `useApitally` with your Hono application, the write token, and other configuration options immediately after creating the app, before registering middleware and routes:
 
 ```ts
 import { Hono } from 'hono'
-import { useApitally } from 'apitally/hono'
+import { useApitally } from 'apitally'
 
 const app = new Hono()
 
 useApitally(app, {
-  clientId: 'your-client-id', // Get this from the Apitally dashboard
+  writeToken: 'your-write-token', // Get this from the Apitally dashboard
   env: 'dev', // or "prod", etc.
 
-  // Optional: Enable and configure request logging
-  requestLogging: {
-    enabled: true,
-    logRequestHeaders: true,
-    logRequestBody: true,
-    logResponseBody: true,
-    captureLogs: true,
-  },
+  // Optional: Capture request headers and request/response bodies
+  captureRequestHeaders: true,
+  captureRequestBody: true,
+  captureResponseBody: true,
 })
 
-// Add your routes after the middleware
+// Register middleware and routes below this point
 app.get('/', (c) => c.text('Hello Hono!'))
 
 export default app
 ```
-
-Add the Apitally middleware before any other middleware to ensure it wraps the entire application stack.
 
 ## Identify consumers
 
 To track API usage by individual consumers, use the `setConsumer` function to associate requests with consumer identifiers. This is typically done in a middleware after authentication. You can also provide an optional display name and consumer group.
 
 ```ts
-import { setConsumer } from 'apitally/hono'
+import { setConsumer } from 'apitally'
 
 app.use(async (c, next) => {
   const payload = c.get('jwtPayload')
   if (payload) {
-    setConsumer(c, {
+    setConsumer({
       identifier: payload.sub,
       name: payload.name, // optional
       group: payload.group, // optional
