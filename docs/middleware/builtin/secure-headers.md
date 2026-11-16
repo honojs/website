@@ -73,6 +73,22 @@ Each option corresponds to the following Header Key-Value pairs.
 | xXssProtection                  | [X-XSS-Protection](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection)                                                 | 0                                                                          | True       |
 | permissionsPolicy               | [Permissions-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy)                                             | Usage: [Setting Permission-Policy](#setting-permission-policy)             | No Setting |
 
+## Keeping headers set by a handler
+
+The middleware sets its headers after the handler runs, so a header that the handler set itself is replaced. To keep it, set `overwrite` to `false`. Headers that the handler did not set are still added.
+
+```ts
+app.use(secureHeaders({ overwrite: false }))
+
+app.get('/uploads', (c) => {
+  // This stricter policy is kept
+  c.header('Content-Security-Policy', "default-src 'none'")
+  return c.html('<p>user content</p>')
+})
+```
+
+The default is `true`.
+
 ## Middleware Conflict
 
 Please be cautious about the order of specification when dealing with middleware that manipulates the same header.
