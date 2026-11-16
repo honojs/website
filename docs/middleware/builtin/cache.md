@@ -63,6 +63,23 @@ app.get(
 )
 ```
 
+## Returning 304 for cached responses
+
+A cache hit returns the stored response as it is. A request with `If-None-Match` gets a `200` with the full body, even if the ETag matches. To return `304 Not Modified` instead, register [ETag Middleware](/docs/middleware/builtin/etag) before the Cache middleware.
+
+```ts
+import { etag } from 'hono/etag'
+
+app.use(etag())
+app.get(
+  '*',
+  cache({
+    cacheName: 'my-app',
+    cacheControl: 'max-age=3600',
+  })
+)
+```
+
 ## Caching QUERY requests
 
 The Cache middleware also caches responses to [QUERY](https://www.rfc-editor.org/rfc/rfc10008.html) requests. As required by RFC 10008, the cache key for a QUERY request incorporates a digest of the request content and its representation metadata, so requests with different bodies are cached separately.
