@@ -75,6 +75,10 @@ const sidebars = (): DefaultTheme.SidebarItem[] => [
         link: '/docs/getting-started/cloudbase',
       },
       {
+        text: 'Prisma Compute',
+        link: '/docs/getting-started/prisma-compute',
+      },
+      {
         text: 'WebAssembly',
         link: '/docs/getting-started/webassembly-wasi',
       },
