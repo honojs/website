@@ -104,4 +104,5 @@ Most of this middleware leverages external libraries.
 - [Session](https://github.com/honojs/middleware/tree/main/packages/session)
 - [StitchAPI (Typed, resilient API calls + SSE)](https://github.com/rejifald/StitchAPI/tree/main/packages/hono)
 - [tsyringe](https://github.com/honojs/middleware/tree/main/packages/tsyringe)
+- [UsageRail (API keys, rate limits, quotas and usage metering)](https://usagerail.com/docs/hono)
 - [User Agent based Blocker](https://github.com/honojs/middleware/tree/main/packages/ua-blocker)
