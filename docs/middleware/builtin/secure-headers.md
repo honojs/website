@@ -52,7 +52,7 @@ Each option corresponds to the following Header Key-Value pairs.
 
 | Option                          | Header                                                                                                                                         | Value                                                                      | Default    |
 | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------- |
-| -                               | X-Powered-By                                                                                                                                   | (Delete Header)                                                            | True       |
+| removePoweredBy                 | X-Powered-By                                                                                                                                   | (Delete Header)                                                            | True       |
 | contentSecurityPolicy           | [Content-Security-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)                                                               | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
 | contentSecurityPolicyReportOnly | [Content-Security-Policy-Report-Only](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only)           | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
 | trustedTypes                    | [Trusted Types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/trusted-types)                               | Usage: [Setting Content-Security-Policy](#setting-content-security-policy) | No Setting |
@@ -91,7 +91,7 @@ The default is `true`.
 
 ## Middleware Conflict
 
-Please be cautious about the order of specification when dealing with middleware that manipulates the same header.
+Please be cautious about the order of specification when dealing with middleware that manipulates the same header. `removePoweredBy` defaults to `true`, so `secureHeaders()` deletes `X-Powered-By` on the way out unless you set `removePoweredBy: false`.
 
 In this case, Secure-headers operates and the `x-powered-by` is removed:
 
