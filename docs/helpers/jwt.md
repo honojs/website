@@ -16,15 +16,14 @@ import { decode, sign, verify } from 'hono/jwt'
 
 ## `sign()`
 
-This function generates a JWT token by encoding a payload and signing it using the specified algorithm and secret.
+This function generates a JWT token by encoding a payload and signing it using the specified algorithm and key.
 
 ```ts
 sign(
-  payload: unknown,
-  secret: string,
-  alg?: 'HS256';
-
-): Promise<string>;
+  payload: JWTPayload,
+  privateKey: SignatureKey, // string | HonoJsonWebKey | CryptoKey
+  alg?: SignatureAlgorithm // default: 'HS256'
+): Promise<string>
 ```
 
 ### Example
@@ -45,32 +44,30 @@ const token = await sign(payload, secret)
 
 <br/>
 
-#### <Badge type="danger" text="required" /> payload: `unknown`
+#### <Badge type="danger" text="required" /> payload: `JWTPayload`
 
 The JWT payload to be signed. You can include other claims like in [Payload Validation](#payload-validation).
 
-#### <Badge type="danger" text="required" /> secret: `string`
+#### <Badge type="danger" text="required" /> privateKey: `SignatureKey`
 
-The secret key used for JWT verification or signing.
+The key used to sign the token. `SignatureKey` is `string | HonoJsonWebKey | CryptoKey`. A string is typical for HMAC algorithms (`HS256`, `HS384`, `HS512`). Asymmetric algorithms (`RS*`, `PS*`, `ES*`, `EdDSA`) take a `CryptoKey` or JWK.
 
 #### <Badge type="info" text="optional" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
 
-The algorithm used for JWT signing or verification. The default is HS256.
+The algorithm used for JWT signing. The default is `HS256`. If `privateKey` is a JWK that includes `alg`, that value is used.
 
 ## `verify()`
 
 This function checks if a JWT token is genuine and still valid. It ensures the token hasn't been altered and checks validity only if you added [Payload Validation](#payload-validation).
 
+`verify()` takes three arguments. Claim checks such as `iss`, `aud`, and `typ` belong on the optional options object passed as the third argument, not as extra positional parameters. The algorithm is required; omitting it throws `JwtAlgorithmRequired`.
+
 ```ts
 verify(
   token: string,
-  secret: string,
-  alg: 'HS256';
-  issuer?: string | RegExp;
-  aud?: string | string[] | RegExp;
-  typ?: string | string[];
-): Promise<any>;
-
+  publicKey: SignatureKey, // string | HonoJsonWebKey | CryptoKey
+  algOrOptions: SignatureAlgorithm | VerifyOptionsWithAlg
+): Promise<JWTPayload>
 ```
 
 ### Example
@@ -83,6 +80,12 @@ const secretKey = 'mySecretKey'
 
 const decodedPayload = await verify(tokenToVerify, secretKey, 'HS256')
 console.log(decodedPayload)
+
+// Pass claim checks on the third argument; they are not positional parameters
+const decodedWithIssuer = await verify(tokenToVerify, secretKey, {
+  alg: 'HS256',
+  iss: 'my-issuer',
+})
 ```
 
 ### Options
@@ -93,32 +96,44 @@ console.log(decodedPayload)
 
 The JWT token to be verified.
 
-#### <Badge type="danger" text="required" /> secret: `string`
+#### <Badge type="danger" text="required" /> publicKey: `SignatureKey`
 
-The secret key used for JWT verification or signing.
+The key used to verify the token. `SignatureKey` is `string | HonoJsonWebKey | CryptoKey`. A string is typical for HMAC algorithms. Asymmetric algorithms take a `CryptoKey` or JWK.
 
-#### <Badge type="danger" text="required" /> alg: [AlgorithmTypes](#supported-algorithmtypes)
+#### <Badge type="danger" text="required" /> algOrOptions: [AlgorithmTypes](#supported-algorithmtypes) `| VerifyOptionsWithAlg`
 
-The algorithm used for JWT signing or verification.
+Either an algorithm string, or an options object that must include `alg`. Additional `VerifyOptions` fields can be set on that object:
 
-#### <Badge type="info" text="optional" /> issuer: `string | RegExp`
+#### <Badge type="info" text="optional" /> VerifyOptions.iss: `string | RegExp`
 
-The expected issuer used for JWT verification.
+The expected issuer used for JWT verification. The `iss` claim is not checked unless this is set.
 
-#### <Badge type="info" text="optional" /> aud: `string | string[] | RegExp`
+#### <Badge type="info" text="optional" /> VerifyOptions.aud: `string | string[] | RegExp`
 
 The expected audience used for JWT verification. If this is set, the token must include an `aud` claim and at least one audience value must match.
 
-#### <Badge type="info" text="optional" /> typ: `string | string[]`
+#### <Badge type="info" text="optional" /> VerifyOptions.typ: `string | string[]`
 
 The expected `typ` header of the token, for example `at+jwt` for OAuth 2.0 access tokens. If this is set, the token must have one of these values. If this is not set, only `JWT` or no `typ` is accepted.
+
+#### <Badge type="info" text="optional" /> VerifyOptions.nbf: `boolean`
+
+The `nbf` (not before) claim is verified if present and this is `true`. The default is `true`.
+
+#### <Badge type="info" text="optional" /> VerifyOptions.iat: `boolean`
+
+The `iat` (issued at) claim is verified if present and this is `true`. The default is `true`.
+
+#### <Badge type="info" text="optional" /> VerifyOptions.exp: `boolean`
+
+The `exp` (expiration time) claim is verified if present and this is `true`. The default is `true`.
 
 ## `decode()`
 
 This function decodes a JWT token without performing signature verification. It extracts and returns the header and payload from the token.
 
 ```ts
-decode(token: string): { header: any; payload: any };
+decode(token: string): { header: TokenHeader; payload: JWTPayload }
 ```
 
 ### Example
@@ -148,21 +163,21 @@ The JWT token to be decoded.
 
 ## Payload Validation
 
-When verifying a JWT token, the following payload validations are performed:
+When verifying a JWT token, claims are checked only when they are present on the payload (and, for `iss` / `aud`, only when you pass the matching option):
 
-- `exp`: The token is checked to ensure it has not expired.
-- `nbf`: The token is checked to ensure it is not being used before a specified time.
-- `iat`: The token is checked to ensure it is not issued in the future.
-- `iss`: The token is checked to ensure it has been issued by a trusted issuer.
-- `aud`: The token is checked to ensure it is intended for an accepted audience when the `aud` verification parameter is set.
+- `exp`, `nbf`, and `iat` are verified by default when the claim is present. Set `exp`, `nbf`, or `iat` to `false` on the third-argument options object to skip that check.
+- `iss` is checked only when you pass `iss` in that options object.
+- `aud` is checked only when you pass `aud`; the token must then include a matching `aud` claim.
 
-Please ensure that your JWT payload includes these fields, as an object, if you intend to perform these checks during verification.
+You do not need to include every claim in the payload. Add a claim only if you want that check to apply.
 
 ## Custom Error Types
 
 The module also defines custom error types to handle JWT-related errors.
 
 - `JwtAlgorithmNotImplemented`: Indicates that the requested JWT algorithm is not implemented.
+- `JwtAlgorithmRequired`: Indicates that `verify()` was called without an algorithm.
+- `JwtAlgorithmMismatch`: Indicates that the algorithm passed to `verify()` does not match the token header.
 - `JwtTokenInvalid`: Indicates that the JWT token is invalid.
 - `JwtTokenNotBefore`: Indicates that the token is being used before its valid date.
 - `JwtTokenExpired`: Indicates that the token has expired.
@@ -183,7 +198,7 @@ The module supports the following JWT cryptographic algorithms:
 - `RS384`: RSASSA-PKCS1-v1_5 using SHA-384
 - `RS512`: RSASSA-PKCS1-v1_5 using SHA-512
 - `PS256`: RSASSA-PSS using SHA-256 and MGF1 with SHA-256
-- `PS384`: RSASSA-PSS using SHA-386 and MGF1 with SHA-386
+- `PS384`: RSASSA-PSS using SHA-384 and MGF1 with SHA-384
 - `PS512`: RSASSA-PSS using SHA-512 and MGF1 with SHA-512
 - `ES256`: ECDSA using P-256 and SHA-256
 - `ES384`: ECDSA using P-384 and SHA-384
