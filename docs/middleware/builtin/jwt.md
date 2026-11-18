@@ -79,9 +79,9 @@ app.use('/auth/*', (c, next) => {
 
 ## Options
 
-### <Badge type="danger" text="required" /> secret: `string`
+### <Badge type="danger" text="required" /> secret: `SignatureKey`
 
-A value of your secret key.
+The key used to verify the token. `SignatureKey` is `string | HonoJsonWebKey | CryptoKey`. A string is typical for HMAC algorithms (`HS256`, `HS384`, `HS512`). Asymmetric algorithms (`RS*`, `PS*`, `ES*`, `EdDSA`) take a `CryptoKey` or JWK.
 
 ### <Badge type="danger" text="required" /> alg: `string`
 
@@ -89,9 +89,30 @@ An algorithm type that is used for verifying.
 
 Available types are `HS256` | `HS384` | `HS512` | `RS256` | `RS384` | `RS512` | `PS256` | `PS384` | `PS512` | `ES256` | `ES384` | `ES512` | `EdDSA`.
 
-### <Badge type="info" text="optional" /> cookie: `string`
+### <Badge type="info" text="optional" /> cookie: `string | { key: string; secret?: string | BufferSource; prefixOptions?: 'host' | 'secure' }`
 
-If this value is set, then the value is retrieved from the cookie header using that value as a key, which is then validated as a token.
+If this value is set, the token is read from a cookie instead of the authorization header.
+
+A string is treated as the cookie name. The object form supports signed cookies and prefixes:
+
+- `key` — the cookie name
+- `secret` — when set, the cookie is read with `getSignedCookie`
+- `prefixOptions` — `'host'` or `'secure'`, forwarded as the cookie prefix (`__Host-` / `__Secure-`)
+
+```ts
+app.use(
+  '/auth/*',
+  jwt({
+    secret: 'it-is-very-secret',
+    alg: 'HS256',
+    cookie: {
+      key: 'token',
+      secret: 'cookie-signing-secret',
+      prefixOptions: 'host',
+    },
+  })
+)
+```
 
 ### <Badge type="info" text="optional" /> headerName: `string`
 
