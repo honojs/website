@@ -81,6 +81,7 @@ Here are some examples of use-cases.
 | [Deno Benchmarks](https://deno.com/benchmarks)                     | Deno               | A secure TypeScript runtime built on V8. _Hono is used for benchmarking_.                                   |
 | [Clerk](https://clerk.com)                                         | Cloudflare Workers | An open-source User Management Platform. _Hono is used for the API server_.                                 |
 | [PostHog](https://posthog.com)                                     | Node.js            | The open-source platform for building self-driving products. _Hono is used for the MCP server_.             |
+| [DevBox](https://github.com/rudderlabs/devbox)                     | Bun                | Open source autonomous engineering harness in your cloud. _Hono is used for the control plane API_.         |
 
 And the following.
 
