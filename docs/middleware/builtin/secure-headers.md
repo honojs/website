@@ -207,7 +207,8 @@ const app = new Hono<{
 
 const myNonceGenerator: ContentSecurityPolicyOptionHandler = (c) => {
   // This function is called on every request.
-  const nonce = Math.random().toString(36).slice(2)
+  const bytes = crypto.getRandomValues(new Uint8Array(16))
+  const nonce = btoa(String.fromCharCode(...bytes))
   c.set('myNonce', nonce)
   return `'nonce-${nonce}'`
 }
