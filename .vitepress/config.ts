@@ -371,6 +371,10 @@ export const sidebarsExamples = (): DefaultTheme.SidebarItem[] => [
         text: 'Apitally (Monitoring)',
         link: '/examples/apitally',
       },
+      {
+        text: 'WebDecoy (Bot Protection)',
+        link: '/examples/webdecoy',
+      },
     ],
   },
 ]
