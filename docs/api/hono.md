@@ -196,6 +196,30 @@ app.mount('/app', handler, {
 })
 ```
 
+When `mount()` is inside an app added with `route()`, the default rewrite removes **the full matched route prefix**, not just the path passed to `mount()`. This behaviour applies from Hono 4.13.18 (see [#5626](https://github.com/honojs/hono/issues/5626)). For example, a request to `/prefix/sub` reaches this handler with the pathname `/sub`:
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+const handler = (request: Request) => new Response(new URL(request.url).pathname)
+const app = new Hono()
+app.route('/prefix', new Hono().mount('/', handler))
+// GET /prefix/sub -> handler sees /sub
+```
+
+If the mounted handler needs the **original** pathname (for example, `/prefix/sub`), set `replaceRequest: false` explicitly:
+
+```ts twoslash
+import { Hono } from 'hono'
+// ---cut---
+const handler = (request: Request) => new Response(new URL(request.url).pathname)
+const app = new Hono()
+app.route('/prefix', new Hono().mount('/', handler, { replaceRequest: false }))
+// GET /prefix/sub -> handler sees /prefix/sub
+```
+
+Only opt out when the mounted application expects and handles the original path. Otherwise keep the default rewrite so the application receives the path relative to its mount point.
+
 To pass the original `Request` unchanged, set `replaceRequest` to `false` as a shorthand for the function above:
 
 ```ts twoslash
