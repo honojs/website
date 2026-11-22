@@ -201,7 +201,8 @@ When `mount()` is inside an app added with `route()`, the default rewrite remove
 ```ts twoslash
 import { Hono } from 'hono'
 // ---cut---
-const handler = (request: Request) => new Response(new URL(request.url).pathname)
+const handler = (request: Request) =>
+  new Response(new URL(request.url).pathname)
 const app = new Hono()
 app.route('/prefix', new Hono().mount('/', handler))
 // GET /prefix/sub -> handler sees /sub
@@ -212,9 +213,13 @@ If the mounted handler needs the **original** pathname (for example, `/prefix/su
 ```ts twoslash
 import { Hono } from 'hono'
 // ---cut---
-const handler = (request: Request) => new Response(new URL(request.url).pathname)
+const handler = (request: Request) =>
+  new Response(new URL(request.url).pathname)
 const app = new Hono()
-app.route('/prefix', new Hono().mount('/', handler, { replaceRequest: false }))
+app.route(
+  '/prefix',
+  new Hono().mount('/', handler, { replaceRequest: false })
+)
 // GET /prefix/sub -> handler sees /prefix/sub
 ```
 
