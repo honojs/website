@@ -181,6 +181,23 @@ app.get('/foo', (c) => {
 })
 ```
 
+## URL attributes
+
+Attribute values are escaped, but URLs are not validated. A value like `javascript:alert(1)` in `href`, `src`, `action`, or `formAction` is rendered as is.
+
+::: warning
+If a URL comes from user input, check its scheme before you pass it to an attribute.
+
+```tsx
+const isSafeUrl = (url: string) => /^https?:\/\//i.test(url)
+
+const Link = ({ url }: { url: string }) => (
+  <a href={isSafeUrl(url) ? url : '#'}>Website</a>
+)
+```
+
+:::
+
 ## Memoization
 
 Optimize your components by memoizing computed strings using `memo`:
