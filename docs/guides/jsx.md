@@ -187,15 +187,6 @@ Attribute values are escaped, but URLs are not validated. A value like `javascri
 
 ::: warning
 If a URL comes from user input, check its scheme before you pass it to an attribute.
-
-```tsx
-const isSafeUrl = (url: string) => /^https?:\/\//i.test(url)
-
-const Link = ({ url }: { url: string }) => (
-  <a href={isSafeUrl(url) ? url : '#'}>Website</a>
-)
-```
-
 :::
 
 ## Memoization
