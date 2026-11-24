@@ -104,7 +104,7 @@ app.get('/stream', (c) => {
       // Pipe a readable stream.
       await stream.pipe(anotherReadableStream)
     },
-    (err, stream) => {
+    async (err, stream) => {
       stream.writeln('An error occurred!')
       console.error(err)
     }
