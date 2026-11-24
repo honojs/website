@@ -137,6 +137,8 @@ const app = new Hono()
 app.route('/book', book)
 ```
 
+The first argument of `route()` is a path. A `*` in it matches one segment, so `app.route('/book/*', book)` puts the routes under `/book/<any segment>/`, not under `/book`.
+
 ## Grouping without changing base
 
 You can also group multiple instances while keeping base.
