@@ -86,6 +86,7 @@ And the following.
 
 - [Drivly](https://driv.ly/) - Cloudflare Workers
 - [repeat.dev](https://repeat.dev/) - Cloudflare Workers
+- [Juno](https://junocompanion.com) - Supabase Edge Functions
 
 Do you want to see more? See [Who is using Hono in production?](https://github.com/orgs/honojs/discussions/1510).
 
