@@ -20,6 +20,7 @@ Most of this middleware leverages external libraries.
 ### Validators
 
 - [Ajv Validator](https://github.com/honojs/middleware/tree/main/packages/ajv-validator)
+- [AllSwap Crypto Address Validator](https://allswap.io/tools/address-validator) ([GitHub](https://github.com/zhangglnuo-art/hono-address-validator))
 - [ArkType Validator](https://github.com/honojs/middleware/tree/main/packages/arktype-validator)
 - [Class Validator](https://github.com/honojs/middleware/tree/main/packages/class-validator)
 - [Conform Validator](https://github.com/honojs/middleware/tree/main/packages/conform-validator)
