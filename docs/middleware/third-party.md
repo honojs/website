@@ -89,7 +89,6 @@ Most of this middleware leverages external libraries.
 ### Utilities
 
 - [Bun Compress](https://github.com/honojs/middleware/tree/main/packages/bun-compress)
-- [Cap Checkpoint](https://capjs.js.org/guide/middleware/hono.html)
 - [Event Emitter](https://github.com/honojs/middleware/tree/main/packages/event-emitter)
 - [Geo](https://github.com/ktkongtong/hono-geo-middleware/tree/main/packages/middleware)
 - [Guard Core (IP filtering, rate limiting, attack detection)](https://github.com/Guard-Core/guard-core-ts/tree/master/packages/hono)
