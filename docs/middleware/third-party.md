@@ -50,6 +50,7 @@ Most of this middleware leverages external libraries.
 ### Monitoring / Tracing
 
 - [Apitally (API monitoring & analytics)](https://docs.apitally.io/frameworks/hono)
+- [Auditstream (Database audit trail context)](https://auditstream.dev/docs/typescript/http/) ([GitHub](https://github.com/auditstream/auditstream-js))
 - [Highlight.io](https://www.highlight.io/docs/getting-started/backend-sdk/js/hono)
 - [LogTape (Logging)](https://logtape.org/manual/integrations#hono)
 - [OpenTelemetry](https://github.com/honojs/middleware/tree/main/packages/otel)
