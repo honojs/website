@@ -173,7 +173,7 @@ app.get(
 Deno Deploy is a serverless platform for running JavaScript and TypeScript applications in the cloud.
 It provides a management plane for deploying and running applications through integrations like GitHub deployment.
 
-Hono also works on Deno Deploy. Please refer to [the official document](https://docs.deno.com/deploy/manual/).
+Hono also works on Deno Deploy. Please refer to [the official document](https://docs.deno.com/deploy/).
 
 ## Testing
 
