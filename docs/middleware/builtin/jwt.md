@@ -117,6 +117,7 @@ app.use(
   '/auth/*',
   jwt({
     secret: 'it-is-very-secret',
+    alg: 'HS256',
     realm: 'my-protected-api',
   })
 )
