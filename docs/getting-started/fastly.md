@@ -148,7 +148,7 @@ const app = new Hono<{ Bindings: typeof fire.Bindings }>()
 app.put('/upload/:key', async (c, next) => {
   // e.g., Access the KV Store
   const key = c.req.param('key')
-  await c.env.siteData.put(key, c.req.body)
+  await c.env.siteData.put(key, c.req.raw.body)
   return c.text(`Put ${key} successfully!`)
 })
 
