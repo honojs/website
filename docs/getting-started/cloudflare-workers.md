@@ -236,7 +236,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 // Access to environment values
 app.put('/upload/:key', async (c, next) => {
   const key = c.req.param('key')
-  await c.env.MY_BUCKET.put(key, c.req.body)
+  await c.env.MY_BUCKET.put(key, c.req.raw.body)
   return c.text(`Put ${key} successfully!`)
 })
 ```
@@ -256,7 +256,7 @@ const app = new Hono<{ Bindings: CloudflareBindings }>()
 
 app.put('/upload/:key', async (c, next) => {
   const key = c.req.param('key')
-  await c.env.MY_BUCKET.put(key, c.req.body)
+  await c.env.MY_BUCKET.put(key, c.req.raw.body)
   return c.text(`Put ${key} successfully!`)
 })
 ```
